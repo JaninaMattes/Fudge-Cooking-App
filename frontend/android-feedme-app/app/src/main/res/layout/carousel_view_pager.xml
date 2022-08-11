@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/vp_carousel"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"/>
+
+    <LinearLayout
+        android:id="@+id/ll_page_indicator_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_gravity="center_horizontal"
+        android:layout_alignBottom="@+id/vp_carousel"
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal"/>
+</merge>

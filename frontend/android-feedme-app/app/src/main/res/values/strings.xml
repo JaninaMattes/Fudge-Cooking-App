@@ -1,0 +1,276 @@
+<resources>
+    <!-- Titles -->
+    <string name="app_name">Fudge</string>
+    <string name="title_shoppinglist">Shopping list</string>
+    <string name="title_inventorylist">Inventory list</string>
+    <string name="title_addproducts">Add products</string>
+    <string name="title_recipes">Recipes</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="search">Search</string>
+    <string name="content_description_favorite_recipe">Content Description Favorite Recipe</string>
+    <string name="content_description_search">Content Description Search</string>
+    <string name="content_description_more">Content Description More</string>
+    <string name="favorite_recipe">Favorite recipes</string>
+    <string name="user_profile">Profile</string>
+    <string name="content_description_user_profile">Content Description User Profile</string>
+    <string name="title_shopping">Shopping</string>
+    <string name="title_inventory">Inventory</string>
+    <string name="title_recipe">Recipes</string>
+    <string name="search_hint">Please enter a search word.</string>
+    <string name="login_activity_title">Login</string>
+    <string name="content_description_app_icon">App Icon</string>
+
+    <!-- ShoppingList -->
+    <string name="tobuyproductstitle">Products to buy</string>
+    <string name="lastboughtproductstitle">Last bought products</string>
+    <string name="edittext_addnewproducttitle">New product</string>
+    <string name="edittext_addnewproductquantity">Amount</string>
+    <string name="button_addProduct">Add product</string>
+    <string name="addnewproducttoshoppinglistlabel">What do you want to buy?</string>
+    <string name="AddButtonShoppinglist">Create new Product</string>
+    <string name="add_product_to_shoppinglist">Add</string>
+
+    <!-- Dashboard -->
+    <string name="numberonerecipelisttitle"># one recipes today</string>
+    <string name="expiring_product_list_title">Expiring products</string>
+    <string name="dashboard_show_more">More</string>
+    <string name="dashboard_greeting_user">Hi,</string>
+    <string name="dashboard_user_name">James</string>
+    <string name="dashboard_favorite_recipes">Favorites recipes</string>
+    <string name="dashboard_recipe_simple">simple</string>
+
+    <!-- Favorite recipes -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- Login -->
+    <string name="profile_login">Login</string>
+    <string name="want_to_logout">Do you want to log out?</string>
+    <string name="profile_forgot_password">Forgot password?</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome!"</string>
+    <string name="invalid_username">This is not a valid username</string>
+    <string name="invalid_email">This is not a valid email-address.</string>
+    <string name="invalid_password">The password should contain >5 characters.</string>
+    <string name="invalid_passwords">Passwords do not match.</string>
+    <string name="login_failed">"Login failed."</string>
+    <string name="register_failed">"Register failed."</string>
+    <string name="register_title">Registration</string>
+    <string name="username">Username</string>
+    <string name="email">Email</string>
+    <string name="password_hint">******</string>
+    <string name="firstname">First name</string>
+    <string name="lastname">Last name</string>
+    <string name="logout">Logout</string>
+    <string name="dummy_text_email">email@gmail.com</string>
+    <string name="dummy_text_lastname">Lastname</string>
+    <string name="dummy_text_firstname">Firstname</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="dont_have_account">Do not have an account?</string>
+    <string name="have_account">You already have an account?</string>
+    <string name="reset_password">Reset password</string>
+    <string name="back_to_login">Back to login</string>
+    <string name="register">Register</string>
+
+    <!-- Inventory -->
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="productimage">Product image</string>
+    <string name="product_information">Product informations</string>
+    <string name="expires_in">Expires in:</string>
+    <string name="expiration_dummy_value">3 Days</string>
+    <string name="expiration_dummy_product_name">Frozen pasta</string>
+    <string name="add_new_product_to_inventory">Add new product to inventory</string>
+    <string name="add_new_inventory">Add product</string>
+    <string name="edit_products">Edit product</string>
+    <string name="button_edit_product">Edit product</string>
+    <string name="content_description_edit_product">Edit product</string>
+    <string name="scan_product_code">Scan barcode</string>
+    <string name="add_new_product">Create a new product</string>
+    <string name="expiration_date">Expiration date</string>
+    <string name="hint_hersteller">Manufacturer</string>
+    <string name="product_name">Product name</string>
+    <string name="product_type">Product type</string>
+    <string name="button_inventory_list_edit_product">Edit product</string>
+    <string name="inventory_list_add_new_product">Create new product</string>
+    <string name="inventory_list_product_expiration_date">Expiration date</string>
+    <string name="inventory_list_product_name">Product name</string>
+    <string name="inventory_list_product_type">Product type</string>
+    <string name="add_product_image_text">Would you like to add a profile picture?</string>
+    <string name="dietry_tag_label">Label</string>
+    <string name="edit_text_error_productname_not_empty">Product name cannot be empty!</string>
+    <string name="edit_text_error_product_quantity_not_empty">Product amount cannot be empty!</string>
+    <string name="button_add_image_to_product">Add product image</string>
+    <string name="vegan_pizza">Vegan pizza</string>
+    <string name="_1_piece">1 piece</string>
+    <string name="vegan">Vegan</string>
+    <string name="buddha_bowl">Buddha Bowl</string>
+    <string name="inventory_product_rating_amount">4.5</string>
+    <string name="dropDownProductTypeText">Please select a product type from the dropdown list.</string>
+    <string name="choose_producttype">Select product type</string>
+    <string name="amount">Amount</string>
+    <string name="nutritionvalues">Nutrition values</string>
+    <string name="show_more_items">Show more</string>
+    <string name="create_new_product">Create new product</string>
+    <string name="pizza">Pizza</string>
+    <string name="_3">3</string>
+    <string name="food_dummy_image">Dummy image</string>
+    <string name="show_more">More</string>
+    <string name="exp_date">22.02.2022</string>
+    <string name="expires_soon">expires soon</string>
+    <string name="button_add_new_product">Add new product to inventory</string>
+
+    <!-- User -->
+    <string name="recipe_filter">My recipe filters</string>
+    <string name="profile_settings">Profile settings</string>
+    <string name="allow_pushNotifications">Allow push notifications</string>
+    <string name="e_mail_title">Email:</string>
+    <string name="password">Password</string>
+    <string name="password_string">*******</string>
+    <string name="edit_profile">Edit profile</string>
+    <string name="add_food_preferences_to_user_profile">Add new diet preferences</string>
+    <string name="user_profile_allow_push_not">Allow push notifications</string>
+    <string name="user_profile_edit">Edit profile</string>
+    <string name="user_profile_first_name">Firstname</string>
+    <string name="user_profile_sir_name">Lastname</string>
+
+    <!-- PushNotification -->
+    <string name="notificationTitle">Expiring products in inventory</string>
+    <string name="notificationText">You have expiring products in your inventory!</string>
+
+    <!-- Recipes -->
+    <string name="recipe_detail_image">Recipe detail picture</string>
+    <string name="recipe_detail_information">Recipe information</string>
+    <string name="recipe_detail_rating">Rating</string>
+    <string name="recipe_ingredient_text">Fresh Bee Honey</string>
+    <string name="recipe_ingredient_amount">5 teaspoon</string>
+    <string name="recipe_ingredient_available">available</string>
+    <string name="button_share_ingredients">Add to</string>
+    <string name="add_to_shoppinglist_title">Do you want to add missing ingredients to your shopping list?</string>
+    <string name="Available">avlb</string>
+    <string name="NotAvailable">not avlb</string>
+    <string name="simpel">simple</string>
+    <string name="export_ingredients_to_shoppinglist">Export missing ingredients to shopping list</string>
+    <string name="export_ingredients">Export ingredients</string>
+    <string name="best_voted_recipes">Favorite recipes</string>
+    <string name="cooking_instructions">Cooking Instructions</string>
+    <string name="example_sentence">The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.</string>
+    <string name="needed_ingredients_title">Ingredients</string>
+    <string name="example_description">Vegetarian</string>
+    <string name="rate_recipe">Rating</string>
+    <string name="rating_value">4.5</string>
+    <string name="dummy_text">5.0</string>
+    <string name="dummy_text_min">30 min.</string>
+    <string name="dummy_text_kcal">128 kcal</string>
+    <string name="large_text">
+        "Material is the metaphor.\n\n"
+
+        "A material metaphor is the unifying theory of a rationalized space and a system of motion."
+        "The material is grounded in tactile reality, inspired by the study of paper and ink, yet "
+        "technologically advanced and open to imagination and magic.\n"
+        "Surfaces and edges of the material provide visual cues that are grounded in reality. The "
+        "use of familiar tactile attributes helps users quickly understand affordances. Yet the "
+        "flexibility of the material creates new affordances that supercede those in the physical "
+        "world, without breaking the rules of physics.\n"
+        "The fundamentals of light, surface, and movement are key to conveying how objects move, "
+        "interact, and exist in space and in relation to each other. Realistic lighting shows "
+        "seams, divides space, and indicates moving parts.\n\n"
+
+        "Bold, graphic, intentional.\n\n"
+
+        "The foundational elements of print based design typography, grids, space, scale, color, "
+        "and use of imagery guide visual treatments. These elements do far more than please the "
+        "eye. They create hierarchy, meaning, and focus. Deliberate color choices, edge to edge "
+        "imagery, large scale typography, and intentional white space create a bold and graphic "
+        "interface that immerse the user in the experience.\n"
+        "An emphasis on user actions makes core functionality immediately apparent and provides "
+        "waypoints for the user.\n\n"
+
+        "Motion provides meaning.\n\n"
+
+        "Motion respects and reinforces the user as the prime mover. Primary user actions are "
+        "inflection points that initiate motion, transforming the whole design.\n"
+        "All action takes place in a single environment. Objects are presented to the user without "
+        "breaking the continuity of experience even as they transform and reorganize.\n"
+        "Motion is meaningful and appropriate, serving to focus attention and maintain continuity. "
+        "Feedback is subtle yet clear. Transitions are efﬁcient yet coherent.\n\n"
+
+        "3D world.\n\n"
+
+        "The material environment is a 3D space, which means all objects have x, y, and z "
+        "dimensions. The z-axis is perpendicularly aligned to the plane of the display, with the "
+        "positive z-axis extending towards the viewer. Every sheet of material occupies a single "
+        "position along the z-axis and has a standard 1dp thickness.\n"
+        "On the web, the z-axis is used for layering and not for perspective. The 3D world is "
+        "emulated by manipulating the y-axis.\n\n"
+
+        "Light and shadow.\n\n"
+
+        "Within the material environment, virtual lights illuminate the scene. Key lights create "
+        "directional shadows, while ambient light creates soft shadows from all angles.\n"
+        "Shadows in the material environment are cast by these two light sources. In Android "
+        "development, shadows occur when light sources are blocked by sheets of material at "
+        "various positions along the z-axis. On the web, shadows are depicted by manipulating the "
+        "y-axis only. The following example shows the card with a height of 6dp.\n\n"
+
+        "Resting elevation.\n\n"
+
+        "All material objects, regardless of size, have a resting elevation, or default elevation "
+        "that does not change. If an object changes elevation, it should return to its resting "
+        "elevation as soon as possible.\n\n"
+
+        "Component elevations.\n\n"
+
+        "The resting elevation for a component type is consistent across apps (e.g., FAB elevation "
+        "does not vary from 6dp in one app to 16dp in another app).\n"
+        "Components may have different resting elevations across platforms, depending on the depth "
+        "of the environment (e.g., TV has a greater depth than mobile or desktop).\n\n"
+
+        "Responsive elevation and dynamic elevation offsets.\n\n"
+
+        "Some component types have responsive elevation, meaning they change elevation in response "
+        "to user input (e.g., normal, focused, and pressed) or system events. These elevation "
+        "changes are consistently implemented using dynamic elevation offsets.\n"
+        "Dynamic elevation offsets are the goal elevation that a component moves towards, relative "
+        "to the component’s resting state. They ensure that elevation changes are consistent "
+        "across actions and component types. For example, all components that lift on press have "
+        "the same elevation change relative to their resting elevation.\n"
+        "Once the input event is completed or cancelled, the component will return to its resting "
+        "elevation.\n\n"
+
+        "Avoiding elevation interference.\n\n"
+
+        "Components with responsive elevations may encounter other components as they move between "
+        "their resting elevations and dynamic elevation offsets. Because material cannot pass "
+        "through other material, components avoid interfering with one another any number of ways, "
+        "whether on a per component basis or using the entire app layout.\n"
+        "On a component level, components can move or be removed before they cause interference. "
+        "For example, a floating action button (FAB) can disappear or move off screen before a "
+        "user picks up a card, or it can move if a snackbar appears.\n"
+        "On the layout level, design your app layout to minimize opportunities for interference. "
+        "For example, position the FAB to one side of stream of a cards so the FAB won’t interfere "
+        "when a user tries to pick up one of cards.\n\n"
+    </string>
+    <string name="Product_details">Product details</string>
+    <string name="recipe_details">Recipe details</string>
+    <string name="ok">OK</string>
+    <string name="content_description_logo_of_app">Content description: Logo of App</string>
+    <string name="the_food_tracking_app">The food tracking app.</string>
+    <string name="dummy_product">Broccoli</string>
+    <string name="content_description_recipe_card_star">Content Description: Recipe card star</string>
+    <string name="content_description_nutrition_icon">Content description: Nutrition Icon</string>
+    <string name="content_description_cooking_time">Content description: Cooking time</string>
+    <string name="content_description_star_icon">Content description: Star Icon</string>
+    <string name="dummy_number">102</string>
+    <string name="content_description_person_icon">Content description: Person Icon</string>
+    <string name="content_description_available_icon">Content description: Available icon</string>
+    <string name="content_description_food_icon">Content description: Food icon</string>
+    <string name="reminder_before_product_expiration">Reminder before product expiration</string>
+    <string name="suggest_shopping_list">Suggest shopping list</string>
+    <string name="user_name">Name:</string>
+    <string name="user_email">E-Mail:</string>
+    <string name="content_description_carousel_image">Content description: carousel image</string>
+
+</resources>

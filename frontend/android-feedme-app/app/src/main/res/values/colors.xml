@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="bright_green_200">#13F0C7</color>
+    <color name="green_200">#9EDBB6</color>
+    <color name="green_500">#81B395</color>
+    <color name="green_700">#2F4F4F</color>
+    <color name="red_200">#8F4242</color>
+    <color name="bright_red_200">#ED3262</color>
+    <color name="theme_red_100">#F54748</color>
+    <color name="salmon_red">#F08B81</color>
+    <color name="theme_orange_100">#FB9300</color>
+    <color name="theme_creme_100">#F5E6CA</color>
+    <color name="theme_creme_50">#F3DCD4</color>
+    <color name="theme_creme_dark">#BEF3D9CF</color>
+    <color name="theme_creme_500">#F3D2D4</color>
+    <color name="blue_700">#8EB3F7</color>
+    <color name="theme_dark_blue_100">#343F56</color>
+    <color name="black">#FF000000</color>
+    <color name="dark_grey">#6F7C80</color>
+    <color name="light_grey">#A7AFB2</color>
+    <color name="bright_grey_200">#D4D4D4</color>
+    <color name="bright_grey">#FAFAFA</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!-- ZXing Colours -->
+    <color name="zxing_viewfinder_laser">@color/colorAccent</color>
+    <color name="zxing_possible_result_points">@color/colorAccent</color>
+    <color name="zxing_result_view">@color/black</color>
+    <color name="zxing_status_text">@color/white</color>
+    <color name="zxing_transparent">@color/black</color>
+    <color name="zxing_viewfinder_mask">@color/colorPrimary</color>
+
+    <!-- Primary Colours -->
+    <color name="colorPrimary">@color/theme_creme_50</color>
+    <color name="colorPrimaryLight">@color/theme_creme_500</color>
+    <color name="colorPrimaryDark">@color/light_grey</color>
+    <color name="colorAccent">@color/red_200</color>
+
+</resources>

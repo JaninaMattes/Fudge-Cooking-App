@@ -1,0 +1,68 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <!-- Text margin -->
+    <dimen name="text_margin">16dp</dimen>
+    <dimen name="super_large_text_margin">24dp</dimen>
+    <dimen name="extra_large_text_margin">16dp</dimen>
+    <dimen name="large_text_margin">14dp</dimen>
+    <dimen name="medium_text_margin">10dp</dimen>
+    <dimen name="small_text_margin">5dp</dimen>
+    <dimen name="tiny_text_margin">2dp</dimen>
+    <!-- Text sizes -->
+    <dimen name="text_xsmall">12sp</dimen>
+    <dimen name="text_small">14sp</dimen>
+    <dimen name="text_medium">16sp</dimen>
+    <dimen name="text_large">20sp</dimen>
+    <dimen name="text_extra_large">24sp</dimen>
+    <dimen name="text_extreme_large">30sp</dimen>
+    <dimen name="button_height">48dp</dimen>
+    <dimen name="small_text_dim">12sp</dimen>
+    <dimen name="medium_text_dim">14sp</dimen>
+    <!-- Button margin -->
+    <dimen name="extreme_btn_margin">24dp</dimen>
+    <dimen name="large_btn_margin">14dp</dimen>
+    <dimen name="medium_btn_margin">10dp</dimen>
+    <dimen name="small_btn_margin">5dp</dimen>
+    <dimen name="tiny_btn_margin">2dp</dimen>
+    <!-- Cardview elevation -->
+    <dimen name="tiny_card_elevation">2dp</dimen>
+    <dimen name="small_card_elevation">5dp</dimen>
+    <dimen name="medium_card_elevation">7dp</dimen>
+    <dimen name="large_card_elevation">10dp</dimen>
+    <!-- Cardview margin -->
+    <dimen name="large_cardview_margin">14dp</dimen>
+    <dimen name="medium_cardview_margin">10dp</dimen>
+    <dimen name="small_cardview_margin">5dp</dimen>
+    <dimen name="tiny_cardview_margin">2dp</dimen>
+    <dimen name="card_view_corner_radius">19dp</dimen>
+    <!-- Cardview padding -->
+    <dimen name="large_cardview_padding">14dp</dimen>
+    <dimen name="medium_cardview_padding">7dp</dimen>
+    <dimen name="small_cardview_padding">5dp</dimen>
+    <dimen name="tiny_cardview_padding">2dp</dimen>
+    <!-- Recyclerview margin -->
+    <dimen name="large_recview_margin">14dp</dimen>
+    <dimen name="medium_recview_margin">10dp</dimen>
+    <dimen name="small_recview_margin">5dp</dimen>
+    <dimen name="tiny_recview_margin">2dp</dimen>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="fragment_horizontal_margin">16dp</dimen>
+    <dimen name="fragment_vertical_margin">16dp</dimen>
+    <dimen name="intermediate_text_margin">7dp</dimen>
+    <dimen name="button_export_ingredient">288dp</dimen>
+    <dimen name="button_export_ingredient_height">48dp</dimen>
+    <dimen name="button_text_elevation">16dp</dimen>
+    <dimen name="product_image_height">155dp</dimen>
+    <dimen name="recipe_detail_image_height">137dp</dimen>
+    <dimen name="super_duper_large_button_margin">32dp</dimen>
+    <!-- ProgressBar margins-->
+    <dimen name="extreme_margin">64dp</dimen>
+    <dimen name="large_margin">32dp</dimen>
+    <dimen name="super_large_button_margin">22dp</dimen>
+    <dimen name="super_duper_large_switch_button_margine">98dp</dimen>
+    <dimen name="super_duper_large_switch_button_margin">113dp</dimen>
+    <dimen name="large_switch_button_margin">27dp</dimen>
+
+</resources>

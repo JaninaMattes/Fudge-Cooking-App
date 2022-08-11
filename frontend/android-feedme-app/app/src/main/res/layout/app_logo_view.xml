@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:id="@+id/image_app_logo"
+        android:layout_width="117dp"
+        android:layout_height="117dp"
+        android:layout_marginTop="@dimen/small_text_margin"
+        android:foregroundGravity="center"
+        android:src="@drawable/app_logo"
+        android:contentDescription="@string/content_description_app_icon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.528"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+        android:id="@+id/text_app_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/medium_text_margin"
+        android:layout_marginEnd="@dimen/medium_text_margin"
+        android:layout_marginBottom="@dimen/tiny_text_margin"
+        android:gravity="center_horizontal"
+        android:text="@string/app_name"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        android:fontFamily="@font/great_vibes_regular"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/image_app_logo"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

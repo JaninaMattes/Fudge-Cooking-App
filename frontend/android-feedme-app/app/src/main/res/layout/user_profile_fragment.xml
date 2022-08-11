@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.profile.UserProfileFragment">
+
+    <ScrollView
+        android:id="@+id/user_profile_scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/small_cardview_padding"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <include
+                    android:id="@+id/user_profile_card_view_one"
+                    layout="@layout/user_profile_header"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/medium_text_margin"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <include
+                    android:id="@+id/user_profile_card_view_two"
+                    layout="@layout/user_profile_recipe_settings"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/medium_text_margin"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/user_profile_card_view_one" />
+
+                <include
+                    android:id="@+id/user_profile_card_view_three"
+                    layout="@layout/user_profile_app_settings"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/user_profile_card_view_two" />
+
+                <Button
+                    android:id="@+id/btn_edit_user_profile"
+                    style="@style/ButtonTheme"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/btn_bg"
+                    android:contentDescription="@string/edit_profile"
+                    android:text="@string/edit_profile"
+                    android:theme="@style/ButtonTheme"
+                    android:visibility="visible"
+                    app:icon="@drawable/ic_baseline_create_24"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/user_profile_card_view_three" />
+
+
+                <Button
+                    android:id="@+id/btn_save_user"
+                    style="@style/ButtonTheme"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="60dp"
+                    android:background="@drawable/btn_bg"
+                    android:contentDescription="@string/save"
+                    android:text="@string/save"
+                    android:theme="@style/ButtonTheme"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/btn_cancel_save_user"
+                    app:layout_constraintStart_toStartOf="@+id/user_profile_card_view_three"
+                    app:layout_constraintTop_toBottomOf="@+id/user_profile_card_view_three" />
+
+                <Button
+                    android:id="@+id/btn_cancel_save_user"
+                    style="@style/unimportantButtonTheme"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/btn_bg"
+                    android:contentDescription="@string/cancel"
+                    android:text="@string/cancel"
+                    android:theme="@style/unimportantButtonTheme"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/user_profile_card_view_three"
+                    app:layout_constraintStart_toEndOf="@+id/btn_save_user"
+                    app:layout_constraintTop_toBottomOf="@+id/user_profile_card_view_three" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

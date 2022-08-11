@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.recipedetail.RecipeDetailFragment">
+
+    <!-- Header View -->
+
+    <ScrollView
+        android:id="@+id/recipe_detail_scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/recipe_detail_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/recipe_detail_image_height"
+                    android:contentDescription="@string/recipe_detail_image"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/pizza"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/text_recipe_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/super_large_text_margin"
+                    android:layout_marginTop="@dimen/large_text_margin"
+                    android:layout_marginEnd="@dimen/super_large_text_margin"
+                    android:layout_marginBottom="@dimen/large_text_margin"
+                    android:fontFamily="@font/roboto_bold"
+                    android:gravity="center_horizontal"
+                    android:text="@string/recipe_detail_information"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_large"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/recipe_detail_image" />
+
+                <TextView
+                    android:id="@+id/text_recipe_subtitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/super_large_text_margin"
+                    android:layout_marginTop="@dimen/large_text_margin"
+                    android:layout_marginEnd="@dimen/super_large_text_margin"
+                    android:layout_marginBottom="@dimen/large_text_margin"
+                    android:gravity="center_horizontal"
+                    android:text="@string/example_description"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_small"
+                    android:textStyle="normal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_recipe_name" />
+
+                <LinearLayout
+                    android:id="@+id/card_view_information_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/super_large_text_margin"
+                    android:layout_marginTop="@dimen/large_text_margin"
+                    android:layout_marginEnd="@dimen/super_large_text_margin"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toTopOf="@+id/recipe_cooking_detail_container"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_recipe_subtitle">
+
+                    <!-- Recipe Detail Information -->
+
+                    <include
+                        layout="@layout/recipe_detail_information_tags"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/medium_text_margin"
+                        android:layout_marginEnd="@dimen/medium_text_margin" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/recipe_cooking_detail_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/super_large_text_margin"
+                    android:layout_marginTop="@dimen/large_text_margin"
+                    android:layout_marginEnd="@dimen/super_large_text_margin"
+                    android:layout_marginBottom="@dimen/large_text_margin"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/card_view_information_container">
+
+                    <!-- Recipe Detail InformationView -->
+                    <include
+                        android:id="@+id/recipe_cooking_details"
+                        layout="@layout/recipe_detail_information_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

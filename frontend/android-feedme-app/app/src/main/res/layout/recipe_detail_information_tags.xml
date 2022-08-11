@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/tools">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/recipe_card_view_rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/medium_text_margin"
+            android:layout_marginBottom="@dimen/medium_text_margin"
+            android:background="@drawable/custom_background_round_corners"
+            android:clickable="false"
+            app:cardCornerRadius="@dimen/card_view_corner_radius"
+            card_view:cardUseCompatPadding="true"
+            card_view:cardElevation="@dimen/small_card_elevation"
+            android:layout_gravity="center"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/recipe_card_view_nutrition"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:id="@+id/icon_container_rating"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/small_text_margin"
+                android:layout_marginBottom="@dimen/small_text_margin"
+                android:layout_marginStart="@dimen/large_text_margin"
+                android:layout_marginEnd="@dimen/large_text_margin"
+                android:orientation="horizontal"
+                android:layout_gravity="center_horizontal">
+
+                <ImageView
+                    android:id="@+id/recipe_card_star_icon"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitCenter"
+                    android:src="@mipmap/ic_star_icon"
+                    android:contentDescription="@string/content_description_star_icon" />
+
+                <TextView
+                    android:id="@+id/text_recipe_card_rating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/tiny_text_margin"
+                    android:layout_marginEnd="@dimen/small_text_margin"
+                    android:layout_gravity="center"
+                    android:textSize="@dimen/text_small"
+                    android:textStyle="bold"
+                    android:text="@string/dummy_text"/>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/recipe_card_view_nutrition"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/medium_text_margin"
+            android:layout_marginBottom="@dimen/medium_text_margin"
+            android:layout_marginStart="@dimen/large_text_margin"
+            android:layout_marginEnd="@dimen/large_text_margin"
+            android:background="@drawable/custom_background_round_corners"
+            android:clickable="true"
+            app:cardCornerRadius="@dimen/card_view_corner_radius"
+            card_view:cardUseCompatPadding="true"
+            card_view:cardElevation="@dimen/small_card_elevation"
+            android:layout_gravity="center"
+            app:layout_constraintStart_toEndOf="@id/recipe_card_view_rating"
+            app:layout_constraintEnd_toStartOf="@id/recipe_card_view_cooking_time"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:id="@+id/icon_container_nutrition"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/small_text_margin"
+                android:layout_marginBottom="@dimen/small_text_margin"
+                android:layout_marginStart="@dimen/small_text_margin"
+                android:layout_marginEnd="@dimen/small_text_margin"
+                android:orientation="horizontal"
+                android:layout_gravity="center_horizontal">
+
+                <ImageView
+                    android:id="@+id/recipe_card_nutrition_icon"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitCenter"
+                    android:src="@mipmap/ic_flame_icon"
+                    android:contentDescription="@string/content_description_nutrition_icon" />
+
+                <TextView
+                    android:id="@+id/text_recipe_card_nutrition"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/tiny_text_margin"
+                    android:layout_marginEnd="@dimen/small_text_margin"
+                    android:layout_gravity="center"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:text="@string/dummy_text_kcal"/>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/recipe_card_view_cooking_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/medium_text_margin"
+            android:layout_marginBottom="@dimen/medium_text_margin"
+            android:background="@drawable/custom_background_round_corners"
+            android:clickable="false"
+            app:cardCornerRadius="@dimen/card_view_corner_radius"
+            card_view:cardUseCompatPadding="true"
+            card_view:cardElevation="@dimen/small_card_elevation"
+            android:layout_gravity="center"
+            app:layout_constraintStart_toEndOf="@id/recipe_card_view_nutrition"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:id="@+id/icon_container_cooking_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/small_text_margin"
+                android:layout_marginBottom="@dimen/small_text_margin"
+                android:layout_marginStart="@dimen/small_text_margin"
+                android:layout_marginEnd="@dimen/small_text_margin"
+                android:orientation="horizontal"
+                android:layout_gravity="center_horizontal">
+
+                <ImageView
+                    android:id="@+id/recipe_card_cooking_time"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitCenter"
+                    android:src="@mipmap/ic_time_icon"
+                    android:contentDescription="@string/content_description_cooking_time" />
+
+                <TextView
+                    android:id="@+id/text_recipe_card_cooking_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/tiny_text_margin"
+                    android:layout_marginEnd="@dimen/small_text_margin"
+                    android:layout_gravity="center"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:text="@string/dummy_text_min"/>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

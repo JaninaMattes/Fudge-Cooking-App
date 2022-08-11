@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_dashboard">
+
+    <fragment
+        android:id="@+id/navigation_shoppingList"
+        android:name="com.mobilesystems.feedme.ui.shoppinglist.ShoppingListFragment"
+        android:label="@string/title_shoppinglist"
+        tools:layout="@layout/shopping_list_fragment" >
+        <action
+            android:id="@+id/action_navigation_shoppingList_to_addProductToShoppingListFragment"
+            app:destination="@id/addProductToShoppingListFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_inventorylist"
+        android:name="com.mobilesystems.feedme.ui.inventorylist.InventoryListFragment"
+        android:label="@string/title_inventorylist"
+        tools:layout="@layout/inventory_list_fragment" >
+        <action
+            android:id="@+id/action_navigation_inventorylist_to_productFragment"
+            app:destination="@id/productFragment" />
+        <action
+            android:id="@+id/action_navigation_inventorylist_to_addProductToInventoryFragment"
+            app:destination="@id/addProductToInventoryFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_recipes"
+        android:name="com.mobilesystems.feedme.ui.recipes.RecipeListFragment"
+        android:label="@string/title_recipes"
+        tools:layout="@layout/recipe_list_fragment" >
+        <action
+            android:id="@+id/action_navigation_recipes_to_recipeFragment"
+            app:destination="@id/recipeFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_dashboard"
+        android:name="com.mobilesystems.feedme.ui.dashboard.DashboardFragment"
+        android:label="@string/title_dashboard"
+        tools:layout="@layout/dashboard_number_one_recipe_item">
+        <action
+            android:id="@+id/action_navigation_dashboard_to_userProfileFragment"
+            app:destination="@id/userProfileFragment" />
+        <action
+            android:id="@+id/action_navigation_dashboard_to_recipeFragment"
+            app:destination="@id/recipeFragment" />
+        <action
+            android:id="@+id/action_navigation_dashboard_to_productFragment"
+            app:destination="@id/productFragment" />
+        <action
+            android:id="@+id/action_navigation_dashboard_to_logoutFragment"
+            app:destination="@id/logoutFragment" />
+        <action
+            android:id="@+id/action_navigation_dashboard_to_navigation_inventorylist"
+            app:destination="@id/navigation_inventorylist" />
+        <action
+            android:id="@+id/action_navigation_dashboard_to_navigation_recipes"
+            app:destination="@id/navigation_recipes" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/addProductToShoppingListFragment"
+        android:name="com.mobilesystems.feedme.ui.shoppinglist.AddProductToShoppingListFragment"
+        android:label="@string/button_addProduct"
+        tools:layout="@layout/shopping_list_add_product_fragment">
+        <action
+            android:id="@+id/action_addProductToShoppingListFragment_to_navigation_shoppingList"
+            app:destination="@id/navigation_shoppingList" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/productFragment"
+        android:name="com.mobilesystems.feedme.ui.productdetail.ProductFragment"
+        android:label="@string/Product_details">
+        <action
+            android:id="@+id/action_productFragment_to_navigation_inventorylist"
+            app:destination="@id/navigation_inventorylist" />
+        <action
+            android:id="@+id/action_productFragment_to_navigation_inventorylist2"
+            app:destination="@id/navigation_inventorylist" />
+        <argument
+            android:name="product"
+            app:argType="com.mobilesystems.feedme.domain.model.Product" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/addProductToInventoryFragment"
+        android:name="com.mobilesystems.feedme.ui.inventorylist.AddProductToInventoryFragment"
+        android:label="@string/button_addProduct"
+        tools:layout="@layout/inventory_add_product_fragment" >
+        <action
+            android:id="@+id/action_addProductToInventoryFragment_to_navigation_inventorylist"
+            app:destination="@id/navigation_inventorylist" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/recipeFragment"
+        android:name="com.mobilesystems.feedme.ui.recipedetail.RecipeDetailFragment"
+        android:label="@string/recipe_details"
+        tools:layout="@layout/recipe_detail_fragment" >
+        <action
+            android:id="@+id/action_recipeFragment_to_navigation_recipes"
+            app:destination="@id/navigation_recipes" />
+        <action
+            android:id="@+id/action_recipeFragment_to_navigation_shoppingList"
+            app:destination="@id/navigation_shoppingList" />
+        <argument
+            android:name="recipe"
+            app:argType="com.mobilesystems.feedme.domain.model.Recipe" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/userProfileFragment"
+        android:name="com.mobilesystems.feedme.ui.profile.UserProfileFragment"
+        android:label="@string/user_profile"
+        tools:layout="@layout/user_profile_fragment" >
+        <action
+            android:id="@+id/action_userProfileFragment_to_navigation_dashboard"
+            app:destination="@id/navigation_dashboard" />
+    </fragment>
+    <fragment
+        android:id="@+id/logoutFragment"
+        android:name="com.mobilesystems.feedme.ui.logout.LogoutFragment"
+        android:label="@string/logout"
+        tools:layout="@layout/logout_fragment" >
+        <action
+            android:id="@+id/action_logoutFragment_to_navigation_dashboard"
+            app:destination="@id/navigation_dashboard" />
+    </fragment>
+
+
+</navigation>

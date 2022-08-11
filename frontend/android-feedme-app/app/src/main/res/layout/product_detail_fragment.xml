@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/tools"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.productdetail.ProductFragment">
+
+    <ScrollView
+        android:id="@+id/user_profile_scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/extra_large_text_margin">
+
+                <ImageView
+                    android:id="@+id/product_detail_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/product_image_height"
+                    android:contentDescription="@string/productimage"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/pizza"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <LinearLayout
+                    android:id="@+id/linear_layout_product_container"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/super_large_text_margin"
+                    android:layout_marginTop="@dimen/large_text_margin"
+                    android:layout_marginEnd="@dimen/super_large_text_margin"
+                    android:gravity="center_horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/product_detail_image">
+
+                    <TextView
+                        android:id="@+id/text_product_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/large_text_margin"
+                        android:fontFamily="@font/roboto_bold"
+                        android:text="@string/vegan_pizza"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_large"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/prodcut_label_list_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/large_text_margin"
+                    android:layout_marginTop="@dimen/tiny_text_margin"
+                    android:layout_marginEnd="@dimen/large_text_margin"
+                    android:layout_marginBottom="@dimen/large_text_margin"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/linear_layout_product_container">
+
+                    <!-- IngredientList Child Fragment -->
+                    <androidx.fragment.app.FragmentContainerView
+                        android:id="@+id/product_label_list_fragment"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                    </androidx.fragment.app.FragmentContainerView>
+
+                </LinearLayout>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/product_details_card_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/large_text_margin"
+                    android:layout_marginEnd="@dimen/large_text_margin"
+                    android:background="@drawable/custom_background"
+                    app:cardCornerRadius="@dimen/card_view_corner_radius"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/prodcut_label_list_container"
+                    card_view:cardElevation="@dimen/medium_card_elevation"
+                    card_view:cardUseCompatPadding="true">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginStart="@dimen/extra_large_text_margin"
+                        android:layout_marginTop="@dimen/extra_large_text_margin"
+                        android:layout_marginBottom="@dimen/small_text_margin"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/title_product_details"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/small_text_margin"
+                            android:text="@string/product_information"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/text_medium"
+                            android:textStyle="bold" />
+
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="@dimen/text_medium"
+                            android:layout_marginBottom="@dimen/tiny_text_margin"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/title_product_expiration"
+                                android:layout_width="120dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="@dimen/medium_text_margin"
+                                android:text="@string/expiration_date"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/text_small" />
+
+                            <EditText
+                                android:id="@+id/text_product_detail_expiration"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:autofillHints="@string/expiration_date"
+                                android:ems="7"
+                                android:hint="@string/exp_date"
+                                android:inputType="text"
+                                android:textSize="@dimen/text_small"
+                                android:visibility="visible" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginBottom="@dimen/tiny_text_margin"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/title_product_quantity"
+                                android:layout_width="120dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="@dimen/medium_text_margin"
+                                android:text="@string/amount"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/text_small" />
+
+                            <EditText
+                                android:id="@+id/text_product_detail_quantity"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:autofillHints="@string/amount"
+                                android:ems="7"
+                                android:hint="@string/_1_piece"
+                                android:inputType="text"
+                                android:textSize="@dimen/text_small"
+                                android:visibility="visible" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginBottom="@dimen/tiny_text_margin"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/title_product_nutrition"
+                                android:layout_width="120dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="@dimen/medium_text_margin"
+                                android:text="@string/nutritionvalues"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/text_small" />
+
+                            <EditText
+                                android:id="@+id/text_product_detail_nutrition"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:autofillHints="@string/dummy_text_kcal"
+                                android:ems="7"
+                                android:hint="@string/dummy_text_kcal"
+                                android:inputType="text"
+                                android:textSize="@dimen/text_small"
+                                android:visibility="visible" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginBottom="@dimen/text_medium"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/title_product_manufacturer"
+                                android:layout_width="120dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="@dimen/medium_text_margin"
+                                android:text="@string/hint_hersteller"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/text_small" />
+
+                            <EditText
+                                android:id="@+id/text_product_detail_manufacturer"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:autofillHints="@string/hint_hersteller"
+                                android:ems="7"
+                                android:hint="@string/hint_hersteller"
+                                android:inputType="text"
+                                android:textSize="@dimen/text_small"
+                                android:visibility="visible" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <Button
+                    android:id="@+id/btn_save_product"
+                    style="@style/ButtonTheme"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/btn_bg"
+                    android:contentDescription="@string/save"
+                    android:text="@string/save"
+                    android:theme="@style/ButtonTheme"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/btn_cancel_save_product"
+                    app:layout_constraintStart_toStartOf="@+id/product_details_card_view"
+                    app:layout_constraintTop_toBottomOf="@+id/product_details_card_view" />
+
+                <Button
+                    android:id="@+id/btn_cancel_save_product"
+                    style="@style/unimportantButtonTheme"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="60dp"
+                    android:background="@drawable/btn_bg"
+                    android:contentDescription="@string/cancel"
+                    android:text="@string/cancel"
+                    android:theme="@style/unimportantButtonTheme"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/product_details_card_view"
+                    app:layout_constraintStart_toEndOf="@+id/btn_save_product"
+                    app:layout_constraintTop_toBottomOf="@+id/product_details_card_view" />
+
+                <Button
+                    android:id="@+id/btn_edit_product_detail"
+                    style="@style/ButtonTheme"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/btn_bg"
+                    android:contentDescription="@string/content_description_edit_product"
+                    android:text="@string/button_edit_product"
+                    android:theme="@style/ButtonTheme"
+                    android:visibility="visible"
+                    app:icon="@drawable/ic_baseline_create_24"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/product_details_card_view" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

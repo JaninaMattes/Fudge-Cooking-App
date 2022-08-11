@@ -1,0 +1,256 @@
+<resources>
+    <!-- Titles -->
+    <string name="G_app_name">Fudge</string>
+    <string name="G_title_shoppinglist">Einkaufsliste</string>
+    <string name="G_title_inventorylist">Inventarliste</string>
+    <string name="G_title_addproducts">Produkte hinzufügen</string>
+    <string name="G_title_recipes">Rezeptvorschläge</string>
+    <string name="G_title_dashboard">Dashboard</string>
+    <string name="G_search">Suche</string>
+    <string name="G_content_description_favorite_recipe">Content Description Favorite Recipe</string>
+    <string name="G_content_description_search">Content Description Search</string>
+    <string name="G_content_description_more">Content Description More</string>
+    <string name="G_favorite_recipe">Lieblingsrezepte</string>
+    <string name="G_user_profile">Profil</string>
+    <string name="G_content_description_user_profile">Content Description User Profile</string>
+    <string name="G_title_shopping">Einkauf</string>
+    <string name="G_title_inventory">Inventar</string>
+    <string name="G_title_recipe">Rezepte</string>
+    <string name="G_search_hint">Bitte gib ein Suchwort ein.</string>
+    <string name="G_login_activity_title">Login</string>
+    <string name="G_content_description_app_icon">App Icon</string>
+
+    <!-- ShoppingList -->
+    <string name="G_tobuyproductstitle">Zu kaufende Produkte</string>
+    <string name="G_lastboughtproductstitle">Zuletzt gekaufte Produkte</string>
+    <string name="G_edittext_addnewproducttitle">Neues Produkt</string>
+    <string name="G_edittext_addnewproductquantity">Menge</string>
+    <string name="G_button_addProduct">Produkt hinzufügen</string>
+    <string name="G_addnewproducttoshoppinglistlabel">Was möchtest Du einkaufen?</string>
+    <string name="G_AddButtonShoppinglist">Create new Product</string>
+    <string name="G_add_product_to_shoppinglist">Hinzufügen</string>
+
+    <!-- Dashboard -->
+    <string name="G_numberonerecipelisttitle"># Rezepte heute</string>
+    <string name="G_expiring_product_list_title">Ablaufende Produkte</string>
+    <string name="G_dashboard_show_more">Weitere</string>
+    <string name="G_dashboard_greeting_user">Hi,</string>
+    <string name="G_dashboard_user_name">James</string>
+    <string name="G_dashboard_favorite_recipes">Beliebteste Rezepte</string>
+    <string name="G_dashboard_recipe_simple">einfach</string>
+
+    <!-- Favorite recipes -->
+    <string name="G_hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- Login -->
+    <string name="G_profile_login">Login</string>
+    <string name="G_want_to_logout">Wollen Sie sich ausloggen?</string>
+    <string name="G_profile_forgot_password">Passwort vergessen?</string>
+    <string name="G_prompt_email">Email</string>
+    <string name="G_prompt_password">Passwort</string>
+    <string name="G_action_sign_in">Sign in or register</string>
+    <string name="G_action_sign_in_short">Sign in</string>
+    <string name="G_welcome">"Welcome!"</string>
+    <string name="G_invalid_username">Dies ist keine valide Email.</string>
+    <string name="G_invalid_password">Das Passwort sollte >5 Charakter enthalten.</string>
+    <string name="G_invalid_passwords">Passwörter stimmen nicht überein</string>
+    <string name="G_login_failed">"Der Login ist fehlgeschlagen."</string>
+    <string name="G_register_failed">"Die Registrierung ist fehlgeschlagen."</string>
+    <string name="G_register_title">Registrierung</string>
+    <string name="G_username">Username</string>
+    <string name="G_email">Email</string>
+    <string name="G_password_hint">******</string>
+    <string name="G_firstname">Vorname</string>
+    <string name="G_lastname">Nachname</string>
+    <string name="G_logout">Logout</string>
+    <string name="G_dummy_text_email">max.mustermann@test.com</string>
+    <string name="G_dummy_text_lastname">Mustermann</string>
+    <string name="G_dummy_text_firstname">Max</string>
+    <string name="G_forgot_password">Passwort vergessen?</string>
+    <string name="G_dont_have_account">Du hast noch keinen Account?</string>
+    <string name="G_have_account">Du hast schon einen Account?</string>
+    <string name="G_reset_password">Passwort zurücksetzen</string>
+    <string name="G_back_to_login">Zurück zum Login</string>
+    <string name="G_register">Registrieren</string>
+
+    <!-- Inventory -->
+    <string name="G_save">Speichern</string>
+    <string name="G_cancel">Abbrechen</string>
+    <string name="G_productimage">productimage</string>
+    <string name="G_product_information">Produktinformationen</string>
+    <string name="G_expires_in">Läuft ab in:</string>
+    <string name="G_expiration_dummy_value">3 Days</string>
+    <string name="G_expiration_dummy_product_name">Tiefkühlpasta</string>
+    <string name="G_add_new_product_to_inventory">Neues Produkt zum Inventar hinzufügen</string>
+    <string name="G_add_new_inventory">Produkt hinzufügen</string>
+    <string name="G_edit_products">Produkt Bearbeiten</string>
+    <string name="G_button_edit_product">Produkt bearbeiten</string>
+    <string name="G_content_description_edit_product">Produkt bearbeiten</string>
+    <string name="G_scan_product_code">Produktbarcode einscannen</string>
+    <string name="G_add_new_product">Erstelle ein neues Produkt</string>
+    <string name="G_expiration_date">Ablaufdatum</string>
+    <string name="G_hint_hersteller">Hersteller</string>
+    <string name="G_product_name">Produktname</string>
+    <string name="G_product_type">Produkttyp</string>
+    <string name="G_button_inventory_list_edit_product">Produkt bearbeiten</string>
+    <string name="G_inventory_list_add_new_product">Erstelle ein neues Produkt</string>
+    <string name="G_inventory_list_product_expiration_date">Ablaufdatum</string>
+    <string name="G_inventory_list_product_name">Produktname</string>
+    <string name="G_inventory_list_product_type">Produkttyp</string>
+    <string name="G_add_product_image_text">Möchtest du ein Produktbild hinzufügen?</string>
+    <string name="G_dietry_tag_label">Label</string>
+    <string name="G_edit_text_error_productname_not_empty">Der Produktname darf nicht leer sein!</string>
+    <string name="G_edit_text_error_product_quantity_not_empty">Die Produktanzahl darf nicht leer sein!</string>
+    <string name="G_button_add_image_to_product">Produktbild hinzufügen</string>
+    <string name="G_vegan_pizza">Vegane Pizza</string>
+    <string name="G__1_piece">1 Stück</string>
+    <string name="G_vegan">Vegan</string>
+    <string name="G_buddha_bowl">Buddha Bowl</string>
+    <string name="G_inventory_product_rating_amount">4.5</string>
+    <string name="G_dropDownProductTypeText">Bitte wähle einen Produkttyp aus der Dropdownlist aus.</string>
+    <string name="G_choose_producttype">Wähle Produkttyp</string>
+    <string name="G_amount">Menge</string>
+    <string name="G_nutritionvalues">Nährwerte</string>
+    <string name="G_show_more_items">Weitere anzeigen</string>
+    <string name="G_create_new_product">Neues Produkt erstellen</string>
+    <string name="G_pizza">Pizza</string>
+    <string name="G__3">3</string>
+    <string name="G_food_dummy_image">Platzhalter Bild</string>
+    <string name="G_show_more">Weitere</string>
+    <string name="G_exp_date">22.02.2022</string>
+    <string name="G_expires_soon">expires soon</string>
+    <string name="G_button_add_new_product">Neues Produkt zum Inventar hinzufügen</string>
+
+    <!-- User -->
+    <string name="G_recipe_filter">Meine Rezeptfilter</string>
+    <string name="G_profile_settings">Profil Einstellungen</string>
+    <string name="G_allow_pushNotifications">Pushbenachrichtigungen erlauben</string>
+    <string name="G_e_mail_title">Mail:</string>
+    <string name="G_password">Passwort</string>
+    <string name="G_password_string">*******</string>
+    <string name="G_edit_profile">Profil Bearbeiten</string>
+    <string name="G_add_food_preferences_to_user_profile">Füge neue Ernährungspräferenzen hinzu</string>
+    <string name="G_user_profile_allow_push_not">Pushbenachrichtigungen erlauben</string>
+    <string name="G_user_profile_edit">Profil Bearbeiten</string>
+    <string name="G_user_profile_first_name">Vorname</string>
+    <string name="G_user_profile_sir_name">Nachname</string>
+
+    <!-- PushNotification -->
+    <string name="G_notificationTitle">Ablaufende Produkte im Inventar</string>
+    <string name="G_notificationText">Du hast ablaufende Produkte im Inventar!</string>
+
+    <!-- Recipes -->
+    <string name="G_recipe_detail_image">Rezept Detailbild</string>
+    <string name="G_recipe_detail_information">Rezept Informationen</string>
+    <string name="G_recipe_detail_rating">Bewertung</string>
+    <string name="G_recipe_ingredient_text">Frischer Bienenhonig</string>
+    <string name="G_recipe_ingredient_amount">5 Teelöffel</string>
+    <string name="G_recipe_ingredient_available">vorhanden</string>
+    <string name="G_button_share_ingredients">Zutaten zur Einkaufsliste hinzufügen</string>
+    <string name="G_add_to_shoppinglist_title">Möchtest Du fehlende Zutaten deiner Einkaufsliste hinzufügen?</string>
+    <string name="G_Available">vorhanden</string>
+    <string name="G_NotAvailable">nicht vorhanden</string>
+    <string name="G_simpel">einfach</string>
+    <string name="G_export_ingredients_to_shoppinglist">Fehlende Zutaten in Einkaufsliste hinzufügen</string>
+    <string name="G_export_ingredients">Zutaten Exportieren</string>
+    <string name="G_best_voted_recipes">Beliebteste Rezepte</string>
+    <string name="G_cooking_instructions">Kochanleitung</string>
+    <string name="G_example_sentence">The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.</string>
+    <string name="G_needed_ingredients_title">Benötigte Zutaten</string>
+    <string name="G_example_description">Vegetarisch</string>
+    <string name="G_rate_recipe">Bewertung</string>
+    <string name="G_rating_value">4.5</string>
+    <string name="G_dummy_text">5.0</string>
+    <string name="G_dummy_text_min">30 Min.</string>
+    <string name="G_dummy_text_kcal">128 Kcal</string>
+    <string name="G_large_text">
+        "Material is the metaphor.\n\n"
+
+        "A material metaphor is the unifying theory of a rationalized space and a system of motion."
+        "The material is grounded in tactile reality, inspired by the study of paper and ink, yet "
+        "technologically advanced and open to imagination and magic.\n"
+        "Surfaces and edges of the material provide visual cues that are grounded in reality. The "
+        "use of familiar tactile attributes helps users quickly understand affordances. Yet the "
+        "flexibility of the material creates new affordances that supercede those in the physical "
+        "world, without breaking the rules of physics.\n"
+        "The fundamentals of light, surface, and movement are key to conveying how objects move, "
+        "interact, and exist in space and in relation to each other. Realistic lighting shows "
+        "seams, divides space, and indicates moving parts.\n\n"
+
+        "Bold, graphic, intentional.\n\n"
+
+        "The foundational elements of print based design typography, grids, space, scale, color, "
+        "and use of imagery guide visual treatments. These elements do far more than please the "
+        "eye. They create hierarchy, meaning, and focus. Deliberate color choices, edge to edge "
+        "imagery, large scale typography, and intentional white space create a bold and graphic "
+        "interface that immerse the user in the experience.\n"
+        "An emphasis on user actions makes core functionality immediately apparent and provides "
+        "waypoints for the user.\n\n"
+
+        "Motion provides meaning.\n\n"
+
+        "Motion respects and reinforces the user as the prime mover. Primary user actions are "
+        "inflection points that initiate motion, transforming the whole design.\n"
+        "All action takes place in a single environment. Objects are presented to the user without "
+        "breaking the continuity of experience even as they transform and reorganize.\n"
+        "Motion is meaningful and appropriate, serving to focus attention and maintain continuity. "
+        "Feedback is subtle yet clear. Transitions are efﬁcient yet coherent.\n\n"
+
+        "3D world.\n\n"
+
+        "The material environment is a 3D space, which means all objects have x, y, and z "
+        "dimensions. The z-axis is perpendicularly aligned to the plane of the display, with the "
+        "positive z-axis extending towards the viewer. Every sheet of material occupies a single "
+        "position along the z-axis and has a standard 1dp thickness.\n"
+        "On the web, the z-axis is used for layering and not for perspective. The 3D world is "
+        "emulated by manipulating the y-axis.\n\n"
+
+        "Light and shadow.\n\n"
+
+        "Within the material environment, virtual lights illuminate the scene. Key lights create "
+        "directional shadows, while ambient light creates soft shadows from all angles.\n"
+        "Shadows in the material environment are cast by these two light sources. In Android "
+        "development, shadows occur when light sources are blocked by sheets of material at "
+        "various positions along the z-axis. On the web, shadows are depicted by manipulating the "
+        "y-axis only. The following example shows the card with a height of 6dp.\n\n"
+
+        "Resting elevation.\n\n"
+
+        "All material objects, regardless of size, have a resting elevation, or default elevation "
+        "that does not change. If an object changes elevation, it should return to its resting "
+        "elevation as soon as possible.\n\n"
+
+        "Component elevations.\n\n"
+
+        "The resting elevation for a component type is consistent across apps (e.g., FAB elevation "
+        "does not vary from 6dp in one app to 16dp in another app).\n"
+        "Components may have different resting elevations across platforms, depending on the depth "
+        "of the environment (e.g., TV has a greater depth than mobile or desktop).\n\n"
+
+        "Responsive elevation and dynamic elevation offsets.\n\n"
+
+        "Some component types have responsive elevation, meaning they change elevation in response "
+        "to user input (e.g., normal, focused, and pressed) or system events. These elevation "
+        "changes are consistently implemented using dynamic elevation offsets.\n"
+        "Dynamic elevation offsets are the goal elevation that a component moves towards, relative "
+        "to the component’s resting state. They ensure that elevation changes are consistent "
+        "across actions and component types. For example, all components that lift on press have "
+        "the same elevation change relative to their resting elevation.\n"
+        "Once the input event is completed or cancelled, the component will return to its resting "
+        "elevation.\n\n"
+
+        "Avoiding elevation interference.\n\n"
+
+        "Components with responsive elevations may encounter other components as they move between "
+        "their resting elevations and dynamic elevation offsets. Because material cannot pass "
+        "through other material, components avoid interfering with one another any number of ways, "
+        "whether on a per component basis or using the entire app layout.\n"
+        "On a component level, components can move or be removed before they cause interference. "
+        "For example, a floating action button (FAB) can disappear or move off screen before a "
+        "user picks up a card, or it can move if a snackbar appears.\n"
+        "On the layout level, design your app layout to minimize opportunities for interference. "
+        "For example, position the FAB to one side of stream of a cards so the FAB won’t interfere "
+        "when a user tries to pick up one of cards.\n\n"
+    </string>
+
+</resources>

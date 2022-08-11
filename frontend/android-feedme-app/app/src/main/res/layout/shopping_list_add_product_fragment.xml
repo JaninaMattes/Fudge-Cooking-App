@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".ui.shoppinglist.AddProductToShoppingListFragment">
+
+    <TextView
+        android:id="@+id/addnewproducttoshoppinglistlabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:gravity="center"
+        android:paddingStart="15dp"
+        android:paddingTop="15dp"
+        android:paddingEnd="15dp"
+        android:paddingBottom="15dp"
+        android:text="@string/addnewproducttoshoppinglistlabel"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_extra_large"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/edit_text_addnewproducttitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/edit_text_addnewproducttitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="8dp"
+        android:autofillHints="@string/product_name"
+        android:background="@drawable/input_bg"
+        android:gravity="center"
+        android:hint="@string/product_name"
+        android:inputType="text"
+        android:minHeight="48dp"
+        android:padding="@dimen/small_text_margin"
+        app:layout_constraintBottom_toTopOf="@+id/edit_text_addnewproductquantity"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addnewproducttoshoppinglistlabel" />
+
+
+    <EditText
+        android:id="@+id/edit_text_addnewproductquantity"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="40dp"
+        android:autofillHints="Menge"
+        android:background="@drawable/input_bg"
+        android:gravity="center"
+        android:hint="@string/edittext_addnewproductquantity"
+        android:inputType="text"
+        android:minHeight="48dp"
+        android:padding="@dimen/small_text_margin"
+        app:layout_constraintBottom_toTopOf="@+id/button_enteraddproducttoshoppinglist"
+        app:layout_constraintEnd_toEndOf="@+id/edit_text_addnewproducttitle"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/edit_text_addnewproducttitle"
+        app:layout_constraintTop_toBottomOf="@+id/edit_text_addnewproducttitle" />
+
+    <Button
+        android:id="@+id/button_enteraddproducttoshoppinglist"
+        style="@style/ButtonTheme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="60dp"
+        android:background="@drawable/btn_bg"
+        android:text="@string/button_addProduct"
+        android:theme="@style/ButtonTheme"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_text_addnewproductquantity" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

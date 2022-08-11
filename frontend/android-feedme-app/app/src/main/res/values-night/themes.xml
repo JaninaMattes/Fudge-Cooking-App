@@ -1,0 +1,58 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.FeedMe" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <item name="android:windowBackground">@drawable/bg_gradient_night</item>
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">#D3ECD4CB</item>
+        <item name="colorPrimaryVariant">@color/red_200</item>
+        <item name="colorOnPrimary">@color/black</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/salmon_red</item>
+        <item name="colorSecondaryVariant">@color/red_200</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <!-- Customize your theme here. -->
+        <!-- Primary Font -->
+        <item name="android:textViewStyle">@font/roboto_light</item>
+        <item name="android:buttonStyle">@font/roboto_light</item>
+    </style>
+
+    <!-- Splash Screen Theme-->
+    <style name="SplashTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash_background_night</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:statusBarColor">@color/colorPrimary</item>
+        <item name="textFillColor">@color/white</item>
+    </style>
+
+    <!-- Login Screen Theme-->
+    <style name="LoginTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:windowBackground">@drawable/bg_gradient_night</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:statusBarColor">@color/colorPrimary</item>
+    </style>
+
+    <!--Button Theme-->
+    <style name="ButtonTheme">
+        <item name="colorPrimary">@color/red_200</item>
+        <item name="android:layout_marginBottom">@dimen/medium_btn_margin</item>
+        <item name="android:layout_marginTop">@dimen/large_btn_margin</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <!--unimportant Button Theme-->
+    <style name="unimportantButtonTheme">
+        <item name="colorPrimary">@color/dark_grey</item>
+        <item name="android:layout_marginBottom">@dimen/medium_btn_margin</item>
+        <item name="android:layout_marginTop">@dimen/large_btn_margin</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+</resources>

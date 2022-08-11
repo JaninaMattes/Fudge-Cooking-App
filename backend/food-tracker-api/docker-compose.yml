@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  app:
+    image: 'docker-spring-boot-postgres:latest'
+    build:
+      context: ./src/main/docker/
+    container_name: app
+    restart: always
+    depends_on:
+      - postgresdb
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgresdb:5432/foodtrackerdb
+      - SPRING_DATASOURCE_USERNAME=foodtracker
+      - SPRING_DATASOURCE_PASSWORD=password
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    ports:
+      - 80:80
+
+  postgresdb:
+    image: 'postgres:13.1-alpine'
+    build:
+      context: ./db/
+    container_name: postgresdb
+    restart: always
+    environment:
+      - POSTGRES_USER=foodtracker
+      - POSTGRES_PASSWORD=password
+    ports:
+      - 5432:5432
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.shoppinglist.ShoppingListFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/current_shopping_list_constraint"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/text_small"
+        app:layout_constraintBottom_toTopOf="@+id/old_shopping_list_constraint"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_weight="6.4">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/current_shopping_list_card_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/large_text_margin"
+            android:layout_marginEnd="@dimen/large_text_margin"
+            android:background="@drawable/input_bg"
+            android:backgroundTint="@color/black"
+            android:clickable="false"
+            android:fadeScrollbars="true"
+            android:foregroundGravity="top"
+            app:cardBackgroundColor="@android:color/transparent"
+            app:cardCornerRadius="3dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+            <LinearLayout
+                android:id="@+id/current_shopping_list_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <!-- IngredientList Child Fragment -->
+                <androidx.fragment.app.FragmentContainerView
+                    android:id="@+id/current_shopping_list_fragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="@dimen/medium_text_margin">
+
+                </androidx.fragment.app.FragmentContainerView>
+
+            </LinearLayout>
+
+
+        </androidx.cardview.widget.CardView>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/old_shopping_list_constraint"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/current_shopping_list_constraint"
+        app:layout_constraintVertical_weight="3.6">
+
+        <TextView
+            android:id="@+id/old_shopping_list_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/large_text_margin"
+            android:layout_marginEnd="@dimen/large_text_margin"
+            android:gravity="center|start"
+            android:text="@string/lastboughtproductstitle"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textSize="@dimen/text_large"
+            android:textStyle="normal"
+            app:layout_constraintBottom_toTopOf="@+id/old_shopping_list_container"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/old_shopping_list_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/text_small"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/old_shopping_list_title">
+
+            <!-- IngredientList Child Fragment -->
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/old_shopping_list_fragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </androidx.fragment.app.FragmentContainerView>
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <FrameLayout
+        android:id="@+id/container_for_floating_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|end"
+        android:layout_marginEnd="@dimen/super_large_button_margin"
+        android:layout_marginBottom="@dimen/super_large_button_margin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/button_create_new_product_for_shopping_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom|center"
+            android:layout_margin="@dimen/tiny_btn_margin"
+            android:backgroundTint="@color/colorAccent"
+            android:contentDescription="@string/add_new_product_to_inventory"
+            app:srcCompat="@drawable/ic_baseline_add_24" />
+    </FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

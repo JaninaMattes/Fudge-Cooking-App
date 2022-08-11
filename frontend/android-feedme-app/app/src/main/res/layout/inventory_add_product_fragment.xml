@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="ui.inventorylist.AddProductToInventoryFragment">
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/addProductToInventory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/large_text_margin"
+                android:layout_marginEnd="@dimen/large_text_margin"
+                android:gravity="center"
+                android:text="@string/add_new_product"
+                android:textSize="@dimen/text_extra_large"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/edit_text_addnewproducttitle_inventory"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/edit_text_addnewproducttitle_inventory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="14dp"
+                android:autofillHints="@string/product_name"
+                android:background="@drawable/input_bg"
+                android:gravity="center"
+                android:hint="@string/product_name"
+                android:inputType="text"
+                android:minHeight="48dp"
+                android:padding="@dimen/small_text_margin"
+                app:layout_constraintBottom_toTopOf="@+id/drop_down_add_new_product_labels_inventory_container"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/addProductToInventory" />
+
+            <RelativeLayout
+                android:id="@+id/drop_down_add_new_product_labels_inventory_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="14dp"
+                android:layout_weight=".28"
+                android:background="@drawable/drop_down_spinner_background"
+                android:gravity="center"
+                android:minHeight="48dp"
+                android:orientation="horizontal"
+                android:padding="@dimen/small_text_margin"
+                app:layout_constraintBottom_toTopOf="@+id/edit_text_addnewproductquantity_inventory"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/edit_text_addnewproducttitle_inventory">
+
+                <Spinner
+                    android:id="@+id/drop_down_add_new_product_labels_inventory"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/medium_text_margin"
+                    android:layout_marginEnd="@dimen/medium_text_margin"
+                    android:autofillHints="Bitte wähle aus"
+                    android:background="@android:color/transparent"
+                    android:gravity="center"
+                    android:prompt="@string/product_type"
+                    android:spinnerMode="dropdown" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="33dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/medium_text_margin"
+                    android:layout_marginEnd="@dimen/medium_text_margin"
+                    android:contentDescription="@string/choose_producttype"
+                    android:gravity="center"
+                    android:src="@drawable/ic_baseline_keyboard_arrow_down_24" />
+
+            </RelativeLayout>
+
+            <EditText
+                android:id="@+id/edit_text_addnewproductquantity_inventory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="14dp"
+                android:autofillHints="@string/amount"
+                android:background="@drawable/input_bg"
+                android:gravity="center"
+                android:hint="@string/amount"
+                android:inputType="text"
+                android:minHeight="48dp"
+                android:padding="@dimen/small_text_margin"
+                app:layout_constraintBottom_toTopOf="@+id/edit_text_add_new_product_expiration_date_inventory"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/drop_down_add_new_product_labels_inventory_container" />
+
+            <EditText
+                android:id="@+id/edit_text_add_new_product_expiration_date_inventory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="14dp"
+                android:autofillHints="@string/expiration_date"
+                android:background="@drawable/input_bg"
+                android:clickable="true"
+                android:cursorVisible="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:gravity="center"
+                android:hint="@string/expiration_date"
+                android:inputType="date"
+                android:minHeight="48dp"
+                android:padding="@dimen/small_text_margin"
+                app:layout_constraintBottom_toTopOf="@+id/edit_text_addnewproductManufacturer_inventory"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/edit_text_addnewproductquantity_inventory" />
+
+            <EditText
+                android:id="@+id/edit_text_addnewproductManufacturer_inventory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="14dp"
+                android:autofillHints="@string/hint_hersteller"
+                android:background="@drawable/input_bg"
+                android:gravity="center"
+                android:hint="@string/hint_hersteller"
+                android:inputType="text"
+                android:minHeight="48dp"
+                android:padding="@dimen/small_text_margin"
+                app:layout_constraintBottom_toTopOf="@+id/edit_text_addnewproductNutritionvalue_inventory"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/edit_text_add_new_product_expiration_date_inventory" />
+
+            <EditText
+                android:id="@+id/edit_text_addnewproductNutritionvalue_inventory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="14dp"
+                android:autofillHints="@string/nutritionvalues"
+                android:background="@drawable/input_bg"
+                android:gravity="center"
+                android:hint="@string/nutritionvalues"
+                android:inputType="text"
+                android:minHeight="48dp"
+                android:padding="@dimen/small_text_margin"
+                app:layout_constraintBottom_toTopOf="@+id/button_add_image_to_product"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/edit_text_addnewproductManufacturer_inventory" />
+
+            <Button
+                android:id="@+id/button_add_image_to_product"
+                style="@style/unimportantButtonTheme"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_bg"
+                android:text="@string/button_add_image_to_product"
+                android:textSize="@dimen/text_small"
+                android:theme="@style/unimportantButtonTheme"
+                app:layout_constraintBottom_toTopOf="@+id/button_enteraddproducttoinventorylist"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/edit_text_addnewproductNutritionvalue_inventory" />
+
+            <Button
+                android:id="@+id/button_enteraddproducttoinventorylist"
+                style="@style/ButtonTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_bg"
+                android:text="@string/button_addProduct"
+                android:textSize="@dimen/text_small"
+                android:theme="@style/ButtonTheme"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/button_scan_product"
+                app:layout_constraintStart_toStartOf="@+id/button_add_image_to_product" />
+
+            <Button
+                android:id="@+id/button_scan_product"
+                style="@style/unimportantButtonTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_bg"
+                android:layout_marginTop="16dp"
+                android:text="@string/scan_product_code"
+                android:textSize="@dimen/text_small"
+                android:theme="@style/unimportantButtonTheme"
+                app:icon="@drawable/ic_baseline_qr_code_scanner_24"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/button_add_image_to_product"
+                app:layout_constraintStart_toEndOf="@+id/button_enteraddproducttoinventorylist"
+                app:layout_constraintTop_toBottomOf="@+id/button_add_image_to_product" />
+
+
+            <ProgressBar
+                android:id="@+id/loadingBarcode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="@+id/button_enteraddproducttoinventorylist"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/edit_text_addnewproductManufacturer_inventory"
+                app:layout_constraintTop_toTopOf="@+id/addProductToInventory" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

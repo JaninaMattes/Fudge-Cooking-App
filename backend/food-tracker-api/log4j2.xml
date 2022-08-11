@@ -1,0 +1,12 @@
+<!-- simple log file config -->
+<Configuration status="debug" name="food-tracker-api" packages="">
+    <Appender name="console" class="org.apache.log4j.ConsoleAppender">
+        <Param name="Target" value="System.out"/>
+        <Layout class="org.apache.log4j.PatternLayout">
+            <Param name="ConversionPattern" value="%d{HH:mm:ss,SSS} %-5p %m (%F:%L) in %t%n"/>
+        </Layout>
+    </Appender>
+    <Root level="error">
+        <AppenderRef ref="STDOUT"/>
+    </Root>
+</Configuration>

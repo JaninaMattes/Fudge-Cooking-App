@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/tools">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/user_profile_settings_card_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/custom_background"
+        android:padding="@dimen/small_text_margin"
+        android:clickable="false"
+        app:cardCornerRadius="@dimen/card_view_corner_radius"
+        card_view:cardUseCompatPadding="true"
+        card_view:cardElevation="@dimen/medium_card_elevation"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/user_profile_settings"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/small_text_margin"
+                android:layout_marginStart="@dimen/large_cardview_margin"
+                android:layout_marginEnd="@dimen/large_cardview_margin"
+                android:layout_marginBottom="@dimen/small_text_margin"
+                android:layout_marginTop="@dimen/medium_text_margin"
+                android:text="@string/profile_settings"
+                android:textSize="@dimen/text_medium"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <LinearLayout
+                android:id="@+id/user_profile_description_container_one"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/large_cardview_margin"
+                android:layout_marginEnd="@dimen/large_cardview_margin"
+                android:layout_marginBottom="@dimen/small_text_margin"
+                android:layout_marginTop="@dimen/small_text_margin"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/user_profile_settings">
+
+                <TextView
+                    android:id="@+id/user_profile_description_one"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/small_text_margin"
+                    android:layout_marginEnd="@dimen/small_text_margin"
+                    android:layout_gravity="center|start"
+                    android:text="@string/reminder_before_product_expiration"
+                    android:textSize="@dimen/text_small"
+                    android:textStyle="normal"
+                    android:textColor="@color/black"/>
+
+                <!-- SwitchCompat -->
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/button_toggle_one"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/large_switch_button_margin"
+                    android:layout_marginEnd="@dimen/small_text_margin"
+                    android:layout_gravity="center|end"
+                    android:checked="true"
+                    android:thumb="@drawable/thumb_selector"
+                    app:track="@drawable/track_selector"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/user_profile_description_container_two"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/large_cardview_margin"
+                android:layout_marginEnd="@dimen/large_cardview_margin"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/user_profile_description_container_one">
+
+                <TextView
+                    android:id="@+id/user_profile_description_two"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/small_text_margin"
+                    android:layout_marginEnd="@dimen/small_text_margin"
+                    android:layout_gravity="center|start"
+                    android:text="@string/allow_pushNotifications"
+                    android:textSize="@dimen/text_small"
+                    android:textStyle="normal"
+                    android:textColor="@color/black"/>
+
+                <!-- SwitchCompat -->
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/button_toggle_two"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/super_duper_large_switch_button_margine"
+                    android:layout_marginEnd="@dimen/small_text_margin"
+                    android:layout_gravity="center|end"
+                    android:checked="true"
+                    android:thumb="@drawable/thumb_selector"
+                    app:track="@drawable/track_selector"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/user_profile_description_container_three"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/large_cardview_margin"
+                android:layout_marginEnd="@dimen/large_cardview_margin"
+                android:layout_marginBottom="@dimen/large_cardview_margin"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/user_profile_description_container_two">
+
+                <TextView
+                    android:id="@+id/user_profile_description_three"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/small_text_margin"
+                    android:layout_marginEnd="@dimen/small_text_margin"
+                    android:layout_gravity="center|start"
+                    android:text="@string/suggest_shopping_list"
+                    android:textSize="@dimen/text_small"
+                    android:textStyle="normal"
+                    android:textColor="@color/black"/>
+
+                <!-- SwitchCompat -->
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/button_toggle_three"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|end"
+                    android:layout_marginStart="@dimen/super_duper_large_switch_button_margin"
+                    android:layout_marginEnd="@dimen/small_text_margin"
+                    android:checked="true"
+                    android:thumb="@drawable/thumb_selector"
+                    app:track="@drawable/track_selector" />
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

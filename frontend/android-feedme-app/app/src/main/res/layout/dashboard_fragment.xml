@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.dashboard.DashboardFragment">
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/user_profile_scroll_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fillViewport="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <!-- User Greeting -->
+
+                <LinearLayout
+                    android:id="@+id/dashboard_user_title_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/large_text_margin"
+                    android:layout_marginBottom="@dimen/large_text_margin"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/dashboard_user_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/small_text_margin"
+                        android:layout_marginTop="@dimen/medium_text_margin"
+                        android:layout_marginEnd="@dimen/tiny_text_margin"
+                        android:layout_marginBottom="@dimen/small_text_margin"
+                        android:text="@string/dashboard_greeting_user"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_extra_large"
+                        android:fontFamily="@font/roboto_bold"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/dashboard_user_profile_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/tiny_text_margin"
+                        android:layout_marginTop="@dimen/medium_text_margin"
+                        android:layout_marginEnd="@dimen/small_text_margin"
+                        android:layout_marginBottom="@dimen/small_text_margin"
+                        android:text="@string/dashboard_user_name"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_extra_large"
+                        android:fontFamily="@font/roboto_bold"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <!-- Expiring Products Overview -->
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/more_button_container_one"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/large_text_margin"
+                    android:layout_marginBottom="@dimen/large_text_margin"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/dashboard_user_title_container"
+                    app:layout_constraintBottom_toTopOf="@+id/expiring_product_container">
+
+                    <TextView
+                        android:id="@+id/expiring_products_list_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/super_large_text_margin"
+                        android:gravity="center_vertical"
+                        android:text="@string/expiring_product_list_title"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                        android:textSize="@dimen/text_large"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
+
+                    <TextView
+                        android:id="@+id/dashboard_more_button_one"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/super_large_text_margin"
+                        android:layout_marginTop="@dimen/small_text_margin"
+                        android:layout_marginBottom="@dimen/small_text_margin"
+                        android:clickable="true"
+                        android:gravity="center_vertical"
+                        android:text="@string/show_more"
+                        android:textColor="@color/red_200"
+                        android:textSize="@dimen/text_small"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <LinearLayout
+                    android:id="@+id/expiring_product_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginTop="@dimen/large_text_margin"
+                    android:layout_marginBottom="@dimen/large_text_margin"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/more_button_container_one">
+
+                    <!-- IngredientList Child Fragment -->
+                    <androidx.fragment.app.FragmentContainerView
+                        android:id="@+id/expiring_products_list_fragment"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                    </androidx.fragment.app.FragmentContainerView>
+
+                </LinearLayout>
+
+                <!-- Current No One Recipes -->
+
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/more_button_container_two"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/large_text_margin"
+                    android:layout_marginBottom="@dimen/large_text_margin"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/expiring_product_container"
+                    app:layout_constraintBottom_toTopOf="@+id/no_one_recipe_fragment_container">
+
+                    <TextView
+                        android:id="@+id/current_recipe_suggestions_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/super_large_text_margin"
+                        android:gravity="center_vertical"
+                        android:text="@string/best_voted_recipes"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                        android:textSize="@dimen/text_large"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
+
+                    <TextView
+                        android:id="@+id/dashboard_more_button_two"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/super_large_text_margin"
+                        android:layout_marginTop="@dimen/small_text_margin"
+                        android:layout_marginBottom="@dimen/small_text_margin"
+                        android:clickable="true"
+                        android:gravity="center_vertical"
+                        android:text="@string/show_more"
+                        android:textColor="@color/red_200"
+                        android:textSize="@dimen/text_small"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <LinearLayout
+                    android:id="@+id/no_one_recipe_fragment_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/large_text_margin"
+                    android:layout_marginBottom="@dimen/large_text_margin"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/more_button_container_two">
+
+                    <!-- Number Once Recipes Child Fragment -->
+                    <androidx.fragment.app.FragmentContainerView
+                        android:id="@+id/number_one_recipe_list_fragment"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                    </androidx.fragment.app.FragmentContainerView>
+
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </RelativeLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
