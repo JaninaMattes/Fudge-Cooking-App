@@ -18,8 +18,9 @@ Example:
 
  
 2) receive token 
+    example token 
     ``` {
-    "token": "eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2Mzk4Mjg5NTIsImV4cCI6MTYzOTgzNjE1MiwidXNlcklkIjo0LCJlbWFpbCI6ImphbWVzLnNtaXRoQHRlc3RtYWlsLmNvbSIsImZpcnN0TmFtZSI6IkphbWVzIiwibGFzdE5hbWUiOiJTbWl0aCJ9.ka94HkkM88gPgvIlF5LPyV0bcGCO2Pe-03bVaLKx1os"
+    "token": "meyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2Mzk4Mjg5NTIsImV4cCI6MTYzOTgzNjE1MiwidXNlcklkIjo0LCJlbWFpbCI6ImphbWVzLnNtaXRoQHRlc3RtYWlsLmNvbSIsImZpcnN0TmFtZSI6IkphbWVzIiwibGFzdE5hbWUiOiJTbWl0aCJ9.ka94HkkM88gPgvIlF5LPyV0bcGCO2Pe-03bVaLKx1os"
 }
 
 3) send token 
@@ -31,8 +32,6 @@ https://www.section.io/engineering-education/running-a-multi-container-springboo
 
 ## Run just Docker Container PostgreSQL
 - run container: ```docker run --name postgresdb -e POSTGRES_PASSWORD=password -p 5432:5432 -d postgres```
-
-
 # Setup PostgreSQL Database
 
 ## To create the database with Docker manually follow the steps:

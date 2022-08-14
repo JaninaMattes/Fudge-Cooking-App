@@ -123,7 +123,6 @@ public class ShoppingListRepositoryImpl implements ShoppingListRepository {
         Integer result = 0;
         try {
             result = jdbcTemplate.update(SQL_CREATE_PRODUCT_TAG, productId, tagId);
-
         } catch (Exception e) {
             e.getStackTrace();
         }
@@ -289,7 +288,6 @@ public class ShoppingListRepositoryImpl implements ShoppingListRepository {
             if (oldShoppingListId != 0) {
                 result = jdbcTemplate.update(SQL_UPDATE_REMOVE_PRODCUT_FROM_OLDSHOPPINGLIST, productId);
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }

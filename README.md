@@ -25,7 +25,6 @@
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
 
-
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
@@ -114,7 +113,11 @@ This section should list any major frameworks/libraries used to bootstrap your p
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-
+<div align="center">
+  <a href="https://github.com/othneildrew/Best-README-Template">
+    <img src="images/architecture.PNG" alt="Project Architecture" width="100%" height="100%">
+  </a>
+</div>
 
 <!-- GETTING STARTED -->
 ## Getting Started

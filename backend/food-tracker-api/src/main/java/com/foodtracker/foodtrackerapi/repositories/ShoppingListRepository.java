@@ -6,37 +6,37 @@ import java.util.Optional;
 
 public interface ShoppingListRepository {
 
-    Integer createProductInCurrentShoppingList(Integer userId, Product newProduct);
+    public Integer createProductInCurrentShoppingList(Integer userId, Product newProduct);
 
-    Integer createDietryTag(String label);
+    public Integer createDietryTag(String label);
 
-    Integer createProductTag(Integer productId, Integer tagId);
+    public Integer createProductTag(Integer productId, Integer tagId);
 
-    Integer createProductImage(Integer productId, String imageName, String imageUrl);
+    public Integer createProductImage(Integer productId, String imageName, String imageUrl);
 
-    Optional<List<Product>> getAllProductsInCurrentShoppingList(Integer userID);
+    public Optional<List<Product>> getAllProductsInCurrentShoppingList(Integer userID);
 
-    Optional<List<Product>> getAllProductsInOldShoppingList(Integer userID);
+    public Optional<List<Product>> getAllProductsInOldShoppingList(Integer userID);
 
-    Integer addProductInOldShoppingList(Integer userId, Integer productId);
+    public Integer addProductInOldShoppingList(Integer userId, Integer productId);
 
-    Integer addProductInCurShoppingList(Integer userId, Integer productId);
+    public Integer addProductInCurShoppingList(Integer userId, Integer productId);
 
-    Integer updateProductInCurrentShoppingList(Integer userId, Product newProduct);
+    public Integer updateProductInCurrentShoppingList(Integer userId, Product newProduct);
 
-    Integer updateProductInOldShoppingList(Integer userId, Product newProduct);
+    public Integer updateProductInOldShoppingList(Integer userId, Product newProduct);
 
-    Integer getCurrentShoppingListId(Integer user);
+    public Integer getCurrentShoppingListId(Integer user);
 
-    Integer getInventoryListId(Integer userId);
+    public Integer getInventoryListId(Integer userId);
 
-    Integer getOldShoppingListId(Integer user);
+    public Integer getOldShoppingListId(Integer user);
 
-    Integer removeProductFromOldShoppingList(Integer productId, Integer oldShoppingListId);
+    public Integer removeProductFromOldShoppingList(Integer productId, Integer oldShoppingListId);
 
-    Integer removeProductFromCurShoppingList(Integer productId, Integer curShoppingListId);
+    public Integer removeProductFromCurShoppingList(Integer productId, Integer curShoppingListId);
 
-    Integer deleteProductInCurrentShoppingList(Integer userId, Integer productId);
+    public Integer deleteProductInCurrentShoppingList(Integer userId, Integer productId);
 
-    Integer deleteProductInOldShoppingList(Integer userId, Integer productId);
+    public Integer deleteProductInOldShoppingList(Integer userId, Integer productId);
 }
