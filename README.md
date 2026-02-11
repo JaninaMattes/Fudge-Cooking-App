@@ -81,20 +81,42 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+This repository documents the design and development of **FeedMe**, including an early-stage **interactive UI prototype** created in Figma.
 
-There are many great README templates available on GitHub; however, I didn't find one that really suited my needs so I created this enhanced one. I want to create a README template so amazing that it'll be the last one you ever need -- I think this is it.
+To help readers quickly understand the user flow and screen structure, a **click-through Figma prototype** is available. It demonstrates the core navigation and layout of the application and can be explored directly in the browser.
+
+### 🎨 Interactive Design Prototype
+
+<div align="center">
+  <img src="images/figma.PNG" alt="Figma navigable screens preview" width="100%">
+</div>
+
+<div align="center">
+
+[🔗 **Open the Interactive Figma Prototype**](https://www.figma.com/proto/J7pup60VT1Uw12lk1U4hGL/FeedMe-App?node-id=1-4&starting-point-node-id=1%3A4)
+
+</div>
+
+> **Note:** The prototype is intentionally simple and focuses on user flow and screen transitions rather than final visuals. You can click through the screens directly in your browser.
+
+---
+
+### Why This README Exists
+
+There are many great README templates available on GitHub; however, none fully matched the needs of this project. This README was created to be clear, informative, and immediately useful for both contributors and first-time readers.
 
 Here's why:
-* Your time should be focused on creating something amazing. A project that solves a problem and helps others
-* You shouldn't be doing the same tasks over and over like creating a README from scratch
-* You should implement DRY principles to the rest of your life :smile:
 
-Of course, no one template will serve all projects since your needs may be different. So I'll be adding more in the near future. You may also suggest changes by forking this repo and creating a pull request or opening an issue. Thanks to all the people have contributed to expanding this template!
+- Your time should be focused on creating something meaningful
+- You shouldn't repeat the same setup and documentation work for every project
+- DRY principles apply to documentation just as much as they do to code
 
-Use the `BLANK_README.md` to get started.
+No single template fits every project, so this README will continue to evolve. Suggestions and improvements are always welcome—feel free to fork the repository, open an issue, or submit a pull request.
+
+Use the `BLANK_README.md` file to get started.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
+
 
 
 
