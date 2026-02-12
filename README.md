@@ -29,7 +29,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/othneildrew/Best-README-Template">
-    <img src="images/logo.PNG" alt="Logo" width="100%" height="100%">
+    <img src="assets/images/logo.png" alt="Logo" width="100%" height="100%">
   </a>
 
   <h3 align="center">Best-README-Template</h3>
@@ -81,14 +81,14 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-This repository documents the design and development of **FeedMe**, including an early-stage **interactive UI prototype** created in Figma.
+This repository documents the design and development of **Fudge Recipe**, including the progression from an early-stage **interactive UX/UI prototype** created in Figma.
 
-To help readers quickly understand the user flow and screen structure, a **click-through Figma prototype** is available. It demonstrates the core navigation and layout of the application and can be explored directly in the browser.
+To help understand the overall user flow and screen structure, a **click-through Figma prototype** is available. It demonstrates the core navigation and layout of the application and can be explored in the browser.
 
 ### 🎨 Interactive Design Prototype
 
 <div align="center">
-  <img src="images/figma.PNG" alt="Figma navigable screens preview" width="100%">
+  <img src="assets/images/figma.png" alt="Figma navigable screens preview" width="100%">
 </div>
 
 <div align="center">
@@ -137,7 +137,7 @@ This section should list any major frameworks/libraries used to bootstrap your p
 
 <div align="center">
   <a href="https://github.com/othneildrew/Best-README-Template">
-    <img src="images/architecture.PNG" alt="Project Architecture" width="100%" height="100%">
+    <img src="assets/images/architecture.png" alt="Project Architecture" width="100%" height="100%">
   </a>
 </div>
 
@@ -275,4 +275,4 @@ Use this space to list resources you find helpful and would like to give credit 
 [license-url]: https://github.com/othneildrew/Best-README-Template/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/othneildrew
-[product-screenshot]: images/screenshot.png
+[product-screenshot]: assets/images/screenshot.png
