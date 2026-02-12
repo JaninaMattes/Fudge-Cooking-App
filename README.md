@@ -113,9 +113,17 @@ Here's why:
 
 No single template fits every project, so this README will continue to evolve. Suggestions and improvements are always welcome—feel free to fork the repository, open an issue, or submit a pull request.
 
+- Your time should be focused on creating something meaningful
+- You shouldn't repeat the same setup and documentation work for every project
+- DRY principles apply to documentation just as much as they do to code
+
+No single template fits every project, so this README will continue to evolve. Suggestions and improvements are always welcome—feel free to fork the repository, open an issue, or submit a pull request.
+
+Use the `BLANK_README.md` file to get started.
 Use the `BLANK_README.md` file to get started.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
+
 
 
 
