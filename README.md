@@ -29,7 +29,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/othneildrew/Best-README-Template">
-    <img src="images/logo.PNG" alt="Logo" width="100%" height="100%">
+    <img src="images/logo.png" alt="Logo" width="100%" height="100%">
   </a>
 
   <h3 align="center">Best-README-Template</h3>
@@ -88,7 +88,7 @@ To help readers quickly understand the user flow and screen structure, a **click
 ### 🎨 Interactive Design Prototype
 
 <div align="center">
-  <img src="images/figma.PNG" alt="Figma navigable screens preview" width="100%">
+  <img src="images/figma.png" alt="Figma navigable screens preview" width="100%">
 </div>
 
 <div align="center">
@@ -137,7 +137,7 @@ This section should list any major frameworks/libraries used to bootstrap your p
 
 <div align="center">
   <a href="https://github.com/othneildrew/Best-README-Template">
-    <img src="images/architecture.PNG" alt="Project Architecture" width="100%" height="100%">
+    <img src="images/architecture.png" alt="Project Architecture" width="100%" height="100%">
   </a>
 </div>
 
