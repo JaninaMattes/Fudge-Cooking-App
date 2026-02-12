@@ -26,10 +26,6 @@ public class ShoppingListServiceImpl implements ShoppingListService {
         Integer productId = 0;
         try {
             productId = shoppingListRepository.createProductInCurrentShoppingList(userId, product);
-<<<<<<< HEAD
-=======
-
->>>>>>> c8c9ba2 (backend: Cleanup repositories)
             if (productId != 0) {
                 Integer tagId = shoppingListRepository.createDietryTag("");
                 shoppingListRepository.createProductTag(productId, tagId);

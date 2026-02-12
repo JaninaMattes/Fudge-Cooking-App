@@ -34,7 +34,7 @@ public class InventoryServiceImpl implements InventoryService {
         Integer productId = 0;
         try {
             // add new product to inventory list
-            Integer inventorylistId = this.productRepository.getInventorylistId(userId);
+            Integer inventorylistId = this.productRepository.getInventoryListId(userId);
             productId = this.productRepository.createProductInInventoryList(product, inventorylistId);
             if (productId != 0) {
                 ArrayList<Tag> productTags = product.getProductTags();
@@ -62,7 +62,7 @@ public class InventoryServiceImpl implements InventoryService {
     public Integer updateProductOnInventoryListById(Product product, int userId) {
         Integer result = 0;
         try {
-            Integer inventorylistId = this.productRepository.getInventorylistId(userId);
+            Integer inventorylistId = this.productRepository.getInventoryListId(userId);
             if (inventorylistId != 0) {
                 Image image = product.getProductImage();
                 if (image != null && image.getImageId() != 0) { // if product has an image
@@ -82,7 +82,7 @@ public class InventoryServiceImpl implements InventoryService {
         // updata all products on the inventory list
         Integer result = 0;
         try {
-            Integer invlistid = this.productRepository.getInventorylistId(userId);
+            Integer invlistid = this.productRepository.getInventoryListId(userId);
             for (Product product : products) {
                 if (product.getProductId() != 0) {
                     result += this.productRepository.updateProductInInventoryList(userId, product, invlistid);
@@ -145,7 +145,7 @@ public class InventoryServiceImpl implements InventoryService {
     public Integer deleteProductOnInventoryListById(Integer userId, Integer productId) {
         Integer result = 0;
         try {
-            Integer inventorylistId = this.productRepository.getInventorylistId(userId);
+            Integer inventorylistId = this.productRepository.getInventoryListId(userId);
             // we do not use 0 as ID/PK in DB
             if (inventorylistId != 0) {
                 // first delete dietry tag + product tag
@@ -176,7 +176,7 @@ public class InventoryServiceImpl implements InventoryService {
         Integer result = 0;
         try {
             if (userId != 0) {
-                Integer inventorylistId = this.productRepository.getInventorylistId(userId);
+                Integer inventorylistId = this.productRepository.getInventoryListId(userId);
                 // we do not use 0 as ID/PK in DB
                 if (inventorylistId != 0) {
                     // set to NULL

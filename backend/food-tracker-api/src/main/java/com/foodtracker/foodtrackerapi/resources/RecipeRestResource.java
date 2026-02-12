@@ -17,10 +17,7 @@ import com.foodtracker.foodtrackerapi.Constants;
 import com.foodtracker.foodtrackerapi.models.Recipe;
 import com.foodtracker.foodtrackerapi.services.RecipeRestService;
 import com.foodtracker.foodtrackerapi.services.RecipeService;
-<<<<<<< HEAD
 
-=======
->>>>>>> c8c9ba2 (backend: Cleanup repositories)
 /**
  * RecipeController class to retrieve matching recipes from external Spoonacular API.
  * 

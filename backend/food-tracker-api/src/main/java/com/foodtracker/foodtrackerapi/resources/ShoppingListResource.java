@@ -11,14 +11,8 @@ import java.util.Optional;
 import com.foodtracker.foodtrackerapi.models.*;
 import com.foodtracker.foodtrackerapi.services.ShoppingListService;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
->>>>>>> 90d7a59 (src: Initial commit)
-=======
->>>>>>> c8c9ba2 (backend: Cleanup repositories)
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,14 +29,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("api/shoppinglist")
 public class ShoppingListResource {
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
     private static Logger logger = LogManager.getLogger(ShoppingListResource.class);
 
->>>>>>> 90d7a59 (src: Initial commit)
-=======
->>>>>>> c8c9ba2 (backend: Cleanup repositories)
     @Autowired
     ShoppingListService shoppingListService;
 
