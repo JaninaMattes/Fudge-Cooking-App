@@ -6,10 +6,6 @@ import org.apache.logging.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-<<<<<<< HEAD
-
-=======
->>>>>>> c8c9ba2 (backend: Cleanup repositories)
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.springframework.stereotype.Service;
@@ -51,11 +47,7 @@ public class BarcodeRestService {
                     .block(REQUEST_TIMEOUT);
 
         } catch (Exception err) {
-<<<<<<< HEAD
-            this.logger.error("Error occured when parsing Edamam API", err);
-=======
             this.logger.debug("Error occured when parsing Edamam API", err);
->>>>>>> c8c9ba2 (backend: Cleanup repositories)
         }
         // parse product from json string
         BarcodeProduct result = parseJsonDataToProduct(responseJson);
@@ -109,11 +101,7 @@ public class BarcodeRestService {
             }
 
         } catch (JSONException e) {
-<<<<<<< HEAD
             this.logger.error("Error occured parsing JsonString to JsonObject", e);
-=======
-            this.logger.debug("Error occured parsing JsonString to JsonObject", e);
->>>>>>> c8c9ba2 (backend: Cleanup repositories)
             e.printStackTrace();
         }
 
