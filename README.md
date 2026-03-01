@@ -80,9 +80,10 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
+Fudge is a mobile-first Android application for smart pantry tracking, barcode-based ingredient scanning, and personalised recipe recommendations. 
+Fudge serves as the foundation for the extended [Cookly](https://github.com/JaninaMattes/Smart-Pantry-Planner/). project.
 
 This repository documents the design and development of **Fudge Recipe**, including the progression from an early-stage **interactive UX/UI prototype** created in Figma.
-
 To help understand the overall user flow and screen structure, a **click-through Figma prototype** is available. It demonstrates the core navigation and layout of the application and can be explored in the browser.
 
 ### 🎨 Interactive Design Prototype
@@ -101,45 +102,38 @@ To help understand the overall user flow and screen structure, a **click-through
 
 ---
 
-### Why This README Exists
+## About The Project
 
-There are many great README templates available on GitHub; however, none fully matched the needs of this project. This README was created to be clear, informative, and immediately useful for both contributors and first-time readers.
-
-Here's why:
-
-- Your time should be focused on creating something meaningful
-- You shouldn't repeat the same setup and documentation work for every project
-- DRY principles apply to documentation just as much as they do to code
-
-No single template fits every project, so this README will continue to evolve. Suggestions and improvements are always welcome—feel free to fork the repository, open an issue, or submit a pull request.
-
-- Your time should be focused on creating something meaningful
-- You shouldn't repeat the same setup and documentation work for every project
-- DRY principles apply to documentation just as much as they do to code
-
-No single template fits every project, so this README will continue to evolve. Suggestions and improvements are always welcome—feel free to fork the repository, open an issue, or submit a pull request.
-
-Use the `BLANK_README.md` file to get started.
-Use the `BLANK_README.md` file to get started.
+Fudge helps users manage their home inventory, scan product 
+barcodes to log ingredients, and receive recipe suggestions 
+based on what they already have. The app follows MVVM 
+architecture with clean separation between UI, business logic 
+and data layers.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
 
+## Built With
 
+**Frontend (Android)**
+- Kotlin & Gradle
+- MVVM Architecture (ViewModel + LiveData)
+- Jetpack Navigation Component
+- Hilt (Dagger) – dependency injection
+- Retrofit + OkHttp – REST API communication
+- Glide / Picasso – image loading
+- ZXing – barcode scanning
+- WorkManager – background tasks
+- ViewBinding
 
-### Built With
+**Backend**
+- Java / Spring Boot
+- JWT Authentication
+- REST APIs
 
-This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
-
-* [Next.js](https://nextjs.org/)
-* [React.js](https://reactjs.org/)
-* [Vue.js](https://vuejs.org/)
-* [Angular](https://angular.io/)
-* [Svelte](https://svelte.dev/)
-* [Laravel](https://laravel.com)
-* [Bootstrap](https://getbootstrap.com)
-* [JQuery](https://jquery.com)
+**Design**
+- Figma – UI/UX prototyping
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -152,49 +146,33 @@ This section should list any major frameworks/libraries used to bootstrap your p
 <!-- GETTING STARTED -->
 ## Getting Started
 
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
-
 ### Prerequisites
-
-This is an example of how to list things you need to use the software and how to install them.
-* npm
-  ```sh
-  npm install npm@latest -g
-  ```
+- Android Studio Bumblebee or later
+- Android SDK 27+
+- Java 11+
 
 ### Installation
-
-_Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
-
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
-   ```sh
-   git clone https://github.com/your_username_/Project-Name.git
-   ```
-3. Install NPM packages
-   ```sh
-   npm install
-   ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
-   ```
+1. Clone the repo
+```sh
+   git clone https://github.com/JaninaMattes/Smart-Pantry-Planner.git
+```
+2. Open in Android Studio
+3. Add your API keys to `local.properties`
+```
+   SPOONACULAR_API_KEY=your_key_here
+```
+4. Run on emulator or physical device (API 27+)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
+## Architecture
 
-
-<!-- USAGE EXAMPLES -->
-## Usage
-
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
-
-_For more examples, please refer to the [Documentation](https://example.com)_
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-
+The app follows **MVVM** with a repository pattern:
+- **UI Layer** – Fragments + ViewBinding
+- **ViewModel Layer** – LiveData, Coroutines
+- **Repository Layer** – Retrofit API calls, local caching
+- **DI** – Hilt for dependency injection throughout
+  
 
 <!-- ROADMAP -->
 ## Roadmap
