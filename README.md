@@ -113,6 +113,21 @@ and data layers.
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
+## Architecture
+
+The app follows **MVVM** with a repository pattern:
+- **UI Layer** – Fragments + ViewBinding
+- **ViewModel Layer** – LiveData, Coroutines
+- **Repository Layer** – Retrofit API calls, local caching
+- **DI** – Hilt for dependency injection throughout
+  
+<div align="center">
+  <a href="https://github.com/othneildrew/Best-README-Template">
+    <img src="assets/images/architecture.png" alt="Project Architecture" width="100%" height="100%">
+  </a>
+</div>
+
+<p align="right">(<a href="#top">back to top</a>)</p>
 
 ## Built With
 
@@ -137,12 +152,6 @@ and data layers.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-<div align="center">
-  <a href="https://github.com/othneildrew/Best-README-Template">
-    <img src="assets/images/architecture.png" alt="Project Architecture" width="100%" height="100%">
-  </a>
-</div>
-
 <!-- GETTING STARTED -->
 ## Getting Started
 
@@ -165,14 +174,6 @@ and data layers.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-## Architecture
-
-The app follows **MVVM** with a repository pattern:
-- **UI Layer** – Fragments + ViewBinding
-- **ViewModel Layer** – LiveData, Coroutines
-- **Repository Layer** – Retrofit API calls, local caching
-- **DI** – Hilt for dependency injection throughout
-  
 
 <!-- ROADMAP -->
 ## Roadmap
