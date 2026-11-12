@@ -115,6 +115,18 @@ class InventoryRepositoryImplTest {
         }
 
         @Test
+        @DisplayName("writes an empty value when the image data decodes to no bytes")
+        void writesNullForImageDataWithoutBytes() throws Exception {
+            jdbc.givesKey("IMAGE_ID", 7);
+
+            // The MIME decoder ignores the characters that are not Base64, so
+            // the image holds an array without bytes.
+            repository.createProductImage(42, new Image(0, "Milk", "url", "!!!"));
+
+            verify(jdbc.statement()).setNull(4, Types.NULL);
+        }
+
+        @Test
         @DisplayName("writes an empty value when the image holds no data")
         void writesNullWithoutImageData() throws Exception {
             jdbc.givesKey("IMAGE_ID", 7);
