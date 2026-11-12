@@ -18,6 +18,7 @@
 	<properties>
 		<java.version>11</java.version>
 		<log4j2.version>2.17.1</log4j2.version>
+		<jacoco.version>0.8.11</jacoco.version>
 	</properties>
 	<!-- other dependencies -->
 	<dependencies>
@@ -124,6 +125,34 @@
 				<configuration>
 					<show>private</show>
 					<nohelp>true</nohelp>
+				</configuration>
+			</plugin>
+
+			<!-- Test coverage. Use "mvn verify" to write target/site/jacoco/index.html -->
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>${jacoco.version}</version>
+				<executions>
+					<execution>
+						<id>prepare-agent</id>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>report</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<excludes>
+						<!-- Bootstrap class. It only starts the Spring container. -->
+						<exclude>com/foodtracker/foodtrackerapi/FoodTrackerApiApplication.class</exclude>
+					</excludes>
 				</configuration>
 			</plugin>
 
