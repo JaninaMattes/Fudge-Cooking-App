@@ -191,6 +191,14 @@ class UserRepositoryImplTest {
 
             assertThat(repository.createUserImage(1)).isZero();
         }
+
+        @Test
+        @DisplayName("An insert gives the key 0 when the driver reports no key")
+        void insertGivesZeroWhenDriverReportsNoKey() {
+            jdbc.givesNoKeys();
+
+            assertThat(repository.createUserImage(1)).isZero();
+        }
     }
 
     @Nested

@@ -225,9 +225,19 @@ class ShoppingListRepositoryImplTest {
         }
 
         @Test
+        @DisplayName("A product with the key 0 gets no image and no tags")
+        void productWithKeyZeroIsSkipped() {
+            jdbc.givesRows(Collections.singletonList(product(0, "Milk")));
+
+            repository.getAllProductsInCurrentShoppingList(1);
+
+            verify(productRepository, org.mockito.Mockito.never()).getProductImage(anyInt());
+        }
+
+        @Test
         @DisplayName("A product without a key gets no image and no tags")
         void productWithoutKeyIsSkipped() {
-            jdbc.givesRows(Collections.singletonList(product(0, "Milk")));
+            jdbc.givesRows(Collections.singletonList(product(null, "Milk")));
 
             repository.getAllProductsInCurrentShoppingList(1);
 
