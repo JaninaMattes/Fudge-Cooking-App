@@ -19,6 +19,12 @@
 		<java.version>11</java.version>
 		<log4j2.version>2.17.1</log4j2.version>
 		<jacoco.version>0.8.11</jacoco.version>
+		<checkstyle.plugin.version>3.3.1</checkstyle.plugin.version>
+		<checkstyle.version>10.12.7</checkstyle.version>
+		<spotbugs.plugin.version>4.8.3.1</spotbugs.plugin.version>
+		<!-- Lowest coverage that the build accepts. See "mvn verify". -->
+		<coverage.instruction.minimum>0.95</coverage.instruction.minimum>
+		<coverage.branch.minimum>0.90</coverage.branch.minimum>
 	</properties>
 	<!-- other dependencies -->
 	<dependencies>
@@ -147,6 +153,33 @@
 							<goal>report</goal>
 						</goals>
 					</execution>
+					<execution>
+						<!-- The build stops when the coverage is too low. -->
+						<id>check-coverage</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>check</goal>
+						</goals>
+						<configuration>
+							<rules>
+								<rule>
+									<element>BUNDLE</element>
+									<limits>
+										<limit>
+											<counter>INSTRUCTION</counter>
+											<value>COVEREDRATIO</value>
+											<minimum>${coverage.instruction.minimum}</minimum>
+										</limit>
+										<limit>
+											<counter>BRANCH</counter>
+											<value>COVEREDRATIO</value>
+											<minimum>${coverage.branch.minimum}</minimum>
+										</limit>
+									</limits>
+								</rule>
+							</rules>
+						</configuration>
+					</execution>
 				</executions>
 				<configuration>
 					<excludes>
@@ -154,6 +187,58 @@
 						<exclude>com/foodtracker/foodtrackerapi/FoodTrackerApiApplication.class</exclude>
 					</excludes>
 				</configuration>
+			</plugin>
+
+			<!-- Style rules. Use "mvn checkstyle:check". -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-checkstyle-plugin</artifactId>
+				<version>${checkstyle.plugin.version}</version>
+				<dependencies>
+					<dependency>
+						<groupId>com.puppycrawl.tools</groupId>
+						<artifactId>checkstyle</artifactId>
+						<version>${checkstyle.version}</version>
+					</dependency>
+				</dependencies>
+				<configuration>
+					<configLocation>config/checkstyle/checkstyle.xml</configLocation>
+					<consoleOutput>true</consoleOutput>
+					<failsOnError>true</failsOnError>
+					<violationSeverity>error</violationSeverity>
+					<includeTestSourceDirectory>true</includeTestSourceDirectory>
+				</configuration>
+				<executions>
+					<execution>
+						<id>check-style</id>
+						<phase>validate</phase>
+						<goals>
+							<goal>check</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- Static analysis that searches for errors. Use "mvn spotbugs:check". -->
+			<plugin>
+				<groupId>com.github.spotbugs</groupId>
+				<artifactId>spotbugs-maven-plugin</artifactId>
+				<version>${spotbugs.plugin.version}</version>
+				<configuration>
+					<effort>Max</effort>
+					<threshold>Medium</threshold>
+					<excludeFilterFile>config/spotbugs/exclude.xml</excludeFilterFile>
+					<includeTests>false</includeTests>
+				</configuration>
+				<executions>
+					<execution>
+						<id>check-bugs</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>check</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 
 		</plugins>
