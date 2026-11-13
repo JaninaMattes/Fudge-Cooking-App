@@ -1,7 +1,7 @@
 # Demo video of the application
 
 This document answers one question: **which free tool records a scripted walk
-through the Fudge application, without a telephone?**
+through the Fudge application?**
 
 The answer is yes, such tools exist. You do not have to write your own tool.
 
