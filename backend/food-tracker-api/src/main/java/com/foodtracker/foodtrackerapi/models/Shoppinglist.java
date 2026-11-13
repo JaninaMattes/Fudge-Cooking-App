@@ -3,124 +3,65 @@ package com.foodtracker.foodtrackerapi.models;
 import java.util.ArrayList;
 import java.util.List;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+/**
+ * <p>
+ * The common part of the two shopping lists of a user. The database holds the
+ * same gen-spec pattern: one table ET_SHOPPINGLIST and two specializations.
+ * </p>
+ *
+ * @author Janina Mattes
+ * @see CurrentShoppingList
+ * @see OldShoppingList
+ */
+@Data
+@NoArgsConstructor
 abstract class Shoppinglist {
 
+    /** Primary key in the table ET_SHOPPINGLIST. */
     private Integer shoppingListId;
-    private List<Product> shoppingList = new ArrayList<Product>();
-    
+
+    /** Products that are on the list. */
+    private List<Product> shoppingList = new ArrayList<>();
+
     /**
-     * @param shoppingListId
+     * Makes an empty shopping list.
+     *
+     * @param shoppingListId primary key of the list
      */
-    public Shoppinglist(Integer shoppingListId) {
+    protected Shoppinglist(Integer shoppingListId) {
         this.shoppingListId = shoppingListId;
     }
 
-    
     /**
-     * @param shoppingListId
-     * @param shoppingList
+     * Makes a shopping list with products.
+     *
+     * @param shoppingListId primary key of the list
+     * @param shoppingList   products that are on the list
      */
-    public Shoppinglist(Integer shoppingListId, List<Product> shoppingList) {
+    protected Shoppinglist(Integer shoppingListId, List<Product> shoppingList) {
         this.shoppingListId = shoppingListId;
         this.shoppingList = shoppingList;
     }
 
-
     /**
-     * @return the shoppingListId
+     * Puts a product on the list.
+     *
+     * @param product product to put on the list
      */
-    public Integer getShoppingListId() {
-        return shoppingListId;
-    }
-
-
-    /**
-     * @param shoppingListId the shoppingListId to set
-     */
-    public void setShoppingListId(Integer shoppingListId) {
-        this.shoppingListId = shoppingListId;
-    }
-
-
-    /**
-     * @return the shoppingList
-     */
-    public List<Product> getShoppingList() {
-        return shoppingList;
-    }
-
-
-    /**
-     * @param shoppingList the shoppingList to set
-     */
-    public void setShoppingList(List<Product> shoppingList) {
-        this.shoppingList = shoppingList;
-    }
-
-
-    private void addProduct(Product product){
+    public void addProduct(Product product) {
         this.shoppingList.add(product);
     }
 
-    private void removeProduct(Product product){
-        this.shoppingList.remove(product);
-    }
-
-
-
-    /* (non-Javadoc)
-     * @see java.lang.Object#hashCode()
+    /**
+     * Takes a product off the list.
+     *
+     * @param product product to take off the list
+     * @return {@code true} if the product was on the list
      */
-    
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((shoppingList == null) ? 0 : shoppingList.hashCode());
-        result = prime * result + ((shoppingListId == null) ? 0 : shoppingListId.hashCode());
-        return result;
+    public boolean removeProduct(Product product) {
+        return this.shoppingList.remove(product);
     }
-
-
-    /* (non-Javadoc)
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
-    
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!(obj instanceof Shoppinglist)) {
-            return false;
-        }
-        Shoppinglist other = (Shoppinglist) obj;
-        if (shoppingList == null) {
-            if (other.shoppingList != null) {
-                return false;
-            }
-        } else if (!shoppingList.equals(other.shoppingList)) {
-            return false;
-        }
-        if (shoppingListId == null) {
-            if (other.shoppingListId != null) {
-                return false;
-            }
-        } else if (!shoppingListId.equals(other.shoppingListId)) {
-            return false;
-        }
-        return true;
-    }
-
-
-    /* (non-Javadoc)
-     * @see java.lang.Object#toString()
-     */
-    
-    @Override
-    public String toString() {
-        return "Shoppinglist [shoppingList=" + shoppingList + ", shoppingListId=" + shoppingListId + "]";
-    }
-    
-    
 }

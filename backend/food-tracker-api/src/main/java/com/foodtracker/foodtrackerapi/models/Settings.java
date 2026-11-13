@@ -1,100 +1,40 @@
 package com.foodtracker.foodtrackerapi.models;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+/**
+ * <p>
+ * The notification settings of one user. All settings are off when the
+ * application makes the profile. The user must give permission first.
+ * </p>
+ *
+ * @author Janina Mattes
+ */
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Settings {
 
+    /** Primary key in the table ET_PROFILE_SETTINGS. */
     private Integer settingsId;
-    private Boolean allowPushNotifications = false; // per default on false
+
+    /** Permission to send a push notification to the device. */
+    private Boolean allowPushNotifications = false;
+
+    /** Permission to remind the user before a product expires. */
     private Boolean remindBeforeProductExpiration = false;
+
+    /** Permission to suggest products for the shopping list. */
     private Boolean suggestProductsForShoppingList = false;
 
     /**
-     * @param settingsId
+     * Makes the settings of a new user. All permissions are off.
+     *
+     * @param settingsId primary key of the settings
      */
     public Settings(Integer settingsId) {
         this.settingsId = settingsId;
     }
-
-    public Settings(Integer settingsId, Boolean allowPushNotications, Boolean remindBeforeProductExpiration, Boolean suggestProductsForShopping){
-        this.settingsId = settingsId;
-        this.allowPushNotifications = allowPushNotications;
-        this.remindBeforeProductExpiration = remindBeforeProductExpiration;
-        this.suggestProductsForShoppingList = suggestProductsForShopping;
-    }
-
-
-    /**
-     * @return the settingsId
-     */
-    public Integer getSettingsId() {
-        return settingsId;
-    }
-
-
-    /**
-     * @param settingsId the settingsId to set
-     */
-    public void setSettingsId(Integer settingsId) {
-        this.settingsId = settingsId;
-    }
-
-
-    /**
-     * @return the allowPushNotifications
-     */
-    public Boolean getAllowPushNotifications() {
-        return allowPushNotifications;
-    }
-
-
-    /**
-     * @param allowPushNotifications the allowPushNotifications to set
-     */
-    public void setAllowPushNotifications(Boolean allowPushNotifications) {
-        this.allowPushNotifications = allowPushNotifications;
-    }
-
-
-    /**
-     * @return the remindBeforeProductExpiration
-     */
-    public Boolean getRemindBeforeProductExpiration() {
-        return remindBeforeProductExpiration;
-    }
-
-
-    /**
-     * @param remindBeforeProductExpiration the remindBeforeProductExpiration to set
-     */
-    public void setRemindBeforeProductExpiration(Boolean remindBeforeProductExpiration) {
-        this.remindBeforeProductExpiration = remindBeforeProductExpiration;
-    }
-
-
-    /**
-     * @return the suggestProductsForShoppingList
-     */
-    public Boolean getSuggestProductsForShoppingList() {
-        return suggestProductsForShoppingList;
-    }
-
-
-    /**
-     * @param suggestProductsForShoppingList the suggestProductsForShoppingList to set
-     */
-    public void setSuggestProductsForShoppingList(Boolean suggestProductsForShoppingList) {
-        this.suggestProductsForShoppingList = suggestProductsForShoppingList;
-    }
-
-    /* (non-Javadoc)
-     * @see java.lang.Object#toString()
-     */
-    
-    @Override
-    public String toString() {
-        return "Settings [allowPushNotifications=" + allowPushNotifications + ", remindBeforeProductExpiration="
-                + remindBeforeProductExpiration + ", settingsId=" + settingsId + ", suggestProductsForShoppingList="
-                + suggestProductsForShoppingList + "]";
-    }
-
-    
 }
