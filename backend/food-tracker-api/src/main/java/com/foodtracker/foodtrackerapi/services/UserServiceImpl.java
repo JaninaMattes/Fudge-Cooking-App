@@ -1,46 +1,62 @@
 package com.foodtracker.foodtrackerapi.services;
 
+import java.util.regex.Pattern;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.foodtracker.foodtrackerapi.exceptions.FTAuthException;
 import com.foodtracker.foodtrackerapi.models.Image;
 import com.foodtracker.foodtrackerapi.models.Settings;
 import com.foodtracker.foodtrackerapi.models.Tag;
 import com.foodtracker.foodtrackerapi.models.User;
 import com.foodtracker.foodtrackerapi.repositories.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Optional;
-import java.util.regex.Pattern;
-
+/**
+ * <p>
+ * The login, the registration and the profile of a user.
+ * </p>
+ *
+ * @author Janina Mattes
+ */
 @Service
 @Transactional
 public class UserServiceImpl implements UserService {
 
-    @Autowired
-    UserRepository userRepository;
+    /** Simple test of an email address: one part, an at sign, one more part. */
+    private static final Pattern EMAIL_PATTERN = Pattern.compile("^(.+)@(.+)$");
 
-    @Override
-    public User validateUser(String email, String password) throws FTAuthException {
-        if (email != null)
-            email = email.toLowerCase();
-        return userRepository.findByEmailAndPassword(email, password);
+    /** Value that the repositories give when a key is not available. */
+    private static final Integer NO_ID = 0;
+
+    private final UserRepository userRepository;
+
+    /**
+     * Makes the service.
+     *
+     * @param userRepository repository of the user data
+     */
+    public UserServiceImpl(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     @Override
-    public User registerUser(String firstName, String lastName, String email, String password) throws FTAuthException {
-        Pattern pattern = Pattern.compile("^(.+)@(.+)$");
-        if (email != null)
-            email = email.toLowerCase();
-        if (!pattern.matcher(email).matches())
+    public User validateUser(String email, String password) throws FTAuthException {
+        return userRepository.findByEmailAndPassword(toLowerCase(email), password);
+    }
+
+    @Override
+    public User registerUser(String firstName, String lastName, String email, String password)
+            throws FTAuthException {
+        String normalizedEmail = toLowerCase(email);
+        if (normalizedEmail == null || !EMAIL_PATTERN.matcher(normalizedEmail).matches()) {
             throw new FTAuthException("Invalid email format");
-        Integer count = userRepository.getCountByEmail(email);
-        if (count > 0)
+        }
+        if (userRepository.getCountByEmail(normalizedEmail) > 0) {
             throw new FTAuthException("Email already in use");
-        Integer userId = userRepository.createUser(firstName, lastName, email, password);
-        if (userId != 0) {
-            // create default values and associate them with user
+        }
+        Integer userId = userRepository.createUser(firstName, lastName, normalizedEmail, password);
+        if (!NO_ID.equals(userId)) {
             createDefaultValuesForUser(userId);
         }
         return userRepository.getUserById(userId);
@@ -48,32 +64,28 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserById(Integer userId) {
-        User user = null;
-        if (userId != 0) {
-            user = userRepository.getUserById(userId);
-            Image image = userRepository.getImageById(userId);
-            Settings settings = userRepository.getUserSettingsById(userId);
-            if (image != null) {
-                user.setUserImage(image);
-            }
-            if (settings != null) {
-                user.setUserSettings(settings);
-            }
-            Optional<ArrayList<Tag>> dietaryPreferences = userRepository.getUserDietryTags(userId);
-            if (!dietaryPreferences.isEmpty() && dietaryPreferences.get() != null) {
-                user.setDietaryPreferences(dietaryPreferences.get());
-            }
+        if (userId == null || NO_ID.equals(userId)) {
+            return null;
         }
+        User user = userRepository.getUserById(userId);
+        if (user == null) {
+            return null;
+        }
+        Image image = userRepository.getImageById(userId);
+        if (image != null) {
+            user.setUserImage(image);
+        }
+        Settings settings = userRepository.getUserSettingsById(userId);
+        if (settings != null) {
+            user.setUserSettings(settings);
+        }
+        userRepository.getUserDietryTags(userId).ifPresent(user::setDietaryPreferences);
         return user;
     }
 
     @Override
     public boolean existsByEmail(String email) {
-        boolean exists = false;
-        if (userRepository.existsByEmail(email) != null) {
-            exists = true;
-        }
-        return exists;
+        return userRepository.existsByEmail(email) != null;
     }
 
     @Override
@@ -103,7 +115,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Integer updateUserInformation(String firstName, String lastName, String email, Integer userId) {
+    public Integer updateUserInformation(String firstName, String lastName, String email,
+            Integer userId) {
         return userRepository.updateUserInformation(firstName, lastName, email, userId);
     }
 
@@ -114,7 +127,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Integer updateUserLoggedIn(Integer userId, Boolean loggedIn) {
-        return userRepository.updateUserLoggedIn(userId, loggedIn);
+        return userRepository.updateUserLoggedIn(userId, Boolean.TRUE.equals(loggedIn));
     }
 
     @Override
@@ -122,19 +135,24 @@ public class UserServiceImpl implements UserService {
         return userRepository.isUserLoggedIn(userId);
     }
 
-    // Helper function
+    /**
+     * Makes the empty lists and the default settings that a new user needs. The
+     * user interface shows these lists directly after the registration.
+     *
+     * @param userId key of the new user
+     */
     private void createDefaultValuesForUser(Integer userId) {
-        // create default image
         userRepository.createUserImage(userId);
-        // create default settings
         userRepository.createProfileSettings(userId);
-        // create inventory list
         userRepository.createInventoryList(userId);
-        // create default shoppinglists
-        Integer shopId = userRepository.createShoppingList(userId);
-        if (shopId != 0) {
-            userRepository.createCurrentShoppingList(shopId, userId);
-            userRepository.createOldShoppingList(shopId, userId);
+        Integer shoppingListId = userRepository.createShoppingList(userId);
+        if (!NO_ID.equals(shoppingListId)) {
+            userRepository.createCurrentShoppingList(shoppingListId, userId);
+            userRepository.createOldShoppingList(shoppingListId, userId);
         }
+    }
+
+    private static String toLowerCase(String email) {
+        return email != null ? email.toLowerCase() : null;
     }
 }
