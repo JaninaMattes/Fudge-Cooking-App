@@ -1,8 +1,7 @@
 package com.foodtracker.foodtrackerapi.common.security;
 
 import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
 import java.util.Date;
 
 import javax.crypto.SecretKey;
@@ -27,16 +26,22 @@ import io.jsonwebtoken.security.Keys;
  * </p>
  *
  * <p>
- * The signature uses HMAC with SHA-256. That algorithm needs a key of 32
- * bytes, and the configured text can be shorter. The class therefore takes the
- * SHA-256 hash of the text as the key. A short text stays a weak secret, so the
- * class writes a warning when the configuration holds no secret of its own.
+ * The signature uses HMAC with SHA-256. The library accepts a key of 32 bytes
+ * or more. A shorter text therefore gets zero bytes at its end. HMAC fills a
+ * short key with zero bytes in the same way, so the key keeps the strength of
+ * the text. A short text is a weak secret, and the class writes a warning for
+ * it.
+ * </p>
+ *
+ * <p>
+ * The class is final. The constructor can throw, and a class that nobody can
+ * extend gives no partly made object to a subclass.
  * </p>
  *
  * @author Janina Mattes
  */
 @Component
-public class TokenService {
+public final class TokenService {
 
     /** Name of the claim that holds the key of the user. */
     public static final String USER_ID_CLAIM = "userId";
@@ -62,7 +67,7 @@ public class TokenService {
                     + "Set FT_API_SECRET_KEY to a text of {} characters or more.",
                     MINIMUM_SECRET_LENGTH);
         }
-        this.signatureKey = Keys.hmacShaKeyFor(sha256(secret == null ? "" : secret));
+        this.signatureKey = Keys.hmacShaKeyFor(keyBytes(secret == null ? "" : secret));
         this.validityMillis = apiProperties.getTokenValidityMillis();
     }
 
@@ -115,13 +120,10 @@ public class TokenService {
         return Integer.parseInt(String.valueOf(read(token).get(USER_ID_CLAIM)));
     }
 
-    private static byte[] sha256(String text) {
-        try {
-            return MessageDigest.getInstance("SHA-256")
-                    .digest(text.getBytes(StandardCharsets.UTF_8));
-        } catch (NoSuchAlgorithmException e) {
-            // Every Java platform holds SHA-256, so this line never runs.
-            throw new IllegalStateException("The platform has no SHA-256", e);
-        }
+    private static byte[] keyBytes(String text) {
+        byte[] bytes = text.getBytes(StandardCharsets.UTF_8);
+        return bytes.length >= MINIMUM_SECRET_LENGTH
+                ? bytes
+                : Arrays.copyOf(bytes, MINIMUM_SECRET_LENGTH);
     }
 }
