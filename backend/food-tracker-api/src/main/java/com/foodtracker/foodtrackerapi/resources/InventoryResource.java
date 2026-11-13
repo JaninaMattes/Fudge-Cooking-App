@@ -1,159 +1,165 @@
 package com.foodtracker.foodtrackerapi.resources;
 
-import com.foodtracker.foodtrackerapi.models.Image;
-import com.foodtracker.foodtrackerapi.models.Inventorylist;
-import com.foodtracker.foodtrackerapi.models.Product;
-import com.foodtracker.foodtrackerapi.models.Tag;
-import com.foodtracker.foodtrackerapi.services.InventoryService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.sql.Date;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.foodtracker.foodtrackerapi.common.mapper.RequestMapper;
+import com.foodtracker.foodtrackerapi.models.Image;
+import com.foodtracker.foodtrackerapi.models.Inventorylist;
+import com.foodtracker.foodtrackerapi.models.Product;
+import com.foodtracker.foodtrackerapi.services.InventoryService;
+
+/**
+ * <p>
+ * The endpoints for the products that a user has at home.
+ * </p>
+ *
+ * @author Janina Mattes
+ */
 @RestController
 @RequestMapping("/api/products")
 public class InventoryResource {
 
-    @Autowired
-    InventoryService productService;
+    /**
+     * Length of the period for which a product counts as "expires soon". The
+     * dashboard and the notification of the client use this value.
+     */
+    static final int EXPIRATION_WARNING_DAYS = 3;
 
+    private final InventoryService productService;
+
+    /**
+     * Makes the resource.
+     *
+     * @param productService service of the inventory list
+     */
+    public InventoryResource(InventoryService productService) {
+        this.productService = productService;
+    }
+
+    /**
+     * Puts a product on the inventory list.
+     *
+     * @param productMap body with the product and the field userId
+     * @return the key of the new product
+     */
     @PostMapping("/add")
-    public ResponseEntity<Integer> addProductToInventaryList(@RequestBody Map<String, Object> productMap){
-        Integer userId = (Integer) productMap.get("userId");
-        Product product = mapToProduct(productMap);
+    public ResponseEntity<Integer> addProductToInventaryList(
+            @RequestBody Map<String, Object> productMap) {
+        Integer userId = RequestMapper.asInteger(productMap, "userId");
+        Product product = RequestMapper.toProduct(productMap);
         Integer productId = productService.addProductToInventoryList(product, userId);
         return new ResponseEntity<>(productId, HttpStatus.OK);
     }
 
+    /**
+     * Changes a product of the inventory list.
+     *
+     * @param productMap body with the product and the field userId
+     * @return the number of rows that changed
+     */
     @PutMapping("/update")
-    public Integer updateProductOnIneventaryListByID(@RequestBody Map<String, Object> productMap) {
-        Integer userId = (Integer) productMap.get("userId");
-        Product product = mapToProduct(productMap);
+    public Integer updateProductOnIneventaryListByID(
+            @RequestBody Map<String, Object> productMap) {
+        Integer userId = RequestMapper.asInteger(productMap, "userId");
+        Product product = RequestMapper.toProduct(productMap);
         return productService.updateProductOnInventoryListById(product, userId);
     }
 
+    /**
+     * Changes the image of a product.
+     *
+     * @param imageMap body with the fields imageId, imageName, imageUrl and
+     *                 imageBytes
+     * @return the number of rows that changed
+     */
     @PutMapping("/update/image")
-    public Integer updateProductImageOnIneventaryListByID(@RequestBody Map<String, Object> imageMap) {
-        Image image = mapToImage(imageMap);
+    public Integer updateProductImageOnIneventaryListByID(
+            @RequestBody Map<String, Object> imageMap) {
+        Image image = RequestMapper.toImage(imageMap);
         return productService.updateProductImage(image);
     }
 
-    @DeleteMapping("/delete") 
-    public Integer deleteProductOnInventaryList(@RequestBody Map<String, Object> productMap){
-        Integer productId = (Integer) productMap.get("productId");
-        Integer userId = (Integer) productMap.get("userId");
+    /**
+     * Takes a product off the inventory list. The row stays in the database, so
+     * the product is still available for the shopping lists.
+     *
+     * @param productMap body with the fields userId and productId
+     * @return the number of rows that changed
+     */
+    @DeleteMapping("/delete")
+    public Integer deleteProductOnInventaryList(@RequestBody Map<String, Object> productMap) {
+        Integer productId = RequestMapper.asInteger(productMap, "productId");
+        Integer userId = RequestMapper.asInteger(productMap, "userId");
         return productService.removeProductOnInventoryListById(userId, productId);
     }
 
-    // polling
+    /**
+     * Counts the products that expire soon. The client asks this question
+     * regularly to show a notification.
+     *
+     * @param userId key of the user
+     * @return the number of products
+     */
     @GetMapping(path = "/count/expiring/{userId}", produces = "application/json")
     public ResponseEntity<Integer> countExpiringProducts(@PathVariable("userId") Integer userId) {
-        Integer result = productService.countExpiringProducts(userId, 3);
+        Integer result = productService.countExpiringProducts(userId, EXPIRATION_WARNING_DAYS);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    @GetMapping(path="/all/{userId}", produces = "application/json")
-    public ResponseEntity<Optional<Inventorylist>> getInventoryList(@PathVariable("userId") Integer userId){
+    /**
+     * Reads the inventory list of a user.
+     *
+     * @param userId key of the user
+     * @return the inventory list with all products
+     */
+    @GetMapping(path = "/all/{userId}", produces = "application/json")
+    public ResponseEntity<Optional<Inventorylist>> getInventoryList(
+            @PathVariable("userId") Integer userId) {
         Optional<Inventorylist> inventory = productService.getInventoryList(userId);
         return new ResponseEntity<>(inventory, HttpStatus.OK);
     }
 
+    /**
+     * Reads the products of a user that expire soon.
+     *
+     * @param userId key of the user
+     * @return the products
+     */
     @GetMapping(path = "/all/expiring/{userId}", produces = "application/json")
-    public ResponseEntity<Optional<ArrayList<Product>>> getAllExpiringProducts(@PathVariable("userId") Integer userId) {
-        Optional<ArrayList<Product>> expProducts = productService.getAllProductWithExpDateUnder(userId, 3);
-        return new ResponseEntity<>(expProducts, HttpStatus.OK);
-    }
-
-
-    @PutMapping("/all/update")
-    public Integer updateAllProductsOnIneventaryListByID(@RequestBody Map<String, Object> productMap) {
-        Integer userId = (Integer) productMap.get("userId");
-        ArrayList<Map<String, Object>> inventoryList = (ArrayList<Map<String, Object>>) productMap.get("inventoryList");
-        return productService.updateAllProductsOnInventoryListByID(userId, mapToInventoryList(inventoryList));
-    }
-
-    private Product mapToProduct(Map<String, Object> productMap) { 
-        Integer productId = (Integer) productMap.get("productId");
-        String name = (String) productMap.get("productName");
-        String dateStr = (String) productMap.get("expirationDate");
-        Date expirationDate = convertStringToDate(dateStr);
-        String quantity = (String) productMap.get("quantity");
-        String manufacturer = (String) productMap.get("manufacturer");
-        String nutritionValue = (String) productMap.get("nutritionValue");
-        ArrayList<Map<String, Object>> tags = (ArrayList<Map<String, Object>>) productMap.get("productTags"); // Nested                                                                                             // array
-        ArrayList<Tag> productTag = mapToTagsList(tags);
-        Map<String, Object> imageMap = (Map<String, Object>) productMap.get("productImage");
-        Image image = mapToImage(imageMap);
-        return new Product(productId, name, expirationDate, quantity, manufacturer, nutritionValue, image, productTag);
-    }
-
-    private ArrayList<Tag> mapToTagsList(ArrayList<Map<String, Object>> tags) {
-        ArrayList<Tag> tagsList = new ArrayList<>();
-        for (Map<String, Object> tag : tags) {
-            Integer tagId = (Integer) tag.get("tagId");
-            String label = (String) tag.get("label");
-            tagsList.add(new Tag(tagId, label));
-        }
-        return tagsList;
-    }
-
-    private ArrayList<Product> mapToInventoryList(ArrayList<Map<String, Object>> inventoryList) {
-        ArrayList<Product> products = new ArrayList<>();
-        for (Map<String, Object> product : inventoryList) {
-            products.add(mapToProduct(product));
-        }
-        return products;
+    public ResponseEntity<Optional<ArrayList<Product>>> getAllExpiringProducts(
+            @PathVariable("userId") Integer userId) {
+        Optional<ArrayList<Product>> expiringProducts = productService
+                .getAllProductWithExpDateUnder(userId, EXPIRATION_WARNING_DAYS);
+        return new ResponseEntity<>(expiringProducts, HttpStatus.OK);
     }
 
     /**
-     * <p>
-     * Maps the incomming map<string, obj> to an image object.
-     * </p>
-     * 
-     * @param image
-     * @return Image
-     * 
-     * @author Janina Mattes
+     * Changes all products of the inventory list.
+     *
+     * @param productMap body with the field userId and the array inventoryList
+     * @return the number of rows that changed
      */
-    private Image mapToImage(Map<String, Object> image) {
-        // map incomming map<string, obj> to an image
-        Integer imageId = (Integer) image.get("imageId");
-        String imageName = (String) image.get("imageName");
-        String imageUrl = (String) image.get("imageUrl");
-        String base64String = (String) image.get("imageBytes");
-        // base64 encoding
-        return new Image(imageId, imageName, imageUrl, base64String);
-    }
-
-    private boolean isDateStrValid(String dateStr) {
-        DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        sdf.setLenient(false);
-        try {
-            sdf.parse(dateStr);
-        } catch (ParseException e) {
-            return false;
-        }
-        return true;
-    }
-
-    private Date convertStringToDate(String dateStr) {
-        Date date = null;
-        if (!isDateStrValid(dateStr)) {
-            dateStr = "2022-02-02";
-        }
-        try {
-            date = Date.valueOf(dateStr);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return date;
+    @PutMapping("/all/update")
+    public Integer updateAllProductsOnIneventaryListByID(
+            @RequestBody Map<String, Object> productMap) {
+        Integer userId = RequestMapper.asInteger(productMap, "userId");
+        List<Map<String, Object>> inventoryList = RequestMapper.asMapList(productMap,
+                "inventoryList");
+        return productService.updateAllProductsOnInventoryListByID(userId,
+                RequestMapper.toProducts(inventoryList));
     }
 }

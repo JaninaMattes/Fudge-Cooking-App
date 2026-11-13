@@ -1,19 +1,10 @@
 package com.foodtracker.foodtrackerapi.resources;
 
-import java.sql.Date;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import com.foodtracker.foodtrackerapi.models.*;
-import com.foodtracker.foodtrackerapi.services.ShoppingListService;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -25,154 +16,195 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.foodtracker.foodtrackerapi.common.mapper.RequestMapper;
+import com.foodtracker.foodtrackerapi.models.CurrentShoppingList;
+import com.foodtracker.foodtrackerapi.models.OldShoppingList;
+import com.foodtracker.foodtrackerapi.models.Product;
+import com.foodtracker.foodtrackerapi.services.ShoppingListService;
+
+/**
+ * <p>
+ * The endpoints for the two shopping lists of a user.
+ * </p>
+ *
+ * @author Janina Mattes
+ */
 @RestController
 @RequestMapping("api/shoppinglist")
 public class ShoppingListResource {
 
-    private static Logger logger = LogManager.getLogger(ShoppingListResource.class);
+    private final ShoppingListService shoppingListService;
 
-    @Autowired
-    ShoppingListService shoppingListService;
+    /**
+     * Makes the resource.
+     *
+     * @param shoppingListService service of the shopping lists
+     */
+    public ShoppingListResource(ShoppingListService shoppingListService) {
+        this.shoppingListService = shoppingListService;
+    }
 
+    /**
+     * Reads the current shopping list of a user.
+     *
+     * @param userId key of the user
+     * @return the list with all products
+     */
     @GetMapping(path = "/current/{userId}", produces = "application/json")
-    public ResponseEntity<Optional<CurrentShoppingList>> getCurrentShoppingListByID(@PathVariable("userId") Integer userId) {
-        Optional<CurrentShoppingList> shoppinglist = shoppingListService.getCurrentShoppingListByID(userId);
+    public ResponseEntity<Optional<CurrentShoppingList>> getCurrentShoppingListByID(
+            @PathVariable("userId") Integer userId) {
+        Optional<CurrentShoppingList> shoppinglist = shoppingListService
+                .getCurrentShoppingListByID(userId);
         return new ResponseEntity<>(shoppinglist, HttpStatus.OK);
     }
 
-    @GetMapping(path = "/old/{userId}", produces="application/json")
-    public ResponseEntity<Optional<OldShoppingList>> getOldShoppingListByID(@PathVariable("userId") Integer userId) {
-        Optional<OldShoppingList> shoppinglist = shoppingListService.getOldShoppingListByID(userId);
+    /**
+     * Reads the old shopping list of a user.
+     *
+     * @param userId key of the user
+     * @return the list with all products
+     */
+    @GetMapping(path = "/old/{userId}", produces = "application/json")
+    public ResponseEntity<Optional<OldShoppingList>> getOldShoppingListByID(
+            @PathVariable("userId") Integer userId) {
+        Optional<OldShoppingList> shoppinglist = shoppingListService
+                .getOldShoppingListByID(userId);
         return new ResponseEntity<>(shoppinglist, HttpStatus.OK);
     }
 
-    @PutMapping(path="/old/update/all", produces="application/json")
-    public Integer updateAllItemsOldShoppingList(@RequestBody Map<String, Object> shoppingListMap) {
-        Integer userId = (Integer) shoppingListMap.get("userId");
-        ArrayList<Map<String, Object>> shoppingList = (ArrayList<Map<String, Object>>) shoppingListMap.get("shoppingList");
-        return shoppingListService.updateAllItemsOldShoppingList(userId, mapToProductList(shoppingList));
+    /**
+     * Changes all products of the old shopping list.
+     *
+     * @param shoppingListMap body with the field userId and the array
+     *                        shoppingList
+     * @return the number of rows that changed
+     */
+    @PutMapping(path = "/old/update/all", produces = "application/json")
+    public Integer updateAllItemsOldShoppingList(
+            @RequestBody Map<String, Object> shoppingListMap) {
+        return shoppingListService.updateAllItemsOldShoppingList(
+                RequestMapper.asInteger(shoppingListMap, "userId"),
+                readProducts(shoppingListMap));
     }
 
-    @PutMapping(path="/current/update/all", produces="application/json")
-    public Integer updateAllItemsCurrentShoppingList(@RequestBody Map<String, Object> shoppingListMap) {
-        Integer userId = (Integer) shoppingListMap.get("userId");
-        ArrayList<Map<String, Object>> shoppingList = (ArrayList<Map<String, Object>>) shoppingListMap.get("shoppingList");
-        return shoppingListService.updateAllItemsOldShoppingList(userId, mapToProductList(shoppingList));
+    /**
+     * Changes all products of the current shopping list.
+     *
+     * @param shoppingListMap body with the field userId and the array
+     *                        shoppingList
+     * @return the number of rows that changed
+     */
+    @PutMapping(path = "/current/update/all", produces = "application/json")
+    public Integer updateAllItemsCurrentShoppingList(
+            @RequestBody Map<String, Object> shoppingListMap) {
+        return shoppingListService.updateAllItemsCurrentShoppingList(
+                RequestMapper.asInteger(shoppingListMap, "userId"),
+                readProducts(shoppingListMap));
     }
 
-    @PostMapping(path="/current/create", produces = "application/json")
-    public Integer createNewProductInCurrentShoppingList(@RequestBody Map<String, Object> shoppingListMap) {
-        Integer userId = (Integer) shoppingListMap.get("userId");
-        Product product = mapToProduct(shoppingListMap);
-        // add new product
+    /**
+     * Makes a product on the current shopping list. Only the current list
+     * accepts a new product.
+     *
+     * @param shoppingListMap body with the product and the field userId
+     * @return the key of the new product
+     */
+    @PostMapping(path = "/current/create", produces = "application/json")
+    public Integer createNewProductInCurrentShoppingList(
+            @RequestBody Map<String, Object> shoppingListMap) {
+        Integer userId = RequestMapper.asInteger(shoppingListMap, "userId");
+        Product product = RequestMapper.toProduct(shoppingListMap);
         return shoppingListService.createProductForCurrentShoppingList(userId, product);
     }
 
-    @PostMapping(path="/current/add", produces = "application/json")
-    public Integer addProductInCurrentShoppingList(@RequestBody Map<String, Object> shoppingListMap) {
-        Integer userId = (Integer) shoppingListMap.get("userId");
-        Integer productId = (Integer) shoppingListMap.get("productId");
-        // assign product by id to old shoppinglist, do not add new product
-        return shoppingListService.addProductInCurrentShoppingList(userId, productId);
+    /**
+     * Moves a product from the old list to the current list.
+     *
+     * @param shoppingListMap body with the fields userId and productId
+     * @return the number of rows that changed
+     */
+    @PostMapping(path = "/current/add", produces = "application/json")
+    public Integer addProductInCurrentShoppingList(
+            @RequestBody Map<String, Object> shoppingListMap) {
+        return shoppingListService.addProductInCurrentShoppingList(
+                RequestMapper.asInteger(shoppingListMap, "userId"),
+                RequestMapper.asInteger(shoppingListMap, "productId"));
     }
 
-    @PostMapping(path="/old/add", produces = "application/json")
-    public Integer addProductInOldShoppingList(@RequestBody Map<String, Object> shoppingListMap) {
-        Integer userId = (Integer) shoppingListMap.get("userId");
-        Integer productId = (Integer) shoppingListMap.get("productId");
-        // assign product by id to old shoppinglist, do not add new product
-        return shoppingListService.addProductInOldShoppingList(userId, productId);
+    /**
+     * Moves a product from the current list to the old list.
+     *
+     * @param shoppingListMap body with the fields userId and productId
+     * @return the number of rows that changed
+     */
+    @PostMapping(path = "/old/add", produces = "application/json")
+    public Integer addProductInOldShoppingList(
+            @RequestBody Map<String, Object> shoppingListMap) {
+        return shoppingListService.addProductInOldShoppingList(
+                RequestMapper.asInteger(shoppingListMap, "userId"),
+                RequestMapper.asInteger(shoppingListMap, "productId"));
     }
 
+    /**
+     * Changes one product of the current shopping list.
+     *
+     * @param shoppingListMap body with the product and the field userId
+     * @return the number of rows that changed
+     */
     @PutMapping("/current/update/single")
-    public Integer updateProductInCurrentShoppingList(@RequestBody Map<String, Object> shoppingListMap) {
-        Integer userId = (Integer) shoppingListMap.get("userId");
-        Product product = mapToProduct(shoppingListMap);
+    public Integer updateProductInCurrentShoppingList(
+            @RequestBody Map<String, Object> shoppingListMap) {
+        Integer userId = RequestMapper.asInteger(shoppingListMap, "userId");
+        Product product = RequestMapper.toProduct(shoppingListMap);
         return shoppingListService.updateProductInCurrentShoppingList(userId, product);
     }
 
+    /**
+     * Changes one product of the old shopping list.
+     *
+     * @param shoppingListMap body with the product and the field userId
+     * @return the number of rows that changed
+     */
     @PutMapping("/old/update/single")
-    public Integer updateProductInOldShoppingList(@RequestBody Map<String, Object> shoppingListMap) {
-        Integer userId = (Integer) shoppingListMap.get("userId");
-        Product product = mapToProduct(shoppingListMap);
+    public Integer updateProductInOldShoppingList(
+            @RequestBody Map<String, Object> shoppingListMap) {
+        Integer userId = RequestMapper.asInteger(shoppingListMap, "userId");
+        Product product = RequestMapper.toProduct(shoppingListMap);
         return shoppingListService.updateProductInOldShoppingList(userId, product);
     }
 
-    @DeleteMapping("/current/delete/single") 
-    public Integer deleteProductInCurrentShoppingList(@RequestBody Map<String, Object> shoppingListMap) {
-        Integer userId = (Integer) shoppingListMap.get("userId");
-        Integer productId = (Integer) shoppingListMap.get("productId");
-        return shoppingListService.removeProductInCurrentShoppingList(userId, productId);
+    /**
+     * Takes a product off the current shopping list. The row stays in the
+     * database.
+     *
+     * @param shoppingListMap body with the fields userId and productId
+     * @return the number of rows that changed
+     */
+    @DeleteMapping("/current/delete/single")
+    public Integer deleteProductInCurrentShoppingList(
+            @RequestBody Map<String, Object> shoppingListMap) {
+        return shoppingListService.removeProductInCurrentShoppingList(
+                RequestMapper.asInteger(shoppingListMap, "userId"),
+                RequestMapper.asInteger(shoppingListMap, "productId"));
     }
 
-    @DeleteMapping("/old/delete/single") 
-    public Integer deleteProductInOldShoppingList(@RequestBody Map<String, Object> shoppingListMap) {
-        int userId = (int) shoppingListMap.get("userId");
-        int productId = (int) shoppingListMap.get("productId");
-        return shoppingListService.removeProductInOldShoppingList(userId, productId);
+    /**
+     * Takes a product off the old shopping list. The row stays in the database.
+     *
+     * @param shoppingListMap body with the fields userId and productId
+     * @return the number of rows that changed
+     */
+    @DeleteMapping("/old/delete/single")
+    public Integer deleteProductInOldShoppingList(
+            @RequestBody Map<String, Object> shoppingListMap) {
+        return shoppingListService.removeProductInOldShoppingList(
+                RequestMapper.asInteger(shoppingListMap, "userId"),
+                RequestMapper.asInteger(shoppingListMap, "productId"));
     }
 
-    private ArrayList<Product> mapToProductList(ArrayList<Map<String, Object>> shoppingListMap) {
-        ArrayList<Product> products = new ArrayList<>();
-        for (Map<String, Object> product : shoppingListMap) {
-            products.add(mapToProduct(product));
-        }
-        return products;
-    }
-
-    private Product mapToProduct(Map<String, Object> productMap) { 
-        Integer productId = (Integer) productMap.get("productId");
-        String name = (String) productMap.get("productName");
-        String dateStr = (String) productMap.get("expirationDate");
-        Date expirationDate = convertStringToDate(dateStr);
-        String quantity = (String) productMap.get("quantity");
-        String manufacturer = (String) productMap.get("manufacturer");
-        String nutritionValue = (String) productMap.get("nutritionValue");
-        ArrayList<Map<String, Object>> tags = (ArrayList<Map<String, Object>>) productMap.get("productTags"); // Nested array
-        ArrayList<Tag> productTag = mapToTagsList(tags);
-        Map<String, Object> imageMap = (Map<String, Object>) productMap.get("productImage");
-        Image image = mapToImage(imageMap);
-        return new Product(productId, name, expirationDate, quantity, manufacturer, nutritionValue, image, productTag);
-    }
-    
-    private ArrayList<Tag> mapToTagsList(ArrayList<Map<String, Object>> tags) {
-        ArrayList<Tag> tagsList = new ArrayList<>();
-        for (Map<String, Object> tag : tags) {
-            Integer tagId = (Integer) tag.get("tagId");
-            String label = (String) tag.get("label");
-            tagsList.add(new Tag(tagId, label));
-        }
-        return tagsList;
-    }
-
-    private Image mapToImage(Map<String, Object> image){
-        Integer imageId = (Integer) image.get("imageId");
-        String imageName = (String) image.get("imageName");
-        String imageUrl = (String) image.get("imageUrl");
-        return new Image(imageId, imageName, imageUrl, null);
-    }
-
-    private boolean isDateStrValid(String dateStr) {
-        DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        sdf.setLenient(false);
-        try {
-            sdf.parse(dateStr);
-        } catch (ParseException e) {
-            return false;
-        }
-        return true;
-    }
-
-    private Date convertStringToDate(String dateStr) {
-        Date date = null;
-        if (!isDateStrValid(dateStr)) {
-            dateStr = "2022-02-02";
-        }
-        try {
-            date = Date.valueOf(dateStr);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return date;
+    private ArrayList<Product> readProducts(Map<String, Object> shoppingListMap) {
+        List<Map<String, Object>> products = RequestMapper.asMapList(shoppingListMap,
+                "shoppingList");
+        return RequestMapper.toProducts(products);
     }
 }
