@@ -29,13 +29,16 @@ GRADLE       := cd $(FRONTEND_DIR) && ./gradlew
 MVN_FLAGS    := -B
 GRADLE_FLAGS := --console=plain --stacktrace
 
+# The least free space that a build needs. See disk-check.
+DISK_MIN_MB  ?= 2048
+
 .DEFAULT_GOAL := help
 .PHONY: help all build test lint coverage clean verify \
         backend-build backend-test backend-lint backend-coverage backend-clean backend-run \
         frontend-build frontend-test frontend-lint frontend-coverage frontend-clean \
         frontend-sdk-check frontend-format frontend-verify backend-verify backend-bugs backend-docs \
         frontend-ui-test docs db-up db-down api-package api-up api-down api-logs \
-        emulator-create emulator-start demo-video demo-check
+        emulator-create emulator-start demo-video demo-check disk-check
 
 # -----------------------------------------------------------------------------
 #  Help
@@ -55,6 +58,21 @@ help: ## Shows this list of commands
 all: lint build test ## Runs the style check, the build and the tests of both parts
 
 verify: backend-verify frontend-verify ## Runs every check that the pipeline runs
+
+# A build writes into the project and into the caches of Maven and of Gradle
+# in the home directory. Without free space the compiler cannot write every
+# class file, and the tests then stop with NoClassDefFoundError, which looks
+# like an error of the code. This guard says the truth instead.
+disk-check: ## Stops when a volume holds less free space than DISK_MIN_MB
+	@for dir in . "$$HOME"; do \
+		free=$$(df -m "$$dir" | awk 'NR == 2 { print $$4 }'); \
+		if [ "$$free" -lt $(DISK_MIN_MB) ]; then \
+			echo "Stop: the volume of $$dir holds $$free MB free."; \
+			echo "      A build needs $(DISK_MIN_MB) MB."; \
+			echo "      Free space and run the command again."; \
+			exit 1; \
+		fi; \
+	done
 
 build: backend-build frontend-build ## Builds both parts
 
@@ -86,7 +104,7 @@ backend-coverage: ## Writes the coverage report to target/site/jacoco/index.html
 	$(MVN) $(MVN_FLAGS) clean verify
 	@echo "Report: $(BACKEND_DIR)/target/site/jacoco/index.html"
 
-backend-verify: ## Runs the style check, the tests, the coverage gate and SpotBugs
+backend-verify: disk-check ## Runs the style check, the tests, the coverage gate and SpotBugs
 	$(MVN) $(MVN_FLAGS) clean verify
 
 backend-run: ## Starts the REST API on the local machine
