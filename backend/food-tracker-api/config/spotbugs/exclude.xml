@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Findings that SpotBugs must not report for this project.
+
+  Each entry gives the reason. A new entry needs a reason as well, so that a
+  reader can see why the finding is acceptable here.
+-->
+<FindBugsFilter>
+
+    <!--
+      Spring gives each bean its collaborators through the constructor. The
+      bean keeps the reference, because the container holds one instance of
+      each collaborator for the whole application. A copy of a service or of a
+      repository is not possible and not wanted, so this finding does not apply
+      to a Spring application.
+    -->
+    <Match>
+        <Bug pattern="EI_EXPOSE_REP2"/>
+        <Or>
+            <Package name="com.foodtracker.foodtrackerapi.resources"/>
+            <Package name="com.foodtracker.foodtrackerapi.services"/>
+            <Package name="com.foodtracker.foodtrackerapi.repositories"/>
+            <Package name="com.foodtracker.foodtrackerapi.filters"/>
+            <Package name="com.foodtracker.foodtrackerapi.common.rest"/>
+        </Or>
+    </Match>
+
+    <!--
+      The model classes hold a Date and an ArrayList and give them back without
+      a copy. The REST API reads a model, writes it to JSON and drops it, so
+      nobody can change the model through the reference. A copy of each value
+      would make the code longer without a gain.
+    -->
+    <Match>
+        <Package name="com.foodtracker.foodtrackerapi.models"/>
+        <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2,MS_EXPOSE_REP"/>
+    </Match>
+
+    <!--
+      The repositories give a Date of the database to the statements of the
+      same database. The value never leaves the data layer.
+    -->
+    <Match>
+        <Package name="com.foodtracker.foodtrackerapi.repositories"/>
+        <Bug pattern="EI_EXPOSE_REP"/>
+    </Match>
+
+    <!--
+      Lombok writes the equals methods of the models. SpotBugs reads the
+      generated code and reports a style that the project does not control.
+    -->
+    <Match>
+        <Package name="com.foodtracker.foodtrackerapi.models"/>
+        <Bug pattern="NP_METHOD_PARAMETER_TIGHTENS_ANNOTATION,RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT"/>
+    </Match>
+
+    <!--
+      A repository is a Spring bean. The container makes it one time at the
+      start of the application and gives it to the other beans only after the
+      constructor ends. A Finalizer attack on such a bean is not possible.
+    -->
+    <Match>
+        <Package name="com.foodtracker.foodtrackerapi.repositories"/>
+        <Bug pattern="CT_CONSTRUCTOR_THROW"/>
+    </Match>
+
+    <!--
+      The method insertAndGetKey gives the statement to the JdbcTemplate of
+      Spring. The template closes the statement, also when the statement
+      throws. This is the contract of a PreparedStatementCreator.
+    -->
+    <Match>
+        <Class name="com.foodtracker.foodtrackerapi.repositories.AbstractJdbcRepository"/>
+        <Bug pattern="OBL_UNSATISFIED_OBLIGATION_EXCEPTION_EDGE"/>
+    </Match>
+
+    <!--
+      The method readKey gives an Integer back, because the keys of this
+      database are whole numbers. The driver can give a Long, so the method
+      converts the value. The conversion makes one Integer object, which is not
+      a performance problem for one insert.
+    -->
+    <Match>
+        <Class name="com.foodtracker.foodtrackerapi.repositories.AbstractJdbcRepository"/>
+        <Method name="readKey"/>
+        <Bug pattern="BX_UNBOXING_IMMEDIATELY_REBOXED"/>
+    </Match>
+
+    <!--
+      The class Attempt catches every exception on purpose. It is the one place
+      of the application that turns an error of the database or of an external
+      API into a default value and a log entry.
+    -->
+    <Match>
+        <Class name="com.foodtracker.foodtrackerapi.common.utils.Attempt"/>
+        <Bug pattern="REC_CATCH_EXCEPTION"/>
+    </Match>
+
+    <!--
+      The configuration class holds the credentials as text, because Spring
+      reads them from the environment as text.
+    -->
+    <Match>
+        <Class name="com.foodtracker.foodtrackerapi.common.config.ApiProperties"/>
+        <Bug pattern="HARD_CODE_PASSWORD"/>
+    </Match>
+
+</FindBugsFilter>

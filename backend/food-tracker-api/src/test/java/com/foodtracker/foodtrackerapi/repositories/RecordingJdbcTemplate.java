@@ -89,6 +89,9 @@ class RecordingJdbcTemplate extends JdbcTemplate {
     /** Keys that the next {@code INSERT} gives back. */
     private Map<String, Object> generatedKeys = Collections.emptyMap();
 
+    /** {@code true} if the next {@code INSERT} reports no key at all. */
+    private boolean withoutKeys;
+
     /** Error that each statement throws. It is {@code null} by default. */
     private RuntimeException failure;
 
@@ -152,6 +155,17 @@ class RecordingJdbcTemplate extends JdbcTemplate {
      */
     RecordingJdbcTemplate givesKey(String column, Object value) {
         return givesKeys(Collections.singletonMap(column, value));
+    }
+
+    /**
+     * Lets the next {@code INSERT} report no key at all. A database driver that
+     * cannot read the keys of a new row behaves in this way.
+     *
+     * @return this double, so that a test can chain the settings
+     */
+    RecordingJdbcTemplate givesNoKeys() {
+        this.withoutKeys = true;
+        return this;
     }
 
     /**
@@ -284,7 +298,9 @@ class RecordingJdbcTemplate extends JdbcTemplate {
             Mockito.when(connection.prepareStatement(Mockito.anyString(), Mockito.anyInt()))
                     .thenReturn(statement);
             creator.createPreparedStatement(connection);
-            keyHolder.getKeyList().add(generatedKeys);
+            if (!withoutKeys) {
+                keyHolder.getKeyList().add(generatedKeys);
+            }
         } catch (SQLException e) {
             throw new IllegalStateException(e);
         }
