@@ -1,9 +1,14 @@
+// The module core holds Kotlin code that needs no class of Android.
 plugins {
     id 'java-library'
-    id 'kotlin'
+    alias(libs.plugins.kotlin.jvm)
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+kotlin {
+    jvmToolchain(17)
 }
