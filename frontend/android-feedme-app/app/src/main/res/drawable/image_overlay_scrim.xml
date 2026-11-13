@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    A dark layer over the lower part of a picture. White text on a picture
+    must stay readable, also when the picture is bright.
+-->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <gradient
+        android:angle="90"
+        android:startColor="@color/scrim_strong"
+        android:centerColor="@color/scrim_soft"
+        android:endColor="@android:color/transparent"
+        android:type="linear" />
+    <corners android:radius="@dimen/radius_large" />
+</shape>
