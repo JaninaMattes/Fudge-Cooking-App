@@ -1,0 +1,9 @@
+# Demo flow: the user opens the shopping list.
+appId: com.mobilesystems.feedme
+name: Shopping list
+---
+- tapOn: "Shopping"
+- extendedWaitUntil:
+    visible: "Shopping"
+    timeout: 10000
+- takeScreenshot: build/demo/04-shopping-list

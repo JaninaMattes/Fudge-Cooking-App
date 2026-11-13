@@ -1,0 +1,21 @@
+# Demo flow: the user opens the inventory list and sees the products that
+# expire soon. The colour of each row shows the state of the product.
+appId: com.mobilesystems.feedme
+name: Inventory list
+---
+- tapOn: "Inventory"
+- extendedWaitUntil:
+    visible: "Inventory"
+    timeout: 10000
+
+- takeScreenshot: build/demo/02-inventory
+- scroll
+- takeScreenshot: build/demo/02-inventory-scrolled
+
+# The user opens one product and reads the details.
+- tapOn:
+    index: 0
+    text: ".*"
+    optional: true
+- takeScreenshot: build/demo/02-product-detail
+- back
