@@ -2,9 +2,5 @@
 <!-- Background of a screen in the dark mode. -->
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle">
-    <gradient
-        android:type="linear"
-        android:angle="135"
-        android:startColor="@color/surface_background"
-        android:endColor="@color/surface_card" />
+    <solid android:color="@color/surface_background" />
 </shape>
