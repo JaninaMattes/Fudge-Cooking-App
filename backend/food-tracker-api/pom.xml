@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.6.1</version>
+		<version>4.1.2</version>
 		<relativePath/>
 		<!-- lookup parent from repository -->
 	</parent>
@@ -14,49 +14,25 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>food-tracker-api</name>
 	<description>Rest API with Spring for Inventory Tracking.</description>
-	<!-- log4j logger -->
 	<properties>
-		<java.version>11</java.version>
-		<log4j2.version>2.17.1</log4j2.version>
-		<jacoco.version>0.8.11</jacoco.version>
-		<checkstyle.plugin.version>3.3.1</checkstyle.plugin.version>
+		<!-- The pipeline and the Docker image use Java 17. -->
+		<java.version>17</java.version>
+		<!-- Version of the libraries that this file holds in one place. -->
+		<jjwt.version>0.12.7</jjwt.version>
+		<jbcrypt.version>0.4</jbcrypt.version>
+		<json.version>20260814</json.version>
+		<jacoco.version>0.8.16</jacoco.version>
+		<checkstyle.plugin.version>3.6.0</checkstyle.plugin.version>
 		<checkstyle.version>10.12.7</checkstyle.version>
-		<spotbugs.plugin.version>4.8.3.1</spotbugs.plugin.version>
+		<spotbugs.plugin.version>4.10.5.0</spotbugs.plugin.version>
+		<javadoc.plugin.version>3.11.2</javadoc.plugin.version>
 		<!-- Lowest coverage that the build accepts. See "mvn verify". -->
 		<coverage.instruction.minimum>0.95</coverage.instruction.minimum>
 		<coverage.branch.minimum>0.90</coverage.branch.minimum>
 	</properties>
-	<!-- other dependencies -->
 	<dependencies>
-		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-collections4</artifactId>
-			<version>4.4</version>
-		</dependency>
 
-		<dependency>
-			<groupId>io.jsonwebtoken</groupId>
-			<artifactId>jjwt</artifactId>
-			<version>0.9.1</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.mindrot</groupId>
-			<artifactId>jbcrypt</artifactId>
-			<version>0.4</version>
-		</dependency>
-
-		<dependency>
-			<groupId>javax.xml.bind</groupId>
-			<artifactId>jaxb-api</artifactId>
-			<version>2.3.0</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-jdbc</artifactId>
-		</dependency>
-
+		<!-- Web layer, data layer and the client of the external REST APIs. -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -64,15 +40,13 @@
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-devtools</artifactId>
-			<scope>runtime</scope>
-			<optional>true</optional>
+			<artifactId>spring-boot-starter-jdbc</artifactId>
 		</dependency>
 
+		<!-- Holds WebClient. WebClientJsonHttpClient reads the external APIs. -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-webflux</artifactId>
-			<version>2.5.12</version>
 		</dependency>
 
 		<dependency>
@@ -82,27 +56,60 @@
 		</dependency>
 
 		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
+			<optional>true</optional>
+		</dependency>
+
+		<!-- Token of the login. jjwt-impl and jjwt-jackson run at run time only;
+		     the code uses the API of jjwt-api. -->
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt-api</artifactId>
+			<version>${jjwt.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt-impl</artifactId>
+			<version>${jjwt.version}</version>
+			<scope>runtime</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt-jackson</artifactId>
+			<version>${jjwt.version}</version>
+			<scope>runtime</scope>
+		</dependency>
+
+		<!-- Hash of the password. -->
+		<dependency>
+			<groupId>org.mindrot</groupId>
+			<artifactId>jbcrypt</artifactId>
+			<version>${jbcrypt.version}</version>
+		</dependency>
+
+		<!-- Reads the answer of the external REST APIs. See RecipeRestService. -->
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>${json.version}</version>
+		</dependency>
+
+		<!-- Writes the access methods, equals, hashCode and toString. -->
+		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
 
+		<!-- JUnit 5, AssertJ, Mockito and MockMvc. -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.json</groupId>
-			<artifactId>json</artifactId>
-			<version>20231013</version>
-		</dependency>
-
-		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-databind</artifactId>
-			<version>2.13.4.2</version>
 		</dependency>
 
 	</dependencies>
@@ -127,7 +134,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>3.3.1</version>
+				<version>${javadoc.plugin.version}</version>
 				<configuration>
 					<show>private</show>
 					<nohelp>true</nohelp>
@@ -249,7 +256,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>3.3.1</version>
+				<version>${javadoc.plugin.version}</version>
 				<configuration>
 					<stylesheetfile>${basedir}/src/main/javadoc/stylesheet.css</stylesheetfile>
 					<show>public</show>
