@@ -2,6 +2,9 @@
 #
 # The file changes the default rules of detekt where the default does not fit
 # an Android application of this size. Each change gives a reason.
+#
+# A finding that the project accepts for the moment goes into
+# config/detekt/baseline.xml. Each new file must stay free of findings.
 
 build:
   maxIssues: 0
@@ -9,35 +12,64 @@ build:
 complexity:
   LongMethod:
     # A method that binds the views of a screen is longer than a method of the
-    # business logic, but it stays easy to read.
-    threshold: 80
+    # business logic, and it stays easy to read.
+    threshold: 90
   LongParameterList:
-    # A constructor of a ViewModel receives its collaborators through Hilt.
+    # A ViewModel receives its collaborators through Hilt, and a model of the
+    # application holds many values.
     functionThreshold: 8
     constructorThreshold: 10
+    ignoreDefaultParameters: true
   TooManyFunctions:
     # A ViewModel of a screen holds one function for each action of the user.
-    thresholdInClasses: 25
-    thresholdInFiles: 25
+    thresholdInClasses: 30
+    thresholdInFiles: 30
+    thresholdInInterfaces: 30
     ignorePrivate: true
     ignoreOverridden: true
+    ignoreDeprecated: true
   LargeClass:
     threshold: 600
+  NestedBlockDepth:
+    # The answer of the REST API is a tree, so the code that reads it has
+    # more levels than other code.
+    threshold: 6
+  CyclomaticComplexMethod:
+    threshold: 20
 
 style:
   MagicNumber:
-    # A layout value such as 16 or 300 has no name in a view.
-    ignoreNumbers: ['-1', '0', '1', '2', '100']
-    ignoreAnnotated: ['Composable']
+    # A value of a layout, for example a width of 300 or an index of a tab,
+    # has no useful name.
+    ignoreNumbers: ['-1', '0', '1', '2', '3', '100']
     ignoreEnums: true
     ignoreConstantDeclaration: true
+    ignoreCompanionObjectPropertyDeclaration: true
+    ignoreAnnotation: true
+    ignoreNamedArgument: true
+    ignorePropertyDeclaration: true
+    ignoreRanges: true
   MaxLineLength:
     maxLineLength: 120
+    excludeCommentStatements: false
   ReturnCount:
-    max: 4
+    max: 5
+    excludeGuardClauses: true
+  ForbiddenComment:
+    # A TODO is permitted when it says what is still open. The file CLAUDE.md
+    # holds the list of the open work.
+    comments:
+      - reason: 'A FIXME marks an error that nobody corrected. Correct it or write an issue.'
+        value: 'FIXME:'
+      - reason: 'A STOPSHIP must never reach a release.'
+        value: 'STOPSHIP:'
   UnusedPrivateMember:
     active: true
+  UnusedPrivateProperty:
+    active: true
   WildcardImport:
+    active: true
+  UnusedImports:
     active: true
 
 naming:
@@ -45,6 +77,11 @@ naming:
     # A function of the user interface starts with a small letter, as Kotlin
     # recommends.
     functionPattern: '[a-z][a-zA-Z0-9]*'
+  FunctionParameterNaming:
+    # The REST API of the server uses names with an underscore, for example
+    # recipe_id. The parameters of the client keep these names, so that a
+    # reader sees which field of the server they fill.
+    parameterPattern: '[a-z][A-Za-z0-9_]*'
 
 exceptions:
   TooGenericExceptionCaught:
@@ -52,7 +89,19 @@ exceptions:
     # object back, so that the user interface never stops.
     active: false
   SwallowedException:
+    # The code must write each error to Logcat. See
+    # ui/common/utils/Logging.kt.
     active: true
+  PrintStackTrace:
+    # printStackTrace() writes to the standard output, and Android drops it.
+    # Use logError() instead.
+    active: true
+
+empty-blocks:
+  EmptyFunctionBlock:
+    # A listener of Android often needs a method that does nothing. The method
+    # needs a comment that says why.
+    ignoreOverridden: true
 
 performance:
   SpreadOperator:

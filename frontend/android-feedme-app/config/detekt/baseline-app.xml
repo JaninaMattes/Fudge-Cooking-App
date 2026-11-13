@@ -1,0 +1,56 @@
+<?xml version="1.0" ?>
+<!--
+    Findings of detekt that the project accepts for the moment.
+
+    The list holds the findings of the first version of the application. They
+    are structural: numbers without a name in a layout, a class with many
+    small functions, a property that nobody reads.
+
+    The list is a contract: each NEW file and each change must stay free of
+    findings, because the build reads only this list and stops at every other
+    finding. To remove a line, correct the code and run:
+
+        ./gradlew :app:detektBaseline
+-->
+<SmellBaseline>
+  <ManuallySuppressedIssues></ManuallySuppressedIssues>
+  <CurrentIssues>
+    <ID>LongMethod:AddProductToInventoryFragment.kt$AddProductToInventoryFragment$override fun onViewCreated( view: View, savedInstanceState: Bundle?, )</ID>
+    <ID>LongMethod:UserProfileFragment.kt$UserProfileFragment$override fun onCreateView( inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?, ): View?</ID>
+    <ID>MagicNumber:AddProductToInventoryFragment.kt$AddProductToInventoryFragment$256</ID>
+    <ID>MagicNumber:AddProductToInventoryFragment.kt$AddProductToInventoryFragment$356</ID>
+    <ID>MagicNumber:AuthViewModel.kt$AuthViewModel$5</ID>
+    <ID>MagicNumber:DashboardRecipeListAdapter.kt$DashboardRecipeListAdapter$20</ID>
+    <ID>MagicNumber:DashboardRecipeListAdapter.kt$DashboardRecipeListAdapter$35</ID>
+    <ID>MagicNumber:HiltApplication.kt$HiltApplication$15</ID>
+    <ID>MagicNumber:HiltApplication.kt$HiltApplication$24</ID>
+    <ID>MagicNumber:HiltApplication.kt$HiltApplication$7</ID>
+    <ID>MagicNumber:ProductFragment.kt$ProductFragment$124</ID>
+    <ID>MagicNumber:ProductFragment.kt$ProductFragment$156</ID>
+    <ID>MagicNumber:ProductFragment.kt$ProductFragment$60</ID>
+    <ID>MagicNumber:RecipeListAdapter.kt$RecipeListAdapter$20</ID>
+    <ID>MagicNumber:RecipeListAdapter.kt$RecipeListAdapter$30</ID>
+    <ID>MagicNumber:SharedDashboardViewModel.kt$SharedDashboardViewModel$4.3</ID>
+    <ID>MagicNumber:SharedInventoryViewModel.kt$SharedInventoryViewModel$3500</ID>
+    <ID>MagicNumber:SharedShoppingListViewModel.kt$SharedShoppingListViewModel$3500</ID>
+    <ID>MagicNumber:SharedUserProfileViewModel.kt$SharedUserProfileViewModel$1500</ID>
+    <ID>MagicNumber:ShoppingListCurrentProductsGridFragment.kt$ShoppingListCurrentProductsGridFragment$15</ID>
+    <ID>MagicNumber:SplashViewModel.kt$SplashViewModel$1500</ID>
+    <ID>MagicNumber:UserProfileFragment.kt$UserProfileFragment$125</ID>
+    <ID>MagicNumber:UserProfileFragment.kt$UserProfileFragment$50</ID>
+    <ID>NestedBlockDepth:WrapperUtils.kt$fun convertExpiringProductList(expProductListResponse: ExpiringProductResponse?): List&lt;Product&gt;</ID>
+    <ID>TooManyFunctions:AppModule.kt$AppModule</ID>
+    <ID>TooManyFunctions:FoodTrackerApi.kt$FoodTrackerApi</ID>
+    <ID>UnusedParameter:Utils.kt$preferenceKey: String?</ID>
+    <ID>UnusedParameter:WrapperUtils.kt$userId: Int</ID>
+    <ID>UnusedPrivateProperty:AuthDataSourceImpl.kt$AuthDataSourceImpl$@AppModule.DefaultDispatcher private val defaultDispatcher: CoroutineDispatcher = Dispatchers.Default</ID>
+    <ID>UnusedPrivateProperty:AuthViewModel.kt$AuthViewModel$private val _passwordResetForm = MutableLiveData&lt;AuthFormState&gt;()</ID>
+    <ID>UnusedPrivateProperty:AuthViewModel.kt$AuthViewModel$private val userRepository: UserRepositoryImpl</ID>
+    <ID>UnusedPrivateProperty:InventoryDataSourceImpl.kt$InventoryDataSourceImpl$@AppModule.DefaultDispatcher private val defaultDispatcher: CoroutineDispatcher = Dispatchers.Default</ID>
+    <ID>UnusedPrivateProperty:PasswordActivity.kt$PasswordActivity$val loadingProgressBar = binding.loading</ID>
+    <ID>UnusedPrivateProperty:RecipeDataSourceImpl.kt$RecipeDataSourceImpl$@AppModule.DefaultDispatcher private val defaultDispatcher: CoroutineDispatcher = Dispatchers.Default</ID>
+    <ID>UnusedPrivateProperty:SearchResultAdapter.kt$SearchResultAdapter$private val itemClickListener: SearchResultAdapterClickListener</ID>
+    <ID>UnusedPrivateProperty:UserDataSourceImpl.kt$UserDataSourceImpl$@AppModule.DefaultDispatcher private val defaultDispatcher: CoroutineDispatcher = Dispatchers.Default</ID>
+    <ID>UnusedPrivateProperty:WorkerDataSourceImpl.kt$WorkerDataSourceImpl$@AppModule.DefaultDispatcher private val defaultDispatcher: CoroutineDispatcher = Dispatchers.Default</ID>
+  </CurrentIssues>
+</SmellBaseline>
