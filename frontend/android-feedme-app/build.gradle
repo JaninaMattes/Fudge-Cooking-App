@@ -1,4 +1,4 @@
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
+// Build file of the whole project. It holds the settings that each module uses.
 buildscript {
     repositories {
         google()
@@ -12,6 +12,39 @@ buildscript {
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
+    }
+}
+
+plugins {
+    // Style of the Kotlin code. Use "./gradlew ktlintCheck".
+    id "org.jlleitschuh.gradle.ktlint" version "11.6.1"
+    // Static analysis of the Kotlin code. Use "./gradlew detekt".
+    id "io.gitlab.arturbosch.detekt" version "1.23.4"
+}
+
+subprojects {
+    apply plugin: "org.jlleitschuh.gradle.ktlint"
+    apply plugin: "io.gitlab.arturbosch.detekt"
+
+    ktlint {
+        version = "1.0.1"
+        android = true
+        ignoreFailures = false
+        // The build tools write these files, so the style rules do not apply.
+        filter {
+            exclude { element -> element.file.path.contains("generated/") }
+        }
+        reporters {
+            reporter "plain"
+            reporter "checkstyle"
+        }
+    }
+
+    detekt {
+        buildUponDefaultConfig = true
+        allRules = false
+        config = files("$rootDir/config/detekt/detekt.yml")
+        baseline = file("$rootDir/config/detekt/baseline.xml")
     }
 }
 
