@@ -1,6 +1,5 @@
 package com.mobilesystems.feedme.ui.dashboard
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,14 +13,13 @@ import com.mobilesystems.feedme.domain.model.Recipe
 import com.mobilesystems.feedme.ui.common.utils.abbreviateString
 import com.squareup.picasso.Picasso
 
-class DashboardRecipeListAdapter (
+class DashboardRecipeListAdapter(
     private val dataSet: List<Recipe>?,
-    private val itemClickListener: RecipeAdapterClickListener
+    private val itemClickListener: RecipeAdapterClickListener,
 ) : RecyclerView.Adapter<DashboardRecipeListAdapter.RecipeListViewHolder>() {
-
     private lateinit var imageUrl: String
 
-    //view binding
+    // view binding
     private var _itemBinding: DashboardNumberOneRecipeItemBinding? = null
     private val itemBinding get() = _itemBinding!!
 
@@ -29,8 +27,9 @@ class DashboardRecipeListAdapter (
      * Provide a reference to the type of views that you are using
      * (custom ViewHolder).
      */
-    inner class RecipeListViewHolder(itemBinding: DashboardNumberOneRecipeItemBinding) : RecyclerView.ViewHolder(itemBinding.root) {
-
+    inner class RecipeListViewHolder(
+        itemBinding: DashboardNumberOneRecipeItemBinding,
+    ) : RecyclerView.ViewHolder(itemBinding.root) {
         val cardView: CardView = itemBinding.noOneRecipeItemCardView
         val recipeImageView: ImageView
         val recipeTypeLabelTextView: TextView
@@ -47,7 +46,7 @@ class DashboardRecipeListAdapter (
             recipeCookingDifficulty = itemBinding.noOneRecipeCookingDifficulty
 
             // initialize clicklistener and pass clicked product for listitem position
-            cardView.setOnClickListener{ v ->
+            cardView.setOnClickListener { v ->
                 if (dataSet != null) {
                     itemClickListener.passData(dataSet[bindingAdapterPosition], v)
                 }
@@ -56,22 +55,31 @@ class DashboardRecipeListAdapter (
     }
 
     interface RecipeAdapterClickListener {
-        fun passData(recipe: Recipe, itemView: View)
+        fun passData(
+            recipe: Recipe,
+            itemView: View,
+        )
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecipeListViewHolder {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int,
+    ): RecipeListViewHolder {
         // Create a view which defines the UI of the list item
         _itemBinding = DashboardNumberOneRecipeItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return RecipeListViewHolder(itemBinding)
     }
 
-    override fun onBindViewHolder(recipeViewHolder: RecipeListViewHolder, position: Int) {
+    override fun onBindViewHolder(
+        recipeViewHolder: RecipeListViewHolder,
+        position: Int,
+    ) {
         if (dataSet != null) {
             // get selected product
             val currentItem = dataSet[position]
             // pass values to view items
             imageUrl = currentItem.imageUrl
-            if(imageUrl.isNotEmpty()) {
+            if (imageUrl.isNotEmpty()) {
                 // fit image
                 Picasso.get().load(imageUrl).fit().centerCrop().into(recipeViewHolder.recipeImageView)
             }

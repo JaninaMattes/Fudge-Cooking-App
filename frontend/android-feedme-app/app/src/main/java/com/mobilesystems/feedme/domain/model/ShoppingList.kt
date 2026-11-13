@@ -6,5 +6,5 @@ abstract class ShoppingList(
     @Transient
     open val shoppingListId: Int,
     @Transient
-    open val shoppingList: List<Product>? = null
-): Parcelable
+    open val shoppingList: List<Product>? = null,
+) : Parcelable

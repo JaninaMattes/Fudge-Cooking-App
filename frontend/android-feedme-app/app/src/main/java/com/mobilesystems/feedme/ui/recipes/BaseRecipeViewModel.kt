@@ -1,12 +1,10 @@
 package com.mobilesystems.feedme.ui.recipes
 
 import androidx.lifecycle.LiveData
-import com.mobilesystems.feedme.data.response.IngredientResponse
 import com.mobilesystems.feedme.domain.model.Product
 import com.mobilesystems.feedme.domain.model.Recipe
 
 interface BaseRecipeViewModel {
-
     fun selectedRecipe(recipe: Recipe)
 
     fun updateRecipe(recipe: Recipe) // Rating of recipe
@@ -30,5 +28,4 @@ interface BaseRecipeViewModel {
     fun loadAllUnAvailableIngredients(): LiveData<List<Product>?> // Helper function
 
     fun loadAllAvailableIngredients(): LiveData<List<Product>?> // Helper function
-
 }

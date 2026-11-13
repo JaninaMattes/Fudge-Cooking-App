@@ -8,8 +8,8 @@ package com.mobilesystems.feedme.common.networkresult
  * @param <T>
  */
 sealed class ResultAuth<out T : Any> {
-
     data class Success<out T : Any>(val data: T) : ResultAuth<T>()
+
     data class Error(val exception: Exception) : ResultAuth<Nothing>()
 
     override fun toString(): String {

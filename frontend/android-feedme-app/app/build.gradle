@@ -36,11 +36,17 @@ android {
         debug {
             // The report of the coverage needs this setting.
             enableUnitTestCoverage true
+            // 10.0.2.2 is the host of an emulator. A debug build and the demo
+            // therefore talk to the API that "docker compose up" started.
+            buildConfigField 'String', 'API_BASE_URL', '"http://10.0.2.2:80"'
         }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'),
                     'proguard-rules.pro'
+            // The address of the server of the university. It is the address
+            // that the client used before this setting.
+            buildConfigField 'String', 'API_BASE_URL', '"http://141.84.213.211:80"'
         }
     }
 
@@ -55,6 +61,9 @@ android {
 
     buildFeatures {
         viewBinding true
+        // AppModule reads BuildConfig.DEBUG. It writes the body of a request
+        // to Logcat in a debug build only.
+        buildConfig true
     }
 
     testOptions {

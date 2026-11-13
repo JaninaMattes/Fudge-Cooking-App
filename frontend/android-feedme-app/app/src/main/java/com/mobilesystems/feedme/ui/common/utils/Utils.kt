@@ -5,38 +5,40 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Build
-import android.preference.PreferenceManager
 import android.util.Log
 import com.google.gson.Gson
+import com.mobilesystems.feedme.common.logging.logError
 import com.mobilesystems.feedme.data.response.UserResponse
 import com.mobilesystems.feedme.domain.model.LoggedInUser
-import com.mobilesystems.feedme.domain.model.User
 import org.json.JSONObject
-import java.util.*
-
+import java.util.Base64
 
 /**
  * All utility functions that are commonly used.
  */
 
-fun convertTokenToUser(context: Context, jwt: String?): LoggedInUser? {
+fun convertTokenToUser(
+    context: Context,
+    jwt: String?,
+): LoggedInUser? {
     var user: LoggedInUser? = null
-    try{
-        if(jwt != null){
+    try {
+        if (jwt != null) {
             val decoded = decodeJWTToken(jwt)
             Log.d("Decoded token", decoded)
             val jsonObj = JSONObject(decoded)
-            user = LoggedInUser(
-                userId = jsonObj.get("userId") as Int,
-                firstName = jsonObj.get("firstName") as String,
-                lastName = jsonObj.get("lastName") as String,
-                email = jsonObj.get("email") as String
-            )
+            user =
+                LoggedInUser(
+                    userId = jsonObj.get("userId") as Int,
+                    firstName = jsonObj.get("firstName") as String,
+                    lastName = jsonObj.get("lastName") as String,
+                    email = jsonObj.get("email") as String,
+                )
             saveTokenToSharedPreference(context, jwt)
             saveLoggedInUserToSharedPreference(context, user)
         }
     } catch (e: Exception) {
-        e.printStackTrace()
+        logError("convert token to user", e)
     }
     return user
 }
@@ -46,18 +48,18 @@ fun saveObjectToSharedPreference(
     context: Context,
     preferenceFileName: String?,
     serializedObjectKey: String?,
-    `object` : Any?
+    value: Any?,
 ) {
-    try{
+    try {
         val sharedPreferences: SharedPreferences = context.getSharedPreferences(preferenceFileName, 0)
         val sharedPreferencesEditor = sharedPreferences.edit()
         val gson = Gson()
-        val serializedObject = gson.toJson(`object`)
+        val serializedObject = gson.toJson(value)
         sharedPreferencesEditor.putString(serializedObjectKey, serializedObject)
         sharedPreferencesEditor.apply()
-        Log.d("SharedPreferences", "Saved $`object` to shared preferences!")
+        Log.d("SharedPreferences", "Saved $value to shared preferences!")
     } catch (e: Exception) {
-        e.printStackTrace()
+        logError("save object to shared preference", e)
     }
 }
 
@@ -66,16 +68,16 @@ fun removeObjectFromSharedPreference(
     context: Context,
     preferenceFileName: String?,
     serializedObjectKey: String?,
-    `object` : Any?
+    value: Any?,
 ) {
-    try{
+    try {
         val sharedPreferences: SharedPreferences = context.getSharedPreferences(preferenceFileName, 0)
         val sharedPreferencesEditor = sharedPreferences.edit()
         sharedPreferencesEditor.remove(serializedObjectKey)
         sharedPreferencesEditor.apply()
-        Log.d("SharedPreferences", "Removed $`object` from shared preferences!")
+        Log.d("SharedPreferences", "Removed $value from shared preferences!")
     } catch (e: Exception) {
-        e.printStackTrace()
+        logError("remove object from shared preference", e)
     }
 }
 
@@ -84,9 +86,9 @@ fun <GenericClass> getSavedObjectFromPreference(
     context: Context,
     preferenceFileName: String?,
     preferenceKey: String?,
-    classType: Class<GenericClass>?
+    classType: Class<GenericClass>?,
 ): GenericClass? {
-    try{
+    try {
         val sharedPreferences = context.getSharedPreferences(preferenceFileName, 0)
         if (sharedPreferences.contains(preferenceKey)) {
             val gson = Gson()
@@ -94,7 +96,7 @@ fun <GenericClass> getSavedObjectFromPreference(
             return gson.fromJson(sharedPreferences.getString(preferenceKey, ""), classType)
         }
     } catch (e: Exception) {
-        e.printStackTrace()
+        logError("remove object from shared preference", e)
     }
     return null
 }
@@ -113,124 +115,186 @@ fun decodeJWTToken(jwt: String): String {
     }
 }
 
-fun saveTokenToSharedPreference(context: Context, jwt: String){
-    try{
-        saveObjectToSharedPreference(context,
+fun saveTokenToSharedPreference(
+    context: Context,
+    jwt: String,
+) {
+    try {
+        saveObjectToSharedPreference(
+            context,
             "mPreference",
-            "jwtToken", jwt)
+            "jwtToken",
+            jwt,
+        )
     } catch (e: Exception) {
-        e.printStackTrace()
+        logError("save token to shared preference", e)
     }
 }
 
-fun saveLoggedInUserToSharedPreference(context: Context, user: LoggedInUser){
-    try{
-        saveObjectToSharedPreference(context,
+fun saveLoggedInUserToSharedPreference(
+    context: Context,
+    user: LoggedInUser,
+) {
+    try {
+        saveObjectToSharedPreference(
+            context,
             "mPreference",
-            "loggedInUser", user)
+            "loggedInUser",
+            user,
+        )
     } catch (e: Exception) {
-        e.printStackTrace()
+        logError("save logged in user to shared preference", e)
     }
 }
 
-fun saveUserDataToSharedPreference(context: Context, user: UserResponse){
-    try{
-        saveObjectToSharedPreference(context,
+fun saveUserDataToSharedPreference(
+    context: Context,
+    user: UserResponse,
+) {
+    try {
+        saveObjectToSharedPreference(
+            context,
             "mPreference",
-            "userData", user)
+            "userData",
+            user,
+        )
     } catch (e: Exception) {
-        e.printStackTrace()
+        logError("save user data to shared preference", e)
     }
 }
 
-fun removeLoggedInUserFromSharedPreferences(context: Context, user: LoggedInUser){
-    try{
-        removeObjectFromSharedPreference(context,
+fun removeLoggedInUserFromSharedPreferences(
+    context: Context,
+    user: LoggedInUser,
+) {
+    try {
+        removeObjectFromSharedPreference(
+            context,
             "mPreference",
-            "loggedInUser", user)
+            "loggedInUser",
+            user,
+        )
     } catch (e: Exception) {
-        e.printStackTrace()
+        logError("remove logged in user from shared preferences", e)
     }
 }
 
-fun removeTokenFromSharedPreferences(context: Context, jwt: String){
-    try{
-        removeObjectFromSharedPreference(context,
+fun removeTokenFromSharedPreferences(
+    context: Context,
+    jwt: String,
+) {
+    try {
+        removeObjectFromSharedPreference(
+            context,
             "mPreference",
-            "jwtToken", jwt)
+            "jwtToken",
+            jwt,
+        )
     } catch (e: Exception) {
-        e.printStackTrace()
+        logError("remove token from shared preferences", e)
     }
 }
 
-fun removeDataFromSharedPreferences(context: Context, user: UserResponse){
-    try{
-        removeObjectFromSharedPreference(context,
+fun removeDataFromSharedPreferences(
+    context: Context,
+    user: UserResponse,
+) {
+    try {
+        removeObjectFromSharedPreference(
+            context,
             "mPreference",
-            "userData", user)
+            "userData",
+            user,
+        )
     } catch (e: Exception) {
-        e.printStackTrace()
+        logError("remove data from shared preferences", e)
     }
 }
 
-fun removeAllValuesFromSharedPreferences(context: Context, preferenceFileName: String = "mPreference"){
-    try{
+fun removeAllValuesFromSharedPreferences(
+    context: Context,
+    preferenceFileName: String = "mPreference",
+) {
+    try {
         val sharedPreferences: SharedPreferences = context.getSharedPreferences(preferenceFileName, 0)
         val sharedPreferencesEditor = sharedPreferences.edit()
         sharedPreferencesEditor.clear()
         sharedPreferencesEditor.apply()
         Log.d("SharedPreferences", "All entries deleted!")
     } catch (e: Exception) {
-        e.printStackTrace()
+        logError("remove all values from shared preferences", e)
     }
 }
 
-fun getLoggedInUser(context: Context) : LoggedInUser? {
+fun getLoggedInUser(context: Context): LoggedInUser? {
     var loggedInUser: LoggedInUser? = null
-    try{
-        //Retrieve current user id stored in preference
-        loggedInUser = getSavedObjectFromPreference(context, "mPreference",
-            "loggedInUser", LoggedInUser::class.java)
+    try {
+        // Retrieve current user id stored in preference
+        loggedInUser =
+            getSavedObjectFromPreference(
+                context,
+                "mPreference",
+                "loggedInUser",
+                LoggedInUser::class.java,
+            )
         Log.d("SharedPreferences", "Retrieved user with id ${loggedInUser?.userId} from shared preferences!")
     } catch (e: Exception) {
-        e.printStackTrace()
+        logError("get logged in user", e)
     }
     return loggedInUser
 }
 
 fun getUserDataFromSharedPreference(context: Context): UserResponse? {
     var userData: UserResponse? = null
-    try{
-        userData = getSavedObjectFromPreference(context, "mPreference",
-            "userData", UserResponse::class.java)
+    try {
+        userData =
+            getSavedObjectFromPreference(
+                context,
+                "mPreference",
+                "userData",
+                UserResponse::class.java,
+            )
         Log.d("SharedPreferences", "Retrieved user with id ${userData?.userId} from shared preferences!")
     } catch (e: Exception) {
-        e.printStackTrace()
+        logError("get user data from shared preference", e)
     }
     return userData
 }
 
-fun getJWTToken(context: Context) : String? {
-    //Retrieve current user id stored in preference
-    val jwt = getSavedObjectFromPreference(context, "mPreference",
-        "jwtToken", String::class.java)
+fun getJWTToken(context: Context): String? {
+    // Retrieve current user id stored in preference
+    val jwt =
+        getSavedObjectFromPreference(
+            context,
+            "mPreference",
+            "jwtToken",
+            String::class.java,
+        )
     Log.d("SharedPreferences", "Retrieved jwt token $jwt from shared preferences!")
     return jwt
 }
 
-fun doesPreferenceExist(context: Context, preferenceFileName: String?, preferenceKey: String?): Boolean {
+fun doesPreferenceExist(
+    context: Context,
+    preferenceFileName: String?,
+    preferenceKey: String?,
+): Boolean {
     var exists: Boolean = false
-    try{
+    try {
         val sharedPreferences = context.getSharedPreferences(preferenceFileName, 0)
         exists = sharedPreferences.contains(preferenceKey)
     } catch (e: Exception) {
-        e.printStackTrace()
+        logError("does preference exist", e)
     }
     return exists
 }
 
-fun isPreferencesSet(context: Context, preferenceFileName: String?, preferenceKey: String?,
-                     numberOfPreferences: Int): Boolean {
+fun isPreferencesSet(
+    context: Context,
+    preferenceFileName: String?,
+    preferenceKey: String?,
+    numberOfPreferences: Int,
+): Boolean {
     val sharedPreferences = context.getSharedPreferences(preferenceFileName, 0)
     return sharedPreferences.all.size == numberOfPreferences
 }

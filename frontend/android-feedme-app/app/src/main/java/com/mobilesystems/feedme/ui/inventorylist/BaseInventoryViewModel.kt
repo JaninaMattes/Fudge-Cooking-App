@@ -6,10 +6,9 @@ import com.mobilesystems.feedme.domain.model.Label
 import com.mobilesystems.feedme.domain.model.Product
 
 interface BaseInventoryViewModel {
-
     fun selectProduct(product: Product) // Select single product from inventory
 
-    fun getProductFromBarcodeScanResult(barcodeScanRes: String) : Product?
+    fun getProductFromBarcodeScanResult(barcodeScanRes: String): Product?
 
     fun addProductFromBarcodeScanResultToInventory(product: Product)
 

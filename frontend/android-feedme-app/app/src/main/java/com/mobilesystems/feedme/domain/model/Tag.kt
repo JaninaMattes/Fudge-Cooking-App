@@ -6,9 +6,8 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class Tag(
     val tagId: Int,
-    val label: String
-): Parcelable {
-
+    val label: String,
+) : Parcelable {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
@@ -17,7 +16,6 @@ data class Tag(
 
         if (tagId != other.tagId) return false
         if (label != other.label) return false
-
 
         return true
     }

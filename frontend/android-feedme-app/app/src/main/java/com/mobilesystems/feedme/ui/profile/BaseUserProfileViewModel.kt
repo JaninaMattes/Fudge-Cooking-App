@@ -6,7 +6,6 @@ import com.mobilesystems.feedme.domain.model.Image
 import com.mobilesystems.feedme.domain.model.User
 
 interface BaseUserProfileViewModel {
-
     fun loadLoggedInUser()
 
     fun updateLoggedInUser(user: User)

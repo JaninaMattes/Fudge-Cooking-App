@@ -8,7 +8,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.mobilesystems.feedme.data.repository.AuthRepositoryImpl
 import com.mobilesystems.feedme.data.repository.UserRepositoryImpl
-import com.mobilesystems.feedme.ui.common.utils.*
+import com.mobilesystems.feedme.ui.common.utils.doesPreferenceExist
+import com.mobilesystems.feedme.ui.common.utils.extractNecessaryUserData
+import com.mobilesystems.feedme.ui.common.utils.getLoggedInUser
+import com.mobilesystems.feedme.ui.common.utils.saveUserDataToSharedPreference
 import com.mobilesystems.feedme.ui.common.viewmodel.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
@@ -38,7 +41,7 @@ class SplashViewModel
             getCurrentUserId(context)
         }
 
-        override fun loadIsUserLoggedIn()  {
+        override fun loadIsUserLoggedIn() {
             viewModelScope.launch {
                 delay(1500)
                 val userId = currentUserId.value
@@ -55,25 +58,24 @@ class SplashViewModel
         override fun loadLoggedInUserData() {
             viewModelScope.launch {
                 // check if entry in preference already exists
-                if (!doesPreferenceExist(context, "mPreference", "userData"))
-                    {
-                        val userId = currentUserId.value
-                        if (userId != null && userId != 0) {
-                            // load user data
-                            val result = userRepository.preFetchLoggedInUser(userId)
-                            if (result != null) {
-                                // store only necessary pre-fetched data, omit password
-                                val context = getApplication<Application>().applicationContext
-                                saveUserDataToSharedPreference(context, extractNecessaryUserData(result))
-                            }
+                if (!doesPreferenceExist(context, "mPreference", "userData")) {
+                    val userId = currentUserId.value
+                    if (userId != null && userId != 0) {
+                        // load user data
+                        val result = userRepository.preFetchLoggedInUser(userId)
+                        if (result != null) {
+                            // store only necessary pre-fetched data, omit password
+                            val context = getApplication<Application>().applicationContext
+                            saveUserDataToSharedPreference(context, extractNecessaryUserData(result))
                         }
-                    } else {
+                    }
+                } else {
                     Log.d("SplashViewModel", "Preference already exists!")
                 }
             }
         }
 
-        private fun getCurrentUserId(context: Context): LiveData<Int?>  {
+        private fun getCurrentUserId(context: Context): LiveData<Int?> {
             val result = getLoggedInUser(context)
             _currentUserId.value = result?.userId
             return currentUserId

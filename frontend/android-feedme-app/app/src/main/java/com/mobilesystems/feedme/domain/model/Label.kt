@@ -5,84 +5,84 @@ package com.mobilesystems.feedme.domain.model
  * Tutorial: https://www.baeldung.com/kotlin/enum
  *           https://kotlinlang.org/docs/enum-classes.html
  */
-enum class Label(val label: String): IConsumptionLimit {
-
-    WHITE_MEAT("Light meat"){
+enum class Label(val label: String) : IConsumptionLimit {
+    WHITE_MEAT("Light meat") {
         override fun calculateExpirationDays() = 3
     },
-    RED_MEAT("Red meat"){
+    RED_MEAT("Red meat") {
         override fun calculateExpirationDays() = 5
     },
-    SAUSAGES("Sausage"){
+    SAUSAGES("Sausage") {
         override fun calculateExpirationDays() = 5
     },
-    FISH("Fish"){
+    FISH("Fish") {
         override fun calculateExpirationDays() = 5
     },
-    EGGS("Eggs"){
+    EGGS("Eggs") {
         override fun calculateExpirationDays() = 7
     },
-    DAIRY("Diary product"){
+    DAIRY("Diary product") {
         override fun calculateExpirationDays() = 7
     },
-    VEGETABLE("Vegetables"){
+    VEGETABLE("Vegetables") {
         override fun calculateExpirationDays() = 10
     },
-    FRUIT("Fruit"){
+    FRUIT("Fruit") {
         override fun calculateExpirationDays() = 14
     },
-    NUTS("Nuts"){
+    NUTS("Nuts") {
         override fun calculateExpirationDays() = 30
     },
-    MUESLI("Cereals"){
+    MUESLI("Cereals") {
         override fun calculateExpirationDays() = 30
     },
-    DRY_PRODUCT("Dry product"){
+    DRY_PRODUCT("Dry product") {
         override fun calculateExpirationDays() = 30
     },
-    FROZEN_MEAL("Frozen product"){
+    FROZEN_MEAL("Frozen product") {
         override fun calculateExpirationDays() = 14
     },
-    DRINK("Drinks"){
+    DRINK("Drinks") {
         override fun calculateExpirationDays() = 30
     },
-    CEREAL_PRODUCT("Cereal product"){
+    CEREAL_PRODUCT("Cereal product") {
         override fun calculateExpirationDays() = 30
     },
-    OIL("Oil"){
+    OIL("Oil") {
         override fun calculateExpirationDays() = 30
     },
-    BUTTER("Butter"){
+    BUTTER("Butter") {
         override fun calculateExpirationDays() = 30
     },
-    BAKERY("Bakery product"){
+    BAKERY("Bakery product") {
         override fun calculateExpirationDays() = 4
     },
-    NIBBLES("Munchies"){
+    NIBBLES("Munchies") {
         override fun calculateExpirationDays() = 14
     },
-    CONFECTIONARY("Sweets"){
+    CONFECTIONARY("Sweets") {
         override fun calculateExpirationDays() = 14
     },
-    HONEY("Honey"){
+    HONEY("Honey") {
         override fun calculateExpirationDays() = 30
     },
-    SPICES("Spices"){
+    SPICES("Spices") {
         override fun calculateExpirationDays() = 90
     },
-    SALT("Salt"){
+    SALT("Salt") {
         override fun calculateExpirationDays() = 365
     },
-    SUGGAR("Sugar"){
+    SUGGAR("Sugar") {
         override fun calculateExpirationDays() = 365
-    };
+    },
+    ;
 
     // custom properties
-    var printableLabel : String? = null
+    var printableLabel: String? = null
 
     // custom method
     fun customToString(): String {
-        return "[${label}] -> $printableLabel"
+        return "[$label] -> $printableLabel"
     }
 
     companion object {

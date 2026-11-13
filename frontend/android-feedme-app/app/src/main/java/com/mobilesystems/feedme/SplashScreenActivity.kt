@@ -2,15 +2,15 @@ package com.mobilesystems.feedme
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import kotlinx.coroutines.*
-import com.mobilesystems.feedme.ui.authentication.AuthViewModel
-import com.mobilesystems.feedme.ui.common.utils.getLoggedInUser
 import com.mobilesystems.feedme.ui.splash.SplashViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.launch
 
 /**
  * The purpose of the Splash Screen is to display a screen while the application
@@ -22,7 +22,6 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class SplashScreenActivity : AppCompatActivity() {
-
     // lazy delegate
     private val splashViewModel: SplashViewModel by viewModels()
 
@@ -44,28 +43,29 @@ class SplashScreenActivity : AppCompatActivity() {
         activityScope.cancel()
     }
 
-    private fun preFetchUserData(){
+    private fun preFetchUserData() {
         splashViewModel.loadLoggedInUserData()
     }
 
     private fun observeSplashLiveData() {
         splashViewModel.loadIsUserLoggedIn()
 
-        val loginObserver = Observer<Boolean?> { isLoggedIn ->
-            // The value is null until the server answers. The user then stays
-            // on the screen of the start.
-            if (isLoggedIn == true) {
-                // navigate to main
-                val intent = Intent(this@SplashScreenActivity, MainActivity::class.java)
-                startActivity(intent)
-                finish()
-            } else {
-                // navigate to login
-                val intent = Intent(this@SplashScreenActivity, LoginActivity::class.java)
-                startActivity(intent)
-                finish()
+        val loginObserver =
+            Observer<Boolean?> { isLoggedIn ->
+                // The value is null until the server answers. The user then stays
+                // on the screen of the start.
+                if (isLoggedIn == true) {
+                    // navigate to main
+                    val intent = Intent(this@SplashScreenActivity, MainActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                } else {
+                    // navigate to login
+                    val intent = Intent(this@SplashScreenActivity, LoginActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
             }
-        }
         // observe the live data
         splashViewModel.isUserLoggedInResult.observe(this@SplashScreenActivity, loginObserver)
     }

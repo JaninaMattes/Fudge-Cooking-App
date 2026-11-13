@@ -17,7 +17,6 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class DashboardExpiringProductListFragment : Fragment() {
-
     // delegate to main activity so that ViewModel is preserved
     private val sharedViewModel: SharedDashboardViewModel by activityViewModels()
 
@@ -25,21 +24,25 @@ class DashboardExpiringProductListFragment : Fragment() {
     private lateinit var expiringListRecyclerView: RecyclerView
     private lateinit var adapter: DashboardExpiringProductListAdapter
 
-    //view binding
+    // view binding
     private var _binding: DashboardExpiringProductsFragmentBinding? = null
     private val binding get() = _binding!!
 
-    private val listener = object: DashboardExpiringProductListAdapter.ExpiringProductsAdapterClickListener {
-        override fun passData(product: Product, itemView: View) {
-            // pass data and navigate to product detail view
-            Log.d(TAG, "Product ${product.productName} selected.")
-            sharedViewModel.selectProduct(product)
-            val action = DashboardFragmentDirections.actionNavigationDashboardToProductFragment(product)
-            Navigation.findNavController(itemView).navigate(action)
+    private val listener =
+        object : DashboardExpiringProductListAdapter.ExpiringProductsAdapterClickListener {
+            override fun passData(
+                product: Product,
+                itemView: View,
+            ) {
+                // pass data and navigate to product detail view
+                Log.d(TAG, "Product ${product.productName} selected.")
+                sharedViewModel.selectProduct(product)
+                val action = DashboardFragmentDirections.actionNavigationDashboardToProductFragment(product)
+                Navigation.findNavController(itemView).navigate(action)
+            }
         }
-    }
 
-    override fun onCreate(savedInstance: Bundle?){
+    override fun onCreate(savedInstance: Bundle?) {
         super.onCreate(savedInstance)
         sharedViewModel.loadExpiringProducts()
     }
@@ -47,7 +50,7 @@ class DashboardExpiringProductListFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         Log.d(TAG, "Called onCreateView.")
 
@@ -62,24 +65,28 @@ class DashboardExpiringProductListFragment : Fragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
 
         // Create the observer which updates the UI.
-        val productListObserver = Observer<List<Product>?> { productList: List<Product>? ->
-            // Update the UI and update the adapter for recyclerview
-            if (productList != null) {
-                val context = activity?.applicationContext
-                if(context != null) {
-                    adapter = DashboardExpiringProductListAdapter(context, productList, listener)
-                    expiringListRecyclerView.adapter = adapter
-                }else{
-                    Log.d(TAG, "App context is empty.")
+        val productListObserver =
+            Observer<List<Product>?> { productList: List<Product>? ->
+                // Update the UI and update the adapter for recyclerview
+                if (productList != null) {
+                    val context = activity?.applicationContext
+                    if (context != null) {
+                        adapter = DashboardExpiringProductListAdapter(context, productList, listener)
+                        expiringListRecyclerView.adapter = adapter
+                    } else {
+                        Log.d(TAG, "App context is empty.")
+                    }
+                } else {
+                    Log.d(TAG, "Productlist is empty..")
                 }
-            }else{
-                Log.d(TAG, "Productlist is empty..")
             }
-        }
 
         // update adapter after data is loaded
         sharedViewModel.expProductList.observe(viewLifecycleOwner, productListObserver)
@@ -92,6 +99,7 @@ class DashboardExpiringProductListFragment : Fragment() {
 
     companion object {
         const val TAG = "DashboardExpiringProductListFragment"
+
         fun newInstance() = DashboardExpiringProductListFragment()
     }
 }

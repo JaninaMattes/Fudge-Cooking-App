@@ -11,14 +11,13 @@ import com.mobilesystems.feedme.data.response.UserIdResponse
 import com.mobilesystems.feedme.data.response.UserResponse
 
 interface UserDataSource {
-
     suspend fun createDietryTag(request: UserDietryTagRequest): Resource<DietryTagResponse>
 
-    suspend fun getUserById(userId: Int) : Resource<UserResponse?>
+    suspend fun getUserById(userId: Int): Resource<UserResponse?>
 
-    suspend fun updateUserById(request: UpdateUserRequest) : Resource<UserIdResponse>
+    suspend fun updateUserById(request: UpdateUserRequest): Resource<UserIdResponse>
 
-    suspend  fun updateUserImageById(request: ImageRequest): Resource<ImageIdResponse>
+    suspend fun updateUserImageById(request: ImageRequest): Resource<ImageIdResponse>
 
     suspend fun deleteUserById(userId: Int): Resource<UserIdResponse>
 
@@ -29,5 +28,4 @@ interface UserDataSource {
     suspend fun allowReminder(allowSettings: UserAllowSettingsRequest): Resource<Int>
 
     suspend fun allowSuggestion(allowSettings: UserAllowSettingsRequest): Resource<Int>
-
 }

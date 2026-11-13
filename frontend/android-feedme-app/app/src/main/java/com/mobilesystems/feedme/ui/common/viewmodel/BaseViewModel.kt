@@ -9,8 +9,9 @@ import javax.inject.Inject
  * Helperclass
  */
 @HiltViewModel
-open class BaseViewModel @Inject constructor(application: Application) : AndroidViewModel(application) {
-
-    protected val context
-        get() = getApplication<Application>()
-}
+open class BaseViewModel
+    @Inject
+    constructor(application: Application) : AndroidViewModel(application) {
+        protected val context
+            get() = getApplication<Application>()
+    }
