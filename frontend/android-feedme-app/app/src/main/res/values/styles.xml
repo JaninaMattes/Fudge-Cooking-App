@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Components and text styles of the Fudge design system.
+
+    A layout uses a style and does not write the colour, the size and the
+    distance again for each view. The screens then look equal, and a change
+    needs one change in this file.
+-->
+<resources>
+
+    <!-- ===================================================================
+         Text. The type scale gives each text one clear task.
+         =================================================================== -->
+
+    <!-- The name of the application and the title of a start screen. -->
+    <style name="TextAppearance.Fudge.Display" parent="TextAppearance.MaterialComponents.Headline4">
+        <item name="android:fontFamily">@font/lato_bold</item>
+        <item name="android:textSize">@dimen/text_display</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:lineSpacingMultiplier">1.1</item>
+    </style>
+
+    <!-- The title of a screen, for example "Inventarliste". -->
+    <style name="TextAppearance.Fudge.Headline" parent="TextAppearance.MaterialComponents.Headline5">
+        <item name="android:fontFamily">@font/lato_bold</item>
+        <item name="android:textSize">@dimen/text_headline</item>
+        <item name="android:textColor">@color/text_primary</item>
+    </style>
+
+    <!-- The title of a section or of a card. -->
+    <style name="TextAppearance.Fudge.Title" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="android:fontFamily">@font/lato_bold</item>
+        <item name="android:textSize">@dimen/text_title</item>
+        <item name="android:textColor">@color/text_primary</item>
+    </style>
+
+    <!-- The name of a product or of a recipe in a list. -->
+    <style name="TextAppearance.Fudge.Subtitle" parent="TextAppearance.MaterialComponents.Subtitle1">
+        <item name="android:fontFamily">@font/lato_bold</item>
+        <item name="android:textSize">@dimen/text_title_small</item>
+        <item name="android:textColor">@color/text_primary</item>
+    </style>
+
+    <!-- A normal text. -->
+    <style name="TextAppearance.Fudge.Body" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="android:fontFamily">@font/lato_regular</item>
+        <item name="android:textSize">@dimen/text_body</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:lineSpacingMultiplier">1.25</item>
+    </style>
+
+    <!-- A text that gives more information, for example the amount. -->
+    <style name="TextAppearance.Fudge.BodySecondary" parent="TextAppearance.Fudge.Body">
+        <item name="android:textSize">@dimen/text_body_small</item>
+        <item name="android:textColor">@color/text_secondary</item>
+    </style>
+
+    <!-- A short text under a value, for example a date. -->
+    <style name="TextAppearance.Fudge.Caption" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:fontFamily">@font/lato_regular</item>
+        <item name="android:textSize">@dimen/text_caption</item>
+        <item name="android:textColor">@color/text_secondary</item>
+    </style>
+
+    <!-- A text on a dark card or on the navigation bar. -->
+    <style name="TextAppearance.Fudge.OnDark" parent="TextAppearance.Fudge.Body">
+        <item name="android:textColor">@color/text_on_dark</item>
+    </style>
+
+    <!-- ===================================================================
+         Buttons
+         =================================================================== -->
+
+    <!-- The main action of a screen, for example "Login". -->
+    <style name="Widget.Fudge.Button" parent="Widget.MaterialComponents.Button">
+        <item name="android:minHeight">@dimen/touch_target_min</item>
+        <item name="android:paddingStart">@dimen/space_6</item>
+        <item name="android:paddingEnd">@dimen/space_6</item>
+        <item name="android:textSize">@dimen/text_body</item>
+        <item name="android:fontFamily">@font/lato_bold</item>
+        <item name="android:letterSpacing">0.02</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="backgroundTint">@color/brand_secondary</item>
+        <item name="android:textColor">@color/on_brand_secondary</item>
+        <item name="cornerRadius">@dimen/radius_pill</item>
+        <item name="elevation">@dimen/elevation_raised</item>
+        <item name="rippleColor">@color/sage_300</item>
+    </style>
+
+    <!-- A second action that is not the main action. -->
+    <style name="Widget.Fudge.Button.Secondary" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:minHeight">@dimen/touch_target_min</item>
+        <item name="android:textSize">@dimen/text_body</item>
+        <item name="android:fontFamily">@font/lato_bold</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">@color/brand_secondary</item>
+        <item name="strokeColor">@color/brand_secondary</item>
+        <item name="strokeWidth">@dimen/stroke_width_strong</item>
+        <item name="cornerRadius">@dimen/radius_pill</item>
+        <item name="rippleColor">@color/sage_200</item>
+    </style>
+
+    <!-- An action that needs no border, for example "Passwort vergessen?". -->
+    <style name="Widget.Fudge.Button.Text" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:minHeight">@dimen/touch_target_min</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">@font/lato_regular</item>
+        <item name="android:textColor">@color/brand_secondary</item>
+    </style>
+
+    <!-- An action that deletes something. The colour warns the user. -->
+    <style name="Widget.Fudge.Button.Danger" parent="Widget.Fudge.Button">
+        <item name="backgroundTint">@color/feedback_danger</item>
+        <item name="android:textColor">@color/neutral_0</item>
+    </style>
+
+    <!-- ===================================================================
+         Cards
+         =================================================================== -->
+
+    <!-- A card on the cream background, for example a product of a list. -->
+    <style name="Widget.Fudge.Card" parent="Widget.MaterialComponents.CardView">
+        <item name="cardBackgroundColor">@color/surface_card</item>
+        <item name="cardCornerRadius">@dimen/radius_large</item>
+        <item name="cardElevation">@dimen/elevation_raised</item>
+        <item name="contentPadding">@dimen/space_4</item>
+        <item name="android:layout_margin">@dimen/space_2</item>
+    </style>
+
+    <!-- A dark card, as the design uses it for a product of the inventory. -->
+    <style name="Widget.Fudge.Card.Strong" parent="Widget.Fudge.Card">
+        <item name="cardBackgroundColor">@color/surface_card_strong</item>
+        <item name="cardElevation">@dimen/elevation_flat</item>
+    </style>
+
+    <!-- A card without a shadow, for a group of items. -->
+    <style name="Widget.Fudge.Card.Muted" parent="Widget.Fudge.Card">
+        <item name="cardBackgroundColor">@color/surface_card_muted</item>
+        <item name="cardElevation">@dimen/elevation_flat</item>
+    </style>
+
+    <!-- ===================================================================
+         Other components
+         =================================================================== -->
+
+    <!-- The navigation bar at the bottom of the screen. -->
+    <style name="Widget.Fudge.BottomNavigation" parent="Widget.MaterialComponents.BottomNavigationView">
+        <item name="android:background">@drawable/custom_navbar_background</item>
+        <item name="itemIconTint">@drawable/custom_navbar_selector</item>
+        <item name="itemTextColor">@drawable/custom_navbar_selector</item>
+        <item name="android:minHeight">@dimen/bottom_navigation_height</item>
+        <item name="labelVisibilityMode">labeled</item>
+    </style>
+
+    <!-- A field in which the user writes, for example the email address. -->
+    <style name="Widget.Fudge.TextInput"
+        parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxCornerRadiusTopStart">@dimen/radius_medium</item>
+        <item name="boxCornerRadiusTopEnd">@dimen/radius_medium</item>
+        <item name="boxCornerRadiusBottomStart">@dimen/radius_medium</item>
+        <item name="boxCornerRadiusBottomEnd">@dimen/radius_medium</item>
+        <item name="boxStrokeColor">@color/brand_secondary</item>
+        <item name="hintTextColor">@color/text_secondary</item>
+        <item name="errorTextColor">@color/feedback_danger</item>
+    </style>
+
+    <!-- A small label, for example "Vegan" over a recipe. -->
+    <style name="Widget.Fudge.Chip" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="chipBackgroundColor">@color/surface_card_muted</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="chipCornerRadius">@dimen/radius_pill</item>
+        <item name="android:textSize">@dimen/text_body_small</item>
+        <item name="chipMinHeight">@dimen/space_8</item>
+    </style>
+
+    <!-- A line between two items of a list. -->
+    <style name="Widget.Fudge.Divider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/stroke_width</item>
+        <item name="android:background">@color/surface_divider</item>
+    </style>
+
+</resources>

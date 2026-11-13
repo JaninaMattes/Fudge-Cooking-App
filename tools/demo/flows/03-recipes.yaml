@@ -1,0 +1,18 @@
+# Demo flow: the user reads the recipe suggestions. The application chooses
+# the recipes from the products that expire soon.
+appId: com.mobilesystems.feedme
+name: Recipe suggestions
+---
+- tapOn: "Recipes"
+- extendedWaitUntil:
+    visible: "Recipes"
+    timeout: 15000
+
+- takeScreenshot: build/demo/03-recipes
+- scroll
+- tapOn:
+    index: 0
+    text: ".*"
+    optional: true
+- takeScreenshot: build/demo/03-recipe-detail
+- back

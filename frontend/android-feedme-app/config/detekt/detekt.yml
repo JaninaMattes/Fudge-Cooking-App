@@ -1,0 +1,59 @@
+# Static analysis of the Kotlin code.
+#
+# The file changes the default rules of detekt where the default does not fit
+# an Android application of this size. Each change gives a reason.
+
+build:
+  maxIssues: 0
+
+complexity:
+  LongMethod:
+    # A method that binds the views of a screen is longer than a method of the
+    # business logic, but it stays easy to read.
+    threshold: 80
+  LongParameterList:
+    # A constructor of a ViewModel receives its collaborators through Hilt.
+    functionThreshold: 8
+    constructorThreshold: 10
+  TooManyFunctions:
+    # A ViewModel of a screen holds one function for each action of the user.
+    thresholdInClasses: 25
+    thresholdInFiles: 25
+    ignorePrivate: true
+    ignoreOverridden: true
+  LargeClass:
+    threshold: 600
+
+style:
+  MagicNumber:
+    # A layout value such as 16 or 300 has no name in a view.
+    ignoreNumbers: ['-1', '0', '1', '2', '100']
+    ignoreAnnotated: ['Composable']
+    ignoreEnums: true
+    ignoreConstantDeclaration: true
+  MaxLineLength:
+    maxLineLength: 120
+  ReturnCount:
+    max: 4
+  UnusedPrivateMember:
+    active: true
+  WildcardImport:
+    active: true
+
+naming:
+  FunctionNaming:
+    # A function of the user interface starts with a small letter, as Kotlin
+    # recommends.
+    functionPattern: '[a-z][a-zA-Z0-9]*'
+
+exceptions:
+  TooGenericExceptionCaught:
+    # The data layer catches each error of the network and gives a result
+    # object back, so that the user interface never stops.
+    active: false
+  SwallowedException:
+    active: true
+
+performance:
+  SpreadOperator:
+    active: false

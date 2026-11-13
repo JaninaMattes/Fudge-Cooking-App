@@ -1,0 +1,11 @@
+# The full demo. Maestro runs each flow in the given order and makes one
+# video of all steps.
+#
+#   maestro record --local tools/demo/flows/demo.yaml
+appId: com.mobilesystems.feedme
+name: Fudge demo
+---
+- runFlow: 01-login.yaml
+- runFlow: 02-inventory.yaml
+- runFlow: 03-recipes.yaml
+- runFlow: 04-shopping-list.yaml

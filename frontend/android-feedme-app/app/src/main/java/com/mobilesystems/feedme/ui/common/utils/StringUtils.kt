@@ -1,114 +1,111 @@
 package com.mobilesystems.feedme.ui.common.utils
 
-import android.util.Log
 import com.mobilesystems.feedme.domain.model.Product
-import java.util.*
+import java.util.Locale
 
 /**
- * Shorten the incoming values as abbreviation for recipe name strings.
+ * Makes the text of the external APIs ready for a small screen.
+ *
+ * The functions use no class of the Android framework. A unit test on the
+ * development machine can therefore use them, and the tests need no emulator.
  */
-fun abbreviateString(text: String, maxLength: Int): String{
-    var result = text
-    try{
-        if(result.length >= maxLength){
-            result = text.substring(0, maxLength-2) + ".." // shorten
-        }
-    }catch (e: Exception){
-        e.printStackTrace()
+
+/** Text that stands at the end of a name that the application shortened. */
+private const val ELLIPSIS = ".."
+
+/**
+ * Short form of each unit that the external recipe API sends. The first
+ * version of the application had a `when` block with eleven branches for the
+ * same work. A map holds the same information in one place, and a new unit
+ * needs one line.
+ */
+private val UNIT_ABBREVIATIONS: Map<String, String> = mapOf(
+    "medium" to "M",
+    "large" to "L",
+    "small" to "S",
+    "tablespoon" to "Tbsp",
+    "tablespoons" to "Tbsp",
+    "teaspoon" to "Tsp",
+    "teaspoons" to "Tsp",
+    "ounce" to "Oz",
+    "ounces" to "Oz",
+    "serving" to "Srv",
+    "servings" to "Srv",
+    "pound" to "Lb",
+    "pounds" to "Lb"
+)
+
+/**
+ * Shortens a text that is too long for its place on the screen.
+ *
+ * @param text text to shorten
+ * @param maxLength highest number of characters of the result
+ * @return the text, or the first characters of the text and two points
+ */
+fun abbreviateString(text: String, maxLength: Int): String {
+    if (maxLength <= ELLIPSIS.length || text.length < maxLength) {
+        return text
     }
-    return result
+    return text.take(maxLength - ELLIPSIS.length) + ELLIPSIS
 }
 
 /**
- * Abbreviation for ingredient units.
+ * Shortens the unit of an ingredient, for example "200 Tablespoons" to
+ * "200 Tbsp". A long unit does not fit in the list of the ingredients.
+ *
+ * @param text amount and unit, for example "200.0 Grams"
+ * @return the amount and the short unit. The function gives the unit back
+ *         without a change when the map holds no short form for it.
  */
-fun abbreviateUnitString(text: String): String{
-    // split into unit and quantity values
+fun abbreviateUnitString(text: String): String {
     val quantity = text.filter { it.isDigit() || it == '.' }
-    var unit = text.filter { it.isLetter() }.trim()
-
-    try{
-        // switch case
-        when (unit) {
-            "Medium" ->
-                unit = "M"
-            "Large" ->
-                unit = "L"
-            "Tablespoon" ->
-                unit = "Tbsp"
-            "Tablespoons" ->
-                unit = "Tbsp"
-            "Teaspoon" ->
-                unit = "Tsp"
-            "Teaspoons" ->
-                unit = "Tsp"
-            "Ounce" ->
-                unit = "Oz"
-            "Ounces" ->
-                unit = "Oz"
-            "Serving" ->
-                unit = "Srv"
-            "Servings" ->
-                unit = "Srv"
-            "Pound" ->
-                unit = "Lb"
-            else -> {
-                Log.d("String Utils", "No string matches.")
-            }
-        }
-    }catch (e: Exception){
-        e.printStackTrace()
-    }
-    return "$quantity $unit"
+    val unit = text.filter { it.isLetter() }.trim()
+    val abbreviation = UNIT_ABBREVIATIONS[unit.lowercase(Locale.ROOT)] ?: unit
+    return "$quantity $abbreviation".trim()
 }
 
 /**
- * Check if recipe ingredient has a match with products in inventory list.
- * Some ingredients are composite words e.g. Fresh Basil, French Cream Cheese etc.
+ * Tells if one of the products fits an ingredient of a recipe.
+ *
+ * The name of an ingredient often holds more than one word, for example
+ * "Fresh Basil" or "French Cream Cheese". The function therefore tests each
+ * word on its own, so that the product "Basil" fits the ingredient
+ * "Fresh Basil".
+ *
+ * @param products products of the inventory list. The list can be `null`.
+ * @param ingredient ingredient of the recipe
+ * @return `true` when one product fits the ingredient
  */
-fun containsSubstring(products: List<Product>?, ingredient: Product): Boolean{
-    var isContained = false
-    if(products != null){
-        // split multiple words in string
-        val wordArray = splitSentenceRegex(ingredient.productName)
-        for(word in wordArray){
-            // whilst it is not contained search
-            if(!isContained) {
-                val filtered = products.filter { p ->
-                    p.productName.contains(
-                        word,
-                        true
-                    )
-                }
-                if (filtered.isNotEmpty()) {
-                    isContained = true
-                }
-            }
+fun containsSubstring(products: List<Product>?, ingredient: Product): Boolean {
+    if (products.isNullOrEmpty()) {
+        return false
+    }
+    return splitSentenceRegex(ingredient.productName).any { word ->
+        word.isNotBlank() && products.any { product ->
+            product.productName.contains(word, ignoreCase = true)
         }
     }
-    return isContained
 }
 
 /**
- * Function to split words in a sentence into list of words
+ * Splits a text into its words and removes a comma or a point at the end of a
+ * word.
+ *
+ * @param text text to split
+ * @return the words of the text
  */
-fun splitSentenceRegex(text: String): List<String>{
-    return text.split("\\s+".toRegex()).map { word ->
-        word.replace("""^[,\.]|[,\.]$""".toRegex(), "")
+fun splitSentenceRegex(text: String): List<String> =
+    text.split("\\s+".toRegex()).map { word ->
+        word.replace("""^[,.]|[,.]$""".toRegex(), "")
+    }
+
+/**
+ * Writes the first letter of each word with a capital letter.
+ *
+ * @return the changed text
+ */
+fun String.capitalizeWords(): String = split(" ").joinToString(" ") { word ->
+    word.replaceFirstChar { letter ->
+        if (letter.isLowerCase()) letter.titlecase(Locale.getDefault()) else letter.toString()
     }
 }
-
-/**
- * Helper-function to capitalize words.
- */
-fun String.capitalizeWords(): String = split(" ").joinToString(" ") {
-    it.replaceFirstChar { p ->
-        if (p.isLowerCase()) p.titlecase(Locale.getDefault()) else p.toString()
-    }
-}
-
-/**
- * Helper-function to check if String is empty.
- * Returns `true` if this string is empty or consists solely of whitespace characters.
- */
-fun CharSequence.isBlank(): Boolean = length == 0 || indices.all { this[it].isWhitespace() }

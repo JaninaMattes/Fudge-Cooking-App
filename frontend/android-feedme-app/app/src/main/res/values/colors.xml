@@ -1,40 +1,146 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+    Colours of the Fudge design system.
+
+    The file has three parts:
+
+    1. The brand palette. These are the raw colours of the Figma design: a
+       sage green header, dark green cards, a cream background and a yellow
+       accent.
+    2. The semantic tokens. A layout uses a token and not a raw colour, because
+       the name of a token says where the colour belongs (surface, text, the
+       status of a product). A change of the brand then needs one change here
+       and no change in the 51 layout files.
+    3. The names of the first version of the application. They point to the new
+       tokens, so that the old layouts keep their colours. Do not use them in
+       new code.
+-->
 <resources>
 
-    <color name="bright_green_200">#13F0C7</color>
-    <color name="green_200">#9EDBB6</color>
-    <color name="green_500">#81B395</color>
-    <color name="green_700">#2F4F4F</color>
-    <color name="red_200">#8F4242</color>
-    <color name="bright_red_200">#ED3262</color>
-    <color name="theme_red_100">#F54748</color>
-    <color name="salmon_red">#F08B81</color>
-    <color name="theme_orange_100">#FB9300</color>
-    <color name="theme_creme_100">#F5E6CA</color>
-    <color name="theme_creme_50">#F3DCD4</color>
-    <color name="theme_creme_dark">#BEF3D9CF</color>
-    <color name="theme_creme_500">#F3D2D4</color>
-    <color name="blue_700">#8EB3F7</color>
-    <color name="theme_dark_blue_100">#343F56</color>
-    <color name="black">#FF000000</color>
-    <color name="dark_grey">#6F7C80</color>
-    <color name="light_grey">#A7AFB2</color>
-    <color name="bright_grey_200">#D4D4D4</color>
-    <color name="bright_grey">#FAFAFA</color>
-    <color name="white">#FFFFFFFF</color>
+    <!-- ===================================================================
+         1. Brand palette
+         =================================================================== -->
 
-    <!-- ZXing Colours -->
-    <color name="zxing_viewfinder_laser">@color/colorAccent</color>
-    <color name="zxing_possible_result_points">@color/colorAccent</color>
-    <color name="zxing_result_view">@color/black</color>
-    <color name="zxing_status_text">@color/white</color>
-    <color name="zxing_transparent">@color/black</color>
-    <color name="zxing_viewfinder_mask">@color/colorPrimary</color>
+    <!-- Sage green. The header and the brand colour of the application. -->
+    <color name="sage_100">#E8EEE1</color>
+    <color name="sage_200">#CBD9BC</color>
+    <color name="sage_300">#AEC39A</color>
+    <color name="sage_500">#92A880</color>
+    <color name="sage_700">#6E8460</color>
 
-    <!-- Primary Colours -->
-    <color name="colorPrimary">@color/theme_creme_50</color>
-    <color name="colorPrimaryLight">@color/theme_creme_500</color>
-    <color name="colorPrimaryDark">@color/light_grey</color>
-    <color name="colorAccent">@color/red_200</color>
+    <!-- Dark green. The cards, the navigation bar and the main buttons. -->
+    <color name="forest_300">#5A6B54</color>
+    <color name="forest_500">#3B4A36</color>
+    <color name="forest_700">#2F3B2C</color>
+    <color name="forest_900">#1F2819</color>
+
+    <!-- Cream. The background of a screen. -->
+    <color name="cream_50">#FBFAF6</color>
+    <color name="cream_100">#F4F2EA</color>
+    <color name="cream_200">#E8E5D9</color>
+
+    <!-- Yellow. The logo, the stars of a rating and the active navigation. -->
+    <color name="amber_300">#F8DC8C</color>
+    <color name="amber_500">#F2C230</color>
+    <color name="amber_700">#C89A15</color>
+
+    <!-- Neutral -->
+    <color name="neutral_0">#FFFFFFFF</color>
+    <color name="neutral_100">#F2F2EF</color>
+    <color name="neutral_300">#D7D8D2</color>
+    <color name="neutral_500">#8A8F84</color>
+    <color name="neutral_700">#5E6655</color>
+    <color name="neutral_900">#1F2419</color>
+    <color name="neutral_1000">#FF000000</color>
+
+    <!-- Status colours. The user reads the state of a product by the colour. -->
+    <color name="status_fresh">#3E7C4A</color>
+    <color name="status_soon">#E8A020</color>
+    <color name="status_urgent">#D1643C</color>
+    <color name="status_expired">#B3261E</color>
+
+    <!-- ===================================================================
+         2. Semantic tokens. New code uses these names.
+         =================================================================== -->
+
+    <!-- Brand -->
+    <color name="brand_primary">@color/sage_500</color>
+    <color name="brand_primary_dark">@color/sage_700</color>
+    <color name="brand_primary_light">@color/sage_200</color>
+    <color name="brand_secondary">@color/forest_700</color>
+    <color name="brand_accent">@color/amber_500</color>
+    <color name="on_brand_primary">@color/neutral_900</color>
+    <color name="on_brand_secondary">@color/cream_50</color>
+    <color name="on_brand_accent">@color/neutral_900</color>
+
+    <!-- Surfaces -->
+    <color name="surface_background">@color/cream_100</color>
+    <color name="surface_card">@color/neutral_0</color>
+    <color name="surface_card_muted">@color/cream_200</color>
+    <color name="surface_card_strong">@color/forest_700</color>
+    <color name="surface_divider">@color/neutral_300</color>
+    <color name="surface_navigation">@color/forest_700</color>
+
+    <!-- Text and icons -->
+    <color name="text_primary">@color/neutral_900</color>
+    <color name="text_secondary">@color/neutral_700</color>
+    <color name="text_disabled">@color/neutral_500</color>
+    <color name="text_on_dark">@color/cream_50</color>
+    <color name="text_on_dark_secondary">@color/sage_200</color>
+    <color name="icon_primary">@color/neutral_900</color>
+    <color name="icon_on_dark">@color/cream_50</color>
+    <color name="icon_active">@color/amber_500</color>
+
+    <!-- Feedback -->
+    <color name="feedback_success">@color/status_fresh</color>
+    <color name="feedback_warning">@color/status_soon</color>
+    <color name="feedback_danger">@color/status_expired</color>
+    <color name="feedback_info">@color/sage_700</color>
+
+    <!-- ===================================================================
+         3. Names of the first version. Do not use them in new code.
+         =================================================================== -->
+
+    <color name="colorPrimary">@color/brand_primary</color>
+    <color name="colorPrimaryLight">@color/brand_primary_light</color>
+    <color name="colorPrimaryDark">@color/brand_primary_dark</color>
+    <color name="colorAccent">@color/brand_accent</color>
+
+    <color name="black">@color/text_primary</color>
+    <color name="white">@color/neutral_0</color>
+    <color name="dark_grey">@color/text_secondary</color>
+    <color name="light_grey">@color/neutral_500</color>
+    <color name="bright_grey">@color/neutral_100</color>
+    <color name="bright_grey_200">@color/neutral_300</color>
+
+    <color name="red_200">@color/brand_secondary</color>
+    <color name="bright_red_200">@color/feedback_danger</color>
+    <color name="theme_red_100">@color/feedback_danger</color>
+    <color name="salmon_red">@color/status_urgent</color>
+    <color name="theme_orange_100">@color/feedback_warning</color>
+
+    <color name="green_200">@color/sage_200</color>
+    <color name="green_500">@color/sage_500</color>
+    <color name="green_700">@color/forest_700</color>
+    <color name="bright_green_200">@color/sage_300</color>
+
+    <color name="theme_creme_100">@color/cream_100</color>
+    <color name="theme_creme_50">@color/cream_50</color>
+    <color name="theme_creme_dark">@color/cream_200</color>
+    <color name="theme_creme_500">@color/cream_200</color>
+
+    <color name="blue_700">@color/feedback_info</color>
+    <color name="theme_dark_blue_100">@color/forest_900</color>
+
+    <!-- ===================================================================
+         Colours of the ZXing barcode reader
+         =================================================================== -->
+
+    <color name="zxing_viewfinder_laser">@color/brand_accent</color>
+    <color name="zxing_possible_result_points">@color/brand_accent</color>
+    <color name="zxing_result_view">@color/forest_900</color>
+    <color name="zxing_status_text">@color/text_on_dark</color>
+    <color name="zxing_transparent">@color/neutral_1000</color>
+    <color name="zxing_viewfinder_mask">@color/forest_900</color>
 
 </resources>
