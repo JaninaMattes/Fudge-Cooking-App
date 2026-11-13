@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Border of a field in which the user writes. -->
+<!--
+    Background of a field in which the user writes. The design shows a grey
+    field without a border, which is quiet beside the pictures.
+-->
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid android:color="@color/surface_card" />
-    <stroke
-        android:width="@dimen/stroke_width_strong"
-        android:color="@color/brand_secondary" />
+    <solid android:color="@color/surface_input" />
     <corners android:radius="@dimen/radius_pill" />
 </shape>
