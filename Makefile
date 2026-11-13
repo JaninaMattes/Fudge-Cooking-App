@@ -14,6 +14,12 @@
 BACKEND_DIR  := backend/food-tracker-api
 FRONTEND_DIR := frontend/android-feedme-app
 
+# Place of the Android SDK. Gradle needs it for each command of the frontend.
+# The variable takes the value of the environment first, then the usual place
+# on macOS and on Linux.
+ANDROID_HOME ?= $(firstword $(wildcard $(HOME)/Library/Android/sdk $(HOME)/Android/Sdk))
+export ANDROID_HOME
+
 # The repository holds a wrapper for each build tool, so the version of the
 # tool is the same on each machine and in the pipeline.
 MVN          := cd $(BACKEND_DIR) && sh ./mvnw
@@ -27,6 +33,7 @@ GRADLE_FLAGS := --console=plain --stacktrace
 .PHONY: help all build test lint coverage clean verify \
         backend-build backend-test backend-lint backend-coverage backend-clean backend-run \
         frontend-build frontend-test frontend-lint frontend-coverage frontend-clean \
+        frontend-sdk-check frontend-format frontend-verify backend-verify backend-bugs backend-docs \
         frontend-ui-test docs db-up db-down
 
 # -----------------------------------------------------------------------------
@@ -95,26 +102,35 @@ backend-clean: ## Removes the files of the last build of the REST API
 #  Frontend (Android, Gradle)
 # -----------------------------------------------------------------------------
 
-frontend-build: ## Builds the debug APK of the Android client
+frontend-sdk-check: ## Tells if the Android SDK is available
+	@if [ -z "$(ANDROID_HOME)" ] || [ ! -d "$(ANDROID_HOME)" ]; then \
+		echo "The Android SDK is missing."; \
+		echo "Install Android Studio, or set ANDROID_HOME to the SDK:"; \
+		echo "  export ANDROID_HOME=\$$HOME/Library/Android/sdk"; \
+		exit 1; \
+	fi
+	@echo "Android SDK: $(ANDROID_HOME)"
+
+frontend-build: frontend-sdk-check ## Builds the debug APK of the Android client
 	$(GRADLE) $(GRADLE_FLAGS) assembleDebug
 
-frontend-test: ## Runs the unit tests of the Android client
+frontend-test: frontend-sdk-check ## Runs the unit tests of the Android client
 	$(GRADLE) $(GRADLE_FLAGS) testDebugUnitTest
 
-frontend-lint: ## Runs ktlint, detekt and the Android Lint
+frontend-lint: frontend-sdk-check ## Runs ktlint, detekt and the Android Lint
 	$(GRADLE) $(GRADLE_FLAGS) ktlintCheck detekt lintDebug
 
-frontend-format: ## Corrects the style of the Kotlin code
+frontend-format: frontend-sdk-check ## Corrects the style of the Kotlin code
 	$(GRADLE) $(GRADLE_FLAGS) ktlintFormat
 
-frontend-coverage: ## Writes the coverage report of the Android client
+frontend-coverage: frontend-sdk-check ## Writes the coverage report of the Android client
 	$(GRADLE) $(GRADLE_FLAGS) jacocoTestReport
 	@echo "Report: $(FRONTEND_DIR)/app/build/reports/jacoco/jacocoTestReport/html/index.html"
 
-frontend-verify: ## Runs the style check, the tests and the build
+frontend-verify: frontend-sdk-check ## Runs the style check, the tests and the build
 	$(GRADLE) $(GRADLE_FLAGS) ktlintCheck detekt lintDebug testDebugUnitTest assembleDebug
 
-frontend-ui-test: ## Runs the user interface tests. An emulator must run.
+frontend-ui-test: frontend-sdk-check ## Runs the user interface tests. An emulator must run.
 	$(GRADLE) $(GRADLE_FLAGS) connectedDebugAndroidTest
 
 frontend-clean: ## Removes the files of the last build of the Android client
