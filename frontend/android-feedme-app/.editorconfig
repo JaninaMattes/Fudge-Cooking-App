@@ -1,0 +1,31 @@
+# Style of the files of this project.
+# See https://editorconfig.org and https://pinterest.github.io/ktlint/
+
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+indent_style = space
+indent_size = 4
+
+[*.{kt,kts}]
+max_line_length = 120
+
+# A fragment of Android keeps its view binding in a private property with an
+# underscore and gives a private property without the underscore. The pattern
+# comes from the documentation of Google, and it stops a memory leak when the
+# view of the fragment goes away. The rule of ktlint does not know the
+# pattern, so the project turns the rule off.
+ktlint_standard_backing-property-naming = disabled
+
+[*.{xml,yml,yaml,json}]
+indent_size = 4
+
+[*.md]
+trim_trailing_whitespace = false
+
+[Makefile]
+indent_style = tab
