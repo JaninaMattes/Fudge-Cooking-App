@@ -11,32 +11,41 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import com.mobilesystems.feedme.R
-import com.mobilesystems.feedme.domain.model.Product
 import com.mobilesystems.feedme.databinding.ShoppingListCurrentItemBinding
+import com.mobilesystems.feedme.domain.model.Product
 
 class ShoppingListCurrentProductsGridAdapter(
     private val context: Context?,
     private val dataSet: List<Product>?,
     private val itemClickListener: ProductAdapterClickListener,
-    private val itemLongClickListener: ProductAdapterLongClickListener
+    private val itemLongClickListener: ProductAdapterLongClickListener,
 ) : BaseAdapter() {
-
-    //view binding
+    // view binding
     private var _itemBinding: ShoppingListCurrentItemBinding? = null
     private val itemBinding get() = _itemBinding!!
 
     interface ProductAdapterClickListener {
-        fun passData(product: Product, itemView: View)
+        fun passData(
+            product: Product,
+            itemView: View,
+        )
     }
 
     interface ProductAdapterLongClickListener {
-        fun passData(product: Product, itemView: View):Boolean?
+        fun passData(
+            product: Product,
+            itemView: View,
+        ): Boolean?
     }
 
-    override fun getView(position:Int, convertView: View?, parent: ViewGroup?): View{
+    override fun getView(
+        position: Int,
+        convertView: View?,
+        parent: ViewGroup?,
+    ): View {
         // Inflate the custom view
         val inflater = parent?.context?.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        _itemBinding = ShoppingListCurrentItemBinding.inflate(inflater, parent,false)
+        _itemBinding = ShoppingListCurrentItemBinding.inflate(inflater, parent, false)
 
         val cardView: CardView = itemBinding.cardViewShoppingListItem
         val shoppingListColour: FrameLayout = itemBinding.shoppinglistItemColour
@@ -44,13 +53,16 @@ class ShoppingListCurrentProductsGridAdapter(
         val shoppingListItemName: TextView = itemBinding.shoppingListItemName
         val shoppingListItemQuantity: TextView = itemBinding.shoppingListItemQuantity
 
-        if(dataSet != null){
+        if (dataSet != null) {
             val currentItem = dataSet[position]
             // place colour and correct icon programmatically
-            if(context != null) {
-                shoppingListColour.setBackgroundColor(ContextCompat.getColor(context,
-                    R.color.theme_creme_50
-                ))
+            if (context != null) {
+                shoppingListColour.setBackgroundColor(
+                    ContextCompat.getColor(
+                        context,
+                        R.color.theme_creme_50,
+                    ),
+                )
                 shoppingListIcon.setImageDrawable(ContextCompat.getDrawable(context, R.mipmap.ic_food_dummy))
             }
             shoppingListItemName.text = currentItem.productName
@@ -60,9 +72,10 @@ class ShoppingListCurrentProductsGridAdapter(
         // initialize clicklistener, pass clicked product for listitem position
         cardView.setOnClickListener { v ->
             if (dataSet != null) {
-                if(context != null) {
+                if (context != null) {
                     shoppingListColour.setBackgroundColor(
-                        ContextCompat.getColor(context, R.color.red_200))
+                        ContextCompat.getColor(context, R.color.red_200),
+                    )
                 }
                 itemClickListener.passData(dataSet[position], v)
             }
@@ -80,8 +93,17 @@ class ShoppingListCurrentProductsGridAdapter(
 
     override fun getItem(position: Int): Any {
         // TODO: Correct this workaround with dummy data
-        var currentItem = Product(0, "", "", mutableListOf(),
-            "", "", "", null)
+        var currentItem =
+            Product(
+                0,
+                "",
+                "",
+                mutableListOf(),
+                "",
+                "",
+                "",
+                null,
+            )
         if (dataSet != null) {
             // get selected product
             currentItem = dataSet[position]

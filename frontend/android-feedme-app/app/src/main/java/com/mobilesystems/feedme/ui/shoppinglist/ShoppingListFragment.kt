@@ -2,10 +2,10 @@ package com.mobilesystems.feedme.ui.shoppinglist
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -15,10 +15,9 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class ShoppingListFragment : Fragment() {
-
     private val sharedViewModel: SharedShoppingListViewModel by activityViewModels()
 
-    //view binding
+    // view binding
     private var _binding: ShoppingListFragmentBinding? = null
     private val binding get() = _binding!!
 
@@ -29,10 +28,10 @@ class ShoppingListFragment : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
     ): View {
-
         // Inflate layout for this fragment
         _binding = ShoppingListFragmentBinding.inflate(inflater, container, false)
         val createNewProductButton: FloatingActionButton = binding.buttonCreateNewProductForShoppingList
@@ -45,7 +44,10 @@ class ShoppingListFragment : Fragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
 
         // Add nested child fragment
@@ -62,14 +64,17 @@ class ShoppingListFragment : Fragment() {
         sharedViewModel.saveCurrentState()
     }
 
-    private fun addChildFragment(viewId: Int, childFragment: Fragment){
+    private fun addChildFragment(
+        viewId: Int,
+        childFragment: Fragment,
+    ) {
         // nest child fragment into parent fragment
         // https://developer.android.com/about/versions/android-4.2#NestedFragments
         Log.d(TAG, "Add child fragment to parent.")
 
         val child = childFragmentManager.findFragmentById(viewId)
 
-        if(child == null) {
+        if (child == null) {
             childFragmentManager.beginTransaction().apply {
                 add(viewId, childFragment)
                 addToBackStack(null)
@@ -80,8 +85,7 @@ class ShoppingListFragment : Fragment() {
 
     companion object {
         const val TAG = "ShoppingListFragment"
+
         fun newInstance() = ShoppingListFragment()
     }
-
 }
-
