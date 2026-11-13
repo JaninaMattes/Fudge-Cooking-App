@@ -388,7 +388,6 @@ says which one fits which need.
 ```
 Fudge-Cooking-App/
 ├── Makefile                      Commands for the build, the tests and the quality
-├── CLAUDE.md                     Knowledge base of the project
 ├── .github/workflows/            Pipelines of GitHub Actions
 ├── assets/                       Logo, screens of the design, architecture
 ├── docs/
@@ -421,8 +420,6 @@ Fudge-Cooking-App/
 2. Write the code **and the tests**
 3. Run `make verify`. The pipeline runs the same checks.
 4. Make a commit and a pull request
-
-The rules of the code are in [CLAUDE.md](CLAUDE.md).
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
