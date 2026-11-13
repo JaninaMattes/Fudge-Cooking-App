@@ -28,17 +28,23 @@ class HiltApplication : Application(), Configuration.Provider{
 
     private val applicationScope = CoroutineScope(Dispatchers.Default)
 
-    //configure WorkManager
-    override fun getWorkManagerConfiguration(): Configuration {
-        val myWorkerFactory = DelegatingWorkerFactory()
-        myWorkerFactory.addFactory(myRecipeWorkerFactory)
-        myWorkerFactory.addFactory(myPushWorkerFactory)
+    /**
+     * Gives WorkManager the factories of the workers of this application.
+     *
+     * WorkManager 2.9 reads a property here. The version before read the
+     * method getWorkManagerConfiguration().
+     */
+    override val workManagerConfiguration: Configuration
+        get() {
+            val workerFactory = DelegatingWorkerFactory()
+            workerFactory.addFactory(myRecipeWorkerFactory)
+            workerFactory.addFactory(myPushWorkerFactory)
 
-        return Configuration.Builder()
-            .setMinimumLoggingLevel(Log.DEBUG)
-            .setWorkerFactory(myWorkerFactory)
-            .build()
-    }
+            return Configuration.Builder()
+                .setMinimumLoggingLevel(Log.DEBUG)
+                .setWorkerFactory(workerFactory)
+                .build()
+        }
 
     override fun onCreate() {
         super.onCreate()
