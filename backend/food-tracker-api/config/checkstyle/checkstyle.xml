@@ -1,0 +1,117 @@
+<?xml version="1.0"?>
+<!DOCTYPE module PUBLIC
+        "-//Checkstyle//DTD Checkstyle Configuration 1.3//EN"
+        "https://checkstyle.org/dtds/configuration_1_3.dtd">
+
+<!--
+  Style rules of the Food Tracker API.
+
+  The rules hold the code in one style and find the errors that a review often
+  misses: an import that nothing uses, a method without documentation, a line
+  that is too long. The build stops when the code breaks a rule.
+-->
+<module name="Checker">
+    <property name="severity" value="error"/>
+    <property name="fileExtensions" value="java"/>
+
+    <!-- Each file must end with one line break. -->
+    <module name="NewlineAtEndOfFile"/>
+
+    <!-- No tab characters. The project writes four spaces. -->
+    <module name="FileTabCharacter">
+        <property name="eachLine" value="true"/>
+    </module>
+
+    <!-- No space at the end of a line. -->
+    <module name="RegexpSingleline">
+        <property name="format" value="\s+$"/>
+        <property name="message" value="Remove the space at the end of the line."/>
+    </module>
+
+    <module name="LineLength">
+        <property name="max" value="110"/>
+        <property name="ignorePattern" value="^\s*(\*|//).*https?://"/>
+    </module>
+
+    <module name="TreeWalker">
+
+        <!-- Imports -->
+        <module name="AvoidStarImport"/>
+        <module name="UnusedImports"/>
+        <module name="RedundantImport"/>
+        <module name="IllegalImport"/>
+
+        <!-- Names -->
+        <module name="PackageName"/>
+        <module name="TypeName"/>
+        <module name="MethodName"/>
+        <module name="ParameterName"/>
+        <module name="LocalVariableName"/>
+        <module name="MemberName"/>
+        <module name="StaticVariableName"/>
+        <module name="ConstantName"/>
+
+        <!-- Documentation. Each public type and each public method needs it. -->
+        <module name="JavadocType">
+            <property name="scope" value="public"/>
+        </module>
+        <module name="JavadocMethod">
+            <property name="accessModifiers" value="public"/>
+        </module>
+        <module name="MissingJavadocMethod">
+            <property name="scope" value="public"/>
+            <property name="allowMissingPropertyJavadoc" value="true"/>
+            <property name="minLineCount" value="1"/>
+            <!-- A method that overrides another one inherits its documentation. -->
+            <property name="allowedAnnotations" value="Override,Test,BeforeEach,AfterEach"/>
+        </module>
+        <module name="MissingJavadocType">
+            <property name="scope" value="public"/>
+        </module>
+        <module name="InvalidJavadocPosition"/>
+
+        <!-- Blocks and braces -->
+        <module name="NeedBraces"/>
+        <module name="LeftCurly"/>
+        <module name="RightCurly"/>
+        <module name="EmptyBlock">
+            <property name="option" value="text"/>
+        </module>
+        <module name="AvoidNestedBlocks"/>
+
+        <!-- Spaces -->
+        <module name="WhitespaceAfter"/>
+        <module name="NoWhitespaceBefore"/>
+        <module name="GenericWhitespace"/>
+        <module name="MethodParamPad"/>
+        <module name="ParenPad"/>
+
+        <!-- Errors that a review often misses -->
+        <module name="EqualsHashCode"/>
+        <module name="SimplifyBooleanExpression"/>
+        <module name="SimplifyBooleanReturn"/>
+        <module name="StringLiteralEquality"/>
+        <module name="MissingSwitchDefault"/>
+        <module name="FallThrough"/>
+        <module name="DefaultComesLast"/>
+        <module name="IllegalThrows"/>
+        <module name="EmptyStatement"/>
+        <module name="OneStatementPerLine"/>
+        <module name="UpperEll"/>
+        <module name="ArrayTypeStyle"/>
+        <module name="ModifierOrder"/>
+        <module name="RedundantModifier"/>
+
+        <!-- A utility class must not have a public constructor. -->
+        <module name="HideUtilityClassConstructor"/>
+
+        <!-- A field must be private, or a constant. -->
+        <module name="VisibilityModifier">
+            <property name="protectedAllowed" value="true"/>
+        </module>
+
+        <!-- The order of the parts of a class -->
+        <module name="DeclarationOrder"/>
+
+    </module>
+</module>
