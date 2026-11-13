@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Colours for the dark mode.
+
+    Only the semantic tokens change here. The brand palette stays the same, so
+    that the application keeps its character in the dark mode. A dark screen
+    needs a lighter sage green, because a dark surface makes a colour look
+    darker than it is.
+-->
+<resources>
+
+    <!-- Brand -->
+    <color name="brand_primary">@color/sage_300</color>
+    <color name="brand_primary_dark">@color/sage_500</color>
+    <color name="brand_primary_light">@color/sage_100</color>
+    <color name="brand_secondary">@color/sage_700</color>
+    <color name="brand_accent">@color/amber_300</color>
+    <color name="on_brand_primary">@color/forest_900</color>
+    <color name="on_brand_secondary">@color/cream_50</color>
+    <color name="on_brand_accent">@color/forest_900</color>
+
+    <!-- Surfaces -->
+    <color name="surface_background">#12150F</color>
+    <color name="surface_card">#1D231A</color>
+    <color name="surface_card_muted">#262D22</color>
+    <color name="surface_card_strong">#2A3326</color>
+    <color name="surface_divider">#39412F</color>
+    <color name="surface_navigation">#1D231A</color>
+
+    <!-- Text and icons -->
+    <color name="text_primary">@color/cream_50</color>
+    <color name="text_secondary">#B9C2AE</color>
+    <color name="text_disabled">#7C856F</color>
+    <color name="text_on_dark">@color/cream_50</color>
+    <color name="text_on_dark_secondary">#B9C2AE</color>
+    <color name="icon_primary">@color/cream_50</color>
+    <color name="icon_on_dark">@color/cream_50</color>
+    <color name="icon_active">@color/amber_300</color>
+
+    <!-- Feedback. A dark screen needs brighter signal colours. -->
+    <color name="feedback_success">#6FBF7F</color>
+    <color name="feedback_warning">#F3BE54</color>
+    <color name="feedback_danger">#E9705F</color>
+    <color name="feedback_info">@color/sage_300</color>
+
+    <color name="status_fresh">#6FBF7F</color>
+    <color name="status_soon">#F3BE54</color>
+    <color name="status_urgent">#E9905F</color>
+    <color name="status_expired">#E9705F</color>
+
+</resources>
