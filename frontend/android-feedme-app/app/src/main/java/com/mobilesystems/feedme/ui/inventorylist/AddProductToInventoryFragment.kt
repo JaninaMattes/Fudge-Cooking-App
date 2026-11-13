@@ -19,8 +19,6 @@ import com.google.zxing.integration.android.IntentIntegrator
 import com.mobilesystems.feedme.databinding.InventoryAddProductFragmentBinding
 import com.mobilesystems.feedme.domain.model.Label
 import com.mobilesystems.feedme.domain.model.Product
-import kotlinx.android.synthetic.main.inventory_add_product_fragment.*
-import kotlinx.android.synthetic.main.inventory_add_product_fragment.view.*
 import android.app.DatePickerDialog
 import android.app.DatePickerDialog.OnDateSetListener
 import android.content.ActivityNotFoundException
@@ -118,7 +116,7 @@ class AddProductToInventoryFragment : Fragment(), AdapterView.OnItemSelectedList
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        button_add_image_to_product.setOnClickListener {
+        binding.buttonAddImageToProduct.setOnClickListener {
             val i = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
             // code for crop image
             i.putExtra("crop", "true")
@@ -139,7 +137,7 @@ class AddProductToInventoryFragment : Fragment(), AdapterView.OnItemSelectedList
             }
         }
 
-        button_scan_product.setOnClickListener {
+        binding.buttonScanProduct.setOnClickListener {
             // Setup for Zxing Barcode Reader
             // Tutorial: https://github.com/zxing/zxing/wiki/Scanning-Via-Intent
             //           https://medium.com/@dev.jeevanyohan/zxing-qr-code-scanner-android-implementing-in-activities-fragment-custom-colors-faa68bfc761d
@@ -153,7 +151,7 @@ class AddProductToInventoryFragment : Fragment(), AdapterView.OnItemSelectedList
             intentIntegrator.initiateScan()
         }
 
-        button_enteraddproducttoinventorylist.setOnClickListener {
+        binding.buttonEnteraddproducttoinventorylist.setOnClickListener {
             val newLabel: Label?
             val productname = binding.editTextAddnewproducttitleInventory.text.toString().trim()
             var productquantity = binding.editTextAddnewproductquantityInventory.text.toString().trim()
