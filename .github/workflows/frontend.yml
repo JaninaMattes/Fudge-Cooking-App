@@ -45,6 +45,8 @@ jobs:
 
       - name: Install the Android SDK
         uses: android-actions/setup-android@v3
+        with:
+          packages: 'platform-tools platforms;android-34 build-tools;34.0.0'
 
       - name: Prepare Gradle
         uses: gradle/actions/setup-gradle@v3
@@ -83,6 +85,20 @@ jobs:
           reporter: java-junit
           fail-on-error: false
 
+      - name: Write the result of the tests into the summary of the run
+        if: success() || failure()
+        run: |
+          python3 - <<'PY' >> "$GITHUB_STEP_SUMMARY"
+          import glob, xml.etree.ElementTree as ET
+          total = failed = 0
+          for f in glob.glob('app/build/test-results/testDebugUnitTest/*.xml'):
+              r = ET.parse(f).getroot()
+              total += int(r.get('tests', 0))
+              failed += int(r.get('failures', 0)) + int(r.get('errors', 0))
+          print('## Unit tests of the Android client\n')
+          print(f'| Measure | Value |\n|---|---|\n| Tests | {total} |\n| Failed | {failed} |')
+          PY
+
       - name: Keep the reports and the APK
         uses: actions/upload-artifact@v4
         if: success() || failure()
@@ -111,6 +127,9 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
+
+      - name: Install the Android SDK
+        uses: android-actions/setup-android@v3
 
       - name: Prepare Gradle
         uses: gradle/actions/setup-gradle@v3
