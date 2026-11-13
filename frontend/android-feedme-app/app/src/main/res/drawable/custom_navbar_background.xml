@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-    Background of the navigation bar at the bottom of the screen. The dark
-    green bar with round corners comes from the design.
+    Background of the navigation bar at the bottom. The design shows a white
+    bar with round corners that lifts from the screen.
 -->
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
     <solid android:color="@color/surface_navigation" />
