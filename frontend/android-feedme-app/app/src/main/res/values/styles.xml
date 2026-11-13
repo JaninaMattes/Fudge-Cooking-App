@@ -242,7 +242,7 @@
     </style>
 
     <!-- A line between two items of a list. -->
-    <style name="Widget.Fudge.Divider">
+    <style name="Widget.Fudge.Divider" parent="">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/stroke_width</item>
         <item name="android:background">@color/surface_divider</item>
