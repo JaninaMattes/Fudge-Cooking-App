@@ -2,12 +2,13 @@
 <!--
     Themes of the Fudge application.
 
-    A theme gives each screen the same colours. A view that does not set a
-    colour reads the colour from the theme, so a change of the brand needs a
-    change in this file only.
+    A theme gives each screen the same colours. A view that sets no colour
+    reads the colour from the theme, so a change of the brand needs a change
+    in this file only.
 
-    All themes use the semantic tokens of colors.xml. The file values-night
-    holds the values for the dark mode.
+    The colours follow frontend/doc/design/ui_design_ideas_002.png: a white
+    screen, near-black text and one emerald green for each action. The file
+    values-night holds the values for the dark mode.
 -->
 <resources xmlns:tools="http://schemas.android.com/tools">
 
@@ -19,9 +20,9 @@
         <item name="colorPrimary">@color/brand_primary</item>
         <item name="colorPrimaryVariant">@color/brand_primary_dark</item>
         <item name="colorOnPrimary">@color/on_brand_primary</item>
-        <item name="colorSecondary">@color/brand_secondary</item>
-        <item name="colorSecondaryVariant">@color/forest_900</item>
-        <item name="colorOnSecondary">@color/on_brand_secondary</item>
+        <item name="colorSecondary">@color/brand_primary</item>
+        <item name="colorSecondaryVariant">@color/brand_primary_dark</item>
+        <item name="colorOnSecondary">@color/on_brand_primary</item>
 
         <!-- Surfaces -->
         <item name="android:colorBackground">@color/surface_background</item>
@@ -31,12 +32,14 @@
         <item name="colorError">@color/feedback_danger</item>
         <item name="android:textColorPrimary">@color/text_primary</item>
         <item name="android:textColorSecondary">@color/text_secondary</item>
-        <item name="android:textColorHint">@color/text_disabled</item>
+        <item name="android:textColorHint">@color/text_secondary</item>
 
-        <!-- System bars. The status bar takes the colour of the header. -->
-        <item name="android:statusBarColor" tools:targetApi="l">@color/brand_primary</item>
-        <item name="android:navigationBarColor" tools:targetApi="l">@color/surface_navigation</item>
+        <!-- System bars. The screen is white, so the status bar needs dark
+             icons. -->
+        <item name="android:statusBarColor" tools:targetApi="l">@color/surface_background</item>
+        <item name="android:navigationBarColor" tools:targetApi="l">@color/surface_background</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">true</item>
 
         <!-- Shape and type -->
         <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.Fudge.Small</item>
@@ -48,6 +51,8 @@
         <item name="materialButtonStyle">@style/Widget.Fudge.Button</item>
         <item name="materialCardViewStyle">@style/Widget.Fudge.Card</item>
         <item name="bottomNavigationStyle">@style/Widget.Fudge.BottomNavigation</item>
+        <item name="floatingActionButtonStyle">@style/Widget.Fudge.Fab</item>
+        <item name="chipStyle">@style/Widget.Fudge.Chip</item>
     </style>
 
     <!--
@@ -55,19 +60,17 @@
         It gives the new theme, so that the application keeps one look.
     -->
     <style name="Theme.FeedMe" parent="Theme.Fudge">
-        <item name="android:windowBackground">@drawable/bg_gradient</item>
+        <item name="android:windowBackground">@color/surface_background</item>
     </style>
 
-    <!-- Screen of the start. It shows the logo on the brand colour. -->
+    <!-- Screen of the start. It shows the logo on the white surface. -->
     <style name="SplashTheme" parent="Theme.Fudge">
         <item name="android:windowBackground">@drawable/splash_background</item>
-        <item name="android:statusBarColor">@color/brand_primary</item>
     </style>
 
     <!-- Screens of the login and of the registration -->
     <style name="LoginTheme" parent="Theme.Fudge">
-        <item name="android:windowBackground">@drawable/bg_gradient</item>
-        <item name="android:statusBarColor">@color/brand_primary</item>
+        <item name="android:windowBackground">@color/surface_background</item>
     </style>
 
     <!-- ===================================================================
@@ -92,14 +95,14 @@
          Dialog of the date picker
          =================================================================== -->
     <style name="DialogTheme" parent="Theme.MaterialComponents.DayNight.Dialog">
-        <item name="colorAccent">@color/brand_secondary</item>
+        <item name="colorAccent">@color/brand_primary</item>
         <item name="colorPrimary">@color/brand_primary</item>
         <item name="android:buttonBarPositiveButtonStyle">@style/DatePickerPosButtonTheme</item>
         <item name="android:buttonBarNegativeButtonStyle">@style/DatePickerNegButtonTheme</item>
     </style>
 
     <style name="DatePickerPosButtonTheme" parent="Base.Widget.AppCompat.Button.Borderless">
-        <item name="android:textColor">@color/brand_secondary</item>
+        <item name="android:textColor">@color/brand_primary</item>
     </style>
 
     <style name="DatePickerNegButtonTheme" parent="Base.Widget.AppCompat.Button.Borderless">
@@ -109,9 +112,9 @@
     <!-- ===================================================================
          Names of the first version. They point to the new styles.
          =================================================================== -->
-    <style name="ButtonTheme" parent="Widget.Fudge.Button"/>
+    <style name="ButtonTheme" parent="Widget.Fudge.Button" />
 
-    <style name="unimportantButtonTheme" parent="Widget.Fudge.Button.Secondary"/>
+    <style name="unimportantButtonTheme" parent="Widget.Fudge.Button.Secondary" />
 
     <style name="ExportButtonTheme" parent="Widget.Fudge.Button">
         <item name="android:textSize">@dimen/text_body_small</item>
@@ -124,7 +127,7 @@
         <item name="android:layout_marginStart">@dimen/space_8</item>
         <item name="android:layout_marginEnd">@dimen/space_8</item>
         <item name="android:layout_gravity">center</item>
-        <item name="android:indeterminateTint">@color/brand_secondary</item>
+        <item name="android:indeterminateTint">@color/brand_primary</item>
     </style>
 
 </resources>
