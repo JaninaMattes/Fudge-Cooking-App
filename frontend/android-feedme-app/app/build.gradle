@@ -5,7 +5,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.ksp)
     // Replaces the old plugin kotlin-android-extensions, which Google removed.
     alias(libs.plugins.kotlin.parcelize)
     alias(libs.plugins.navigation.safeargs)
@@ -91,10 +91,6 @@ android {
     }
 }
 
-kapt {
-    correctErrorTypes true
-}
-
 jacoco {
     toolVersion = libs.versions.jacoco.get()
 }
@@ -151,11 +147,11 @@ dependencies {
     // --- Background work -----------------------------------------------------
     implementation libs.androidx.work.runtime.ktx
     implementation libs.androidx.hilt.work
-    kapt libs.androidx.hilt.compiler
+    ksp libs.androidx.hilt.compiler
 
     // --- Dependency injection ------------------------------------------------
     implementation libs.hilt.android
-    kapt libs.hilt.compiler
+    ksp libs.hilt.compiler
 
     // --- Network -------------------------------------------------------------
     implementation platform(libs.okhttp.bom)
@@ -167,7 +163,6 @@ dependencies {
 
     // --- Pictures ------------------------------------------------------------
     implementation libs.glide
-    kapt libs.glide.compiler
     implementation libs.picasso
     implementation libs.circleimageview
     implementation libs.zxing.android.embedded
