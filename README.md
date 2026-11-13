@@ -10,9 +10,8 @@
   </p>
 
   <p>
-    An Android application with a Spring Boot REST API. Fudge keeps the
-    inventory of your kitchen, reads a product from its barcode and suggests
-    recipes for the products that expire soon, while automatically exporting missing items to a shoppinglist. This makes household foodwaste more visible and allows you to make smarter decisions, while saving money on groceries.
+    It is an Android app called Fudge, featuring a Spring Boot REST API. Fudge takes stock of your kitchen after you’ve been shopping, scans products and their details using their barcodes (where available), or uses image recognition (a future feature) to automatically recognise items such as fruit and vegetables. Fudge knows the use-by dates of various products and tracks them throughout your everyday life. Based on your dietary requirements and the frequency you suggested, Fudge suggests recipes that use as many of the products as possible that are already in your home or are about to go off. Missing items can be automatically exported to a shopping list when a recipe is selected. This makes food waste in the household more visible, ensures products are used up early, saves time spent searching for suitable recipes, and helps you save money on your next grocery shopping.
+
   </p>
 
   <p>
