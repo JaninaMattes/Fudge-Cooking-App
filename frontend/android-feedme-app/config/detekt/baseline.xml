@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<!--
+    Findings of detekt that the project accepts for the moment.
+
+    The file is empty. A finding of the first run goes here only when the team
+    decides that the change is too large for now. Each new file must stay free
+    of findings.
+-->
+<SmellBaseline>
+  <ManuallySuppressedIssues/>
+  <CurrentIssues/>
+</SmellBaseline>
