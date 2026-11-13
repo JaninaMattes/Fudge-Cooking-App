@@ -1,186 +1,93 @@
 package com.foodtracker.foodtrackerapi.repositories;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.foodtracker.foodtrackerapi.common.utils.Attempt;
+
 /**
- * Fix sequences, after data has been manually inserted.
- * Documentation: https://wiki.postgresql.org/wiki/Fixing_Sequences
+ * <p>
+ * Sets each sequence of the database to the highest key that its table holds.
+ * This is necessary after somebody puts rows into the database by hand, because
+ * such rows do not move the sequence. The next insert of the application would
+ * then use a key that is already in use.
+ * </p>
+ *
+ * <p>
+ * See the
+ * <a href="https://wiki.postgresql.org/wiki/Fixing_Sequences">PostgreSQL
+ * documentation</a>.
+ * </p>
  *
  * @author Janina Mattes
  */
-@Service
+@Repository
 @Transactional
 public class DBSequencesRepository {
 
-    @Autowired
-    JdbcTemplate jdbcTemplate;
+    /**
+     * All sequences and the key column that each sequence counts. The class had
+     * one method for each line of this list before. All the methods were equal.
+     */
+    private static final List<String> SQL_CORRECT_SEQUENCES = Collections.unmodifiableList(Arrays.asList(
+            sql("ET_USERS_SEQ", "USER_ID", "ET_USERS"),
+            sql("ET_PROFILE_SETTINGS_SEQ", "SETTINGS_ID", "ET_PROFILE_SETTINGS"),
+            sql("ET_RECIPE_SEQ", "RECIPE_ID", "ET_RECIPE"),
+            sql("ET_INGREDIENT_SEQ", "INGREDIENT_ID", "ET_INGREDIENT"),
+            sql("ET_DIETRY_TAG_SEQ", "TAG_ID", "ET_DIETRY_TAG"),
+            sql("ET_INVENTORYLIST_SEQ", "INVENTORYLIST_ID", "ET_INVENTORYLIST"),
+            sql("ET_SHOPPINGLIST_SEQ", "SHOPPINGLIST_ID", "ET_SHOPPINGLIST"),
+            sql("ET_CURRENT_SHOPPINGLIST_SEQ", "CUR_SHOPPINGLIST_ID", "ET_CURRENT_SHOPPINGLIST"),
+            sql("ET_OLD_SHOPPINGLIST_SEQ", "OLD_SHOPPINGLIST_ID", "ET_OLD_SHOPPINGLIST"),
+            sql("ET_PRODUCT_SEQ", "PRODUCT_ID", "ET_PRODUCT"),
+            sql("ET_PRODUCT_IMAGE_SEQ", "IMAGE_ID", "ET_PRODUCT_IMAGE"),
+            sql("ET_USER_IMAGE_SEQ", "IMAGE_ID", "ET_USER_IMAGE")));
 
-    // OTHER
-    private static final String SQL_UPDATE_USER_SEQUENCE = "SELECT SETVAL('ET_USERS_SEQ', COALESCE(MAX(USER_ID), 1 )) FROM ET_USERS;";
-    private static final String SQL_UPDATE_USER_PROFILE_SETTINGS_SEQUENCE = "SELECT SETVAL('ET_PROFILE_SETTINGS_SEQ', COALESCE(MAX(SETTINGS_ID), 1 )) FROM ET_PROFILE_SETTINGS;";
-    private static final String SQL_UPDATE_RECIPE_SEQUENCE = "SELECT SETVAL('ET_RECIPE_SEQ', COALESCE(MAX(RECIPE_ID), 1 )) FROM ET_RECIPE;";
-    private static final String SQL_UPDATE_RECIPE_INGREDIENT_SEQUENCE = "SELECT SETVAL('ET_INGREDIENT_SEQ', COALESCE(MAX(INGREDIENT_ID), 1 )) FROM ET_INGREDIENT;";
-    private static final String SQL_UPDATE_DIETRY_TAG_SEQUENCE = "SELECT SETVAL('ET_DIETRY_TAG_SEQ', COALESCE(MAX(TAG_ID), 1 )) FROM  ET_DIETRY_TAG;";
-    private static final String SQL_UPDATE_USER_INVENTORY_LIST_SEQUENCE = "SELECT SETVAL('ET_INVENTORYLIST_SEQ', COALESCE(MAX(INVENTORYLIST_ID), 1 )) FROM ET_INVENTORYLIST;";
-    private static final String SQL_UPDATE_USER_SHOPPING_LISTSEQUENCE = "SELECT SETVAL('ET_SHOPPINGLIST_SEQ', COALESCE(MAX(SHOPPINGLIST_ID), 1 )) FROM ET_SHOPPINGLIST;";
-    private static final String SQL_UPDATE_USER_CUR_SHOPPING_LISTSEQUENCE = "SELECT SETVAL('ET_CURRENT_SHOPPINGLIST_SEQ', COALESCE(MAX(CUR_SHOPPINGLIST_ID), 1 )) FROM ET_CURRENT_SHOPPINGLIST;";
-    private static final String SQL_UPDATE_USER_OLD_SHOPPING_LISTSEQUENCE = "SELECT SETVAL('ET_OLD_SHOPPINGLIST_SEQ', COALESCE(MAX(OLD_SHOPPINGLIST_ID), 1 )) FROM ET_OLD_SHOPPINGLIST;";
-    private static final String SQL_UPDATE_PRODUCT_SEQUENCE = "SELECT SETVAL('ET_PRODUCT_SEQ', COALESCE(MAX(PRODUCT_ID), 1 )) FROM ET_PRODUCT;";
-    private static final String SQL_UPDATE_PRODUCT_IMAGE_SEQUENCE = "SELECT SETVAL('ET_PRODUCT_IMAGE_SEQ', COALESCE(MAX(IMAGE_ID), 1 )) FROM ET_PRODUCT_IMAGE;";
-    private static final String SQL_UPDATE_USER_IMAGE_SEQUENCE = "SELECT SETVAL('ET_USER_IMAGE_SEQ', COALESCE(MAX(IMAGE_ID), 1 )) FROM ET_USER_IMAGE;";
+    private final JdbcTemplate jdbcTemplate;
 
+    /**
+     * Makes the repository.
+     *
+     * @param jdbcTemplate connection to the database
+     */
+    public DBSequencesRepository(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
+
+    /**
+     * Sets all sequences of the database to the highest key of their table.
+     *
+     * @return the number of sequences that the method corrected
+     */
     public Integer correctAllDBSequences() {
-        Integer result = 0;
-        // DB seqeunces need to be updated
-        result += correctUserSequence();
-        result += correctUserSettingsSequence();
-        result += correctRecipeSequence();
-        result += correctIngredientsSequence();
-        result += correctDietryTagSequence();
-        result += correctInvListSequence();
-        result += correctShopListSequence();
-        result += correctCurShopSequence();
-        result += correctOldShopSequence();
-        result += correctProductSequence();
-        result += correctProdImgSequence();
-        result += correctUserImgSequence();
-
-        return result;
-    }
-
-    private Integer correctUserSequence() {
-        // Update used sequence to the max key
-        Integer result = 0;
-        try {
-            result = jdbcTemplate.update(SQL_UPDATE_USER_SEQUENCE);
-        } catch (Exception e) {
-            e.getStackTrace();
+        int corrected = 0;
+        for (String statement : SQL_CORRECT_SEQUENCES) {
+            // SETVAL is a function, so the statement is a query and not an update.
+            boolean success = Attempt.orDefault("correct a database sequence", null,
+                    () -> jdbcTemplate.queryForObject(statement, Long.class)) != null;
+            if (success) {
+                corrected++;
+            }
         }
-        return result;
+        return corrected;
     }
 
-    private Integer correctUserSettingsSequence() {
-        // Update used sequence to the max key
-        Integer result = 0;
-        try {
-            result = jdbcTemplate.update(SQL_UPDATE_USER_PROFILE_SETTINGS_SEQUENCE);
-        } catch (Exception e) {
-            e.getStackTrace();
-        }
-        return result;
+    /**
+     * Gives the number of sequences that the repository corrects.
+     *
+     * @return the number of sequences
+     */
+    public int getSequenceCount() {
+        return SQL_CORRECT_SEQUENCES.size();
     }
 
-    private Integer correctRecipeSequence() {
-        // Update used sequence to the max key
-        Integer result = 0;
-        try {
-            result = jdbcTemplate.update(SQL_UPDATE_RECIPE_SEQUENCE);
-        } catch (Exception e) {
-            e.getStackTrace();
-        }
-        return result;
+    private static String sql(String sequence, String keyColumn, String table) {
+        return String.format("SELECT SETVAL('%s', COALESCE(MAX(%s), 1)) FROM %s;",
+                sequence, keyColumn, table);
     }
-
-    private Integer correctIngredientsSequence() {
-        // Update used sequence to the max key
-        Integer result = 0;
-        try {
-            result = jdbcTemplate.update(SQL_UPDATE_RECIPE_INGREDIENT_SEQUENCE);
-        } catch (Exception e) {
-            e.getStackTrace();
-        }
-        return result;
-    }
-
-    private Integer correctDietryTagSequence() {
-        // Update used sequence to the max key
-        Integer result = 0;
-        try {
-            result = jdbcTemplate.update(SQL_UPDATE_DIETRY_TAG_SEQUENCE);
-        } catch (Exception e) {
-            e.getStackTrace();
-        }
-        return result;
-    }
-
-    private Integer correctInvListSequence() {
-        // Update used sequence to the max key
-        Integer result = 0;
-        try {
-            result = jdbcTemplate.update(SQL_UPDATE_USER_INVENTORY_LIST_SEQUENCE);
-        } catch (Exception e) {
-            e.getStackTrace();
-        }
-        return result;
-    }
-
-    private Integer correctShopListSequence() {
-        // Update used sequence to the max key
-        Integer result = 0;
-        try {
-            result = jdbcTemplate.update(SQL_UPDATE_USER_SHOPPING_LISTSEQUENCE);
-        } catch (Exception e) {
-            e.getStackTrace();
-        }
-        return result;
-    }
-
-    private Integer correctCurShopSequence() {
-        // Update used sequence to the max key
-        Integer result = 0;
-        try {
-            result = jdbcTemplate.update(SQL_UPDATE_USER_CUR_SHOPPING_LISTSEQUENCE);
-        } catch (Exception e) {
-            e.getStackTrace();
-        }
-        return result;
-    }
-
-    private Integer correctOldShopSequence() {
-        // Update used sequence to the max key
-        Integer result = 0;
-        try {
-            result = jdbcTemplate.update(SQL_UPDATE_USER_OLD_SHOPPING_LISTSEQUENCE);
-        } catch (Exception e) {
-            e.getStackTrace();
-        }
-        return result;
-    }
-
-    private Integer correctProductSequence() {
-        // Update used sequence to the max key
-        Integer result = 0;
-        try {
-            result = jdbcTemplate.update(SQL_UPDATE_PRODUCT_SEQUENCE);
-        } catch (Exception e) {
-            e.getStackTrace();
-        }
-        return result;
-    }
-
-    private Integer correctProdImgSequence() {
-        // Update used sequence to the max key
-        Integer result = 0;
-        try {
-            result = jdbcTemplate.update(SQL_UPDATE_PRODUCT_IMAGE_SEQUENCE);
-        } catch (Exception e) {
-            e.getStackTrace();
-        }
-        return result;
-    }
-
-    private Integer correctUserImgSequence() {
-        // Update used sequence to the max key
-        Integer result = 0;
-        try {
-            result = jdbcTemplate.update(SQL_UPDATE_USER_IMAGE_SEQUENCE);
-        } catch (Exception e) {
-            e.getStackTrace();
-        }
-        return result;
-    }
-
 }
