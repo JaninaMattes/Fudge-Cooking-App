@@ -2,30 +2,37 @@ package com.foodtracker.foodtrackerapi.models;
 
 import java.util.List;
 
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+
 /**
  * <p>
- * The CurrentShoppingList is a POJO to represent the items in a user's current shoppinglist.
- * Simultaneously to the database it follows the gen-spec pattern and is the specification of a Shoppinglist.
+ * The products that a user wants to buy. The user can create a product here, or
+ * move a product back from the old shopping list.
  * </p>
- * 
+ *
  * @author Janina Mattes
  */
-public class CurrentShoppingList extends Shoppinglist{
+@EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true)
+public class CurrentShoppingList extends Shoppinglist {
 
     /**
-     * @param shoppingListId
-     * @param shoppingList
+     * Makes a current shopping list with products.
+     *
+     * @param shoppingListId primary key of the list
+     * @param shoppingList   products that are on the list
      */
     public CurrentShoppingList(Integer shoppingListId, List<Product> shoppingList) {
         super(shoppingListId, shoppingList);
     }
 
     /**
-     * @param shoppingListId
+     * Makes an empty current shopping list.
+     *
+     * @param shoppingListId primary key of the list
      */
     public CurrentShoppingList(Integer shoppingListId) {
         super(shoppingListId);
     }
-
-    
 }
