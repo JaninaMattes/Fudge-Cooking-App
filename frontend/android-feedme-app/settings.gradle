@@ -1,10 +1,32 @@
+// Settings of the whole project.
+//
+// The block pluginManagement says where Gradle finds the plugins. The block
+// dependencyResolutionManagement says where it finds the libraries. Both
+// blocks name the repositories one time for all modules.
+
+pluginManagement {
+    repositories {
+        google {
+            content {
+                includeGroupByRegex("com\\.android.*")
+                includeGroupByRegex("com\\.google.*")
+                includeGroupByRegex("androidx.*")
+            }
+        }
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
+
 dependencyResolutionManagement {
+    // A module must not name its own repository.
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
         google()
         mavenCentral()
     }
 }
+
 rootProject.name = "android-feedme-app"
 include ':app'
 include ':core'
