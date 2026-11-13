@@ -1,50 +1,60 @@
 package com.foodtracker.foodtrackerapi.services;
 
-import com.foodtracker.foodtrackerapi.models.Ingredient;
-import com.foodtracker.foodtrackerapi.models.Recipe;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.foodtracker.foodtrackerapi.repositories.InventoryRepository;
-import com.foodtracker.foodtrackerapi.repositories.RecipeRepository;
-
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.foodtracker.foodtrackerapi.models.Ingredient;
+import com.foodtracker.foodtrackerapi.models.Recipe;
+import com.foodtracker.foodtrackerapi.repositories.RecipeRepository;
+
+/**
+ * <p>
+ * The recipes of a user. The service reads the recipes that the application
+ * stored before. The class {@link RecipeRestService} loads new recipes from the
+ * external API.
+ * </p>
+ *
+ * @author Janina Mattes
+ */
 @Service
 @Transactional
-public class RecipeServiceImpl implements RecipeService{
+public class RecipeServiceImpl implements RecipeService {
 
-    private static Logger logger = LogManager.getLogger(RecipeServiceImpl.class);
+    private static final Logger LOG = LogManager.getLogger(RecipeServiceImpl.class);
 
+    /** Number of recipes that the application shows in a list. */
+    private static final int DEFAULT_RECIPE_AMOUNT = 10;
 
-    @Autowired
-    RecipeRepository recipeRepository;
+    /** Value that the repositories give when a key is not available. */
+    private static final Integer NO_ID = 0;
 
-    @Autowired
-    InventoryRepository productRepository;
+    private final RecipeRepository recipeRepository;
+
+    /**
+     * Makes the service.
+     *
+     * @param recipeRepository repository of the recipes
+     */
+    public RecipeServiceImpl(RecipeRepository recipeRepository) {
+        this.recipeRepository = recipeRepository;
+    }
 
     @Override
     public Optional<ArrayList<Recipe>> getAllRecipesByRating(float rating, Integer userId) {
-        ArrayList<Recipe> result = null;
-        try{
-            ArrayList<Recipe> recipes = getNRandomRecipes(userId, 10);
-            // filter by rating
-            Predicate<Recipe> byRating = recipe -> recipe.getCummulativeRating() > rating;
-            List<Recipe> filtered = recipes.stream().filter(byRating).collect(Collectors.toList());
-            result = new ArrayList<>(filtered);
-
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-        return Optional.of(result);
+        List<Recipe> recipes = getNRandomRecipes(userId, DEFAULT_RECIPE_AMOUNT);
+        ArrayList<Recipe> betterThanRating = recipes.stream()
+                .filter(recipe -> recipe.getCummulativeRating() != null)
+                .filter(recipe -> recipe.getCummulativeRating() > rating)
+                .collect(Collectors.toCollection(ArrayList::new));
+        return Optional.of(betterThanRating);
     }
 
     @Override
@@ -82,62 +92,58 @@ public class RecipeServiceImpl implements RecipeService{
         return recipeRepository.rateRecipe(id, rating);
     }
 
+    /**
+     * Stores the recipes that the external API gave. The method first deletes
+     * the recipes of the last call, because the API gives recipes for the
+     * products that expire now.
+     */
     @Override
     public Integer loadRecipesFromAPI(List<Recipe> recipes, Integer userId) {
-        Integer result = 0;
-        try{
-            // remove all old recipes in table
-            removeAllPreviousRecipes(userId);
-            // create new recipes + their ingredients
-            for (Recipe recipe : recipes) {
-                Integer recipeId = recipeRepository.createRecipe(recipe, userId);
-                if(recipeId != 0){
-                    for (Ingredient ingredient : recipe.getIngredients()) {
-                        Integer ingredientId = recipeRepository.createIngredient(ingredient.getIngredientName(),
-                                ingredient.getQuantity());
-                        recipeRepository.createRecipeIngredient(recipeId, ingredientId);
-                    }
-                }
-                result++;
-            }
-        }catch(Exception e){
-            e.printStackTrace();
+        if (recipes == null || recipes.isEmpty()) {
+            return 0;
         }
-        
-        return result;
+        removeAllPreviousRecipes(userId);
+        int storedRecipes = 0;
+        for (Recipe recipe : recipes) {
+            Integer recipeId = recipeRepository.createRecipe(recipe, userId);
+            if (!NO_ID.equals(recipeId)) {
+                createIngredients(recipe, recipeId);
+                storedRecipes++;
+            }
+        }
+        return storedRecipes;
     }
 
+    /**
+     * Gives a random selection of the recipes of a user. The dashboard shows a
+     * different selection on each call.
+     *
+     * @param userId key of the user
+     * @param amount highest number of recipes to give
+     * @return the recipes. The list holds fewer recipes if the user has fewer,
+     *         and it is empty if the user has none.
+     */
     @Override
     public ArrayList<Recipe> getNRandomRecipes(Integer userId, Integer amount) {
-        ArrayList<Recipe> randomRecipes = new ArrayList<>(amount);
-        try {
-            Optional<List<Recipe>> allRecipes = recipeRepository.getAllRecipes(userId);
-            if (!allRecipes.isEmpty()) {
-                List<Recipe> recipes = allRecipes.get();
-                Collections.shuffle(recipes);
-                for (Integer i = 0; i < amount; i++) {
-                    randomRecipes.add(recipes.get(i));
-                }
-            }else{
-                logger.debug("No recipes found! For user with id: " + userId);
-            }
-        }catch (Exception e) {
-            e.printStackTrace();
+        List<Recipe> allRecipes = recipeRepository.getAllRecipes(userId)
+                .orElseGet(ArrayList::new);
+        if (allRecipes.isEmpty()) {
+            LOG.debug("No recipes found for the user with the key {}.", userId);
+            return new ArrayList<>();
         }
-        return filterDuplicates(randomRecipes);
+        List<Recipe> shuffled = new ArrayList<>(allRecipes);
+        Collections.shuffle(shuffled);
+        int wanted = amount != null && amount > 0 ? amount : 0;
+        return shuffled.stream()
+                .distinct()
+                .limit(wanted)
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
-    private ArrayList<Recipe> filterDuplicates(ArrayList<Recipe> recipes){
-        ArrayList<Recipe> result = recipes;
-        try{
-            List<Recipe> filteredRecipes = recipes.stream().distinct().collect(Collectors.toList());
-            result = new ArrayList(filteredRecipes);
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-        return result;
-    }
-
+    /**
+     * Deletes a recipe and everything that belongs to it. The links and the
+     * ingredients must go first, because their tables point to the recipe.
+     */
     @Override
     public Integer deleteRecipeById(Integer recipeId, Integer userId) {
         recipeRepository.deleteRecipeIngredient(recipeId);
@@ -145,18 +151,24 @@ public class RecipeServiceImpl implements RecipeService{
         return recipeRepository.deleteRecipe(recipeId, userId);
     }
 
-    private Integer removeAllPreviousRecipes(Integer userId) {
-        Integer result = 0;
-        Optional<List<Recipe>> allRecipes = recipeRepository.getAllRecipes(userId);
-        if (!allRecipes.isEmpty()) {
-            for (Recipe recipe : allRecipes.get()) {
-                result += deleteRecipeById(recipe.getRecipeId(), userId);
-            }
+    private void createIngredients(Recipe recipe, Integer recipeId) {
+        List<Ingredient> ingredients = recipe.getIngredients();
+        if (ingredients == null) {
+            return;
         }
-        return result;
+        for (Ingredient ingredient : ingredients) {
+            Integer ingredientId = recipeRepository.createIngredient(
+                    ingredient.getIngredientName(), ingredient.getQuantity());
+            recipeRepository.createRecipeIngredient(recipeId, ingredientId);
+        }
     }
 
-    private Integer getRandomNumber(Integer min, Integer max) {
-        return (int) ((Math.random() * (max - min)) + min);
+    private Integer removeAllPreviousRecipes(Integer userId) {
+        List<Recipe> allRecipes = recipeRepository.getAllRecipes(userId).orElseGet(ArrayList::new);
+        int deletedRows = 0;
+        for (Recipe recipe : allRecipes) {
+            deletedRows += deleteRecipeById(recipe.getRecipeId(), userId);
+        }
+        return deletedRows;
     }
 }
