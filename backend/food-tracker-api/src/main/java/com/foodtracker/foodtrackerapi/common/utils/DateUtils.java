@@ -26,13 +26,14 @@ import org.apache.logging.log4j.Logger;
  */
 public final class DateUtils {
 
-    private static final Logger LOG = LogManager.getLogger(DateUtils.class);
-
     /** Format of the dates that the client sends, for example 2022-02-02. */
     public static final DateTimeFormatter ISO_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     /** Format of the dates that the user interface shows, for example 02.02.2022. */
-    public static final DateTimeFormatter DISPLAY_FORMAT = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+    public static final DateTimeFormatter DISPLAY_FORMAT =
+            DateTimeFormatter.ofPattern("dd.MM.yyyy");
+
+    private static final Logger LOG = LogManager.getLogger(DateUtils.class);
 
     private DateUtils() {
         // Utility class. Do not make an instance of it.
