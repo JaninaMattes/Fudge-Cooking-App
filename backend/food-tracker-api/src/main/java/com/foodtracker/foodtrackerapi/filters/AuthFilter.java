@@ -2,20 +2,19 @@ package com.foodtracker.foodtrackerapi.filters;
 
 import java.io.IOException;
 
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.filter.GenericFilterBean;
 
-import com.foodtracker.foodtrackerapi.common.config.ApiProperties;
+import com.foodtracker.foodtrackerapi.common.security.TokenService;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 /**
  * <p>
@@ -29,6 +28,12 @@ import io.jsonwebtoken.Jwts;
  * pattern, because a user has no token before the login.
  * </p>
  *
+ * <p>
+ * Each rejection writes one line to the log. The line holds the method, the
+ * path and the reason, so a reader sees why a request of the client failed. The
+ * line never holds the token.
+ * </p>
+ *
  * @author Janina Mattes
  */
 public class AuthFilter extends GenericFilterBean {
@@ -40,17 +45,19 @@ public class AuthFilter extends GenericFilterBean {
     static final String BEARER_PREFIX = "Bearer ";
 
     /** Name of the request attribute that holds the user ID. */
-    static final String USER_ID_ATTRIBUTE = "userId";
+    static final String USER_ID_ATTRIBUTE = TokenService.USER_ID_CLAIM;
 
-    private final ApiProperties apiProperties;
+    private static final Logger LOG = LoggerFactory.getLogger(AuthFilter.class);
+
+    private final TokenService tokenService;
 
     /**
      * Makes the filter.
      *
-     * @param apiProperties configuration that holds the signature key
+     * @param tokenService service that reads a token
      */
-    public AuthFilter(ApiProperties apiProperties) {
-        this.apiProperties = apiProperties;
+    public AuthFilter(TokenService tokenService) {
+        this.tokenService = tokenService;
     }
 
     @Override
@@ -62,31 +69,31 @@ public class AuthFilter extends GenericFilterBean {
 
         String authHeader = httpRequest.getHeader(AUTH_HEADER);
         if (authHeader == null || authHeader.isEmpty()) {
-            reject(httpResponse, "An authorization token is necessary");
+            reject(httpRequest, httpResponse, "An authorization token is necessary");
             return;
         }
         if (!authHeader.startsWith(BEARER_PREFIX)) {
-            reject(httpResponse, "The authorization token must be Bearer [token]");
+            reject(httpRequest, httpResponse, "The authorization token must be Bearer [token]");
             return;
         }
 
         String token = authHeader.substring(BEARER_PREFIX.length());
         try {
-            Claims claims = Jwts.parser()
-                    .setSigningKey(apiProperties.getSecretKey())
-                    .parseClaimsJws(token)
-                    .getBody();
-            httpRequest.setAttribute(USER_ID_ATTRIBUTE,
-                    Integer.parseInt(String.valueOf(claims.get(USER_ID_ATTRIBUTE))));
+            httpRequest.setAttribute(USER_ID_ATTRIBUTE, tokenService.readUserId(token));
         } catch (Exception e) {
-            reject(httpResponse, "The authorization token is not valid or has expired");
+            LOG.warn("The token of {} {} is not valid: {}", httpRequest.getMethod(),
+                    httpRequest.getRequestURI(), e.getMessage());
+            reject(httpRequest, httpResponse,
+                    "The authorization token is not valid or has expired");
             return;
         }
 
         filterChain.doFilter(servletRequest, servletResponse);
     }
 
-    private void reject(HttpServletResponse response, String reason) throws IOException {
+    private void reject(HttpServletRequest request, HttpServletResponse response, String reason)
+            throws IOException {
+        LOG.warn("Refused {} {}: {}", request.getMethod(), request.getRequestURI(), reason);
         response.sendError(HttpStatus.FORBIDDEN.value(), reason);
     }
 }
