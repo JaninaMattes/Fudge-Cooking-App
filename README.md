@@ -336,8 +336,8 @@ Base address: `http://<host>:80/api`
 
 ## Configuration
 
-**No credential is in the source code.** The application reads each value from
-an environment variable and uses a default value only for the local machine.
+The application reads each value from
+an environment variable and uses a default value only for the local machine. 
 
 ```bash
 export FT_DB_URL=jdbc:postgresql://localhost:5432/foodtrackerdb
