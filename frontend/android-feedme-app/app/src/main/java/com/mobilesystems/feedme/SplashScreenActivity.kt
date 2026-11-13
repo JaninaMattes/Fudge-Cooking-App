@@ -51,8 +51,10 @@ class SplashScreenActivity : AppCompatActivity() {
     private fun observeSplashLiveData() {
         splashViewModel.loadIsUserLoggedIn()
 
-        val loginObserver = Observer<Boolean?>{ isLoggedIn ->
-            if (isLoggedIn) {
+        val loginObserver = Observer<Boolean?> { isLoggedIn ->
+            // The value is null until the server answers. The user then stays
+            // on the screen of the start.
+            if (isLoggedIn == true) {
                 // navigate to main
                 val intent = Intent(this@SplashScreenActivity, MainActivity::class.java)
                 startActivity(intent)
