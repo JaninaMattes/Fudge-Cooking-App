@@ -1,5 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Background of the navigation bar at the bottom of the screen. The dark
+    green bar with round corners comes from the design.
+-->
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid android:color="@color/white" />
-    <corners android:radius="19dp" />
+    <solid android:color="@color/surface_navigation" />
+    <corners android:radius="@dimen/radius_large" />
 </shape>

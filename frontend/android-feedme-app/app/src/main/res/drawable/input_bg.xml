@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Border of a field in which the user writes. -->
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <stroke android:color="@color/black" android:width="2dp"/>
-    <corners android:radius="70dp" />
+    <solid android:color="@color/surface_card" />
+    <stroke
+        android:width="@dimen/stroke_width_strong"
+        android:color="@color/brand_secondary" />
+    <corners android:radius="@dimen/radius_pill" />
 </shape>

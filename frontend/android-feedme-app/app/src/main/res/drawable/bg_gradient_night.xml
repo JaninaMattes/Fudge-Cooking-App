@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <shape xmlns:android="http://schemas.android.com/apk/res/android"
-        android:shape="rectangle" >
-        <gradient
-            android:type="linear"
-            android:angle="135"
-            android:startColor="@color/black"
-            android:endColor="@color/dark_grey" />
+<!-- Background of a screen in the dark mode. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <gradient
+        android:type="linear"
+        android:angle="135"
+        android:startColor="@color/surface_background"
+        android:endColor="@color/surface_card" />
 </shape>
