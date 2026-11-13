@@ -2,100 +2,108 @@
 <!--
     Colours of the Fudge design system.
 
+    The colours come from the design in frontend/doc/design/ui_design_ideas_002.png:
+    a white screen, an emerald green accent, near-black text and grey helper
+    text. The picture is the first thing that the user sees, so the interface
+    around it stays quiet and uses colour only where colour carries a meaning.
+
     The file has three parts:
 
-    1. The brand palette. These are the raw colours of the Figma design: a
-       sage green header, dark green cards, a cream background and a yellow
-       accent.
-    2. The semantic tokens. A layout uses a token and not a raw colour, because
-       the name of a token says where the colour belongs (surface, text, the
-       status of a product). A change of the brand then needs one change here
-       and no change in the 51 layout files.
-    3. The names of the first version of the application. They point to the new
-       tokens, so that the old layouts keep their colours. Do not use them in
-       new code.
+    1. The palette. The raw colours.
+    2. The semantic tokens. A layout uses a token, because the name of a token
+       says where the colour belongs. A change of the brand then needs one
+       change here and no change in the 51 layout files.
+    3. The names of the first version. They point to the new tokens, so that
+       the old layouts keep working. Do not use them in new code.
 -->
 <resources>
 
     <!-- ===================================================================
-         1. Brand palette
+         1. Palette
          =================================================================== -->
 
-    <!-- Sage green. The header and the brand colour of the application. -->
-    <color name="sage_100">#E8EEE1</color>
-    <color name="sage_200">#CBD9BC</color>
-    <color name="sage_300">#AEC39A</color>
-    <color name="sage_500">#92A880</color>
-    <color name="sage_700">#6E8460</color>
+    <!-- Emerald green. The one strong colour of the interface. It marks the
+         action that the user can take: the round button, the active tab, the
+         link "See all" and the selected category. -->
+    <color name="emerald_50">#E8F6ED</color>
+    <color name="emerald_100">#C6E9D3</color>
+    <color name="emerald_300">#5FC787</color>
+    <color name="emerald_500">#16A34A</color>
+    <color name="emerald_600">#12833C</color>
+    <color name="emerald_700">#0E6830</color>
 
-    <!-- Dark green. The cards, the navigation bar and the main buttons. -->
-    <color name="forest_300">#5A6B54</color>
-    <color name="forest_500">#3B4A36</color>
-    <color name="forest_700">#2F3B2C</color>
-    <color name="forest_900">#1F2819</color>
-
-    <!-- Cream. The background of a screen. -->
-    <color name="cream_50">#FBFAF6</color>
-    <color name="cream_100">#F4F2EA</color>
-    <color name="cream_200">#E8E5D9</color>
-
-    <!-- Yellow. The logo, the stars of a rating and the active navigation. -->
-    <color name="amber_300">#F8DC8C</color>
-    <color name="amber_500">#F2C230</color>
-    <color name="amber_700">#C89A15</color>
-
-    <!-- Neutral -->
+    <!-- Neutral. The screen, the cards and the text. -->
     <color name="neutral_0">#FFFFFFFF</color>
-    <color name="neutral_100">#F2F2EF</color>
-    <color name="neutral_300">#D7D8D2</color>
-    <color name="neutral_500">#8A8F84</color>
-    <color name="neutral_700">#5E6655</color>
-    <color name="neutral_900">#1F2419</color>
+    <color name="neutral_50">#FAFAFA</color>
+    <color name="neutral_100">#F4F5F6</color>
+    <color name="neutral_200">#E9EAEC</color>
+    <color name="neutral_300">#DCDEE1</color>
+    <color name="neutral_400">#B5B9BE</color>
+    <color name="neutral_500">#8E9399</color>
+    <color name="neutral_600">#6B7076</color>
+    <color name="neutral_700">#4A4F55</color>
+    <color name="neutral_800">#2A2E33</color>
+    <color name="neutral_900">#15181B</color>
     <color name="neutral_1000">#FF000000</color>
 
-    <!-- Status colours. The user reads the state of a product by the colour. -->
-    <color name="status_fresh">#3E7C4A</color>
+    <!-- Amber. The stars of a rating only. -->
+    <color name="amber_400">#FFC94D</color>
+    <color name="amber_500">#FFB800</color>
+
+    <!-- Status colours. The user reads the state of the food from them. -->
+    <color name="status_fresh">#16A34A</color>
     <color name="status_soon">#E8A020</color>
-    <color name="status_urgent">#D1643C</color>
-    <color name="status_expired">#B3261E</color>
+    <color name="status_urgent">#F06A28</color>
+    <color name="status_expired">#E02B2B</color>
+
+    <!-- A dark layer over a picture. The white text on a photo must stay
+         readable, also on a bright photo. -->
+    <color name="scrim_strong">#B315181B</color>
+    <color name="scrim_soft">#5915181B</color>
 
     <!-- ===================================================================
          2. Semantic tokens. New code uses these names.
          =================================================================== -->
 
     <!-- Brand -->
-    <color name="brand_primary">@color/sage_500</color>
-    <color name="brand_primary_dark">@color/sage_700</color>
-    <color name="brand_primary_light">@color/sage_200</color>
-    <color name="brand_secondary">@color/forest_700</color>
-    <color name="brand_accent">@color/amber_500</color>
-    <color name="on_brand_primary">@color/neutral_900</color>
-    <color name="on_brand_secondary">@color/cream_50</color>
-    <color name="on_brand_accent">@color/neutral_900</color>
+    <color name="brand_primary">@color/emerald_500</color>
+    <color name="brand_primary_dark">@color/emerald_700</color>
+    <color name="brand_primary_light">@color/emerald_100</color>
+    <color name="brand_secondary">@color/neutral_900</color>
+    <color name="brand_accent">@color/emerald_500</color>
+    <color name="on_brand_primary">@color/neutral_0</color>
+    <color name="on_brand_secondary">@color/neutral_0</color>
+    <color name="on_brand_accent">@color/neutral_0</color>
 
     <!-- Surfaces -->
-    <color name="surface_background">@color/cream_100</color>
+    <color name="surface_background">@color/neutral_0</color>
     <color name="surface_card">@color/neutral_0</color>
-    <color name="surface_card_muted">@color/cream_200</color>
-    <color name="surface_card_strong">@color/forest_700</color>
-    <color name="surface_divider">@color/neutral_300</color>
-    <color name="surface_navigation">@color/forest_700</color>
+    <color name="surface_card_muted">@color/neutral_100</color>
+    <color name="surface_card_strong">@color/neutral_900</color>
+    <color name="surface_input">@color/neutral_100</color>
+    <color name="surface_divider">@color/neutral_200</color>
+    <color name="surface_navigation">@color/neutral_0</color>
+    <color name="surface_overlay">@color/scrim_strong</color>
 
     <!-- Text and icons -->
     <color name="text_primary">@color/neutral_900</color>
-    <color name="text_secondary">@color/neutral_700</color>
-    <color name="text_disabled">@color/neutral_500</color>
-    <color name="text_on_dark">@color/cream_50</color>
-    <color name="text_on_dark_secondary">@color/sage_200</color>
+    <color name="text_secondary">@color/neutral_500</color>
+    <color name="text_disabled">@color/neutral_400</color>
+    <color name="text_on_dark">@color/neutral_0</color>
+    <color name="text_on_dark_secondary">@color/neutral_200</color>
+    <color name="text_link">@color/emerald_500</color>
     <color name="icon_primary">@color/neutral_900</color>
-    <color name="icon_on_dark">@color/cream_50</color>
-    <color name="icon_active">@color/amber_500</color>
+    <color name="icon_secondary">@color/neutral_500</color>
+    <color name="icon_on_dark">@color/neutral_0</color>
+    <color name="icon_active">@color/emerald_500</color>
+    <color name="icon_inactive">@color/neutral_400</color>
+    <color name="rating_star">@color/amber_500</color>
 
     <!-- Feedback -->
     <color name="feedback_success">@color/status_fresh</color>
     <color name="feedback_warning">@color/status_soon</color>
     <color name="feedback_danger">@color/status_expired</color>
-    <color name="feedback_info">@color/sage_700</color>
+    <color name="feedback_info">@color/emerald_600</color>
 
     <!-- ===================================================================
          3. Names of the first version. Do not use them in new code.
@@ -109,38 +117,38 @@
     <color name="black">@color/text_primary</color>
     <color name="white">@color/neutral_0</color>
     <color name="dark_grey">@color/text_secondary</color>
-    <color name="light_grey">@color/neutral_500</color>
-    <color name="bright_grey">@color/neutral_100</color>
-    <color name="bright_grey_200">@color/neutral_300</color>
+    <color name="light_grey">@color/neutral_400</color>
+    <color name="bright_grey">@color/neutral_50</color>
+    <color name="bright_grey_200">@color/neutral_200</color>
 
-    <color name="red_200">@color/brand_secondary</color>
+    <color name="red_200">@color/brand_primary</color>
     <color name="bright_red_200">@color/feedback_danger</color>
     <color name="theme_red_100">@color/feedback_danger</color>
     <color name="salmon_red">@color/status_urgent</color>
     <color name="theme_orange_100">@color/feedback_warning</color>
 
-    <color name="green_200">@color/sage_200</color>
-    <color name="green_500">@color/sage_500</color>
-    <color name="green_700">@color/forest_700</color>
-    <color name="bright_green_200">@color/sage_300</color>
+    <color name="green_200">@color/emerald_100</color>
+    <color name="green_500">@color/emerald_500</color>
+    <color name="green_700">@color/emerald_700</color>
+    <color name="bright_green_200">@color/emerald_300</color>
 
-    <color name="theme_creme_100">@color/cream_100</color>
-    <color name="theme_creme_50">@color/cream_50</color>
-    <color name="theme_creme_dark">@color/cream_200</color>
-    <color name="theme_creme_500">@color/cream_200</color>
+    <color name="theme_creme_100">@color/neutral_100</color>
+    <color name="theme_creme_50">@color/neutral_50</color>
+    <color name="theme_creme_dark">@color/neutral_200</color>
+    <color name="theme_creme_500">@color/neutral_100</color>
 
     <color name="blue_700">@color/feedback_info</color>
-    <color name="theme_dark_blue_100">@color/forest_900</color>
+    <color name="theme_dark_blue_100">@color/neutral_900</color>
 
     <!-- ===================================================================
          Colours of the ZXing barcode reader
          =================================================================== -->
 
-    <color name="zxing_viewfinder_laser">@color/brand_accent</color>
-    <color name="zxing_possible_result_points">@color/brand_accent</color>
-    <color name="zxing_result_view">@color/forest_900</color>
+    <color name="zxing_viewfinder_laser">@color/brand_primary</color>
+    <color name="zxing_possible_result_points">@color/brand_primary</color>
+    <color name="zxing_result_view">@color/neutral_900</color>
     <color name="zxing_status_text">@color/text_on_dark</color>
     <color name="zxing_transparent">@color/neutral_1000</color>
-    <color name="zxing_viewfinder_mask">@color/forest_900</color>
+    <color name="zxing_viewfinder_mask">@color/scrim_strong</color>
 
 </resources>
