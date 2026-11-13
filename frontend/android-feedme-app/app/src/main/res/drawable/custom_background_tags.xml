@@ -2,13 +2,10 @@
 <!-- Background of a small label, for example "Vegan". -->
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
     <solid android:color="@color/surface_card_muted" />
-    <stroke
-        android:width="@dimen/stroke_width"
-        android:color="@color/sage_300" />
     <padding
-        android:left="@dimen/space_2"
+        android:left="@dimen/space_3"
         android:top="@dimen/space_1"
-        android:right="@dimen/space_2"
+        android:right="@dimen/space_3"
         android:bottom="@dimen/space_1" />
     <corners android:radius="@dimen/radius_pill" />
 </shape>

@@ -1,18 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-    Background of a large card. The card has no thick border any more. A soft
-    line and the round corners are enough to separate the card from the
-    background, and the content gets more room.
+    Background of a large card. The design uses no border. The round corners
+    and the white surface are enough, and the content gets more room.
 -->
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
     <solid android:color="@color/surface_card" />
-    <stroke
-        android:width="@dimen/stroke_width"
-        android:color="@color/surface_divider" />
-    <padding
-        android:left="@dimen/space_1"
-        android:top="@dimen/space_1"
-        android:right="@dimen/space_1"
-        android:bottom="@dimen/space_1" />
     <corners android:radius="@dimen/radius_large" />
 </shape>

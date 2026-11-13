@@ -1,14 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Background of a small card. -->
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid android:color="@color/surface_card" />
-    <stroke
-        android:width="@dimen/stroke_width"
-        android:color="@color/surface_divider" />
-    <padding
-        android:left="@dimen/space_1"
-        android:top="@dimen/space_1"
-        android:right="@dimen/space_1"
-        android:bottom="@dimen/space_1" />
+    <solid android:color="@color/surface_card_muted" />
     <corners android:radius="@dimen/radius_medium" />
 </shape>

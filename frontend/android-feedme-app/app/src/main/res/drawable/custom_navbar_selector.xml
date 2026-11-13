@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-    Colour of an icon of the navigation bar. The active screen gets the yellow
-    accent colour, so that the user always sees the current position.
+    Colour of an icon of the navigation bar. The active screen gets the green
+    of the brand, so that the user always sees the current position. The other
+    icons stay grey and quiet.
 -->
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:color="@color/icon_active" android:state_pressed="true" />
     <item android:color="@color/icon_active" android:state_checked="true" />
     <item android:color="@color/icon_active" android:state_selected="true" />
-    <item android:color="@color/text_on_dark_secondary" />
+    <item android:color="@color/icon_active" android:state_pressed="true" />
+    <item android:color="@color/icon_inactive" />
 </selector>
