@@ -27,7 +27,7 @@
 <p align="center">
   <img alt="Backend" src="https://img.shields.io/badge/backend-Spring%20Boot%202.6-6DB33F?style=for-the-badge&logo=springboot&logoColor=white">
   <img alt="Frontend" src="https://img.shields.io/badge/frontend-Android%20%7C%20Kotlin-7F52FF?style=for-the-badge&logo=kotlin&logoColor=white">
-  <img alt="Tests" src="https://img.shields.io/badge/backend%20tests-534%20passing-success?style=for-the-badge">
+  <img alt="Tests" src="https://img.shields.io/badge/tests-534%20backend%20%2B%2043%20android-success?style=for-the-badge">
   <img alt="Coverage" src="https://img.shields.io/badge/backend%20coverage-100%25-success?style=for-the-badge">
   <img alt="License" src="https://img.shields.io/badge/license-MIT-blue?style=for-the-badge">
 </p>
@@ -138,9 +138,13 @@ of that layer.
 ### Built with
 
 **Android client**
-Kotlin · MVVM with ViewModel and LiveData · Jetpack Navigation · Hilt ·
-Retrofit and OkHttp · Coroutines · Glide and Picasso · ZXing for the barcode ·
-WorkManager · ViewBinding · Material Components
+Kotlin 1.9 · Android Gradle Plugin 8.5 · Gradle 8.9 · Java 17 ·
+MVVM with ViewModel and LiveData · Jetpack Navigation 2.7 · Hilt 2.51 ·
+Retrofit 2.11 and OkHttp 4.12 · Coroutines 1.8 · Glide and Picasso ·
+ZXing for the barcode · WorkManager 2.9 · ViewBinding · Material Components 1.12
+
+All versions are in one place:
+[`gradle/libs.versions.toml`](frontend/android-feedme-app/gradle/libs.versions.toml).
 
 **REST API**
 Java 11 · Spring Boot 2.6 · Spring JDBC · PostgreSQL 13 · JWT (jjwt) ·
@@ -148,7 +152,8 @@ BCrypt · Lombok · Docker
 
 **Quality**
 JUnit 5 · Mockito · AssertJ · JaCoCo · Checkstyle · SpotBugs (backend) ·
-JUnit 4 · Truth · Robolectric · Espresso · ktlint · detekt (frontend)
+JUnit 4 · Truth · Robolectric · Espresso · ktlint · detekt · Android Lint
+(frontend)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -160,11 +165,21 @@ JUnit 4 · Truth · Robolectric · Espresso · ktlint · detekt (frontend)
 
 | Program | Version | For |
 |---|---|---|
-| Java | 17 (the code uses the level of Java 11) | REST API |
+| Java | 17 | both parts |
 | Docker | 20 or later | PostgreSQL database |
-| Android Studio | Bumblebee or later | Android client |
-| Android SDK | API 27 or later | Android client |
+| Android Studio | Koala or later | Android client |
+| Android SDK | API 34 (the application runs from API 27) | Android client |
 | GNU Make | 3.81 or later | the commands below |
+
+Gradle needs the place of the Android SDK. Android Studio writes it into
+`frontend/android-feedme-app/local.properties`. On the command line, set the
+variable instead:
+
+```bash
+export ANDROID_HOME=$HOME/Library/Android/sdk   # macOS
+export ANDROID_HOME=$HOME/Android/Sdk           # Linux
+make frontend-sdk-check                         # tells if the path is correct
+```
 
 ### Three commands
 
@@ -242,14 +257,31 @@ The tests need **no database and no network**:
 
 ### Frontend
 
+```
+43 unit tests · ktlint clean · detekt clean · Android Lint clean · APK builds
+```
+
 ```bash
 make frontend-test      # unit tests on the development machine
 make frontend-lint      # ktlint, detekt and the Android Lint
+make frontend-format    # corrects the style of the Kotlin code
 make frontend-ui-test   # tests on an emulator or on a telephone
 ```
 
 The unit tests of the client need no emulator, because the functions of
 `ui/common/utils` now use `java.text` and not `android.icu`.
+
+Two of the checks work with a list of accepted findings, because the first
+version of the application had many small style problems:
+
+| File | Holds |
+|---|---|
+| `config/detekt/baseline-app.xml` | 37 structural findings of detekt |
+| `app/lint-baseline.xml` | 452 findings of the Android Lint, mostly resources that nobody uses |
+
+The list is a contract: a **new** file must stay free of findings. To remove a
+line, correct the code and write the list again with
+`./gradlew :app:detektBaseline`.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -257,16 +289,25 @@ The unit tests of the client need no emulator, because the functions of
 
 ## Design system
 
-The colours of the application come from the Figma prototype: a sage green
-header, dark green cards, a cream background and a yellow accent.
+The design follows
+[`frontend/doc/design/ui_design_ideas_002.png`](frontend/doc/design/ui_design_ideas_002.png):
+a **white screen**, large pictures with round corners, near-black text and one
+**emerald green** for each action. The picture of the food is the first thing
+that the user sees, so the interface around it stays quiet and uses colour
+only where colour carries a meaning.
 
 | Token | Colour | Where |
 |---|---|---|
-| `brand_primary` | ![#92A880](https://place-hold.it/16x16/92A880/92A880) `#92A880` | Header, status bar |
-| `brand_secondary` | ![#2F3B2C](https://place-hold.it/16x16/2F3B2C/2F3B2C) `#2F3B2C` | Buttons, navigation bar, dark cards |
-| `brand_accent` | ![#F2C230](https://place-hold.it/16x16/F2C230/F2C230) `#F2C230` | Logo, stars of a rating, active navigation |
-| `surface_background` | ![#F4F2EA](https://place-hold.it/16x16/F4F2EA/F4F2EA) `#F4F2EA` | Background of a screen |
-| `text_primary` | ![#1F2419](https://place-hold.it/16x16/1F2419/1F2419) `#1F2419` | Text |
+| `brand_primary` | ![#16A34A](https://place-hold.it/16x16/16A34A/16A34A) `#16A34A` | Round button, active tab, link "See all", selected category |
+| `surface_background` | ![#FFFFFF](https://place-hold.it/16x16/FFFFFF/FFFFFF) `#FFFFFF` | Screen and cards |
+| `surface_input` | ![#F4F5F6](https://place-hold.it/16x16/F4F5F6/F4F5F6) `#F4F5F6` | Search field, category that is not selected |
+| `text_primary` | ![#15181B](https://place-hold.it/16x16/15181B/15181B) `#15181B` | Title and name |
+| `text_secondary` | ![#8E9399](https://place-hold.it/16x16/8E9399/8E9399) `#8E9399` | Helper text, for example "By David Charles" |
+| `rating_star` | ![#FFB800](https://place-hold.it/16x16/FFB800/FFB800) `#FFB800` | Stars of a rating |
+
+> The first design in `assets/images/figma.png` used a sage green header. The
+> application no longer follows it. `ui_design_ideas_002.png` is the design of
+> record.
 
 ### The colour of a state
 
@@ -275,10 +316,10 @@ compare the dates:
 
 | State | Colour | When |
 |---|---|---|
-| **Fresh** | ![#3E7C4A](https://place-hold.it/16x16/3E7C4A/3E7C4A) green | More than 7 days |
+| **Fresh** | ![#16A34A](https://place-hold.it/16x16/16A34A/16A34A) green | More than 7 days |
 | **This week** | ![#E8A020](https://place-hold.it/16x16/E8A020/E8A020) yellow | 4 to 7 days |
-| **Use soon** | ![#D1643C](https://place-hold.it/16x16/D1643C/D1643C) orange | 1 to 3 days, or today |
-| **Expired** | ![#B3261E](https://place-hold.it/16x16/B3261E/B3261E) red | The date is in the past |
+| **Use soon** | ![#F06A28](https://place-hold.it/16x16/F06A28/F06A28) orange | 1 to 3 days, or today |
+| **Expired** | ![#E02B2B](https://place-hold.it/16x16/E02B2B/E02B2B) red | The date is in the past |
 
 The rule is in
 [`ExpiryStatus`](frontend/android-feedme-app/app/src/main/java/com/mobilesystems/feedme/ui/common/utils/ExpiryStatus.kt),
@@ -288,15 +329,17 @@ and a unit test proves each border of the rule.
 
 | File | Holds |
 |---|---|
-| `res/values/colors.xml` | The brand palette and the semantic tokens |
+| `res/values/colors.xml` | The palette and the semantic tokens |
 | `res/values-night/colors.xml` | The same tokens for the dark mode |
 | `res/values/dimens.xml` | Distances with a step of 4dp, the type scale, the corner radii |
-| `res/values/styles.xml` | The styles of the text, of the buttons and of the cards |
+| `res/values/styles.xml` | The styles of the text, of the buttons, of the cards and of the chips |
 | `res/values/themes.xml` | The themes of the application |
 
-A layout uses a **token** (`@color/text_primary`) and not a raw colour. A
-change of the brand therefore needs one change in `colors.xml` and no change
-in the 51 layout files.
+A layout uses a **token** (`@color/text_primary`) and not a raw colour
+(`@color/black`). A change of the brand therefore needs one change in
+`colors.xml` and no change in the 51 layout files. The names of the first
+version stay in the file and point to the tokens, so that the old layouts keep
+working.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
