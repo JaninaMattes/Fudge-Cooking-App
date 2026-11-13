@@ -18,8 +18,10 @@ out/
 # release/
 
 # Gradle files
-.gradle/
 build/
+*.jar
+.gradle/
+!gradle/wrapper/gradle-wrapper.jar
 
 # Local configuration file (sdk path, etc)
 local.properties
