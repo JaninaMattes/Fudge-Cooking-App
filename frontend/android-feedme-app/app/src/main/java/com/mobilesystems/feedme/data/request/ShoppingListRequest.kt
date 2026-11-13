@@ -2,7 +2,7 @@ package com.mobilesystems.feedme.data.request
 
 import android.os.Parcelable
 import com.mobilesystems.feedme.domain.model.Product
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class ShoppingListRequest(
