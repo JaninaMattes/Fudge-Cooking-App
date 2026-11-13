@@ -273,4 +273,20 @@
     <string name="user_email">E-Mail:</string>
     <string name="content_description_carousel_image">Content description: carousel image</string>
 
+    <!-- State of a product, from the number of days until it expires. -->
+    <string name="expiry_status_expired">Expired</string>
+    <string name="expiry_status_today">Today</string>
+    <string name="expiry_status_urgent">Use soon</string>
+    <string name="expiry_status_soon">This week</string>
+    <string name="expiry_status_fresh">Fresh</string>
+    <plurals name="expiry_days_left">
+        <item quantity="one">%d day left</item>
+        <item quantity="other">%d days left</item>
+    </plurals>
+    <plurals name="expiry_days_ago">
+        <item quantity="one">%d day ago</item>
+        <item quantity="other">%d days ago</item>
+    </plurals>
+    <string name="expiry_content_description">Expires %1$s</string>
+
 </resources>
