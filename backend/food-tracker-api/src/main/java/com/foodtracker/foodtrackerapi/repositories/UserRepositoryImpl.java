@@ -1,5 +1,17 @@
 package com.foodtracker.foodtrackerapi.repositories;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+import org.mindrot.jbcrypt.BCrypt;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.foodtracker.foodtrackerapi.common.utils.Attempt;
 import com.foodtracker.foodtrackerapi.common.utils.ImageUtils;
 import com.foodtracker.foodtrackerapi.exceptions.FTAuthException;
 import com.foodtracker.foodtrackerapi.models.Image;
@@ -7,278 +19,207 @@ import com.foodtracker.foodtrackerapi.models.Settings;
 import com.foodtracker.foodtrackerapi.models.Tag;
 import com.foodtracker.foodtrackerapi.models.User;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
-import org.mindrot.jbcrypt.BCrypt;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.support.GeneratedKeyHolder;
-import org.springframework.jdbc.support.KeyHolder;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import java.sql.PreparedStatement;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
-@Service
+/**
+ * <p>
+ * Reads and writes the user data, the profile image, the notification settings
+ * and the food preferences. The class also makes the empty lists that a new
+ * user needs.
+ * </p>
+ *
+ * @author Janina Mattes
+ */
+@Repository
 @Transactional
-public class UserRepositoryImpl implements UserRepository {
+public class UserRepositoryImpl extends AbstractJdbcRepository implements UserRepository {
 
-    // Create Statements
-    private static final String SQL_CREATE_USER = "INSERT INTO ET_USERS(" +
-            "USER_ID, FIRST_NAME, LAST_NAME, EMAIL, PASSWORD, IS_LOGGED_IN) " +
-            "VALUES(NEXTVAL('ET_USERS_SEQ'), ?, ?, ?, ?, ?)";
-    private static final String SQL_CREATE_USER_IMAGE = "INSERT INTO ET_USER_IMAGE("+
-            "IMAGE_ID, USER_ID, IMAGE_NAME, IMAGE_URL) " +
-            "VALUES(NEXTVAL('ET_USER_IMAGE_SEQ'), ?, ?, ?)";
-    private static final String SQL_CREATE_USER_PROFILE_SETTINGS = "INSERT INTO ET_PROFILE_SETTINGS(" +
-            "SETTINGS_ID, USER_ID, REMINDER_PRODUCT_EXPIRATION, SUGGEST_RECIPES, PUSH_NOTIFICATIONS) " +
-            "VALUES(NEXTVAL('ET_PROFILE_SETTINGS_SEQ'), ?, ?, ?, ?)";
-    private static final String SQL_CREATE_USER_DIETARY_TAG = "INSERT INTO ET_DIETRY_TAG(TAG_ID, LABEL) " +
-            "VALUES(NEXTVAL('ET_DIETRY_TAG_SEQ'), ?)";
-    private static final String SQL_CREATE_USER_TAG = "INSERT INTO ET_USER_TAG(USER_ID, TAG_ID) " + // this is a compound table
-            "VALUES(?, ?)";
-    private static final String SQL_CREATE_USER_INVENTORY_LIST = "INSERT INTO ET_INVENTORYLIST(INVENTORYLIST_ID, USER_ID) " +
-            "VALUES(NEXTVAL('ET_INVENTORYLIST_SEQ'), ?)";
-    private static final String SQL_CREATE_USER_SHOPPINGLIST = "INSERT INTO ET_SHOPPINGLIST(SHOPPINGLIST_ID) " +
-            "VALUES(NEXTVAL('ET_SHOPPINGLIST_SEQ'))";
-    private static final String SQL_CREATE_USER_CUR_SHOPPINGLIST = "INSERT INTO ET_CURRENT_SHOPPINGLIST("+
-            "CUR_SHOPPINGLIST_ID, SHOPPINGLIST_ID, USER_ID) " +
-            "VALUES(NEXTVAL('ET_CURRENT_SHOPPINGLIST_SEQ'), ?, ?)";
-    private static final String SQL_CREATE_USER_OLD_SHOPPINGLIST = "INSERT INTO ET_OLD_SHOPPINGLIST("+
-            "OLD_SHOPPINGLIST_ID, SHOPPINGLIST_ID, USER_ID) " +
-            "VALUES(NEXTVAL('ET_OLD_SHOPPINGLIST_SEQ'), ?, ?)";
+    /** Number of rounds that BCrypt uses to make the password hash value. */
+    private static final int BCRYPT_ROUNDS = 10;
 
-    // Update Statements
-    private static final String SQL_UPDATE_ALLOW_PUSH = "UPDATE ET_PROFILE_SETTINGS SET " + 
-            "PUSH_NOTIFICATIONS = ? WHERE USER_ID = ?;";
-    private static final String SQL_UPDATE_ALLOW_REMINDER = "UPDATE ET_PROFILE_SETTINGS SET " +
-            "REMINDER_PRODUCT_EXPIRATION = ? WHERE USER_ID = ?;";
-    private static final String SQL_UPDATE_ALLOW_SUGGESTION = "UPDATE ET_PROFILE_SETTINGS SET SUGGEST_RECIPES = ? " +
-            "WHERE USER_ID = ?;";
-    private static final String SQL_UPDATE_DIETRY_TAG = "UPDATE ET_DIETRY_TAG SET LABEL = ? WHERE TAG_ID = " +
-            "(SELECT TAG_ID FROM ET_USER_TAG WHERE USER_ID = ?);";
-    private static final String SQL_UPDATE_USER_LOGGEDIN = "UPDATE ET_USERS SET IS_LOGGED_IN = ? WHERE USER_ID = ?;";
-    private static final String SQL_UPDATE_USER_INFORMATION = "UPDATE ET_USERS SET FIRST_NAME = ?, " +
-            "LAST_NAME = ? , EMAIL = ? WHERE USER_ID = ?;";
-    private static final String SQL_UPDATE_USER_IMAGE = "UPDATE ET_USER_IMAGE SET IMAGE_URL = ?, " +
-            "IMAGE_BYTES = ? WHERE IMAGE_ID = ?;";
+    /** Name of the profile image that a new user gets. */
+    private static final String DEFAULT_IMAGE_NAME = "Profilbild";
 
-    // Delete Statements
+    // Create statements
+    private static final String SQL_CREATE_USER = "INSERT INTO ET_USERS("
+            + "USER_ID, FIRST_NAME, LAST_NAME, EMAIL, PASSWORD, IS_LOGGED_IN) "
+            + "VALUES(NEXTVAL('ET_USERS_SEQ'), ?, ?, ?, ?, ?)";
+    private static final String SQL_CREATE_USER_IMAGE = "INSERT INTO ET_USER_IMAGE("
+            + "IMAGE_ID, USER_ID, IMAGE_NAME, IMAGE_URL) "
+            + "VALUES(NEXTVAL('ET_USER_IMAGE_SEQ'), ?, ?, ?)";
+    private static final String SQL_CREATE_USER_PROFILE_SETTINGS = "INSERT INTO ET_PROFILE_SETTINGS("
+            + "SETTINGS_ID, USER_ID, REMINDER_PRODUCT_EXPIRATION, SUGGEST_RECIPES, PUSH_NOTIFICATIONS) "
+            + "VALUES(NEXTVAL('ET_PROFILE_SETTINGS_SEQ'), ?, ?, ?, ?)";
+    private static final String SQL_CREATE_USER_DIETARY_TAG = "INSERT INTO ET_DIETRY_TAG(TAG_ID, LABEL) "
+            + "VALUES(NEXTVAL('ET_DIETRY_TAG_SEQ'), ?)";
+    // Compound table. It holds foreign keys only.
+    private static final String SQL_CREATE_USER_TAG = "INSERT INTO ET_USER_TAG(USER_ID, TAG_ID) "
+            + "VALUES(?, ?)";
+    private static final String SQL_CREATE_USER_INVENTORY_LIST = "INSERT INTO ET_INVENTORYLIST("
+            + "INVENTORYLIST_ID, USER_ID) VALUES(NEXTVAL('ET_INVENTORYLIST_SEQ'), ?)";
+    private static final String SQL_CREATE_USER_SHOPPINGLIST = "INSERT INTO ET_SHOPPINGLIST(SHOPPINGLIST_ID) "
+            + "VALUES(NEXTVAL('ET_SHOPPINGLIST_SEQ'))";
+    private static final String SQL_CREATE_USER_CUR_SHOPPINGLIST = "INSERT INTO ET_CURRENT_SHOPPINGLIST("
+            + "CUR_SHOPPINGLIST_ID, SHOPPINGLIST_ID, USER_ID) "
+            + "VALUES(NEXTVAL('ET_CURRENT_SHOPPINGLIST_SEQ'), ?, ?)";
+    private static final String SQL_CREATE_USER_OLD_SHOPPINGLIST = "INSERT INTO ET_OLD_SHOPPINGLIST("
+            + "OLD_SHOPPINGLIST_ID, SHOPPINGLIST_ID, USER_ID) "
+            + "VALUES(NEXTVAL('ET_OLD_SHOPPINGLIST_SEQ'), ?, ?)";
 
-    // Select Statements
-    private static final String SQL_COUNT_BY_EMAIL = "SELECT COUNT(*) FROM ET_USERS WHERE EMAIL = ?";
-    private static final String SQL_FIND_USER_BY_ID = "SELECT USER_ID, FIRST_NAME, LAST_NAME, EMAIL, PASSWORD " +
-            "FROM ET_USERS WHERE USER_ID = ?";
-    private static final String SQL_FIND_BY_EMAIL = "SELECT USER_ID, FIRST_NAME, LAST_NAME, EMAIL, PASSWORD " +
-            "FROM ET_USERS WHERE EMAIL = ?";
+    // Update statements
+    private static final String SQL_UPDATE_ALLOW_PUSH = "UPDATE ET_PROFILE_SETTINGS SET "
+            + "PUSH_NOTIFICATIONS = ? WHERE USER_ID = ?;";
+    private static final String SQL_UPDATE_ALLOW_REMINDER = "UPDATE ET_PROFILE_SETTINGS SET "
+            + "REMINDER_PRODUCT_EXPIRATION = ? WHERE USER_ID = ?;";
+    private static final String SQL_UPDATE_ALLOW_SUGGESTION = "UPDATE ET_PROFILE_SETTINGS SET "
+            + "SUGGEST_RECIPES = ? WHERE USER_ID = ?;";
+    private static final String SQL_UPDATE_DIETRY_TAG = "UPDATE ET_DIETRY_TAG SET LABEL = ? WHERE TAG_ID = "
+            + "(SELECT TAG_ID FROM ET_USER_TAG WHERE USER_ID = ?);";
+    private static final String SQL_UPDATE_USER_LOGGEDIN = "UPDATE ET_USERS SET IS_LOGGED_IN = ? "
+            + "WHERE USER_ID = ?;";
+    private static final String SQL_UPDATE_USER_INFORMATION = "UPDATE ET_USERS SET FIRST_NAME = ?, "
+            + "LAST_NAME = ? , EMAIL = ? WHERE USER_ID = ?;";
+    private static final String SQL_UPDATE_USER_IMAGE = "UPDATE ET_USER_IMAGE SET IMAGE_URL = ?, "
+            + "IMAGE_BYTES = ? WHERE IMAGE_ID = ?;";
+
+    // Select statements
+    private static final String SQL_COUNT_BY_EMAIL = "SELECT COUNT(*) FROM ET_USERS "
+            + "WHERE EMAIL = ?";
+    private static final String SQL_FIND_USER_BY_ID = "SELECT USER_ID, FIRST_NAME, LAST_NAME, "
+            + "EMAIL, PASSWORD FROM ET_USERS WHERE USER_ID = ?";
+    private static final String SQL_FIND_BY_EMAIL = "SELECT USER_ID, FIRST_NAME, LAST_NAME, "
+            + "EMAIL, PASSWORD FROM ET_USERS WHERE EMAIL = ?";
     private static final String SQL_FIND_LOGIN_STATUS = "SELECT IS_LOGGED_IN FROM ET_USERS WHERE USER_ID = ?";
-    private static final String SQL_FIND_USER_IMAGE_BY_ID = "SELECT IMAGE_ID, IMAGE_NAME, IMAGE_URL, IMAGE_BYTES " +
-            "FROM ET_USER_IMAGE WHERE USER_ID = ?";
-    private static final String SQL_FIND_USER_SETTINGS_BY_ID = "SELECT SETTINGS_ID, REMINDER_PRODUCT_EXPIRATION, " +
-            "SUGGEST_RECIPES, PUSH_NOTIFICATIONS " +
-            "FROM ET_PROFILE_SETTINGS WHERE USER_ID = ?";
-    private static final String SQL_GET_USER_DIETRY_TAGS = "SELECT * FROM ET_USERS INNER JOIN ET_USER_TAG  " +
-            "ON ET_USERS.USER_ID = ET_USER_TAG.USER_ID INNER JOIN ET_DIETRY_TAG ON " +
-            "ET_USER_TAG.TAG_ID = ET_DIETRY_TAG.TAG_ID WHERE ET_USERS.USER_ID = ?;";
+    private static final String SQL_FIND_USER_IMAGE_BY_ID = "SELECT IMAGE_ID, IMAGE_NAME, "
+            + "IMAGE_URL, IMAGE_BYTES FROM ET_USER_IMAGE WHERE USER_ID = ?";
+    private static final String SQL_FIND_USER_SETTINGS_BY_ID = "SELECT SETTINGS_ID, "
+            + "REMINDER_PRODUCT_EXPIRATION, SUGGEST_RECIPES, PUSH_NOTIFICATIONS "
+            + "FROM ET_PROFILE_SETTINGS WHERE USER_ID = ?";
+    private static final String SQL_GET_USER_DIETRY_TAGS = "SELECT * FROM ET_USERS INNER JOIN ET_USER_TAG "
+            + "ON ET_USERS.USER_ID = ET_USER_TAG.USER_ID INNER JOIN ET_DIETRY_TAG ON "
+            + "ET_USER_TAG.TAG_ID = ET_DIETRY_TAG.TAG_ID WHERE ET_USERS.USER_ID = ?;";
 
-    @Autowired
-    JdbcTemplate jdbcTemplate;
+    private final RowMapper<User> userRowMapper = (rs, rowNum) -> new User(
+            rs.getInt("USER_ID"),
+            rs.getString("FIRST_NAME"),
+            rs.getString("LAST_NAME"),
+            rs.getString("EMAIL"),
+            rs.getString("PASSWORD"));
+
+    private final RowMapper<Image> imageRowMapper = (rs, rowNum) -> new Image(
+            rs.getInt("IMAGE_ID"),
+            rs.getString("IMAGE_NAME"),
+            rs.getString("IMAGE_URL"),
+            ImageUtils.bytesToBase64(rs.getBytes("IMAGE_BYTES")));
+
+    private final RowMapper<Settings> settingsRowMapper = (rs, rowNum) -> new Settings(
+            rs.getInt("SETTINGS_ID"),
+            rs.getBoolean("PUSH_NOTIFICATIONS"),
+            rs.getBoolean("REMINDER_PRODUCT_EXPIRATION"),
+            rs.getBoolean("SUGGEST_RECIPES"));
+
+    private final RowMapper<Tag> tagRowMapper = (rs, rowNum) -> new Tag(
+            rs.getInt("TAG_ID"),
+            rs.getString("LABEL"));
+
+    /**
+     * Makes the repository.
+     *
+     * @param jdbcTemplate connection to the database
+     */
+    public UserRepositoryImpl(JdbcTemplate jdbcTemplate) {
+        super(jdbcTemplate);
+    }
 
     @Override
-    public Integer createUser(String firstName, String lastName, String email, String password) throws FTAuthException {
-        String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt(10));
-        try {
-            // Keyholdes
-            KeyHolder keyHolder = new GeneratedKeyHolder();
-            jdbcTemplate.update(connection -> {
-                PreparedStatement ps = connection.prepareStatement(SQL_CREATE_USER, Statement.RETURN_GENERATED_KEYS);
-                ps.setString(1, firstName);
-                ps.setString(2, lastName);
-                ps.setString(3, email);
-                ps.setString(4, hashedPassword);
-                ps.setBoolean(5, false);
-                return ps;
-            }, keyHolder);
-            return (Integer) keyHolder.getKeys().get("USER_ID");
-        } catch (Exception e) {
+    public Integer createUser(String firstName, String lastName, String email, String password)
+            throws FTAuthException {
+        String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt(BCRYPT_ROUNDS));
+        Integer userId = insertAndGetKey("create a user", SQL_CREATE_USER, "USER_ID", statement -> {
+            statement.setString(1, firstName);
+            statement.setString(2, lastName);
+            statement.setString(3, email);
+            statement.setString(4, hashedPassword);
+            statement.setBoolean(5, false);
+        });
+        if (NO_ID.equals(userId)) {
             throw new FTAuthException("Invalid details. Failed to create account");
         }
+        return userId;
     }
 
     @Override
     public Integer createUserImage(Integer userId) {
-        // Set default values when user is created
-        String imageName = "Profilbild";
-        String imageUrl = "";
-
-        Integer imgId = 0;
-        try {
-            // Keyholdes
-            KeyHolder keyHolder = new GeneratedKeyHolder();
-            jdbcTemplate.update(connection -> {
-                PreparedStatement ps = connection.prepareStatement(SQL_CREATE_USER_IMAGE,
-                        Statement.RETURN_GENERATED_KEYS);
-                ps.setInt(1, userId);
-                ps.setString(2, imageName);
-                ps.setString(3, imageUrl);
-                return ps;
-            }, keyHolder);
-            imgId = (Integer) keyHolder.getKeys().get("IMAGE_ID");
-        } catch (Exception e) {
-            e.getStackTrace();
-        }
-        return imgId;
+        return insertAndGetKey("create the profile image", SQL_CREATE_USER_IMAGE, "IMAGE_ID",
+                statement -> {
+                    statement.setInt(1, userId);
+                    statement.setString(2, DEFAULT_IMAGE_NAME);
+                    statement.setString(3, "");
+                });
     }
 
     @Override
     public Integer createProfileSettings(Integer userId) {
-
-        // Set default values when user is created
-        Integer settingsId = 0;
-        try {
-            // Keyholdes
-            KeyHolder keyHolder = new GeneratedKeyHolder();
-            jdbcTemplate.update(connection -> {
-                PreparedStatement ps = connection.prepareStatement(SQL_CREATE_USER_PROFILE_SETTINGS,
-                        Statement.RETURN_GENERATED_KEYS);
-                ps.setInt(1, userId);
-                ps.setBoolean(2, false);
-                ps.setBoolean(3, false);
-                ps.setBoolean(4, false);
-                return ps;
-            }, keyHolder);
-            settingsId = (Integer) keyHolder.getKeys().get("SETTINGS_ID");
-        } catch (Exception e) {
-            e.getStackTrace();
-        }
-        return settingsId;
+        // A new user has given no permission yet, so all settings are false.
+        return insertAndGetKey("create the profile settings", SQL_CREATE_USER_PROFILE_SETTINGS,
+                "SETTINGS_ID", statement -> {
+                    statement.setInt(1, userId);
+                    statement.setBoolean(2, false);
+                    statement.setBoolean(3, false);
+                    statement.setBoolean(4, false);
+                });
     }
 
     @Override
-    public Integer createDietryTag(String LABEL) {
-        Integer tagId = 0;
-        try {
-            // Keyholdes
-            KeyHolder keyHolder = new GeneratedKeyHolder();
-            jdbcTemplate.update(connection -> {
-                PreparedStatement ps = connection.prepareStatement(SQL_CREATE_USER_DIETARY_TAG,
-                        Statement.RETURN_GENERATED_KEYS);
-                ps.setString(1, LABEL);
-                return ps;
-            }, keyHolder);
-            tagId = (Integer) keyHolder.getKeys().get("TAG_ID");
-        } catch (Exception e) {
-            e.getStackTrace();
-        }
-        return tagId;
+    public Integer createDietryTag(String label) {
+        return insertAndGetKey("create a dietary tag", SQL_CREATE_USER_DIETARY_TAG, "TAG_ID",
+                statement -> statement.setString(1, label));
     }
 
     @Override
     public Integer createUserTag(Integer userId, Tag dietryTag, Integer tagId) {
-        // Create compound table, doesnt have an own id only PK/FKs
-        Integer result = 0;
-        try {
-            // second create compound table with user id + tag id
-            result = jdbcTemplate.update(SQL_CREATE_USER_TAG, userId, tagId);
-
-        } catch (Exception e) {
-            e.getStackTrace();
-        }
-        return result;
+        return update("link the dietary tag to the user", SQL_CREATE_USER_TAG, userId, tagId);
     }
 
     @Override
     public Integer createInventoryList(Integer userId) {
-        // Set default values when user is created
-        Integer invId = 0;
-        try {
-            // Keyholdes
-            KeyHolder keyHolder = new GeneratedKeyHolder();
-            jdbcTemplate.update(connection -> {
-                PreparedStatement ps = connection.prepareStatement(SQL_CREATE_USER_INVENTORY_LIST,
-                        Statement.RETURN_GENERATED_KEYS);
-                ps.setInt(1, userId);
-                return ps;
-            }, keyHolder);
-            invId = (Integer) keyHolder.getKeys().get("INVENTORYLIST_ID");
-        } catch (Exception e) {
-            e.getStackTrace();
-        }
-        return invId;
+        return insertAndGetKey("create the inventory list", SQL_CREATE_USER_INVENTORY_LIST,
+                "INVENTORYLIST_ID", statement -> statement.setInt(1, userId));
     }
 
     @Override
     public Integer createShoppingList(Integer userId) {
-        // Set default values when user is created
-        // reflects the IS-A relationship in the DB
-        Integer shopId = 0;
-        try {
-            // Keyholdes
-            KeyHolder keyHolder = new GeneratedKeyHolder();
-            jdbcTemplate.update(connection -> {
-                return connection.prepareStatement(SQL_CREATE_USER_SHOPPINGLIST,
-                        Statement.RETURN_GENERATED_KEYS);
-            }, keyHolder);
-            shopId = (Integer) keyHolder.getKeys().get("SHOPPINGLIST_ID");
-        } catch (Exception e) {
-            e.getStackTrace();
-        }
-        return shopId;
+        // The table holds the key only. It reflects the gen-spec pattern of the
+        // database.
+        return insertAndGetKey("create the shopping list", SQL_CREATE_USER_SHOPPINGLIST,
+                "SHOPPINGLIST_ID", statement -> {
+                    // The statement has no values.
+                });
     }
 
     @Override
     public Integer createCurrentShoppingList(Integer shopId, Integer userId) {
-        // Set default values when user is created
-        // reflects the IS-A relationship in the DB
-        Integer curShopId = 0;
-        try {
-            // Keyholdes
-            KeyHolder keyHolder = new GeneratedKeyHolder();
-            jdbcTemplate.update(connection -> {
-                PreparedStatement ps = connection.prepareStatement(SQL_CREATE_USER_CUR_SHOPPINGLIST,
-                        Statement.RETURN_GENERATED_KEYS);
-                ps.setInt(1, shopId);
-                ps.setInt(2, userId);
-                return ps;
-            }, keyHolder);
-            curShopId = (Integer) keyHolder.getKeys().get("CUR_SHOPPINGLIST_ID");
-        } catch (Exception e) {
-            e.getStackTrace();
-        }
-        return curShopId;
+        return insertAndGetKey("create the current shopping list", SQL_CREATE_USER_CUR_SHOPPINGLIST,
+                "CUR_SHOPPINGLIST_ID", statement -> {
+                    statement.setInt(1, shopId);
+                    statement.setInt(2, userId);
+                });
     }
 
     @Override
     public Integer createOldShoppingList(Integer shopId, Integer userId) {
-        // Set default values when user is created
-        // reflects the IS-A relationship in the DB
-        Integer oldShopId = 0;
-        try {
-            // Keyholdes
-            KeyHolder keyHolder = new GeneratedKeyHolder();
-            jdbcTemplate.update(connection -> {
-                PreparedStatement ps = connection.prepareStatement(SQL_CREATE_USER_OLD_SHOPPINGLIST,
-                        Statement.RETURN_GENERATED_KEYS);
-                ps.setInt(1, shopId);
-                ps.setInt(2, userId);
-                return ps;
-            }, keyHolder);
-            oldShopId = (Integer) keyHolder.getKeys().get("CUR_SHOPPINGLIST_ID");
-        } catch (Exception e) {
-            e.getStackTrace();
-        }
-        return oldShopId;
+        return insertAndGetKey("create the old shopping list", SQL_CREATE_USER_OLD_SHOPPINGLIST,
+                "OLD_SHOPPINGLIST_ID", statement -> {
+                    statement.setInt(1, shopId);
+                    statement.setInt(2, userId);
+                });
     }
 
     @Override
     public User findByEmailAndPassword(String email, String password) throws FTAuthException {
         try {
-            User user = jdbcTemplate.queryForObject(SQL_FIND_BY_EMAIL, userRowMapper, new Object[] { email });
-            if (!BCrypt.checkpw(password, user.getPassword()))
+            User user = jdbcTemplate.queryForObject(SQL_FIND_BY_EMAIL, userRowMapper, email);
+            if (user == null || password == null || !BCrypt.checkpw(password, user.getPassword())) {
                 throw new FTAuthException("Invalid EMAIL/PASSWORD");
+            }
             return user;
         } catch (EmptyResultDataAccessException e) {
             throw new FTAuthException("Invalid EMAIL/PASSWORD");
@@ -286,233 +227,85 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public User existsByEmail(String email){
-        User user = null;
-        try {
-            user = jdbcTemplate.queryForObject(SQL_FIND_BY_EMAIL, userRowMapper, new Object[] { email });
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return user;
+    public User existsByEmail(String email) {
+        return Attempt.orDefault("search for a user by email", null,
+                () -> jdbcTemplate.queryForObject(SQL_FIND_BY_EMAIL, userRowMapper, email));
     }
 
     @Override
     public Integer getCountByEmail(String email) {
-        Integer count = 0;
-        try {
-            count = jdbcTemplate.queryForObject(SQL_COUNT_BY_EMAIL, Integer.class, new Object[] { email });
-        } catch (Exception e) {
-            e.getStackTrace();
-        }
-        return count;
+        return queryForId("count the users with this email", SQL_COUNT_BY_EMAIL, email);
     }
 
     @Override
     public Settings getUserSettingsById(int userId) {
-        Settings settings = null;
-        try{
-            settings = jdbcTemplate.queryForObject(SQL_FIND_USER_SETTINGS_BY_ID, settingsRowMapper, new Object[] { userId });
-        } catch (Exception e) {
-            e.getStackTrace();
-        }
-        return settings;
+        return Attempt.orDefault("read the profile settings", null,
+                () -> jdbcTemplate.queryForObject(SQL_FIND_USER_SETTINGS_BY_ID, settingsRowMapper,
+                        userId));
     }
 
     @Override
     public Image getImageById(int userId) {
-        Image image = null;
-        try{
-            image = jdbcTemplate.queryForObject(SQL_FIND_USER_IMAGE_BY_ID, imageRowMapper, new Object[] { userId });
-        } catch (Exception e) {
-            e.getStackTrace();
-        }
-        return image;
+        return Attempt.orDefault("read the profile image", null,
+                () -> jdbcTemplate.queryForObject(SQL_FIND_USER_IMAGE_BY_ID, imageRowMapper,
+                        userId));
     }
 
     @Override
     public User getUserById(int userId) {
-        User result = null;
-        try {
-            result = jdbcTemplate.queryForObject(SQL_FIND_USER_BY_ID, userRowMapper, new Object[] { userId });
-            return result;
-        } catch (Exception e) {
-            e.getStackTrace();
-        }
-        return result;
+        return Attempt.orDefault("read the user", null,
+                () -> jdbcTemplate.queryForObject(SQL_FIND_USER_BY_ID, userRowMapper, userId));
     }
 
     @Override
     public Optional<ArrayList<Tag>> getUserDietryTags(Integer userId) {
-        List<Tag> tags = new ArrayList<>();
-        try {
-            tags = jdbcTemplate.query(SQL_GET_USER_DIETRY_TAGS, tagRowMapper, userId);
-        } catch (Exception e) {
-            e.getStackTrace();
-        }
+        List<Tag> tags = Attempt.orDefault("read the food preferences", new ArrayList<>(),
+                () -> jdbcTemplate.query(SQL_GET_USER_DIETRY_TAGS, tagRowMapper, userId));
         return Optional.of(new ArrayList<>(tags));
     }
 
     @Override
     public Boolean isUserLoggedIn(Integer userId) {
-        Boolean isloggedIn = false;
-        try {
-            isloggedIn = jdbcTemplate.queryForObject(SQL_FIND_LOGIN_STATUS, Boolean.class, userId);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return isloggedIn;
+        return Attempt.orDefault("read the login status", false,
+                () -> jdbcTemplate.queryForObject(SQL_FIND_LOGIN_STATUS, Boolean.class, userId));
     }
 
     @Override
-    public Integer allowPushNotification(int id, boolean allow) {
-        Integer result = 0;
-        try {
-            result = jdbcTemplate.update(SQL_UPDATE_ALLOW_PUSH, allow, id);
-        } catch (Exception e) {
-            e.getStackTrace();
-        }
-        return result;
+    public Integer allowPushNotification(int userId, boolean allow) {
+        return update("set the push notification permission", SQL_UPDATE_ALLOW_PUSH, allow, userId);
     }
 
     @Override
-    public Integer allowReminder(int id, boolean allow) {
-        Integer result = 0;
-        try {
-            result = jdbcTemplate.update(SQL_UPDATE_ALLOW_REMINDER, allow, id);
-        } catch (Exception e) {
-            e.getStackTrace();
-        }
-        return result;
+    public Integer allowReminder(int userId, boolean allow) {
+        return update("set the reminder permission", SQL_UPDATE_ALLOW_REMINDER, allow, userId);
     }
 
     @Override
-    public Integer allowSuggestion(int id, boolean allow) {
-        Integer result = 0;
-        try {
-            result = jdbcTemplate.update(SQL_UPDATE_ALLOW_SUGGESTION, allow, id);
-        } catch (Exception e) {
-            e.getStackTrace();
-        }
-        return result;
+    public Integer allowSuggestion(int userId, boolean allow) {
+        return update("set the suggestion permission", SQL_UPDATE_ALLOW_SUGGESTION, allow, userId);
     }
 
     @Override
-    public Integer updateDietryTag(int id, String type) {
-        Integer result = 0;
-        try {
-            result = jdbcTemplate.update(SQL_UPDATE_DIETRY_TAG, type, id);
-        } catch (Exception e) {
-            e.getStackTrace();
-        }
-        return result;
+    public Integer updateDietryTag(int userId, String type) {
+        return update("change the dietary tag", SQL_UPDATE_DIETRY_TAG, type, userId);
     }
 
     @Override
-    public Integer updateUserInformation(String firstName, String lastName, String email, Integer userId) {
-        // Update user information
-        Integer result = 0;
-        try {
-            result = jdbcTemplate.update(SQL_UPDATE_USER_INFORMATION, firstName, lastName, email, userId);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return result;
+    public Integer updateUserInformation(String firstName, String lastName, String email,
+            Integer userId) {
+        return update("change the user data", SQL_UPDATE_USER_INFORMATION, firstName, lastName,
+                email, userId);
     }
 
     @Override
     public Integer updateUserImage(Image image) {
-        // Update image information
-        Integer result = 0;
-        try {
-            byte[] imageBytes = convertBase64StringToBytes(image.getBase64ImageString());
-            result = jdbcTemplate.update(SQL_UPDATE_USER_IMAGE, image.getImageUrl(), imageBytes, image.getImageId());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return result;
+        byte[] imageBytes = ImageUtils.base64ToBytes(image.getBase64ImageString());
+        return update("change the profile image", SQL_UPDATE_USER_IMAGE, image.getImageUrl(),
+                imageBytes, image.getImageId());
     }
 
     @Override
     public Integer updateUserLoggedIn(int userId, boolean loggedIn) {
-        // Log user in or log user out
-        Integer result = 0;
-        try{
-            result = jdbcTemplate.update(SQL_UPDATE_USER_LOGGEDIN, loggedIn, userId);
-            } catch (Exception e) {
-                e.printStackTrace();
-        }
-        return result;
+        return update("change the login status", SQL_UPDATE_USER_LOGGEDIN, loggedIn, userId);
     }
-
-    /**
-     * Converts the base64 string to byte array.
-     * 
-     * @param base64Str
-     * @return
-     */
-    private byte[] convertBase64StringToBytes(String base64Str) {
-        // convert base64 string back to byte arrays
-        byte[] byteArray = null;
-        try {
-            if (base64Str != null && !base64Str.isEmpty()) {
-                byteArray = ImageUtils.base64ToBytes(base64Str); // from object input stream read to map
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return byteArray;
-    }
-
-    /**
-     * Converts the base64 string to byte array.
-     * 
-     * @param base64Str
-     * @return
-     */
-    private String convertBytesToBase64String(byte[] byteArray) {
-        // convert base64 string back to byte arrays
-        String base64Str = null;
-        try {
-            if (byteArray != null && byteArray.length != 0) {
-                base64Str = ImageUtils.bytesToBase64(byteArray); // from object input stream read to map
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return base64Str;
-    }
-
-
-    private RowMapper<User> userRowMapper = ((rs, rowNum) -> {
-        return new User(rs.getInt("USER_ID"),
-                rs.getString("FIRST_NAME"),
-                rs.getString("LAST_NAME"),
-                rs.getString("EMAIL"),
-                rs.getString("PASSWORD"));
-    });
-
-    private RowMapper<Image> imageRowMapper = ((rs, rowNum) -> {
-        byte[] imgBytes = rs.getBytes("IMAGE_BYTES");
-        // encode byte array retrieved from DB to base64 encoded string
-        String base64Str = convertBytesToBase64String(imgBytes);
-        return new Image(
-                rs.getInt("IMAGE_ID"),
-                rs.getString("IMAGE_NAME"),
-                rs.getString("IMAGE_URL"),
-                base64Str);
-    });
-
-    private RowMapper<Settings> settingsRowMapper = ((rs, rowNum) -> {
-        return new Settings(
-                rs.getInt("SETTINGS_ID"),
-                rs.getBoolean("PUSH_NOTIFICATIONS"),
-                rs.getBoolean("REMINDER_PRODUCT_EXPIRATION"),
-                rs.getBoolean("SUGGEST_RECIPES"));
-    });
-
-    private RowMapper<Tag> tagRowMapper = ((rs, rowNum) -> {
-        return new Tag(
-                rs.getInt("TAG_ID"),
-                rs.getString("LABEL"));
-    });
 }
