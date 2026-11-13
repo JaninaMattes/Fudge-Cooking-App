@@ -3,7 +3,7 @@
 <div align="center">
   <img src="assets/images/logo.png" alt="Fudge" width="100%">
 
-  <h1>Fudge</h1>
+  <h1>Fudge &mdash; Pantry &amp; Recipes</h1>
 
   <p>
     <strong>Track the food that you have. Avoid foodwaste. Cook it before it is bad.</strong>
@@ -25,9 +25,9 @@
 </div>
 
 <p align="center">
-  <img alt="Backend" src="https://img.shields.io/badge/backend-Spring%20Boot%202.6-6DB33F?style=for-the-badge&logo=springboot&logoColor=white">
+  <img alt="Backend" src="https://img.shields.io/badge/backend-Spring%20Boot%204.1-6DB33F?style=for-the-badge&logo=springboot&logoColor=white">
   <img alt="Frontend" src="https://img.shields.io/badge/frontend-Android%20%7C%20Kotlin-7F52FF?style=for-the-badge&logo=kotlin&logoColor=white">
-  <img alt="Tests" src="https://img.shields.io/badge/tests-534%20backend%20%2B%2043%20android-success?style=for-the-badge">
+  <img alt="Tests" src="https://img.shields.io/badge/tests-557%20backend%20%2B%2064%20android-success?style=for-the-badge">
   <img alt="Coverage" src="https://img.shields.io/badge/backend%20coverage-100%25-success?style=for-the-badge">
   <img alt="License" src="https://img.shields.io/badge/license-MIT-blue?style=for-the-badge">
 </p>
@@ -45,10 +45,12 @@
 7. [Design system](#design-system)
 8. [REST API](#rest-api)
 9. [Configuration](#configuration)
-10. [Demo video](#demo-video)
-11. [Repository](#repository)
-12. [Contributing](#contributing)
-13. [License](#license)
+10. [Log and trace of an error](#log-and-trace-of-an-error)
+11. [Demo video](#demo-video)
+12. [Repository](#repository)
+13. [The names in this repository](#the-names-in-this-repository)
+14. [Contributing](#contributing)
+15. [License](#license)
 
 ---
 
@@ -147,8 +149,8 @@ All versions are in one place:
 [`gradle/libs.versions.toml`](frontend/android-feedme-app/gradle/libs.versions.toml).
 
 **REST API**
-Java 11 · Spring Boot 2.6 · Spring JDBC · PostgreSQL 13 · JWT (jjwt) ·
-BCrypt · Lombok · Docker
+Java 17 · Spring Boot 4.1 · Spring JDBC · PostgreSQL 13 · jjwt 0.12 ·
+BCrypt · Lombok · Maven 3.9 (wrapper) · Docker
 
 **Quality**
 JUnit 5 · Mockito · AssertJ · JaCoCo · Checkstyle · SpotBugs (backend) ·
@@ -187,12 +189,27 @@ make frontend-sdk-check                         # tells if the path is correct
 git clone https://github.com/JaninaMattes/Fudge-Cooking-App.git
 cd Fudge-Cooking-App
 
-make db-up          # 1. starts PostgreSQL in Docker
-make backend-run    # 2. starts the REST API on port 80
-make frontend-build # 3. builds the APK of the Android client
+make api-up            # 1. PostgreSQL and the REST API in Docker, on port 80
+make emulator-start    # 2. starts the emulator fudge-34
+make demo-video        # 3. APK, the steps of the demo, the video and a GIF
 ```
 
-`make help` shows all commands.
+`make demo-check` says which part is missing, and `make help` shows all
+commands. `make api-down` stops the two containers; `CLEAN=1 make api-down`
+also drops the data of the database.
+
+The database reads `db/schema.sql` and `db/data.sql` at its first start, so the
+demo has a user:
+
+| Email | Password |
+|---|---|
+| `john.smith@testmail.com` | `testpassword` |
+
+A **debug** build of the client talks to `http://10.0.2.2:80`. That address is
+the host of the emulator, so the client reaches the API of `make api-up`. A
+**release** build talks to the server of the university. Both values stand in
+the block `buildTypes` of
+[`app/build.gradle`](frontend/android-feedme-app/app/build.gradle).
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -237,7 +254,7 @@ instructions or under 90 % of the branches.
 ### Backend
 
 ```
-534 tests · 100 % of the instructions · 100 % of the branches · 0 findings of SpotBugs
+557 tests · 100 % of the instructions · 100 % of the branches · 0 findings of SpotBugs
 ```
 
 ```bash
@@ -258,7 +275,7 @@ The tests need **no database and no network**:
 ### Frontend
 
 ```
-43 unit tests · ktlint clean · detekt clean · Android Lint clean · APK builds
+64 unit tests · ktlint clean · detekt clean · Android Lint clean · APK builds
 ```
 
 ```bash
@@ -405,15 +422,73 @@ The Android client reads the address of the API from
 
 ---
 
+## Log and trace of an error
+
+Both parts write their errors to one place, and one ID connects the two logs.
+
+**The ID of the request.** The client gives each request the header
+`X-Request-Id` with eight characters. The API writes that ID into every line of
+its own log and sends the ID back in the answer. A user who reports a problem
+needs the ID only; the ID leads to each line of that request.
+
+**The log of the API.**
+
+| Value | What it does | Default |
+|---|---|---|
+| `FT_LOG_LEVEL_APP` | Level of the classes of the project | `DEBUG` |
+| `FT_LOG_LEVEL_SPRING` | Level of Spring | `INFO` |
+| `FT_LOG_FILE` | File of the log | `<temporary folder>/food-tracker-api.log` |
+
+```
+2026-11-13 16:58:36.004 INFO  [3f9a1c7e] c.f.f.c.logging.RequestLogFilter - GET /api/users/1 answered 200 after 24 ms
+2026-11-13 16:58:37.114 ERROR [a1b2c3d4] c.f.f.common.utils.Attempt       - Failed to read the inventory list: relation "et_product" does not exist
+```
+
+`RequestLogFilter` writes the first line for each request, and `Attempt` writes
+a line for each operation of the data layer that failed. `ApiExceptionHandler`
+answers an error of an endpoint with the status, a short text and the ID of the
+request; the detail of the error stays in the log, because a message can hold
+the name of a table.
+
+**The log of the client.** Every line stands under the name `Fudge`:
+
+```bash
+adb logcat -s Fudge
+```
+
+`NetworkLogInterceptor` writes one line for each request in **each** build, so
+a user of a release build can send a useful log. The body of a request reaches
+Logcat in a **debug** build only, and the headers `Authorization` and `Cookie`
+never reach it.
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+---
+
 ## Demo video
 
 The project records a walk through the application on an **emulator**. No
-telephone is necessary:
+telephone is necessary.
 
 ```bash
+make demo-check              # says which part is missing
+make api-up                  # the API with data, so the screens are not empty
+make emulator-start          # the emulator fudge-34
 make demo-video              # with Maestro: the video shows the name of each step
 MODE=adb make demo-video     # with the Android tools only
 ```
+
+**What the demo needs once:**
+
+```bash
+make emulator-create                                   # emulator and image, about 1.5 GB
+curl -fsSL "https://get.maestro.mobile.dev" | bash     # Maestro
+```
+
+The steps of the demo stand in [`tools/demo/flows/`](tools/demo/flows/). Each
+file is a flow of Maestro, and `demo.yaml` runs all of them in one video. The
+flow `01-login.yaml` takes the user of `db/data.sql`; give another user with
+`maestro test -e EMAIL=a@b.c -e PASSWORD=secret`.
 
 The pipeline also records a video on each build of the main branch and keeps
 it as an artifact of the run.
@@ -443,7 +518,7 @@ Fudge-Cooking-App/
 │   ├── docker-compose.yml        API and database in Docker
 │   └── src/
 │       ├── main/java/            The code of the REST API
-│       └── test/java/            534 tests
+│       └── test/java/            557 tests
 └── frontend/android-feedme-app/
     ├── config/detekt/            Rules of the static analysis
     └── app/src/
@@ -452,6 +527,32 @@ Fudge-Cooking-App/
         ├── test/                 Tests for the development machine
         └── androidTest/          Tests for an emulator
 ```
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+---
+
+## The names in this repository
+
+The product has one name: **Fudge &mdash; Pantry & Recipes**. The code still
+holds two older names, because a change of a package name or of an artifact ID
+touches every file and every import.
+
+| Name | Where it stands | What it means |
+|---|---|---|
+| `Fudge` | README, the label of the application, the name in Logcat | The product. Use this name in every new text. |
+| `FeedMe`, `feedme` | `frontend/android-feedme-app`, the package `com.mobilesystems.feedme` | The first name of the Android client. |
+| `food-tracker`, `foodtracker` | `backend/food-tracker-api`, the package `com.foodtracker.foodtrackerapi` | The first name of the REST API. |
+
+The one name for the GitHub description:
+
+```
+Fudge - Pantry & Recipes: an Android app with a Spring Boot API that tracks
+your food, reads a barcode and suggests recipes before the food is bad.
+```
+
+The list of the open work in [`CLAUDE.md`](CLAUDE.md) holds the full change of
+the names as one task.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
