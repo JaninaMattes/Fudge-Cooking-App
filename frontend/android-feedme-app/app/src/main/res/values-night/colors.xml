@@ -2,50 +2,57 @@
 <!--
     Colours for the dark mode.
 
-    Only the semantic tokens change here. The brand palette stays the same, so
-    that the application keeps its character in the dark mode. A dark screen
-    needs a lighter sage green, because a dark surface makes a colour look
-    darker than it is.
+    Only the semantic tokens change. The palette stays the same, so the
+    application keeps its character. A dark screen needs a lighter green,
+    because a dark surface makes each colour look darker than it is.
+
+    The surfaces are not pure black. A very dark grey gives the cards a soft
+    border without a line, and it is easier for the eyes.
 -->
 <resources>
 
     <!-- Brand -->
-    <color name="brand_primary">@color/sage_300</color>
-    <color name="brand_primary_dark">@color/sage_500</color>
-    <color name="brand_primary_light">@color/sage_100</color>
-    <color name="brand_secondary">@color/sage_700</color>
-    <color name="brand_accent">@color/amber_300</color>
-    <color name="on_brand_primary">@color/forest_900</color>
-    <color name="on_brand_secondary">@color/cream_50</color>
-    <color name="on_brand_accent">@color/forest_900</color>
+    <color name="brand_primary">@color/emerald_300</color>
+    <color name="brand_primary_dark">@color/emerald_500</color>
+    <color name="brand_primary_light">#1E3A28</color>
+    <color name="brand_secondary">@color/neutral_0</color>
+    <color name="brand_accent">@color/emerald_300</color>
+    <color name="on_brand_primary">#07120B</color>
+    <color name="on_brand_secondary">@color/neutral_900</color>
+    <color name="on_brand_accent">#07120B</color>
 
     <!-- Surfaces -->
-    <color name="surface_background">#12150F</color>
-    <color name="surface_card">#1D231A</color>
-    <color name="surface_card_muted">#262D22</color>
-    <color name="surface_card_strong">#2A3326</color>
-    <color name="surface_divider">#39412F</color>
-    <color name="surface_navigation">#1D231A</color>
+    <color name="surface_background">#0F1113</color>
+    <color name="surface_card">#191C1F</color>
+    <color name="surface_card_muted">#23272B</color>
+    <color name="surface_card_strong">#000000</color>
+    <color name="surface_input">#23272B</color>
+    <color name="surface_divider">#2E3337</color>
+    <color name="surface_navigation">#191C1F</color>
 
     <!-- Text and icons -->
-    <color name="text_primary">@color/cream_50</color>
-    <color name="text_secondary">#B9C2AE</color>
-    <color name="text_disabled">#7C856F</color>
-    <color name="text_on_dark">@color/cream_50</color>
-    <color name="text_on_dark_secondary">#B9C2AE</color>
-    <color name="icon_primary">@color/cream_50</color>
-    <color name="icon_on_dark">@color/cream_50</color>
-    <color name="icon_active">@color/amber_300</color>
+    <color name="text_primary">#F2F3F4</color>
+    <color name="text_secondary">#A1A7AD</color>
+    <color name="text_disabled">#6B7076</color>
+    <color name="text_on_dark">#F2F3F4</color>
+    <color name="text_on_dark_secondary">#A1A7AD</color>
+    <color name="text_link">@color/emerald_300</color>
+    <color name="icon_primary">#F2F3F4</color>
+    <color name="icon_secondary">#A1A7AD</color>
+    <color name="icon_on_dark">#F2F3F4</color>
+    <color name="icon_active">@color/emerald_300</color>
+    <color name="icon_inactive">#6B7076</color>
+    <color name="rating_star">@color/amber_400</color>
 
     <!-- Feedback. A dark screen needs brighter signal colours. -->
-    <color name="feedback_success">#6FBF7F</color>
-    <color name="feedback_warning">#F3BE54</color>
-    <color name="feedback_danger">#E9705F</color>
-    <color name="feedback_info">@color/sage_300</color>
+    <color name="feedback_success">#4ADE80</color>
+    <color name="feedback_warning">#FBBF4C</color>
+    <color name="feedback_danger">#F87171</color>
+    <color name="feedback_info">@color/emerald_300</color>
 
-    <color name="status_fresh">#6FBF7F</color>
-    <color name="status_soon">#F3BE54</color>
-    <color name="status_urgent">#E9905F</color>
-    <color name="status_expired">#E9705F</color>
+    <color name="status_fresh">#4ADE80</color>
+    <color name="status_soon">#FBBF4C</color>
+    <color name="status_urgent">#FB923C</color>
+    <color name="status_expired">#F87171</color>
 
 </resources>

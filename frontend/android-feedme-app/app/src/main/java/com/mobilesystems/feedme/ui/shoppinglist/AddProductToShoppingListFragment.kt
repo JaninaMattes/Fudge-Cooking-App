@@ -16,7 +16,6 @@ import com.mobilesystems.feedme.databinding.ShoppingListAddProductFragmentBindin
 import com.mobilesystems.feedme.domain.model.Label
 import com.mobilesystems.feedme.domain.model.Product
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.shopping_list_add_product_fragment.*
 
 @AndroidEntryPoint
 class AddProductToShoppingListFragment : Fragment(R.layout.shopping_list_add_product_fragment) {
@@ -39,7 +38,7 @@ class AddProductToShoppingListFragment : Fragment(R.layout.shopping_list_add_pro
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        button_enteraddproducttoshoppinglist.setOnClickListener {
+        binding.buttonEnteraddproducttoshoppinglist.setOnClickListener {
             // check text edit values
             if(checkValues()){
                 //add new product to sharedviewmodel

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Background of the main button. The round form comes from the design. -->
+<!-- Background of the main button. -->
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid android:color="@color/brand_secondary" />
+    <solid android:color="@color/brand_primary" />
     <corners android:radius="@dimen/radius_pill" />
 </shape>

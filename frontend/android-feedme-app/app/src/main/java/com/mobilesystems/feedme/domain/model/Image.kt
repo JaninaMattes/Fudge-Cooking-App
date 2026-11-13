@@ -2,7 +2,7 @@ package com.mobilesystems.feedme.domain.model
 
 import android.graphics.Bitmap
 import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Image(val imageId: Int,

@@ -6,13 +6,13 @@
   <h1>Fudge</h1>
 
   <p>
-    <strong>Track the food that you have. Cook it before it is bad.</strong>
+    <strong>Track the food that you have. Avoid foodwaste. Cook it before it is bad.</strong>
   </p>
 
   <p>
     An Android application with a Spring Boot REST API. Fudge keeps the
     inventory of your kitchen, reads a product from its barcode and suggests
-    recipes for the products that expire soon.
+    recipes for the products that expire soon, while automatically exporting missing items to a shoppinglist. This makes household foodwaste more visible and allows you to make smarter decisions, while saving money on groceries.
   </p>
 
   <p>
@@ -336,8 +336,8 @@ Base address: `http://<host>:80/api`
 
 ## Configuration
 
-**No credential is in the source code.** The application reads each value from
-an environment variable and uses a default value only for the local machine.
+The application reads each value from
+an environment variable and uses a default value only for the local machine. 
 
 ```bash
 export FT_DB_URL=jdbc:postgresql://localhost:5432/foodtrackerdb

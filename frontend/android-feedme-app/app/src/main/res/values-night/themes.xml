@@ -13,9 +13,9 @@
         <item name="colorPrimary">@color/brand_primary</item>
         <item name="colorPrimaryVariant">@color/brand_primary_dark</item>
         <item name="colorOnPrimary">@color/on_brand_primary</item>
-        <item name="colorSecondary">@color/brand_secondary</item>
-        <item name="colorSecondaryVariant">@color/sage_500</item>
-        <item name="colorOnSecondary">@color/on_brand_secondary</item>
+        <item name="colorSecondary">@color/brand_primary</item>
+        <item name="colorSecondaryVariant">@color/brand_primary_dark</item>
+        <item name="colorOnSecondary">@color/on_brand_primary</item>
 
         <!-- Surfaces -->
         <item name="android:colorBackground">@color/surface_background</item>
@@ -25,12 +25,13 @@
         <item name="colorError">@color/feedback_danger</item>
         <item name="android:textColorPrimary">@color/text_primary</item>
         <item name="android:textColorSecondary">@color/text_secondary</item>
-        <item name="android:textColorHint">@color/text_disabled</item>
+        <item name="android:textColorHint">@color/text_secondary</item>
 
-        <!-- System bars. A dark screen needs light icons in the status bar. -->
+        <!-- System bars. A dark screen needs light icons. -->
         <item name="android:statusBarColor" tools:targetApi="l">@color/surface_background</item>
-        <item name="android:navigationBarColor" tools:targetApi="l">@color/surface_navigation</item>
+        <item name="android:navigationBarColor" tools:targetApi="l">@color/surface_background</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">false</item>
 
         <!-- Shape and type -->
         <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.Fudge.Small</item>
@@ -42,20 +43,20 @@
         <item name="materialButtonStyle">@style/Widget.Fudge.Button</item>
         <item name="materialCardViewStyle">@style/Widget.Fudge.Card</item>
         <item name="bottomNavigationStyle">@style/Widget.Fudge.BottomNavigation</item>
+        <item name="floatingActionButtonStyle">@style/Widget.Fudge.Fab</item>
+        <item name="chipStyle">@style/Widget.Fudge.Chip</item>
     </style>
 
     <style name="Theme.FeedMe" parent="Theme.Fudge">
-        <item name="android:windowBackground">@drawable/bg_gradient_night</item>
+        <item name="android:windowBackground">@color/surface_background</item>
     </style>
 
     <style name="SplashTheme" parent="Theme.Fudge">
         <item name="android:windowBackground">@drawable/splash_background_night</item>
-        <item name="android:statusBarColor">@color/surface_background</item>
     </style>
 
     <style name="LoginTheme" parent="Theme.Fudge">
-        <item name="android:windowBackground">@drawable/bg_gradient_night</item>
-        <item name="android:statusBarColor">@color/surface_background</item>
+        <item name="android:windowBackground">@color/surface_background</item>
     </style>
 
 </resources>

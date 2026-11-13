@@ -1,7 +1,7 @@
 package com.mobilesystems.feedme.domain.model
 
 import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 /**
  * Data class that captures user information for logged in users retrieved from LoginRepository

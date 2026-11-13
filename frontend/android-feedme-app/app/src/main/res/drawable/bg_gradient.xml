@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Background of a screen. A soft step from cream to white. -->
+<!--
+    Background of a screen. The design uses one white surface, so the
+    background holds no gradient any more. The picture of a recipe gives the
+    screen its colour.
+-->
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle">
-    <gradient
-        android:type="linear"
-        android:angle="135"
-        android:startColor="@color/cream_100"
-        android:endColor="@color/cream_50" />
+    <solid android:color="@color/surface_background" />
 </shape>

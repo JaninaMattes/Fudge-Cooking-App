@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Background of a category. The selected category is green, as the design
+    shows. The other categories stay grey.
+-->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:color="@color/brand_primary" android:state_checked="true" />
+    <item android:color="@color/brand_primary" android:state_selected="true" />
+    <item android:color="@color/surface_card_muted" />
+</selector>
