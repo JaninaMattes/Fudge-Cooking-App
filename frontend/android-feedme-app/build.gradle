@@ -41,7 +41,9 @@ subprojects {
         buildUponDefaultConfig = true
         allRules = false
         config.setFrom(files("$rootDir/config/detekt/detekt.yml"))
-        baseline = file("$rootDir/config/detekt/baseline.xml")
+        // Each module has its own baseline. One shared file does not work,
+        // because the task of the last module overwrites the file.
+        baseline = file("$rootDir/config/detekt/baseline-${project.name}.xml")
     }
 
     tasks.withType(io.gitlab.arturbosch.detekt.Detekt).configureEach {
