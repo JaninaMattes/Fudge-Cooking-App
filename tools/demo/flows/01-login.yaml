@@ -1,0 +1,32 @@
+# Demo flow: the user logs in.
+#
+# Maestro reads this file and does the steps on an emulator or on a telephone.
+# Use "maestro record --local tools/demo/flows/01-login.yaml" to make a video.
+appId: com.mobilesystems.feedme
+name: Login
+---
+- launchApp:
+    clearState: true
+
+# The screen of the start shows the logo for a short time.
+- extendedWaitUntil:
+    visible:
+      id: "com.mobilesystems.feedme:id/email"
+    timeout: 15000
+
+- tapOn:
+    id: "com.mobilesystems.feedme:id/email"
+- inputText: "demo@fudge.app"
+
+- tapOn:
+    id: "com.mobilesystems.feedme:id/password"
+- inputText: "demo1234"
+- hideKeyboard
+
+- takeScreenshot: build/demo/01-login
+- tapOn:
+    id: "com.mobilesystems.feedme:id/login"
+
+- extendedWaitUntil:
+    visible: "Dashboard"
+    timeout: 20000
