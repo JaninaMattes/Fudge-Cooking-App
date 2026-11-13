@@ -1,0 +1,4885 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<issues format="6" by="lint 8.5.2" type="baseline" client="gradle" dependencies="true" name="AGP (8.5.2)" variant="all" version="8.5.2">
+
+    <issue
+        id="MissingPermission"
+        message="Missing permissions required by NotificationManagerCompat.notify: android.permission.POST_NOTIFICATIONS"
+        errorLine1="                builder.let { this.notify(NOTIFICATION_ID, it.build()) }"
+        errorLine2="                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/mobilesystems/feedme/common/backgroundService/PushWorker.kt"
+            line="92"
+            column="31"/>
+    </issue>
+
+    <issue
+        id="NotificationPermission"
+        message="When targeting Android 13 or higher, posting a permission requires holding the `POST_NOTIFICATIONS` permission"
+        errorLine1="                builder.let { this.notify(NOTIFICATION_ID, it.build()) }"
+        errorLine2="                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/mobilesystems/feedme/common/backgroundService/PushWorker.kt"
+            line="92"
+            column="31"/>
+    </issue>
+
+    <issue
+        id="SimpleDateFormat"
+        message="To get local formatting use `getDateInstance()`, `getDateTimeInstance()`, or `getTimeInstance()`, or use `new SimpleDateFormat(String template, Locale locale)` with for example `Locale.US` for ASCII dates."
+        errorLine1="            val sdf = SimpleDateFormat(&quot;dd.MM.yyyy&quot;)"
+        errorLine2="                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/mobilesystems/feedme/ui/dashboard/SharedDashboardViewModel.kt"
+            line="265"
+            column="23"/>
+    </issue>
+
+    <issue
+        id="SimpleDateFormat"
+        message="To get local formatting use `getDateInstance()`, `getDateTimeInstance()`, or `getTimeInstance()`, or use `new SimpleDateFormat(String template, Locale locale)` with for example `Locale.US` for ASCII dates."
+        errorLine1="            val sdf = SimpleDateFormat(&quot;dd.MM.yyyy&quot;)"
+        errorLine2="                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/mobilesystems/feedme/ui/inventorylist/SharedInventoryViewModel.kt"
+            line="298"
+            column="23"/>
+    </issue>
+
+    <issue
+        id="CustomSplashScreen"
+        message="The application should not provide its own launch screen"
+        errorLine1="class SplashScreenActivity : AppCompatActivity() {"
+        errorLine2="      ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/mobilesystems/feedme/SplashScreenActivity.kt"
+            line="24"
+            column="7"/>
+    </issue>
+
+    <issue
+        id="FragmentTagUsage"
+        message="Replace the &lt;fragment> tag with FragmentContainerView."
+        errorLine1="    &lt;fragment"
+        errorLine2="     ~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_main.xml"
+            line="9"
+            column="6"/>
+    </issue>
+
+    <issue
+        id="AndroidGradlePluginVersion"
+        message="A newer version of com.android.application than 8.5.2 is available: 9.5.1"
+        errorLine1="agp = &quot;8.5.2&quot;"
+        errorLine2="      ~~~~~~~">
+        <location
+            file="../gradle/libs.versions.toml"
+            line="10"
+            column="7"/>
+    </issue>
+
+    <issue
+        id="AndroidGradlePluginVersion"
+        message="A newer version of com.android.application than 8.5.2 is available: 9.5.1"
+        errorLine1="agp = &quot;8.5.2&quot;"
+        errorLine2="      ~~~~~~~">
+        <location
+            file="../gradle/libs.versions.toml"
+            line="10"
+            column="7"/>
+    </issue>
+
+    <issue
+        id="AndroidGradlePluginVersion"
+        message="A newer version of com.android.application than 8.5.2 is available: 9.5.1"
+        errorLine1="agp = &quot;8.5.2&quot;"
+        errorLine2="      ~~~~~~~">
+        <location
+            file="../gradle/libs.versions.toml"
+            line="10"
+            column="7"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.core:core-ktx than 1.13.1 is available: 1.19.1"
+        errorLine1="coreKtx = &quot;1.13.1&quot;"
+        errorLine2="          ~~~~~~~~">
+        <location
+            file="../gradle/libs.versions.toml"
+            line="25"
+            column="11"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.core:core-ktx than 1.13.1 is available: 1.19.1"
+        errorLine1="coreKtx = &quot;1.13.1&quot;"
+        errorLine2="          ~~~~~~~~">
+        <location
+            file="../gradle/libs.versions.toml"
+            line="25"
+            column="11"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.core:core-ktx than 1.13.1 is available: 1.19.1"
+        errorLine1="coreKtx = &quot;1.13.1&quot;"
+        errorLine2="          ~~~~~~~~">
+        <location
+            file="../gradle/libs.versions.toml"
+            line="25"
+            column="11"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.appcompat:appcompat than 1.7.0 is available: 1.8.0"
+        errorLine1="appcompat = &quot;1.7.0&quot;"
+        errorLine2="            ~~~~~~~">
+        <location
+            file="../gradle/libs.versions.toml"
+            line="26"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.appcompat:appcompat than 1.7.0 is available: 1.8.0"
+        errorLine1="appcompat = &quot;1.7.0&quot;"
+        errorLine2="            ~~~~~~~">
+        <location
+            file="../gradle/libs.versions.toml"
+            line="26"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.appcompat:appcompat than 1.7.0 is available: 1.8.0"
+        errorLine1="appcompat = &quot;1.7.0&quot;"
+        errorLine2="            ~~~~~~~">
+        <location
+            file="../gradle/libs.versions.toml"
+            line="26"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of com.google.android.material:material than 1.12.0 is available: 1.14.0"
+        errorLine1="material = &quot;1.12.0&quot;"
+        errorLine2="           ~~~~~~~~">
+        <location
+            file="../gradle/libs.versions.toml"
+            line="27"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of com.google.android.material:material than 1.12.0 is available: 1.14.0"
+        errorLine1="material = &quot;1.12.0&quot;"
+        errorLine2="           ~~~~~~~~">
+        <location
+            file="../gradle/libs.versions.toml"
+            line="27"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of com.google.android.material:material than 1.12.0 is available: 1.14.0"
+        errorLine1="material = &quot;1.12.0&quot;"
+        errorLine2="           ~~~~~~~~">
+        <location
+            file="../gradle/libs.versions.toml"
+            line="27"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.constraintlayout:constraintlayout than 2.1.4 is available: 2.2.2"
+        errorLine1="constraintlayout = &quot;2.1.4&quot;"
+        errorLine2="                   ~~~~~~~">
+        <location
+            file="../gradle/libs.versions.toml"
+            line="28"
+            column="20"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.constraintlayout:constraintlayout than 2.1.4 is available: 2.2.2"
+        errorLine1="constraintlayout = &quot;2.1.4&quot;"
+        errorLine2="                   ~~~~~~~">
+        <location
+            file="../gradle/libs.versions.toml"
+            line="28"
+            column="20"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.constraintlayout:constraintlayout than 2.1.4 is available: 2.2.2"
+        errorLine1="constraintlayout = &quot;2.1.4&quot;"
+        errorLine2="                   ~~~~~~~">
+        <location
+            file="../gradle/libs.versions.toml"
+            line="28"
+            column="20"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.recyclerview:recyclerview than 1.3.2 is available: 1.4.0"
+        errorLine1="recyclerview = &quot;1.3.2&quot;"
+        errorLine2="               ~~~~~~~">
+        <location
+            file="../gradle/libs.versions.toml"
+            line="29"
+            column="16"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.recyclerview:recyclerview than 1.3.2 is available: 1.4.0"
+        errorLine1="recyclerview = &quot;1.3.2&quot;"
+        errorLine2="               ~~~~~~~">
+        <location
+            file="../gradle/libs.versions.toml"
+            line="29"
+            column="16"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.recyclerview:recyclerview than 1.3.2 is available: 1.4.0"
+        errorLine1="recyclerview = &quot;1.3.2&quot;"
+        errorLine2="               ~~~~~~~">
+        <location
+            file="../gradle/libs.versions.toml"
+            line="29"
+            column="16"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.annotation:annotation than 1.8.2 is available: 1.11.0"
+        errorLine1="annotation = &quot;1.8.2&quot;"
+        errorLine2="             ~~~~~~~">
+        <location
+            file="../gradle/libs.versions.toml"
+            line="31"
+            column="14"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.annotation:annotation than 1.8.2 is available: 1.11.0"
+        errorLine1="annotation = &quot;1.8.2&quot;"
+        errorLine2="             ~~~~~~~">
+        <location
+            file="../gradle/libs.versions.toml"
+            line="31"
+            column="14"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.annotation:annotation than 1.8.2 is available: 1.11.0"
+        errorLine1="annotation = &quot;1.8.2&quot;"
+        errorLine2="             ~~~~~~~">
+        <location
+            file="../gradle/libs.versions.toml"
+            line="31"
+            column="14"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.lifecycle:lifecycle-livedata-ktx than 2.8.4 is available: 2.11.0"
+        errorLine1="lifecycle = &quot;2.8.4&quot;"
+        errorLine2="            ~~~~~~~">
+        <location
+            file="../gradle/libs.versions.toml"
+            line="33"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.lifecycle:lifecycle-livedata-ktx than 2.8.4 is available: 2.11.0"
+        errorLine1="lifecycle = &quot;2.8.4&quot;"
+        errorLine2="            ~~~~~~~">
+        <location
+            file="../gradle/libs.versions.toml"
+            line="33"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.lifecycle:lifecycle-livedata-ktx than 2.8.4 is available: 2.11.0"
+        errorLine1="lifecycle = &quot;2.8.4&quot;"
+        errorLine2="            ~~~~~~~">
+        <location
+            file="../gradle/libs.versions.toml"
+            line="33"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.lifecycle:lifecycle-runtime-ktx than 2.8.4 is available: 2.11.0"
+        errorLine1="lifecycle = &quot;2.8.4&quot;"
+        errorLine2="            ~~~~~~~">
+        <location
+            file="../gradle/libs.versions.toml"
+            line="33"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.lifecycle:lifecycle-runtime-ktx than 2.8.4 is available: 2.11.0"
+        errorLine1="lifecycle = &quot;2.8.4&quot;"
+        errorLine2="            ~~~~~~~">
+        <location
+            file="../gradle/libs.versions.toml"
+            line="33"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.lifecycle:lifecycle-runtime-ktx than 2.8.4 is available: 2.11.0"
+        errorLine1="lifecycle = &quot;2.8.4&quot;"
+        errorLine2="            ~~~~~~~">
+        <location
+            file="../gradle/libs.versions.toml"
+            line="33"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.lifecycle:lifecycle-viewmodel-ktx than 2.8.4 is available: 2.11.0"
+        errorLine1="lifecycle = &quot;2.8.4&quot;"
+        errorLine2="            ~~~~~~~">
+        <location
+            file="../gradle/libs.versions.toml"
+            line="33"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.lifecycle:lifecycle-viewmodel-ktx than 2.8.4 is available: 2.11.0"
+        errorLine1="lifecycle = &quot;2.8.4&quot;"
+        errorLine2="            ~~~~~~~">
+        <location
+            file="../gradle/libs.versions.toml"
+            line="33"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.lifecycle:lifecycle-viewmodel-ktx than 2.8.4 is available: 2.11.0"
+        errorLine1="lifecycle = &quot;2.8.4&quot;"
+        errorLine2="            ~~~~~~~">
+        <location
+            file="../gradle/libs.versions.toml"
+            line="33"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.activity:activity-ktx than 1.9.1 is available: 1.13.0"
+        errorLine1="activity = &quot;1.9.1&quot;"
+        errorLine2="           ~~~~~~~">
+        <location
+            file="../gradle/libs.versions.toml"
+            line="34"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.activity:activity-ktx than 1.9.1 is available: 1.13.0"
+        errorLine1="activity = &quot;1.9.1&quot;"
+        errorLine2="           ~~~~~~~">
+        <location
+            file="../gradle/libs.versions.toml"
+            line="34"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.activity:activity-ktx than 1.9.1 is available: 1.13.0"
+        errorLine1="activity = &quot;1.9.1&quot;"
+        errorLine2="           ~~~~~~~">
+        <location
+            file="../gradle/libs.versions.toml"
+            line="34"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.navigation.safeargs.kotlin than 2.7.7 is available: 2.10.2"
+        errorLine1="navigation = &quot;2.7.7&quot;"
+        errorLine2="             ~~~~~~~">
+        <location
+            file="../gradle/libs.versions.toml"
+            line="35"
+            column="14"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.navigation.safeargs.kotlin than 2.7.7 is available: 2.10.2"
+        errorLine1="navigation = &quot;2.7.7&quot;"
+        errorLine2="             ~~~~~~~">
+        <location
+            file="../gradle/libs.versions.toml"
+            line="35"
+            column="14"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.navigation.safeargs.kotlin than 2.7.7 is available: 2.10.2"
+        errorLine1="navigation = &quot;2.7.7&quot;"
+        errorLine2="             ~~~~~~~">
+        <location
+            file="../gradle/libs.versions.toml"
+            line="35"
+            column="14"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.navigation:navigation-fragment-ktx than 2.7.7 is available: 2.10.2"
+        errorLine1="navigation = &quot;2.7.7&quot;"
+        errorLine2="             ~~~~~~~">
+        <location
+            file="../gradle/libs.versions.toml"
+            line="35"
+            column="14"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.navigation:navigation-fragment-ktx than 2.7.7 is available: 2.10.2"
+        errorLine1="navigation = &quot;2.7.7&quot;"
+        errorLine2="             ~~~~~~~">
+        <location
+            file="../gradle/libs.versions.toml"
+            line="35"
+            column="14"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.navigation:navigation-fragment-ktx than 2.7.7 is available: 2.10.2"
+        errorLine1="navigation = &quot;2.7.7&quot;"
+        errorLine2="             ~~~~~~~">
+        <location
+            file="../gradle/libs.versions.toml"
+            line="35"
+            column="14"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.navigation:navigation-ui-ktx than 2.7.7 is available: 2.10.2"
+        errorLine1="navigation = &quot;2.7.7&quot;"
+        errorLine2="             ~~~~~~~">
+        <location
+            file="../gradle/libs.versions.toml"
+            line="35"
+            column="14"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.navigation:navigation-ui-ktx than 2.7.7 is available: 2.10.2"
+        errorLine1="navigation = &quot;2.7.7&quot;"
+        errorLine2="             ~~~~~~~">
+        <location
+            file="../gradle/libs.versions.toml"
+            line="35"
+            column="14"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.navigation:navigation-ui-ktx than 2.7.7 is available: 2.10.2"
+        errorLine1="navigation = &quot;2.7.7&quot;"
+        errorLine2="             ~~~~~~~">
+        <location
+            file="../gradle/libs.versions.toml"
+            line="35"
+            column="14"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.work:work-runtime-ktx than 2.9.1 is available: 2.12.0"
+        errorLine1="work = &quot;2.9.1&quot;"
+        errorLine2="       ~~~~~~~">
+        <location
+            file="../gradle/libs.versions.toml"
+            line="36"
+            column="8"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.work:work-runtime-ktx than 2.9.1 is available: 2.12.0"
+        errorLine1="work = &quot;2.9.1&quot;"
+        errorLine2="       ~~~~~~~">
+        <location
+            file="../gradle/libs.versions.toml"
+            line="36"
+            column="8"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.work:work-runtime-ktx than 2.9.1 is available: 2.12.0"
+        errorLine1="work = &quot;2.9.1&quot;"
+        errorLine2="       ~~~~~~~">
+        <location
+            file="../gradle/libs.versions.toml"
+            line="36"
+            column="8"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.hilt:hilt-compiler than 1.2.0 is available: 1.4.0"
+        errorLine1="hiltWork = &quot;1.2.0&quot;"
+        errorLine2="           ~~~~~~~">
+        <location
+            file="../gradle/libs.versions.toml"
+            line="37"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.hilt:hilt-compiler than 1.2.0 is available: 1.4.0"
+        errorLine1="hiltWork = &quot;1.2.0&quot;"
+        errorLine2="           ~~~~~~~">
+        <location
+            file="../gradle/libs.versions.toml"
+            line="37"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.hilt:hilt-compiler than 1.2.0 is available: 1.4.0"
+        errorLine1="hiltWork = &quot;1.2.0&quot;"
+        errorLine2="           ~~~~~~~">
+        <location
+            file="../gradle/libs.versions.toml"
+            line="37"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.hilt:hilt-work than 1.2.0 is available: 1.4.0"
+        errorLine1="hiltWork = &quot;1.2.0&quot;"
+        errorLine2="           ~~~~~~~">
+        <location
+            file="../gradle/libs.versions.toml"
+            line="37"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.hilt:hilt-work than 1.2.0 is available: 1.4.0"
+        errorLine1="hiltWork = &quot;1.2.0&quot;"
+        errorLine2="           ~~~~~~~">
+        <location
+            file="../gradle/libs.versions.toml"
+            line="37"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.hilt:hilt-work than 1.2.0 is available: 1.4.0"
+        errorLine1="hiltWork = &quot;1.2.0&quot;"
+        errorLine2="           ~~~~~~~">
+        <location
+            file="../gradle/libs.versions.toml"
+            line="37"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.test:core than 1.6.1 is available: 1.7.0"
+        errorLine1="androidxTestCore = &quot;1.6.1&quot;"
+        errorLine2="                   ~~~~~~~">
+        <location
+            file="../gradle/libs.versions.toml"
+            line="59"
+            column="20"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.test:core than 1.6.1 is available: 1.7.0"
+        errorLine1="androidxTestCore = &quot;1.6.1&quot;"
+        errorLine2="                   ~~~~~~~">
+        <location
+            file="../gradle/libs.versions.toml"
+            line="59"
+            column="20"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.test:core than 1.6.1 is available: 1.7.0"
+        errorLine1="androidxTestCore = &quot;1.6.1&quot;"
+        errorLine2="                   ~~~~~~~">
+        <location
+            file="../gradle/libs.versions.toml"
+            line="59"
+            column="20"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.test.ext:junit than 1.2.1 is available: 1.3.0"
+        errorLine1="androidxTestJunit = &quot;1.2.1&quot;"
+        errorLine2="                    ~~~~~~~">
+        <location
+            file="../gradle/libs.versions.toml"
+            line="60"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.test.ext:junit than 1.2.1 is available: 1.3.0"
+        errorLine1="androidxTestJunit = &quot;1.2.1&quot;"
+        errorLine2="                    ~~~~~~~">
+        <location
+            file="../gradle/libs.versions.toml"
+            line="60"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.test.ext:junit than 1.2.1 is available: 1.3.0"
+        errorLine1="androidxTestJunit = &quot;1.2.1&quot;"
+        errorLine2="                    ~~~~~~~">
+        <location
+            file="../gradle/libs.versions.toml"
+            line="60"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.test:runner than 1.6.2 is available: 1.7.0"
+        errorLine1="androidxTestRunner = &quot;1.6.2&quot;"
+        errorLine2="                     ~~~~~~~">
+        <location
+            file="../gradle/libs.versions.toml"
+            line="61"
+            column="22"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.test:runner than 1.6.2 is available: 1.7.0"
+        errorLine1="androidxTestRunner = &quot;1.6.2&quot;"
+        errorLine2="                     ~~~~~~~">
+        <location
+            file="../gradle/libs.versions.toml"
+            line="61"
+            column="22"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.test:runner than 1.6.2 is available: 1.7.0"
+        errorLine1="androidxTestRunner = &quot;1.6.2&quot;"
+        errorLine2="                     ~~~~~~~">
+        <location
+            file="../gradle/libs.versions.toml"
+            line="61"
+            column="22"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.test:rules than 1.6.1 is available: 1.7.0"
+        errorLine1="androidxTestRules = &quot;1.6.1&quot;"
+        errorLine2="                    ~~~~~~~">
+        <location
+            file="../gradle/libs.versions.toml"
+            line="62"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.test:rules than 1.6.1 is available: 1.7.0"
+        errorLine1="androidxTestRules = &quot;1.6.1&quot;"
+        errorLine2="                    ~~~~~~~">
+        <location
+            file="../gradle/libs.versions.toml"
+            line="62"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.test:rules than 1.6.1 is available: 1.7.0"
+        errorLine1="androidxTestRules = &quot;1.6.1&quot;"
+        errorLine2="                    ~~~~~~~">
+        <location
+            file="../gradle/libs.versions.toml"
+            line="62"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.test.espresso:espresso-contrib than 3.6.1 is available: 3.7.0"
+        errorLine1="espresso = &quot;3.6.1&quot;"
+        errorLine2="           ~~~~~~~">
+        <location
+            file="../gradle/libs.versions.toml"
+            line="63"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.test.espresso:espresso-contrib than 3.6.1 is available: 3.7.0"
+        errorLine1="espresso = &quot;3.6.1&quot;"
+        errorLine2="           ~~~~~~~">
+        <location
+            file="../gradle/libs.versions.toml"
+            line="63"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.test.espresso:espresso-contrib than 3.6.1 is available: 3.7.0"
+        errorLine1="espresso = &quot;3.6.1&quot;"
+        errorLine2="           ~~~~~~~">
+        <location
+            file="../gradle/libs.versions.toml"
+            line="63"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.test.espresso:espresso-core than 3.6.1 is available: 3.7.0"
+        errorLine1="espresso = &quot;3.6.1&quot;"
+        errorLine2="           ~~~~~~~">
+        <location
+            file="../gradle/libs.versions.toml"
+            line="63"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.test.espresso:espresso-core than 3.6.1 is available: 3.7.0"
+        errorLine1="espresso = &quot;3.6.1&quot;"
+        errorLine2="           ~~~~~~~">
+        <location
+            file="../gradle/libs.versions.toml"
+            line="63"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.test.espresso:espresso-core than 3.6.1 is available: 3.7.0"
+        errorLine1="espresso = &quot;3.6.1&quot;"
+        errorLine2="           ~~~~~~~">
+        <location
+            file="../gradle/libs.versions.toml"
+            line="63"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.test.espresso:espresso-intents than 3.6.1 is available: 3.7.0"
+        errorLine1="espresso = &quot;3.6.1&quot;"
+        errorLine2="           ~~~~~~~">
+        <location
+            file="../gradle/libs.versions.toml"
+            line="63"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.test.espresso:espresso-intents than 3.6.1 is available: 3.7.0"
+        errorLine1="espresso = &quot;3.6.1&quot;"
+        errorLine2="           ~~~~~~~">
+        <location
+            file="../gradle/libs.versions.toml"
+            line="63"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.test.espresso:espresso-intents than 3.6.1 is available: 3.7.0"
+        errorLine1="espresso = &quot;3.6.1&quot;"
+        errorLine2="           ~~~~~~~">
+        <location
+            file="../gradle/libs.versions.toml"
+            line="63"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="ObsoleteSdkInt"
+        message="Unnecessary; SDK_INT is always >= 27"
+        errorLine1="            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/mobilesystems/feedme/common/backgroundService/PushWorker.kt"
+            line="78"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="ObsoleteSdkInt"
+        message="Unnecessary; SDK_INT is never &lt; 27"
+        errorLine1="    if (Build.VERSION.SDK_INT &lt; Build.VERSION_CODES.O) return &quot;Requires SDK 26&quot;"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/mobilesystems/feedme/ui/common/utils/Utils.kt"
+            line="104"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="ObsoleteSdkInt"
+        message="This folder configuration (`v24`) is unnecessary; `minSdkVersion` is 27. Merge all the resources in this folder into `drawable`.">
+        <location
+            file="src/main/res/drawable-v24"/>
+    </issue>
+
+    <issue
+        id="ObsoleteSdkInt"
+        message="This folder configuration (`v26`) is unnecessary; `minSdkVersion` is 27. Merge all the resources in this folder into `mipmap-anydpi`.">
+        <location
+            file="src/main/res/mipmap-anydpi-v26"/>
+    </issue>
+
+    <issue
+        id="ObsoleteSdkInt"
+        message="Unnecessary; SDK_INT is always >= 21"
+        errorLine1="        &lt;item name=&quot;android:statusBarColor&quot; tools:targetApi=&quot;l&quot;>@color/surface_background&lt;/item>"
+        errorLine2="                                            ~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-night/themes.xml"
+            line="31"
+            column="45"/>
+    </issue>
+
+    <issue
+        id="ObsoleteSdkInt"
+        message="Unnecessary; SDK_INT is always >= 21"
+        errorLine1="        &lt;item name=&quot;android:navigationBarColor&quot; tools:targetApi=&quot;l&quot;>@color/surface_background&lt;/item>"
+        errorLine2="                                                ~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-night/themes.xml"
+            line="32"
+            column="49"/>
+    </issue>
+
+    <issue
+        id="ObsoleteSdkInt"
+        message="Unnecessary; SDK_INT is always >= 23"
+        errorLine1="        &lt;item name=&quot;android:windowLightStatusBar&quot; tools:targetApi=&quot;m&quot;>false&lt;/item>"
+        errorLine2="                                                  ~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-night/themes.xml"
+            line="33"
+            column="51"/>
+    </issue>
+
+    <issue
+        id="ObsoleteSdkInt"
+        message="Unnecessary; SDK_INT is always >= 27"
+        errorLine1="        &lt;item name=&quot;android:windowLightNavigationBar&quot; tools:targetApi=&quot;o_mr1&quot;>false&lt;/item>"
+        errorLine2="                                                      ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-night/themes.xml"
+            line="34"
+            column="55"/>
+    </issue>
+
+    <issue
+        id="ObsoleteSdkInt"
+        message="Unnecessary; SDK_INT is always >= 21"
+        errorLine1="        &lt;item name=&quot;android:statusBarColor&quot; tools:targetApi=&quot;l&quot;>@color/surface_background&lt;/item>"
+        errorLine2="                                            ~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/themes.xml"
+            line="39"
+            column="45"/>
+    </issue>
+
+    <issue
+        id="ObsoleteSdkInt"
+        message="Unnecessary; SDK_INT is always >= 21"
+        errorLine1="        &lt;item name=&quot;android:navigationBarColor&quot; tools:targetApi=&quot;l&quot;>@color/surface_background&lt;/item>"
+        errorLine2="                                                ~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/themes.xml"
+            line="40"
+            column="49"/>
+    </issue>
+
+    <issue
+        id="ObsoleteSdkInt"
+        message="Unnecessary; SDK_INT is always >= 23"
+        errorLine1="        &lt;item name=&quot;android:windowLightStatusBar&quot; tools:targetApi=&quot;m&quot;>true&lt;/item>"
+        errorLine2="                                                  ~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/themes.xml"
+            line="41"
+            column="51"/>
+    </issue>
+
+    <issue
+        id="ObsoleteSdkInt"
+        message="Unnecessary; SDK_INT is always >= 27"
+        errorLine1="        &lt;item name=&quot;android:windowLightNavigationBar&quot; tools:targetApi=&quot;o_mr1&quot;>true&lt;/item>"
+        errorLine2="                                                      ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/themes.xml"
+            line="42"
+            column="55"/>
+    </issue>
+
+    <issue
+        id="ViewHolder"
+        message="Unconditional layout inflation from view adapter: Should use View Holder pattern (use recycled view passed into this method as the second parameter) for smoother scrolling"
+        errorLine1="        _itemBinding = ShoppingListCurrentItemBinding.inflate(inflater, parent, false)"
+        errorLine2="                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/mobilesystems/feedme/ui/shoppinglist/ShoppingListCurrentProductsGridAdapter.kt"
+            line="48"
+            column="24"/>
+    </issue>
+
+    <issue
+        id="KaptUsageInsteadOfKsp"
+        message="This library supports using KSP instead of kapt, which greatly improves performance. Learn more: https://developer.android.com/studio/build/migrate-to-ksp"
+        errorLine1="    kapt libs.glide.compiler"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="build.gradle"
+            line="161"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="Overdraw"
+        message="Possible overdraw: Root element paints background `@color/bright_grey` with a theme that also paints a background (inferred theme is `@style/Theme.FeedMe`)"
+        errorLine1="    android:background=&quot;@color/bright_grey&quot;>"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activtiy_splash_screen.xml"
+            line="6"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="Overdraw"
+        message="Possible overdraw: Root element paints background `@color/bright_grey` with a theme that also paints a background (inferred theme is `@style/Theme.FeedMe`)"
+        errorLine1="    android:background=&quot;@color/bright_grey&quot;>"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/dashboard_number_one_recipe_scroll_view.xml"
+            line="7"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.layout.activtiy_splash_screen` appears to be unused"
+        errorLine1="&lt;androidx.constraintlayout.widget.ConstraintLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
+        errorLine2="^">
+        <location
+            file="src/main/res/layout/activtiy_splash_screen.xml"
+            line="2"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.layout.carousel_view_pager` appears to be unused"
+        errorLine1="&lt;merge xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;>"
+        errorLine2="^">
+        <location
+            file="src/main/res/layout/carousel_view_pager.xml"
+            line="2"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.emerald_600` appears to be unused"
+        errorLine1="    &lt;color name=&quot;emerald_600&quot;>#12833C&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/colors.xml"
+            line="32"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.neutral_300` appears to be unused"
+        errorLine1="    &lt;color name=&quot;neutral_300&quot;>#DCDEE1&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/colors.xml"
+            line="40"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.neutral_600` appears to be unused"
+        errorLine1="    &lt;color name=&quot;neutral_600&quot;>#6B7076&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/colors.xml"
+            line="43"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.neutral_700` appears to be unused"
+        errorLine1="    &lt;color name=&quot;neutral_700&quot;>#4A4F55&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/colors.xml"
+            line="44"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.neutral_800` appears to be unused"
+        errorLine1="    &lt;color name=&quot;neutral_800&quot;>#2A2E33&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/colors.xml"
+            line="45"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.neutral_1000` appears to be unused"
+        errorLine1="    &lt;color name=&quot;neutral_1000&quot;>#FF000000&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/colors.xml"
+            line="47"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.amber_400` appears to be unused"
+        errorLine1="    &lt;color name=&quot;amber_400&quot;>#FFC94D&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/colors.xml"
+            line="50"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.amber_500` appears to be unused"
+        errorLine1="    &lt;color name=&quot;amber_500&quot;>#FFB800&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/colors.xml"
+            line="51"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.scrim_strong` appears to be unused"
+        errorLine1="    &lt;color name=&quot;scrim_strong&quot;>#B315181B&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/colors.xml"
+            line="61"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.scrim_soft` appears to be unused"
+        errorLine1="    &lt;color name=&quot;scrim_soft&quot;>#5915181B&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/colors.xml"
+            line="62"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.brand_primary_light` appears to be unused"
+        errorLine1="    &lt;color name=&quot;brand_primary_light&quot;>@color/emerald_100&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/colors.xml"
+            line="71"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.brand_secondary` appears to be unused"
+        errorLine1="    &lt;color name=&quot;brand_secondary&quot;>@color/neutral_900&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/colors.xml"
+            line="72"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.on_brand_secondary` appears to be unused"
+        errorLine1="    &lt;color name=&quot;on_brand_secondary&quot;>@color/neutral_0&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/colors.xml"
+            line="75"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.on_brand_accent` appears to be unused"
+        errorLine1="    &lt;color name=&quot;on_brand_accent&quot;>@color/neutral_0&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/colors.xml"
+            line="76"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.surface_card_strong` appears to be unused"
+        errorLine1="    &lt;color name=&quot;surface_card_strong&quot;>@color/neutral_900&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/colors.xml"
+            line="82"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.surface_overlay` appears to be unused"
+        errorLine1="    &lt;color name=&quot;surface_overlay&quot;>@color/scrim_strong&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/colors.xml"
+            line="86"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.text_disabled` appears to be unused"
+        errorLine1="    &lt;color name=&quot;text_disabled&quot;>@color/neutral_400&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/colors.xml"
+            line="91"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.text_on_dark` appears to be unused"
+        errorLine1="    &lt;color name=&quot;text_on_dark&quot;>@color/neutral_0&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/colors.xml"
+            line="92"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.text_on_dark_secondary` appears to be unused"
+        errorLine1="    &lt;color name=&quot;text_on_dark_secondary&quot;>@color/neutral_200&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/colors.xml"
+            line="93"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.text_link` appears to be unused"
+        errorLine1="    &lt;color name=&quot;text_link&quot;>@color/emerald_500&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/colors.xml"
+            line="94"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.icon_primary` appears to be unused"
+        errorLine1="    &lt;color name=&quot;icon_primary&quot;>@color/neutral_900&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/colors.xml"
+            line="95"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.icon_secondary` appears to be unused"
+        errorLine1="    &lt;color name=&quot;icon_secondary&quot;>@color/neutral_500&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/colors.xml"
+            line="96"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.icon_on_dark` appears to be unused"
+        errorLine1="    &lt;color name=&quot;icon_on_dark&quot;>@color/neutral_0&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/colors.xml"
+            line="97"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.rating_star` appears to be unused"
+        errorLine1="    &lt;color name=&quot;rating_star&quot;>@color/amber_500&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/colors.xml"
+            line="100"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.feedback_success` appears to be unused"
+        errorLine1="    &lt;color name=&quot;feedback_success&quot;>@color/status_fresh&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/colors.xml"
+            line="103"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.feedback_warning` appears to be unused"
+        errorLine1="    &lt;color name=&quot;feedback_warning&quot;>@color/status_soon&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/colors.xml"
+            line="104"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.feedback_info` appears to be unused"
+        errorLine1="    &lt;color name=&quot;feedback_info&quot;>@color/emerald_600&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/colors.xml"
+            line="106"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.colorPrimary` appears to be unused"
+        errorLine1="    &lt;color name=&quot;colorPrimary&quot;>@color/brand_primary&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/colors.xml"
+            line="112"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.colorPrimaryLight` appears to be unused"
+        errorLine1="    &lt;color name=&quot;colorPrimaryLight&quot;>@color/brand_primary_light&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/colors.xml"
+            line="113"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.colorPrimaryDark` appears to be unused"
+        errorLine1="    &lt;color name=&quot;colorPrimaryDark&quot;>@color/brand_primary_dark&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/colors.xml"
+            line="114"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.bright_grey` appears to be unused"
+        errorLine1="    &lt;color name=&quot;bright_grey&quot;>@color/neutral_50&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/colors.xml"
+            line="121"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.bright_grey_200` appears to be unused"
+        errorLine1="    &lt;color name=&quot;bright_grey_200&quot;>@color/neutral_200&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/colors.xml"
+            line="122"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.bright_red_200` appears to be unused"
+        errorLine1="    &lt;color name=&quot;bright_red_200&quot;>@color/feedback_danger&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/colors.xml"
+            line="125"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.theme_orange_100` appears to be unused"
+        errorLine1="    &lt;color name=&quot;theme_orange_100&quot;>@color/feedback_warning&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/colors.xml"
+            line="128"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.green_200` appears to be unused"
+        errorLine1="    &lt;color name=&quot;green_200&quot;>@color/emerald_100&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/colors.xml"
+            line="130"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.green_700` appears to be unused"
+        errorLine1="    &lt;color name=&quot;green_700&quot;>@color/emerald_700&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/colors.xml"
+            line="132"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.bright_green_200` appears to be unused"
+        errorLine1="    &lt;color name=&quot;bright_green_200&quot;>@color/emerald_300&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/colors.xml"
+            line="133"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.theme_creme_100` appears to be unused"
+        errorLine1="    &lt;color name=&quot;theme_creme_100&quot;>@color/neutral_100&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/colors.xml"
+            line="135"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.theme_creme_dark` appears to be unused"
+        errorLine1="    &lt;color name=&quot;theme_creme_dark&quot;>@color/neutral_200&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/colors.xml"
+            line="137"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.theme_creme_500` appears to be unused"
+        errorLine1="    &lt;color name=&quot;theme_creme_500&quot;>@color/neutral_100&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/colors.xml"
+            line="138"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.blue_700` appears to be unused"
+        errorLine1="    &lt;color name=&quot;blue_700&quot;>@color/feedback_info&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/colors.xml"
+            line="140"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.theme_dark_blue_100` appears to be unused"
+        errorLine1="    &lt;color name=&quot;theme_dark_blue_100&quot;>@color/neutral_900&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/colors.xml"
+            line="141"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.zxing_viewfinder_laser` appears to be unused"
+        errorLine1="    &lt;color name=&quot;zxing_viewfinder_laser&quot;>@color/brand_primary&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/colors.xml"
+            line="147"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.zxing_possible_result_points` appears to be unused"
+        errorLine1="    &lt;color name=&quot;zxing_possible_result_points&quot;>@color/brand_primary&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/colors.xml"
+            line="148"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.zxing_result_view` appears to be unused"
+        errorLine1="    &lt;color name=&quot;zxing_result_view&quot;>@color/neutral_900&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/colors.xml"
+            line="149"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.zxing_status_text` appears to be unused"
+        errorLine1="    &lt;color name=&quot;zxing_status_text&quot;>@color/text_on_dark&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/colors.xml"
+            line="150"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.zxing_transparent` appears to be unused"
+        errorLine1="    &lt;color name=&quot;zxing_transparent&quot;>@color/neutral_1000&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/colors.xml"
+            line="151"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.zxing_viewfinder_mask` appears to be unused"
+        errorLine1="    &lt;color name=&quot;zxing_viewfinder_mask&quot;>@color/scrim_strong&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/colors.xml"
+            line="152"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.custom_background_shopping_card` appears to be unused"
+        errorLine1="&lt;shape xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;>"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/custom_background_shopping_card.xml"
+            line="3"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.custom_image_button` appears to be unused"
+        errorLine1="&lt;shape xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;>"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/custom_image_button.xml"
+            line="2"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.custom_line_divider` appears to be unused"
+        errorLine1="&lt;shape xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/custom_line_divider.xml"
+            line="3"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.custom_list_background_round_corners` appears to be unused"
+        errorLine1="&lt;shape xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;>"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/custom_list_background_round_corners.xml"
+            line="3"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.custom_round_toggle_button` appears to be unused"
+        errorLine1="&lt;shape xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/custom_round_toggle_button.xml"
+            line="2"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.custom_selector_carousel_page_indicator` appears to be unused"
+        errorLine1="&lt;selector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;>"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/custom_selector_carousel_page_indicator.xml"
+            line="2"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.layout.dashboard_number_one_recipe_scroll_view` appears to be unused"
+        errorLine1="&lt;androidx.constraintlayout.widget.ConstraintLayout"
+        errorLine2="^">
+        <location
+            file="src/main/res/layout/dashboard_number_one_recipe_scroll_view.xml"
+            line="2"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.space_10` appears to be unused"
+        errorLine1="    &lt;dimen name=&quot;space_10&quot;>40dp&lt;/dimen>"
+        errorLine2="           ~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="24"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.space_12` appears to be unused"
+        errorLine1="    &lt;dimen name=&quot;space_12&quot;>48dp&lt;/dimen>"
+        errorLine2="           ~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="25"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.screen_margin_horizontal` appears to be unused"
+        errorLine1="    &lt;dimen name=&quot;screen_margin_horizontal&quot;>16dp&lt;/dimen>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="29"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.screen_margin_vertical` appears to be unused"
+        errorLine1="    &lt;dimen name=&quot;screen_margin_vertical&quot;>16dp&lt;/dimen>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="30"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.text_title_small` appears to be unused"
+        errorLine1="    &lt;dimen name=&quot;text_title_small&quot;>18sp&lt;/dimen>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="38"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.icon_button_size` appears to be unused"
+        errorLine1="    &lt;dimen name=&quot;icon_button_size&quot;>40dp&lt;/dimen>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="58"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.recipe_card_image_height` appears to be unused"
+        errorLine1="    &lt;dimen name=&quot;recipe_card_image_height&quot;>180dp&lt;/dimen>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="60"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.recipe_card_width` appears to be unused"
+        errorLine1="    &lt;dimen name=&quot;recipe_card_width&quot;>160dp&lt;/dimen>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="61"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.avatar_size` appears to be unused"
+        errorLine1="    &lt;dimen name=&quot;avatar_size&quot;>44dp&lt;/dimen>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="62"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.search_field_height` appears to be unused"
+        errorLine1="    &lt;dimen name=&quot;search_field_height&quot;>48dp&lt;/dimen>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="63"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.button_export_ingredient` appears to be unused"
+        errorLine1="    &lt;dimen name=&quot;button_export_ingredient&quot;>288dp&lt;/dimen>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="66"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.button_export_ingredient_height` appears to be unused"
+        errorLine1="    &lt;dimen name=&quot;button_export_ingredient_height&quot;>48dp&lt;/dimen>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="67"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.elevation_overlay` appears to be unused"
+        errorLine1="    &lt;dimen name=&quot;elevation_overlay&quot;>12dp&lt;/dimen>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="75"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.stroke_width_strong` appears to be unused"
+        errorLine1="    &lt;dimen name=&quot;stroke_width_strong&quot;>2dp&lt;/dimen>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="79"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.activity_horizontal_margin` appears to be unused"
+        errorLine1="    &lt;dimen name=&quot;activity_horizontal_margin&quot;>@dimen/screen_margin_horizontal&lt;/dimen>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="86"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.activity_vertical_margin` appears to be unused"
+        errorLine1="    &lt;dimen name=&quot;activity_vertical_margin&quot;>@dimen/screen_margin_vertical&lt;/dimen>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="87"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.fragment_horizontal_margin` appears to be unused"
+        errorLine1="    &lt;dimen name=&quot;fragment_horizontal_margin&quot;>@dimen/screen_margin_horizontal&lt;/dimen>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="88"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.fragment_vertical_margin` appears to be unused"
+        errorLine1="    &lt;dimen name=&quot;fragment_vertical_margin&quot;>@dimen/screen_margin_vertical&lt;/dimen>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="89"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.text_margin` appears to be unused"
+        errorLine1="    &lt;dimen name=&quot;text_margin&quot;>@dimen/space_4&lt;/dimen>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="92"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.extreme_btn_margin` appears to be unused"
+        errorLine1="    &lt;dimen name=&quot;extreme_btn_margin&quot;>@dimen/space_6&lt;/dimen>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="112"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.large_btn_margin` appears to be unused"
+        errorLine1="    &lt;dimen name=&quot;large_btn_margin&quot;>@dimen/space_3&lt;/dimen>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="113"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.medium_btn_margin` appears to be unused"
+        errorLine1="    &lt;dimen name=&quot;medium_btn_margin&quot;>@dimen/space_2&lt;/dimen>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="114"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.small_btn_margin` appears to be unused"
+        errorLine1="    &lt;dimen name=&quot;small_btn_margin&quot;>@dimen/space_1&lt;/dimen>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="115"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.button_text_elevation` appears to be unused"
+        errorLine1="    &lt;dimen name=&quot;button_text_elevation&quot;>@dimen/space_4&lt;/dimen>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="117"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.super_duper_large_button_margin` appears to be unused"
+        errorLine1="    &lt;dimen name=&quot;super_duper_large_button_margin&quot;>@dimen/space_8&lt;/dimen>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="119"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.large_card_elevation` appears to be unused"
+        errorLine1="    &lt;dimen name=&quot;large_card_elevation&quot;>@dimen/elevation_floating&lt;/dimen>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="128"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.tiny_cardview_padding` appears to be unused"
+        errorLine1="    &lt;dimen name=&quot;tiny_cardview_padding&quot;>@dimen/space_1&lt;/dimen>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="137"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.large_recview_margin` appears to be unused"
+        errorLine1="    &lt;dimen name=&quot;large_recview_margin&quot;>@dimen/space_3&lt;/dimen>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="140"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.tiny_recview_margin` appears to be unused"
+        errorLine1="    &lt;dimen name=&quot;tiny_recview_margin&quot;>@dimen/space_1&lt;/dimen>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="143"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.extreme_margin` appears to be unused"
+        errorLine1="    &lt;dimen name=&quot;extreme_margin&quot;>@dimen/space_16&lt;/dimen>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="146"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.large_margin` appears to be unused"
+        errorLine1="    &lt;dimen name=&quot;large_margin&quot;>@dimen/space_8&lt;/dimen>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="147"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.layout.expiring_productlist_item` appears to be unused"
+        errorLine1="&lt;androidx.cardview.widget.CardView"
+        errorLine2="^">
+        <location
+            file="src/main/res/layout/expiring_productlist_item.xml"
+            line="2"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.layout.favorites_fragment` appears to be unused"
+        errorLine1="&lt;FrameLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
+        errorLine2="^">
+        <location
+            file="src/main/res/layout/favorites_fragment.xml"
+            line="2"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.layout.favorites_item` appears to be unused"
+        errorLine1="&lt;LinearLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
+        errorLine2="^">
+        <location
+            file="src/main/res/layout/favorites_item.xml"
+            line="2"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.layout.favorites_list_fragment` appears to be unused"
+        errorLine1="&lt;androidx.recyclerview.widget.RecyclerView xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
+        errorLine2="^">
+        <location
+            file="src/main/res/layout/favorites_list_fragment.xml"
+            line="2"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.mipmap.ic_add_icon` appears to be unused">
+        <location
+            file="src/main/res/mipmap-hdpi/ic_add_icon.png"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.ic_addproducts` appears to be unused">
+        <location
+            file="src/main/res/drawable-hdpi/ic_addproducts.png"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.ic_baseline_add_circle_24` appears to be unused"
+        errorLine1="&lt;vector android:height=&quot;24dp&quot; android:tint=&quot;#FFFFFF&quot;"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/ic_baseline_add_circle_24.xml"
+            line="1"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.ic_baseline_arrow_back_ios_24` appears to be unused"
+        errorLine1="&lt;vector android:autoMirrored=&quot;true&quot; android:height=&quot;24dp&quot;"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/ic_baseline_arrow_back_ios_24.xml"
+            line="1"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.ic_baseline_arrow_forward_ios_24` appears to be unused"
+        errorLine1="&lt;vector android:autoMirrored=&quot;true&quot; android:height=&quot;24dp&quot;"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/ic_baseline_arrow_forward_ios_24.xml"
+            line="1"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.ic_baseline_bookmark_24` appears to be unused"
+        errorLine1="&lt;vector android:height=&quot;24dp&quot; android:tint=&quot;#FFFFFF&quot;"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/ic_baseline_bookmark_24.xml"
+            line="1"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.ic_baseline_bookmark_added_24` appears to be unused"
+        errorLine1="&lt;vector android:height=&quot;24dp&quot; android:tint=&quot;#FFFFFF&quot;"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/ic_baseline_bookmark_added_24.xml"
+            line="1"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.ic_baseline_check_circle_24` appears to be unused"
+        errorLine1="&lt;vector android:height=&quot;24dp&quot; android:tint=&quot;#8F4242&quot;"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/ic_baseline_check_circle_24.xml"
+            line="1"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.ic_baseline_do_not_disturb_on_24` appears to be unused"
+        errorLine1="&lt;vector android:height=&quot;24dp&quot; android:tint=&quot;#8D8D8D&quot;"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/ic_baseline_do_not_disturb_on_24.xml"
+            line="1"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.ic_baseline_location_on_24` appears to be unused"
+        errorLine1="&lt;vector android:height=&quot;24dp&quot; android:tint=&quot;#FFFFFF&quot;"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/ic_baseline_location_on_24.xml"
+            line="1"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.ic_baseline_more_vert_24` appears to be unused"
+        errorLine1="&lt;vector android:height=&quot;24dp&quot; android:tint=&quot;#8D8D8D&quot;"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/ic_baseline_more_vert_24.xml"
+            line="1"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.ic_baseline_share_24` appears to be unused"
+        errorLine1="&lt;vector android:height=&quot;24dp&quot; android:tint=&quot;#8D8D8D&quot;"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/ic_baseline_share_24.xml"
+            line="1"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.ic_baseline_shopping_bag_red_24` appears to be unused"
+        errorLine1="&lt;vector android:height=&quot;24dp&quot; android:tint=&quot;#8F4242&quot;"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/ic_baseline_shopping_bag_red_24.xml"
+            line="1"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.ic_dashboard_black_24dp` appears to be unused"
+        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/ic_dashboard_black_24dp.xml"
+            line="1"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.mipmap.ic_favorite_icon` appears to be unused">
+        <location
+            file="src/main/res/mipmap-hdpi/ic_favorite_icon.png"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.mipmap.ic_launcher` appears to be unused">
+        <location
+            file="src/main/res/mipmap-hdpi/ic_launcher.webp"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.ic_launcher_background` appears to be unused"
+        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/ic_launcher_background.xml"
+            line="2"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.ic_launcher_foreground` appears to be unused"
+        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable-v24/ic_launcher_foreground.xml"
+            line="1"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.mipmap.ic_launcher_round` appears to be unused">
+        <location
+            file="src/main/res/mipmap-hdpi/ic_launcher_round.webp"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.ic_notifications_black_24dp` appears to be unused"
+        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/ic_notifications_black_24dp.xml"
+            line="1"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.mipmap.ic_remove_icon` appears to be unused">
+        <location
+            file="src/main/res/mipmap-hdpi/ic_remove_icon.png"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.image_overlay_scrim` appears to be unused"
+        errorLine1="&lt;shape xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/image_overlay_scrim.xml"
+            line="6"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.img_not_available` appears to be unused">
+        <location
+            file="src/main/res/drawable/img_not_available.jpg"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.layout.inventory_add_product_calendar_fragment` appears to be unused"
+        errorLine1="&lt;androidx.constraintlayout.widget.ConstraintLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
+        errorLine2="^">
+        <location
+            file="src/main/res/layout/inventory_add_product_calendar_fragment.xml"
+            line="2"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.xml.network_security_config` appears to be unused"
+        errorLine1="&lt;network-security-config>"
+        errorLine2="^">
+        <location
+            file="src/main/res/xml/network_security_config.xml"
+            line="2"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.offcirclebutton` appears to be unused"
+        errorLine1="&lt;shape xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/offcirclebutton.xml"
+            line="2"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.oncirclebutton` appears to be unused"
+        errorLine1="&lt;shape xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/oncirclebutton.xml"
+            line="2"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.layout.product_detail_calender_view` appears to be unused"
+        errorLine1="&lt;androidx.constraintlayout.widget.ConstraintLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
+        errorLine2="^">
+        <location
+            file="src/main/res/layout/product_detail_calender_view.xml"
+            line="2"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.layout.recipe_detail_information` appears to be unused"
+        errorLine1="&lt;androidx.constraintlayout.widget.ConstraintLayout"
+        errorLine2="^">
+        <location
+            file="src/main/res/layout/recipe_detail_information.xml"
+            line="2"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.layout.recipe_detail_scroll_view` appears to be unused"
+        errorLine1="&lt;androidx.constraintlayout.widget.ConstraintLayout"
+        errorLine2="^">
+        <location
+            file="src/main/res/layout/recipe_detail_scroll_view.xml"
+            line="2"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.layout.scroll_view_fragment` appears to be unused"
+        errorLine1="&lt;androidx.core.widget.NestedScrollView xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
+        errorLine2="^">
+        <location
+            file="src/main/res/layout/scroll_view_fragment.xml"
+            line="2"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.title_addproducts` appears to be unused"
+        errorLine1="    &lt;string name=&quot;title_addproducts&quot;>Add products&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="6"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.tobuyproductstitle` appears to be unused"
+        errorLine1="    &lt;string name=&quot;tobuyproductstitle&quot;>Products to buy&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="24"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.edittext_addnewproducttitle` appears to be unused"
+        errorLine1="    &lt;string name=&quot;edittext_addnewproducttitle&quot;>New product&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="26"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.AddButtonShoppinglist` appears to be unused"
+        errorLine1="    &lt;string name=&quot;AddButtonShoppinglist&quot;>Create new Product&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="30"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.add_product_to_shoppinglist` appears to be unused"
+        errorLine1="    &lt;string name=&quot;add_product_to_shoppinglist&quot;>Add&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="31"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.numberonerecipelisttitle` appears to be unused"
+        errorLine1="    &lt;string name=&quot;numberonerecipelisttitle&quot;># one recipes today&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="34"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.dashboard_favorite_recipes` appears to be unused"
+        errorLine1="    &lt;string name=&quot;dashboard_favorite_recipes&quot;>Favorites recipes&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="39"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.hello_blank_fragment` appears to be unused"
+        errorLine1="    &lt;string name=&quot;hello_blank_fragment&quot;>Hello blank fragment&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="43"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.profile_login` appears to be unused"
+        errorLine1="    &lt;string name=&quot;profile_login&quot;>Login&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="46"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.profile_forgot_password` appears to be unused"
+        errorLine1="    &lt;string name=&quot;profile_forgot_password&quot;>Forgot password?&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="48"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.action_sign_in` appears to be unused"
+        errorLine1="    &lt;string name=&quot;action_sign_in&quot;>Sign in or register&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="51"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.action_sign_in_short` appears to be unused"
+        errorLine1="    &lt;string name=&quot;action_sign_in_short&quot;>Sign in&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="52"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.welcome` appears to be unused"
+        errorLine1="    &lt;string name=&quot;welcome&quot;>&quot;Welcome!&quot;&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="53"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.username` appears to be unused"
+        errorLine1="    &lt;string name=&quot;username&quot;>Username&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="61"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.add_new_inventory` appears to be unused"
+        errorLine1="    &lt;string name=&quot;add_new_inventory&quot;>Add product&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="86"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.edit_products` appears to be unused"
+        errorLine1="    &lt;string name=&quot;edit_products&quot;>Edit product&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="87"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.button_inventory_list_edit_product` appears to be unused"
+        errorLine1="    &lt;string name=&quot;button_inventory_list_edit_product&quot;>Edit product&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="96"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.inventory_list_add_new_product` appears to be unused"
+        errorLine1="    &lt;string name=&quot;inventory_list_add_new_product&quot;>Create new product&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="97"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.inventory_list_product_expiration_date` appears to be unused"
+        errorLine1="    &lt;string name=&quot;inventory_list_product_expiration_date&quot;>Expiration date&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="98"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.inventory_list_product_name` appears to be unused"
+        errorLine1="    &lt;string name=&quot;inventory_list_product_name&quot;>Product name&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="99"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.inventory_list_product_type` appears to be unused"
+        errorLine1="    &lt;string name=&quot;inventory_list_product_type&quot;>Product type&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="100"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.add_product_image_text` appears to be unused"
+        errorLine1="    &lt;string name=&quot;add_product_image_text&quot;>Would you like to add a profile picture?&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="101"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.show_more_items` appears to be unused"
+        errorLine1="    &lt;string name=&quot;show_more_items&quot;>Show more&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="115"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.button_add_new_product` appears to be unused"
+        errorLine1="    &lt;string name=&quot;button_add_new_product&quot;>Add new product to inventory&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="123"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.e_mail_title` appears to be unused"
+        errorLine1="    &lt;string name=&quot;e_mail_title&quot;>Email:&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="129"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.password` appears to be unused"
+        errorLine1="    &lt;string name=&quot;password&quot;>Password&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="130"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.password_string` appears to be unused"
+        errorLine1="    &lt;string name=&quot;password_string&quot;>*******&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="131"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.user_profile_allow_push_not` appears to be unused"
+        errorLine1="    &lt;string name=&quot;user_profile_allow_push_not&quot;>Allow push notifications&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="134"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.user_profile_edit` appears to be unused"
+        errorLine1="    &lt;string name=&quot;user_profile_edit&quot;>Edit profile&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="135"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.user_profile_first_name` appears to be unused"
+        errorLine1="    &lt;string name=&quot;user_profile_first_name&quot;>Firstname&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="136"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.user_profile_sir_name` appears to be unused"
+        errorLine1="    &lt;string name=&quot;user_profile_sir_name&quot;>Lastname&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="137"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.notificationTitle` appears to be unused"
+        errorLine1="    &lt;string name=&quot;notificationTitle&quot;>Expiring products in inventory&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="140"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.notificationText` appears to be unused"
+        errorLine1="    &lt;string name=&quot;notificationText&quot;>You have expiring products in your inventory!&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="141"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.Available` appears to be unused"
+        errorLine1="    &lt;string name=&quot;Available&quot;>avlb&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="152"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.NotAvailable` appears to be unused"
+        errorLine1="    &lt;string name=&quot;NotAvailable&quot;>not avlb&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="153"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.export_ingredients_to_shoppinglist` appears to be unused"
+        errorLine1="    &lt;string name=&quot;export_ingredients_to_shoppinglist&quot;>Export missing ingredients to shopping list&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="155"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.rate_recipe` appears to be unused"
+        errorLine1="    &lt;string name=&quot;rate_recipe&quot;>Rating&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="162"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.large_text` appears to be unused"
+        errorLine1="    &lt;string name=&quot;large_text&quot;>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="167"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.content_description_logo_of_app` appears to be unused"
+        errorLine1="    &lt;string name=&quot;content_description_logo_of_app&quot;>Content description: Logo of App&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="259"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.the_food_tracking_app` appears to be unused"
+        errorLine1="    &lt;string name=&quot;the_food_tracking_app&quot;>The food tracking app.&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="260"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.dummy_product` appears to be unused"
+        errorLine1="    &lt;string name=&quot;dummy_product&quot;>Broccoli&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="261"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.content_description_recipe_card_star` appears to be unused"
+        errorLine1="    &lt;string name=&quot;content_description_recipe_card_star&quot;>Content Description: Recipe card star&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="262"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.user_name` appears to be unused"
+        errorLine1="    &lt;string name=&quot;user_name&quot;>Name:&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="272"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.content_description_carousel_image` appears to be unused"
+        errorLine1="    &lt;string name=&quot;content_description_carousel_image&quot;>Content description: carousel image&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="274"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_app_name` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_app_name&quot;>Fudge&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="3"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_title_shoppinglist` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_title_shoppinglist&quot;>Einkaufsliste&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="4"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_title_inventorylist` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_title_inventorylist&quot;>Inventarliste&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="5"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_title_addproducts` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_title_addproducts&quot;>Produkte hinzufügen&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="6"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_title_recipes` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_title_recipes&quot;>Rezeptvorschläge&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="7"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_title_dashboard` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_title_dashboard&quot;>Dashboard&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="8"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_search` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_search&quot;>Suche&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="9"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_content_description_favorite_recipe` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_content_description_favorite_recipe&quot;>Content Description Favorite Recipe&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="10"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_content_description_search` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_content_description_search&quot;>Content Description Search&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="11"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_content_description_more` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_content_description_more&quot;>Content Description More&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="12"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_favorite_recipe` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_favorite_recipe&quot;>Lieblingsrezepte&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="13"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_user_profile` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_user_profile&quot;>Profil&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="14"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_content_description_user_profile` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_content_description_user_profile&quot;>Content Description User Profile&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="15"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_title_shopping` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_title_shopping&quot;>Einkauf&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="16"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_title_inventory` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_title_inventory&quot;>Inventar&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="17"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_title_recipe` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_title_recipe&quot;>Rezepte&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="18"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_search_hint` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_search_hint&quot;>Bitte gib ein Suchwort ein.&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="19"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_login_activity_title` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_login_activity_title&quot;>Login&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="20"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_content_description_app_icon` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_content_description_app_icon&quot;>App Icon&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="21"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_tobuyproductstitle` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_tobuyproductstitle&quot;>Zu kaufende Produkte&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="24"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_lastboughtproductstitle` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_lastboughtproductstitle&quot;>Zuletzt gekaufte Produkte&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="25"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_edittext_addnewproducttitle` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_edittext_addnewproducttitle&quot;>Neues Produkt&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="26"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_edittext_addnewproductquantity` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_edittext_addnewproductquantity&quot;>Menge&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="27"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_button_addProduct` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_button_addProduct&quot;>Produkt hinzufügen&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="28"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_addnewproducttoshoppinglistlabel` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_addnewproducttoshoppinglistlabel&quot;>Was möchtest Du einkaufen?&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="29"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_AddButtonShoppinglist` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_AddButtonShoppinglist&quot;>Create new Product&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="30"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_add_product_to_shoppinglist` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_add_product_to_shoppinglist&quot;>Hinzufügen&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="31"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_numberonerecipelisttitle` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_numberonerecipelisttitle&quot;># Rezepte heute&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="34"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_expiring_product_list_title` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_expiring_product_list_title&quot;>Ablaufende Produkte&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="35"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_dashboard_show_more` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_dashboard_show_more&quot;>Weitere&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="36"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_dashboard_greeting_user` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_dashboard_greeting_user&quot;>Hi,&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="37"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_dashboard_user_name` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_dashboard_user_name&quot;>James&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="38"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_dashboard_favorite_recipes` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_dashboard_favorite_recipes&quot;>Beliebteste Rezepte&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="39"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_dashboard_recipe_simple` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_dashboard_recipe_simple&quot;>einfach&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="40"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_hello_blank_fragment` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_hello_blank_fragment&quot;>Hello blank fragment&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="43"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_profile_login` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_profile_login&quot;>Login&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="46"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_want_to_logout` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_want_to_logout&quot;>Wollen Sie sich ausloggen?&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="47"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_profile_forgot_password` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_profile_forgot_password&quot;>Passwort vergessen?&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="48"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_prompt_email` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_prompt_email&quot;>Email&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="49"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_prompt_password` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_prompt_password&quot;>Passwort&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="50"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_action_sign_in` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_action_sign_in&quot;>Sign in or register&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="51"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_action_sign_in_short` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_action_sign_in_short&quot;>Sign in&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="52"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_welcome` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_welcome&quot;>&quot;Welcome!&quot;&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="53"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_invalid_username` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_invalid_username&quot;>Dies ist keine valide Email.&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="54"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_invalid_password` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_invalid_password&quot;>Das Passwort sollte >5 Charakter enthalten.&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="55"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_invalid_passwords` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_invalid_passwords&quot;>Passwörter stimmen nicht überein&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="56"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_login_failed` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_login_failed&quot;>&quot;Der Login ist fehlgeschlagen.&quot;&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="57"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_register_failed` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_register_failed&quot;>&quot;Die Registrierung ist fehlgeschlagen.&quot;&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="58"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_register_title` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_register_title&quot;>Registrierung&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="59"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_username` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_username&quot;>Username&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="60"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_email` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_email&quot;>Email&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="61"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_password_hint` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_password_hint&quot;>******&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="62"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_firstname` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_firstname&quot;>Vorname&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="63"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_lastname` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_lastname&quot;>Nachname&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="64"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_logout` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_logout&quot;>Logout&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="65"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_dummy_text_email` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_dummy_text_email&quot;>max.mustermann@test.com&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="66"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_dummy_text_lastname` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_dummy_text_lastname&quot;>Mustermann&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="67"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_dummy_text_firstname` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_dummy_text_firstname&quot;>Max&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="68"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_forgot_password` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_forgot_password&quot;>Passwort vergessen?&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="69"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_dont_have_account` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_dont_have_account&quot;>Du hast noch keinen Account?&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="70"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_have_account` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_have_account&quot;>Du hast schon einen Account?&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="71"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_reset_password` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_reset_password&quot;>Passwort zurücksetzen&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="72"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_back_to_login` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_back_to_login&quot;>Zurück zum Login&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="73"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_register` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_register&quot;>Registrieren&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="74"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_save` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_save&quot;>Speichern&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="77"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_cancel` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_cancel&quot;>Abbrechen&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="78"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_productimage` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_productimage&quot;>productimage&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="79"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_product_information` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_product_information&quot;>Produktinformationen&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="80"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_expires_in` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_expires_in&quot;>Läuft ab in:&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="81"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_expiration_dummy_value` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_expiration_dummy_value&quot;>3 Days&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="82"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_expiration_dummy_product_name` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_expiration_dummy_product_name&quot;>Tiefkühlpasta&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="83"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_add_new_product_to_inventory` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_add_new_product_to_inventory&quot;>Neues Produkt zum Inventar hinzufügen&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="84"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_add_new_inventory` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_add_new_inventory&quot;>Produkt hinzufügen&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="85"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_edit_products` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_edit_products&quot;>Produkt Bearbeiten&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="86"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_button_edit_product` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_button_edit_product&quot;>Produkt bearbeiten&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="87"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_content_description_edit_product` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_content_description_edit_product&quot;>Produkt bearbeiten&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="88"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_scan_product_code` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_scan_product_code&quot;>Produktbarcode einscannen&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="89"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_add_new_product` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_add_new_product&quot;>Erstelle ein neues Produkt&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="90"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_expiration_date` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_expiration_date&quot;>Ablaufdatum&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="91"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_hint_hersteller` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_hint_hersteller&quot;>Hersteller&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="92"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_product_name` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_product_name&quot;>Produktname&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="93"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_product_type` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_product_type&quot;>Produkttyp&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="94"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_button_inventory_list_edit_product` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_button_inventory_list_edit_product&quot;>Produkt bearbeiten&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="95"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_inventory_list_add_new_product` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_inventory_list_add_new_product&quot;>Erstelle ein neues Produkt&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="96"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_inventory_list_product_expiration_date` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_inventory_list_product_expiration_date&quot;>Ablaufdatum&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="97"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_inventory_list_product_name` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_inventory_list_product_name&quot;>Produktname&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="98"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_inventory_list_product_type` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_inventory_list_product_type&quot;>Produkttyp&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="99"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_add_product_image_text` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_add_product_image_text&quot;>Möchtest du ein Produktbild hinzufügen?&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="100"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_dietry_tag_label` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_dietry_tag_label&quot;>Label&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="101"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_edit_text_error_productname_not_empty` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_edit_text_error_productname_not_empty&quot;>Der Produktname darf nicht leer sein!&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="102"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_edit_text_error_product_quantity_not_empty` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_edit_text_error_product_quantity_not_empty&quot;>Die Produktanzahl darf nicht leer sein!&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="103"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_button_add_image_to_product` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_button_add_image_to_product&quot;>Produktbild hinzufügen&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="104"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_vegan_pizza` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_vegan_pizza&quot;>Vegane Pizza&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="105"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G__1_piece` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G__1_piece&quot;>1 Stück&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="106"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_vegan` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_vegan&quot;>Vegan&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="107"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_buddha_bowl` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_buddha_bowl&quot;>Buddha Bowl&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="108"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_inventory_product_rating_amount` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_inventory_product_rating_amount&quot;>4.5&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="109"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_dropDownProductTypeText` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_dropDownProductTypeText&quot;>Bitte wähle einen Produkttyp aus der Dropdownlist aus.&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="110"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_choose_producttype` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_choose_producttype&quot;>Wähle Produkttyp&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="111"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_amount` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_amount&quot;>Menge&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="112"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_nutritionvalues` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_nutritionvalues&quot;>Nährwerte&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="113"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_show_more_items` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_show_more_items&quot;>Weitere anzeigen&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="114"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_create_new_product` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_create_new_product&quot;>Neues Produkt erstellen&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="115"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_pizza` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_pizza&quot;>Pizza&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="116"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G__3` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G__3&quot;>3&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="117"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_food_dummy_image` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_food_dummy_image&quot;>Platzhalter Bild&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="118"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_show_more` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_show_more&quot;>Weitere&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="119"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_exp_date` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_exp_date&quot;>22.02.2022&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="120"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_expires_soon` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_expires_soon&quot;>expires soon&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="121"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_button_add_new_product` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_button_add_new_product&quot;>Neues Produkt zum Inventar hinzufügen&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="122"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_recipe_filter` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_recipe_filter&quot;>Meine Rezeptfilter&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="125"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_profile_settings` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_profile_settings&quot;>Profil Einstellungen&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="126"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_allow_pushNotifications` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_allow_pushNotifications&quot;>Pushbenachrichtigungen erlauben&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="127"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_e_mail_title` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_e_mail_title&quot;>Mail:&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="128"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_password` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_password&quot;>Passwort&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="129"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_password_string` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_password_string&quot;>*******&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="130"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_edit_profile` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_edit_profile&quot;>Profil Bearbeiten&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="131"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_add_food_preferences_to_user_profile` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_add_food_preferences_to_user_profile&quot;>Füge neue Ernährungspräferenzen hinzu&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="132"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_user_profile_allow_push_not` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_user_profile_allow_push_not&quot;>Pushbenachrichtigungen erlauben&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="133"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_user_profile_edit` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_user_profile_edit&quot;>Profil Bearbeiten&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="134"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_user_profile_first_name` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_user_profile_first_name&quot;>Vorname&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="135"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_user_profile_sir_name` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_user_profile_sir_name&quot;>Nachname&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="136"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_notificationTitle` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_notificationTitle&quot;>Ablaufende Produkte im Inventar&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="139"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_notificationText` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_notificationText&quot;>Du hast ablaufende Produkte im Inventar!&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="140"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_recipe_detail_image` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_recipe_detail_image&quot;>Rezept Detailbild&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="143"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_recipe_detail_information` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_recipe_detail_information&quot;>Rezept Informationen&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="144"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_recipe_detail_rating` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_recipe_detail_rating&quot;>Bewertung&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="145"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_recipe_ingredient_text` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_recipe_ingredient_text&quot;>Frischer Bienenhonig&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="146"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_recipe_ingredient_amount` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_recipe_ingredient_amount&quot;>5 Teelöffel&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="147"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_recipe_ingredient_available` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_recipe_ingredient_available&quot;>vorhanden&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="148"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_button_share_ingredients` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_button_share_ingredients&quot;>Zutaten zur Einkaufsliste hinzufügen&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="149"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_add_to_shoppinglist_title` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_add_to_shoppinglist_title&quot;>Möchtest Du fehlende Zutaten deiner Einkaufsliste hinzufügen?&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="150"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_Available` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_Available&quot;>vorhanden&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="151"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_NotAvailable` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_NotAvailable&quot;>nicht vorhanden&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="152"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_simpel` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_simpel&quot;>einfach&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="153"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_export_ingredients_to_shoppinglist` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_export_ingredients_to_shoppinglist&quot;>Fehlende Zutaten in Einkaufsliste hinzufügen&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="154"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_export_ingredients` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_export_ingredients&quot;>Zutaten Exportieren&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="155"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_best_voted_recipes` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_best_voted_recipes&quot;>Beliebteste Rezepte&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="156"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_cooking_instructions` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_cooking_instructions&quot;>Kochanleitung&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="157"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_example_sentence` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_example_sentence&quot;>The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="158"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_needed_ingredients_title` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_needed_ingredients_title&quot;>Benötigte Zutaten&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="159"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_example_description` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_example_description&quot;>Vegetarisch&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="160"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_rate_recipe` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_rate_recipe&quot;>Bewertung&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="161"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_rating_value` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_rating_value&quot;>4.5&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="162"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_dummy_text` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_dummy_text&quot;>5.0&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="163"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_dummy_text_min` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_dummy_text_min&quot;>30 Min.&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="164"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_dummy_text_kcal` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_dummy_text_kcal&quot;>128 Kcal&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="165"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.G_large_text` appears to be unused"
+        errorLine1="    &lt;string name=&quot;G_large_text&quot;>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings_german.xml"
+            line="166"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.style_toggle_button` appears to be unused"
+        errorLine1="&lt;selector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;>"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/style_toggle_button.xml"
+            line="2"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.style.TextAppearance_Fudge_Display` appears to be unused"
+        errorLine1="    &lt;style name=&quot;TextAppearance.Fudge.Display&quot; parent=&quot;TextAppearance.MaterialComponents.Headline4&quot;>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/styles.xml"
+            line="21"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.style.TextAppearance_Fudge_Headline` appears to be unused"
+        errorLine1="    &lt;style name=&quot;TextAppearance.Fudge.Headline&quot; parent=&quot;TextAppearance.MaterialComponents.Headline5&quot;>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/styles.xml"
+            line="30"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.style.TextAppearance_Fudge_Title` appears to be unused"
+        errorLine1="    &lt;style name=&quot;TextAppearance.Fudge.Title&quot; parent=&quot;TextAppearance.MaterialComponents.Subtitle1&quot;>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/styles.xml"
+            line="38"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.style.TextAppearance_Fudge_Subtitle` appears to be unused"
+        errorLine1="    &lt;style name=&quot;TextAppearance.Fudge.Subtitle&quot; parent=&quot;TextAppearance.MaterialComponents.Subtitle2&quot;>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/styles.xml"
+            line="45"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.style.TextAppearance_Fudge_Body` appears to be unused"
+        errorLine1="    &lt;style name=&quot;TextAppearance.Fudge.Body&quot; parent=&quot;TextAppearance.MaterialComponents.Body1&quot;>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/styles.xml"
+            line="52"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.style.TextAppearance_Fudge_BodySecondary` appears to be unused"
+        errorLine1="    &lt;style name=&quot;TextAppearance.Fudge.BodySecondary&quot; parent=&quot;TextAppearance.Fudge.Body&quot;>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/styles.xml"
+            line="60"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.style.TextAppearance_Fudge_Caption` appears to be unused"
+        errorLine1="    &lt;style name=&quot;TextAppearance.Fudge.Caption&quot; parent=&quot;TextAppearance.MaterialComponents.Caption&quot;>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/styles.xml"
+            line="67"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.style.TextAppearance_Fudge_Link` appears to be unused"
+        errorLine1="    &lt;style name=&quot;TextAppearance.Fudge.Link&quot; parent=&quot;TextAppearance.MaterialComponents.Body2&quot;>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/styles.xml"
+            line="74"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.style.TextAppearance_Fudge_OnDark` appears to be unused"
+        errorLine1="    &lt;style name=&quot;TextAppearance.Fudge.OnDark&quot; parent=&quot;TextAppearance.Fudge.Body&quot;>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/styles.xml"
+            line="81"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.style.Widget_Fudge_Button_Text` appears to be unused"
+        errorLine1="    &lt;style name=&quot;Widget.Fudge.Button.Text&quot; parent=&quot;Widget.MaterialComponents.Button.TextButton&quot;>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/styles.xml"
+            line="119"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.style.Widget_Fudge_Button_Danger` appears to be unused"
+        errorLine1="    &lt;style name=&quot;Widget.Fudge.Button.Danger&quot; parent=&quot;Widget.Fudge.Button&quot;>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/styles.xml"
+            line="127"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.style.Widget_Fudge_IconButton` appears to be unused"
+        errorLine1="    &lt;style name=&quot;Widget.Fudge.IconButton&quot; parent=&quot;Widget.MaterialComponents.Button.TextButton&quot;>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/styles.xml"
+            line="143"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.style.Widget_Fudge_Card_Raised` appears to be unused"
+        errorLine1="    &lt;style name=&quot;Widget.Fudge.Card.Raised&quot; parent=&quot;Widget.Fudge.Card&quot;>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/styles.xml"
+            line="173"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.style.Widget_Fudge_Card_Muted` appears to be unused"
+        errorLine1="    &lt;style name=&quot;Widget.Fudge.Card.Muted&quot; parent=&quot;Widget.Fudge.Card&quot;>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/styles.xml"
+            line="179"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.style.Widget_Fudge_Card_Strong` appears to be unused"
+        errorLine1="    &lt;style name=&quot;Widget.Fudge.Card.Strong&quot; parent=&quot;Widget.Fudge.Card&quot;>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/styles.xml"
+            line="185"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.style.Widget_Fudge_SearchField` appears to be unused"
+        errorLine1="    &lt;style name=&quot;Widget.Fudge.SearchField&quot; parent=&quot;Widget.AppCompat.EditText&quot;>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/styles.xml"
+            line="206"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.style.Widget_Fudge_TextInput` appears to be unused"
+        errorLine1="    &lt;style name=&quot;Widget.Fudge.TextInput&quot;"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/styles.xml"
+            line="220"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.style.Widget_Fudge_Divider` appears to be unused"
+        errorLine1="    &lt;style name=&quot;Widget.Fudge.Divider&quot; parent=&quot;&quot;>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/styles.xml"
+            line="245"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.style.Widget_Fudge_RatingBar` appears to be unused"
+        errorLine1="    &lt;style name=&quot;Widget.Fudge.RatingBar&quot; parent=&quot;Widget.AppCompat.RatingBar.Small&quot;>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/styles.xml"
+            line="252"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.user_profile` appears to be unused">
+        <location
+            file="src/main/res/drawable/user_profile.jpg"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.layout.view_pager_carousel_fragment` appears to be unused"
+        errorLine1="&lt;androidx.constraintlayout.widget.ConstraintLayout"
+        errorLine2="^">
+        <location
+            file="src/main/res/layout/view_pager_carousel_fragment.xml"
+            line="2"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UselessParent"
+        message="This `ScrollView` layout or its `FrameLayout` parent is possibly unnecessary"
+        errorLine1="        &lt;ScrollView"
+        errorLine2="         ~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/fragment_search_list.xml"
+            line="8"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="IconXmlAndPng"
+        message="The following images appear both as density independent `.xml` files and as bitmap files: src/main/res/drawable-anydpi/ic_logout.xml, src/main/res/drawable-hdpi/ic_logout.png">
+        <location
+            file="src/main/res/drawable-xxhdpi/ic_logout.png"/>
+        <location
+            file="src/main/res/drawable-xhdpi/ic_logout.png"/>
+        <location
+            file="src/main/res/drawable-mdpi/ic_logout.png"/>
+        <location
+            file="src/main/res/drawable-hdpi/ic_logout.png"/>
+        <location
+            file="src/main/res/drawable-anydpi/ic_logout.xml"/>
+    </issue>
+
+    <issue
+        id="IconLauncherShape"
+        message="Launcher icon used as round icon did not have a circular shape">
+        <location
+            file="src/main/res/drawable/app_logo.png"/>
+    </issue>
+
+    <issue
+        id="IconLocation"
+        message="Found bitmap drawable `res/drawable/app_logo.png` in densityless folder">
+        <location
+            file="src/main/res/drawable/app_logo.png"/>
+    </issue>
+
+    <issue
+        id="IconLocation"
+        message="Found bitmap drawable `res/drawable/app_logo_splash.png` in densityless folder">
+        <location
+            file="src/main/res/drawable/app_logo_splash.png"/>
+    </issue>
+
+    <issue
+        id="IconLocation"
+        message="Found bitmap drawable `res/drawable/default_user_profile.jpg` in densityless folder">
+        <location
+            file="src/main/res/drawable/default_user_profile.jpg"/>
+    </issue>
+
+    <issue
+        id="IconLocation"
+        message="Found bitmap drawable `res/drawable/img_not_available.jpg` in densityless folder">
+        <location
+            file="src/main/res/drawable/img_not_available.jpg"/>
+    </issue>
+
+    <issue
+        id="IconLocation"
+        message="Found bitmap drawable `res/drawable/recipe.jpg` in densityless folder">
+        <location
+            file="src/main/res/drawable/recipe.jpg"/>
+    </issue>
+
+    <issue
+        id="IconLocation"
+        message="Found bitmap drawable `res/drawable/user_profile.jpg` in densityless folder">
+        <location
+            file="src/main/res/drawable/user_profile.jpg"/>
+    </issue>
+
+    <issue
+        id="IconDensities"
+        message="Missing the following drawables in `drawable-hdpi`: pizza.jpg (found in drawable-mdpi)">
+        <location
+            file="src/main/res/drawable-hdpi"/>
+    </issue>
+
+    <issue
+        id="IconDensities"
+        message="Missing the following drawables in `drawable-xhdpi`: pizza.jpg (found in drawable-mdpi)">
+        <location
+            file="src/main/res/drawable-xhdpi"/>
+    </issue>
+
+    <issue
+        id="IconDensities"
+        message="Missing the following drawables in `drawable-xxhdpi`: pizza.jpg (found in drawable-mdpi)">
+        <location
+            file="src/main/res/drawable-xxhdpi"/>
+    </issue>
+
+    <issue
+        id="IconExtension"
+        message="Misleading file extension; named `.jpg` but the file format is `png`">
+        <location
+            file="src/main/res/drawable/img_not_available.jpg"/>
+    </issue>
+
+    <issue
+        id="ButtonOrder"
+        message="OK button should be on the right (was &quot;OK | Cancel&quot;, should be &quot;Cancel | OK&quot;)"
+        errorLine1="        &lt;Button"
+        errorLine2="         ~~~~~~">
+        <location
+            file="src/main/res/layout/dialog_layout.xml"
+            line="50"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="LabelFor"
+        message="Missing accessibility label: provide either a view with an `android:labelFor` that references this view or provide an `android:hint`"
+        errorLine1="                    &lt;EditText"
+        errorLine2="                     ~~~~~~~~">
+        <location
+            file="src/main/res/layout/user_profile_header.xml"
+            line="66"
+            column="22"/>
+    </issue>
+
+    <issue
+        id="LabelFor"
+        message="Missing accessibility label: provide either a view with an `android:labelFor` that references this view or provide an `android:hint`"
+        errorLine1="                    &lt;EditText"
+        errorLine2="                     ~~~~~~~~">
+        <location
+            file="src/main/res/layout/user_profile_header.xml"
+            line="80"
+            column="22"/>
+    </issue>
+
+    <issue
+        id="LabelFor"
+        message="Missing accessibility label: provide either a view with an `android:labelFor` that references this view or provide an `android:hint`"
+        errorLine1="                    &lt;EditText"
+        errorLine2="                     ~~~~~~~~">
+        <location
+            file="src/main/res/layout/user_profile_header.xml"
+            line="125"
+            column="22"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="Do not concatenate text displayed with `setText`. Use resource string with placeholders."
+        errorLine1="        editText.text = &quot;Want to add $amount ingredients to your shopping list?&quot;"
+        errorLine2="                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/mobilesystems/feedme/ui/recipedetail/RecipeDetailFragment.kt"
+            line="130"
+            column="25"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="String literal in `setText` can not be translated. Use Android resources instead."
+        errorLine1="        editText.text = &quot;Want to add $amount ingredients to your shopping list?&quot;"
+        errorLine2="                         ~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/mobilesystems/feedme/ui/recipedetail/RecipeDetailFragment.kt"
+            line="130"
+            column="26"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="String literal in `setText` can not be translated. Use Android resources instead."
+        errorLine1="        editText.text = &quot;Want to add $amount ingredients to your shopping list?&quot;"
+        errorLine2="                                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/mobilesystems/feedme/ui/recipedetail/RecipeDetailFragment.kt"
+            line="130"
+            column="45"/>
+    </issue>
+
+</issues>
