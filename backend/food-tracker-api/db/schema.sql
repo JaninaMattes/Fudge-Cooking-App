@@ -79,15 +79,35 @@ CREATE TABLE IF NOT EXISTS et_recipe_ingredient(
 );
 
 -- create deitry-tag table, to store all possible dietry tags, e.g. VEGAN, PALEO, LOW CARB etc. 
+-- create tag table. One vocabulary holds every tag of the application.
+-- kind says what a tag is, and the application reads it differently:
+--   diet       a requirement with rules, e.g. Vegan. diet-rules.properties
+--              names the ingredients it forbids.
+--   medical    an allergy or an illness, e.g. Lactose-free. It is a veto and
+--              never a weight.
+--   nutrition  High protein, Low carb. A preference, never a veto.
+--   cuisine    German, French. A taste.
+--   meal       Breakfast, Dinner party. When a recipe is eaten.
+--   attribute  Seasonal, One pot. A property of the recipe.
 CREATE TABLE IF NOT EXISTS et_dietry_tag(
                               tag_id INTEGER PRIMARY KEY NOT NULL,
-                              label VARCHAR(25) NOT NULL
+                              label VARCHAR(25) NOT NULL,
+                              kind VARCHAR(16) NOT NULL DEFAULT 'attribute'
 );
 
 -- create user-tag table, for dietry preference filters e.g. VEGAN, PALEO, LOW CARB etc. 
+-- create user-tag table: what a user wants, and how much.
+--   weight_percent  how important this wish is. The percentages of the
+--                   wishes of one user add up to 100. A user who wants to
+--                   eat vegan most of the time and fish now and then holds
+--                   Vegan 70 and Pescatarian 20.
+--   is_medical      an allergy or an illness. Such a row is a veto: it
+--                   carries no weight and is never traded against anything.
 CREATE TABLE IF NOT EXISTS et_user_tag(
                               user_id INTEGER REFERENCES et_users,
                               tag_id INTEGER REFERENCES et_dietry_tag,
+                              weight_percent INTEGER NOT NULL DEFAULT 0,
+                              is_medical BOOLEAN NOT NULL DEFAULT FALSE,
                               PRIMARY KEY(user_id, tag_id)
 );
 
@@ -153,6 +173,17 @@ CREATE TABLE IF NOT EXISTS et_product_tag(
                               product_id INTEGER REFERENCES et_product,
                               tag_id INTEGER REFERENCES et_dietry_tag,
                               PRIMARY KEY(product_id, tag_id)
+);
+
+-- create recipe-tag table: the three or four tags that describe a recipe and
+-- that the recipe screen shows. A recipe carries at most one tag of the kind
+-- diet, and it is the most exact one that holds: Vegan and never also
+-- Vegetarian. The ingredients stay the authority for a dietary rule; these
+-- tags describe the recipe for a person.
+CREATE TABLE IF NOT EXISTS et_recipe_tag(
+                              recipe_id INTEGER REFERENCES et_recipe,
+                              tag_id INTEGER REFERENCES et_dietry_tag,
+                              PRIMARY KEY(recipe_id, tag_id)
 );
 
 -- create image table to store product images 
