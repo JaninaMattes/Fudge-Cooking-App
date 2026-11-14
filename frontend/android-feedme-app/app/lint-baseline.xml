@@ -2,25 +2,14 @@
 <issues format="6" by="lint 8.5.2" type="baseline" client="gradle" dependencies="true" name="AGP (8.5.2)" variant="all" version="8.5.2">
 
     <issue
-        id="MissingPermission"
-        message="Missing permissions required by NotificationManagerCompat.notify: android.permission.POST_NOTIFICATIONS"
-        errorLine1="                builder.let { this.notify(NOTIFICATION_ID, it.build()) }"
-        errorLine2="                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        id="InlinedApi"
+        message="Field requires API level 33 (current min is 27): `android.Manifest.permission#POST_NOTIFICATIONS`"
+        errorLine1="                    Manifest.permission.POST_NOTIFICATIONS,"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/mobilesystems/feedme/common/backgroundService/PushWorker.kt"
-            line="92"
-            column="31"/>
-    </issue>
-
-    <issue
-        id="NotificationPermission"
-        message="When targeting Android 13 or higher, posting a permission requires holding the `POST_NOTIFICATIONS` permission"
-        errorLine1="                builder.let { this.notify(NOTIFICATION_ID, it.build()) }"
-        errorLine2="                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/com/mobilesystems/feedme/common/backgroundService/PushWorker.kt"
-            line="92"
-            column="31"/>
+            line="101"
+            column="21"/>
     </issue>
 
     <issue
@@ -866,7 +855,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/mobilesystems/feedme/common/backgroundService/PushWorker.kt"
-            line="78"
+            line="82"
             column="17"/>
     </issue>
 
@@ -877,7 +866,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/mobilesystems/feedme/ui/common/utils/Utils.kt"
-            line="104"
+            line="105"
             column="9"/>
     </issue>
 
@@ -992,17 +981,6 @@
             file="src/main/java/com/mobilesystems/feedme/ui/shoppinglist/ShoppingListCurrentProductsGridAdapter.kt"
             line="48"
             column="24"/>
-    </issue>
-
-    <issue
-        id="KaptUsageInsteadOfKsp"
-        message="This library supports using KSP instead of kapt, which greatly improves performance. Learn more: https://developer.android.com/studio/build/migrate-to-ksp"
-        errorLine1="    kapt libs.glide.compiler"
-        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="build.gradle"
-            line="161"
-            column="5"/>
     </issue>
 
     <issue
