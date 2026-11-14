@@ -15,6 +15,7 @@ import com.foodtracker.foodtrackerapi.common.config.ApiProperties;
 import com.foodtracker.foodtrackerapi.models.Recipe;
 import com.foodtracker.foodtrackerapi.services.RecipeRestService;
 import com.foodtracker.foodtrackerapi.services.RecipeService;
+import com.foodtracker.foodtrackerapi.services.RecipeSuggestionService;
 
 /**
  * <p>
@@ -50,6 +51,8 @@ public class RecipeRestResource {
     private final RecipeService recipeService;
     private final ApiProperties apiProperties;
 
+    private final RecipeSuggestionService suggestionService;
+
     /**
      * Makes the resource.
      *
@@ -57,12 +60,14 @@ public class RecipeRestResource {
      * @param recipeService     service of the stored recipes
      * @param apiProperties     configuration that holds the key of the external
      *                          API
+     * @param suggestionService keeps the dietary requirements of the user
      */
     public RecipeRestResource(RecipeRestService recipeRestService, RecipeService recipeService,
-            ApiProperties apiProperties) {
+            ApiProperties apiProperties, RecipeSuggestionService suggestionService) {
         this.recipeRestService = recipeRestService;
         this.recipeService = recipeService;
         this.apiProperties = apiProperties;
+        this.suggestionService = suggestionService;
     }
 
     /**
@@ -89,7 +94,8 @@ public class RecipeRestResource {
      */
     @GetMapping(path = "/recipes/{userId}", produces = "application/json")
     public ResponseEntity<List<Recipe>> getRecipes(@PathVariable("userId") Integer userId) {
-        List<Recipe> result = recipeService.getNRandomRecipes(userId, RECIPE_LIST_SIZE);
+        List<Recipe> result = suggestionService.fitting(userId,
+                recipeService.getNRandomRecipes(userId, RECIPE_LIST_SIZE));
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
@@ -103,9 +109,11 @@ public class RecipeRestResource {
     @GetMapping(path = "/match/{userId}", produces = "application/json")
     public ResponseEntity<Optional<List<Recipe>>> getMatchinRecipesByUserId(
             @PathVariable("userId") Integer userId) {
-        Optional<List<Recipe>> recipes = recipeRestService.getMatchingRecipesByUserId(userId,
-                apiProperties.getSpoonacularRecipeKey(), MATCH_SEARCH_COUNT,
-                EXPIRATION_WARNING_DAYS);
+        Optional<List<Recipe>> recipes = recipeRestService
+                .getMatchingRecipesByUserId(userId,
+                        apiProperties.getSpoonacularRecipeKey(), MATCH_SEARCH_COUNT,
+                        EXPIRATION_WARNING_DAYS)
+                .map(found -> suggestionService.fitting(userId, found));
         return new ResponseEntity<>(recipes, HttpStatus.OK);
     }
 
@@ -118,8 +126,10 @@ public class RecipeRestResource {
     @GetMapping(path = "/recipes/rating/{userId}", produces = "application/json")
     public ResponseEntity<Optional<ArrayList<Recipe>>> getBestRatedRecipes(
             @PathVariable("userId") Integer userId) {
-        Optional<ArrayList<Recipe>> result = recipeService.getAllRecipesByRating(
-                BEST_RATING_LIMIT, userId);
+        Optional<ArrayList<Recipe>> result = recipeService
+                .getAllRecipesByRating(BEST_RATING_LIMIT, userId)
+                .map(found -> new ArrayList<Recipe>(
+                        suggestionService.fitting(userId, found)));
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 }
