@@ -59,6 +59,16 @@ requirement in this document serves that number.
 | 0.9 | Switch the automatic export of missing items on or off | With the switch on, choosing a recipe fills the shopping list without another tap | **Open** | `Settings` holds three switches, and this is not one of them. See FR-3.6. |
 | 0.10 | The settings that already exist stay | Push notifications, remind before a product expires, suggest products for the shopping list | **Done** | `Settings` |
 | 0.11 | Allow a share of suggestions that lies **outside** the dietary requirements, for example 10 % of the time | Every such recipe carries a clear mark, "outside your requirements", and the share stays at 0 % until the user sets it | **Open** | — |
+| 0.12 | The language of the application. **English** is the language of the product; further languages come later. | The country of the login chooses the variant — the United Kingdom gives British English, Australia gives Australian English — and the user can change it in the settings. No text stands in the code; every text stands in a file of its language. | **Open** | The application holds no setting of a language, and the demo data was German until 14 November 2026. |
+| 0.13 | Day mode, night mode, or the mode of the telephone | The user chooses one of the three, and the choice holds after a restart | **Partly** — `values-night/colors.xml` holds the colours of the night, and no setting chooses it | `values-night/colors.xml` |
+| 0.14 | The settings that a modern application holds | The settings screen holds: the account and the profile (FR-0.1 to FR-0.5), the dietary requirements (FR-0.6), the notification and its hour (FR-0.8), the language (FR-0.12), the appearance (FR-0.13), the units of measure, the data and the privacy, the version of the application, log out, and delete the account (FR-0.2) | **Open** | The profile screen holds a part of this list today. |
+
+> **The language of the product is English.** German stood in the first
+> version because it was shown in Germany, and it is gone from the demo data
+> since 14 November 2026. The country of the login chooses the variant, the
+> user can change it, and a language that nobody has translated falls back to
+> English. A text in the source code is a defect: a text belongs in the file
+> of its language, so that a translation needs no change of the code.
 
 > **Three shares, and they must never be confused.**
 >
@@ -128,12 +138,12 @@ doubt, the **earlier** date wins.
 
 | # | The requirement | Acceptance criterion | State | Where |
 |---|---|---|---|---|
-| 3.1 | **Every** suggestion follows the dietary requirements strictly | A vegan user never sees a recipe with meat, in no screen and in no notification | **Open** | The query sends `apiKey`, `ingredients` and `number`, and no `diet` and no `intolerances`. The commit of 1 March sent no diet either, so this is a gap and not a regression. |
+| 3.1 | **Every** suggestion follows the dietary requirements strictly | A vegan user never sees a recipe with meat, in no screen and in no notification | **Done** (14 November 2026) | `common/diet/DietRules` reads `diet-rules.properties` and judges the **ingredients** of a recipe, not its label. `RecipeSuggestionService` stands in front of the three endpoints that give recipes to a user. A requirement that the file does not name is a taste, such as "Mediterranean", and hides nothing. |
 | 3.2 | A suggestion uses the products of the inventory | The ingredients of a suggestion come from the inventory of that user | **Done** | `RecipeRestService.getRecipesByExpiringProducts` |
 | 3.3 | Products that expire soon come first | A product with three days left steers the suggestion | **Done** | `EXPIRATION_WARNING_DAYS = 3`, `getProductWithShortExpDate` |
 | 3.4 | A suggestion covers as many products of the household as possible | Of two recipes, the one that uses more of the stock stands higher | **Partly** | `findByIngredients` can rank by that, but the `ranking` parameter is not sent |
 | 3.5 | At least three recipes, and as many as the user set | The list never holds fewer than three | **Partly** — three is the fixed number | `RECIPES_PER_SEARCH = 3`; no setting for more |
-| 3.6 | Choosing a recipe exports the missing items to the shopping list | Of eight ingredients, the three that the inventory lacks appear on the list | **Open** | No code compares the ingredients of a recipe with the inventory. The README promises this. |
+| 3.6 | Choosing a recipe exports the missing items to the shopping list | Of eight ingredients, the three that the inventory lacks appear on the list | **Partly** (14 November 2026) — the API does it, the client does not call it yet | `common/utils/IngredientMatcher`, `RecipeShoppingService`, `POST /api/shoppinglist/current/add/missing` |
 | 3.8 | With an empty inventory, or with nothing that needs attention, the suggestion follows the dietary requirements and the score of the recommender **alone** | A user with an empty pantry still sees at least three recipes that fit the diet | **Open** | The suggestion of the dashboard starts from the expiring products. The random path `getNRandomRecipes` knows neither the diet nor a score. |
 | 3.7 | The suggestions **and** the products that expire soon reach the user as a push notification at the set hour | One notification a day. It names the number of products that expire soon and at least one recipe, and a tap opens the screen that belongs to it. | **Partly** — see the three faults under this table | `PushWorker`, `RecipeWorker`, `HiltApplication` |
 
@@ -283,6 +293,9 @@ therefore holds a default, and the default must be useful on the first day.
 | The storage place of a new product | the usual place of its type out of the shelf-life file, else the pantry | FR-1.4.3 needs a place before it can give a date. |
 | An estimated use-by date | always marked as an estimate | FR-1.4.5. The user must see what is a guess. |
 | Suggestions for the shopping list (FR-12) | **off** | It needs the habits of the user first. |
+| The language | the variant of the country of the login, else **English** | English is the language of the product, and a country gives the variant without a question. |
+| The appearance | **the mode of the telephone** | The user has already chosen there, so the application does not ask again. |
+| The units of measure | **metric**, and imperial for a country that uses it | A recipe of 500 gr means nothing to a user who weighs in ounces. |
 
 Two rules about a default:
 
@@ -360,7 +373,7 @@ be easy to see: the products that expire soon, and the dietary requirements.
 | N-10 | The platform | Android API 27 to 34, Java 17, PostgreSQL, the API in Docker on port 80 | **Done** |
 | N-11 | Speed | A screen shows its data in under one second on a middle-class telephone; a detection on the device under two seconds | **Open** — never measured |
 | N-12 | Offline | The inventory and the shopping list are readable without a network | **Open** — every screen reads the API |
-| N-14 | Reference data ships with the app and needs no network: the shelf life of each type (FR-1.4.2) and the meal types (FR-6.2) live in a versioned file in the repository, read once from the internet and then reviewed by a person | A build without a network holds every value, and the file names its version and its source | **Open** |
+| N-14 | Reference data ships with the app and needs no network: the rules of the diet (FR-3.1), the shelf life of each type (FR-1.4.2) and the meal types (FR-6.2) live in a versioned file in the repository, read once from the internet and then reviewed by a person | A build without a network holds every value, and the file names its version and its source | **Partly** — `diet-rules.properties` holds its version and its date; the shelf life and the meal types are open |
 | N-15 | A date that the engine estimates is never later than a date that was printed on the product, and the engine prefers the earlier of two possible dates | Every edge case of FR-1.4 holds a test | **Open** |
 | N-13 | Maintainable | One place for each rule; Checkstyle, ktlint, detekt and Lint clean; each public type documented | **Done** — the two baselines hold 37 and 452 old findings, and they must fall |
 
