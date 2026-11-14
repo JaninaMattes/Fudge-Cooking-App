@@ -10,7 +10,10 @@
   </p>
 
   <p>
-    It is an Android app called Fudge, featuring a Spring Boot REST API. Fudge takes stock of your kitchen after you’ve been shopping, scans products and their details using their barcodes (where available), or uses image recognition (a future feature) to automatically recognise items such as fruit and vegetables. Fudge knows the use-by dates of various products and tracks them throughout your everyday life. Based on your dietary requirements and the frequency you suggested, Fudge suggests recipes that use as many of the products as possible that are already in your home or are about to go off. Missing items can be automatically exported to a shopping list when a recipe is selected. This makes food waste in the household more visible, ensures products are used up early, saves time spent searching for suitable recipes, and helps you save money on your next grocery shopping.
+    An Android app with a Spring Boot REST API. Fudge takes stock of your
+    kitchen, keeps the use-by date of every product in view and suggests
+    recipes that use up what is about to go off. Missing items go to the
+    shopping list with one tap.
 
   </p>
 
@@ -54,6 +57,19 @@
 ---
 
 ## What the application does
+
+It is an Android app called Fudge, featuring a Spring Boot REST API. Fudge
+takes stock of your kitchen after you’ve been shopping, scans products and
+their details using their barcodes (where available), or uses image
+recognition (a future feature) to automatically recognise items such as fruit
+and vegetables. Fudge knows the use-by dates of various products and tracks
+them throughout your everyday life. Based on your dietary requirements and the
+frequency you suggested, Fudge suggests recipes that use as many of the
+products as possible that are already in your home or are about to go off.
+Missing items can be automatically exported to a shopping list when a recipe
+is selected. This makes food waste in the household more visible, ensures
+products are used up early, saves time spent searching for suitable recipes,
+and helps you save money on your next grocery shopping.
 
 Each year a household throws away food that is still good, because nobody
 knows what is in the refrigerator. Fudge solves this problem in three steps:
