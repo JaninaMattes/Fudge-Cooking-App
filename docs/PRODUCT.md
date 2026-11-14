@@ -340,11 +340,17 @@ be easy to see: the products that expire soon, and the dietary requirements.
 
 ## 5. Non-functional requirements
 
+> **The rule of every change.** Every new feature and every change carries its
+> own tests, and those tests cover the **edge cases** and not only the path
+> that works. A change without such a test is not finished, and a review sends
+> it back. Where this document holds a table of edge cases — the engine of
+> FR-1.4 is the first of them — each line of that table needs its own test.
+
 | # | The requirement | Acceptance criterion | State |
 |---|---|---|---|
 | N-1 | No error is swallowed | Every failure writes one log line with the ID of the request | **Done** — `Attempt`, `RequestLogFilter`, `AppLog` |
 | N-2 | A request can be followed across both parts | One `X-Request-Id` stands in the log of the client and of the API | **Done** |
-| N-3 | The tests guard the rules | The backend holds the gate at 100 % of the instructions and of the branches; a new file carries no finding | **Partly** — the client has 64 tests, no gate and no test of a ViewModel |
+| N-3 | **Every new feature and every change carries tests that cover the edge cases, not only the happy path.** A change without a test is not finished. | The backend holds the gate at 100 % of the instructions and of the branches; a new file carries no finding; a review refuses a change whose tests walk the happy path alone | **Partly** — the client has 64 tests, no gate and no test of a ViewModel |
 | N-4 | No secret in the source | Each key comes from the environment | **Done** — `ApiProperties`. `Constants.java` with `"xxxx"` is deleted. |
 | N-5 | An endpoint of a user needs a token | Without a valid token an endpoint answers 401 | **Open** — `TokenService` and `AuthFilter` exist with tests, and the bean is **not registered**, so no endpoint needs a token |
 | N-6 | A log line holds no personal data | No body, no `Authorization`, no `Cookie` | **Done** |
