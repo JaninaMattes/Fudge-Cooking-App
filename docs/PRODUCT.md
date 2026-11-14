@@ -53,12 +53,12 @@ requirement in this document serves that number.
 | 0.3 | Upload a custom profile image | The image survives a restart and shows on the profile | **Done** | `/update/image`, `Image`, `ImageUtils` |
 | 0.4 | Sign in with another provider, for example Gmail, and import name and image **with the permission of the user** | The user sees what is imported before it is stored, and can refuse each field | **Open** | Login is email, password and a JWT. No OAuth. |
 | 0.5 | Edit the name of the profile | The new name shows on every screen that names the user | **Done** | `/update/userprofile` |
-| 0.6 | Set dietary requirements, for example low-carb, diabetic, vegan | The requirements are stored and **every** suggestion follows them | **Partly** — stored, never applied. See FR-3.1. | `/create/dietrytag`, `/update/dietrytag`, `Tag`, `UserFoodPrefListFragment` |
-| 0.7 | Set a share of random suggestions, for example 10 %, which still follows the diet | Over 20 suggestions, about 2 are random, and none breaks the diet | **Open** | `getNRandomRecipes` can give random recipes, but no share and no diet |
+| 0.6 | Set dietary requirements, and mark a requirement as **medical** | A requirement is stored with its kind. A medical one is a **veto**: it is never traded against anything. A requirement that is a taste is a **weight**, see FR-0.7. | **Partly** (14 November 2026) — the kind, the weight and the mark are stored and reach the API; the weighted choice is open | `et_dietry_tag.kind`, `et_user_tag.is_medical`, `Tag`, `/create/dietrytag` |
+| 0.7 | **Weighted preferences.** The user picks up to three tags and says how important each one is, in percent, adding up to 100: *Vegan 70, Pescatarian 20, High protein 10*. | Of three suggestions, two follow the wish of 70 % and one is free for the best score. A preference never hides a recipe; it ranks. The percentages are a **target over many suggestions**, not a promise for each single one. | **Partly** (14 November 2026) — `et_user_tag.weight_percent` holds the weights and the API reads them; nothing uses them for the choice yet. See FR-R1. | `et_user_tag`, `Tag.weightPercent` |
 | 0.8 | Set how often and when a notification comes, for example every day at 08:00 of the **local** time of the telephone | The notification arrives inside the set hour. With nothing set, the default of FR-D holds. | **Partly** — the switches exist; the hour stands in the code as 07:03, and the work runs once and never again | `/update/suggestion`, `/update/reminder`, `HiltApplication.setupWork`, `RecipeWorker`, `PushWorker` |
 | 0.9 | Switch the automatic export of missing items on or off | With the switch on, choosing a recipe fills the shopping list without another tap | **Open** | `Settings` holds three switches, and this is not one of them. See FR-3.6. |
 | 0.10 | The settings that already exist stay | Push notifications, remind before a product expires, suggest products for the shopping list | **Done** | `Settings` |
-| 0.11 | Allow a share of suggestions that lies **outside** the dietary requirements, for example 10 % of the time | Every such recipe carries a clear mark, "outside your requirements", and the share stays at 0 % until the user sets it | **Open** | — |
+| 0.11 | *(gone into FR-0.7 on 14 November 2026.)* A share "outside the requirements" is no longer a thing of its own: a wish of 20 % for Pescatarian **is** the permission to serve fish. A recipe that follows a wish of less than 100 % still carries its reason on the screen, so the user sees why it is there. | | **Open** | — |
 | 0.12 | The language of the application. **English** is the language of the product; further languages come later. | The country of the login chooses the variant — the United Kingdom gives British English, Australia gives Australian English — and the user can change it in the settings. No text stands in the code; every text stands in a file of its language. | **Open** | The application holds no setting of a language, and the demo data was German until 14 November 2026. |
 | 0.13 | Day mode, night mode, or the mode of the telephone | The user chooses one of the three, and the choice holds after a restart | **Partly** — `values-night/colors.xml` holds the colours of the night, and no setting chooses it | `values-night/colors.xml` |
 | 0.14 | The settings that a modern application holds | The settings screen holds: the account and the profile (FR-0.1 to FR-0.5), the dietary requirements (FR-0.6), the notification and its hour (FR-0.8), the language (FR-0.12), the appearance (FR-0.13), the units of measure, the data and the privacy, the version of the application, log out, and delete the account (FR-0.2) | **Open** | The profile screen holds a part of this list today. |
@@ -70,19 +70,37 @@ requirement in this document serves that number.
 > English. A text in the source code is a defect: a text belongs in the file
 > of its language, so that a translation needs no change of the code.
 
-> **Three shares, and they must never be confused.**
+> **A requirement is either a veto or a weight.**
 >
-> | The share | What it mixes in | Default |
+> | Kind | How it acts | Example |
 > |---|---|---|
-> | FR-0.7 | **random** recipes that still follow the diet — variety | 10 % |
-> | FR-4.3 | recipes with **no rating** — discovery of something new | 10 % |
-> | FR-0.11 | recipes that **break** the diet — only when the user asks | 0 % |
+> | **medical** | A **veto**. No weight, no exception, never traded against an expiring product. | an allergy, coeliac disease, diabetes |
+> | **a taste** | A **weight** from 1 to 100. It ranks a recipe, it hides none. | Vegan 70, Pescatarian 20, High protein 10 |
 >
-> **A dietary requirement can be medical.** An allergy, coeliac disease or
-> diabetes is not a taste. FR-0.11 must **never** apply to a requirement that
-> the user marked as medical, so a dietary requirement needs that mark
-> (FR-0.6). Without the mark, the app treats every requirement as medical and
-> never breaks it.
+> Without the mark, the application treats a requirement as medical and never
+> breaks it. That is the safe side.
+>
+> One more share stands beside the weights and does not mix with them: FR-4.3
+> keeps 10 % of the suggestions for recipes with **no rating**, so that a new
+> recipe can be found at all.
+>
+> **The three tables of the tags** (14 November 2026):
+>
+> | Table | What it holds |
+> |---|---|
+> | `et_dietry_tag` | One vocabulary. `kind` says what a tag is: `diet`, `medical`, `nutrition`, `cuisine`, `meal`, `attribute`. |
+> | `et_recipe_tag` | The three or four tags of a recipe, which the recipe screen shows. |
+> | `et_user_tag` | What a user wants: the tag, `weight_percent`, and `is_medical`. |
+>
+> **The rules of a diet stay out of the database.** `diet-rules.properties`
+> holds which ingredients a diet forbids, because that is reference data that
+> a person reviews, that must not drift between two environments, and that a
+> test reads without a database (N-14). The database holds facts only.
+>
+> **The rule for the screen:** a recipe carries **at most one** tag of the
+> kind `diet`, and it is the most exact one that holds — `Vegan`, and never
+> also `Vegetarian` or `Meat-free`. Beside it stand at most three tags of
+> **different** families: nutrition, effort, cuisine or meal. Four at most.
 
 ### FR-1 — Collecting the products after shopping
 
@@ -169,6 +187,7 @@ doubt, the **earlier** date wins.
 | 4.1 | Bookmark a recipe and see the bookmarks together | A bookmark survives a restart and shows in one list | **Partly** | `FavoritesFragment`, `RecipeRepositoryImpl` |
 | 4.2 | Like or rate a recipe | A like or a mark changes the rank of that recipe for that user | **Open** | `/api/recipe/rate` exists. The client never calls it. |
 | 4.3 | A higher rating makes a recipe appear more often, and **a share of the suggestions carries no rating at all**, so that a new recipe can be found | Over twenty suggestions, about two hold no rating. The share is the default of FR-D. | **Open** | — |
+| 4.5 | The screen of a recipe shows its tags | A user who opens a recipe sees its three or four tags, the diet first | **Open** — the data stands in `et_recipe_tag` since 14 November 2026; no endpoint reads it and no layout shows it | `et_recipe_tag` |
 | 4.4 | The app counts how often a recipe was **viewed**, next to the rating, the like and the bookmark | A view counts once per user and per opening, and it feeds FR-R1 | **Open** | `et_recipe` holds `cummulativerating` and `amountofratings`, and no counter of views |
 
 ### FR-5 — Share a recipe with others
@@ -421,6 +440,18 @@ open question is the palette of D-14.
 | 11 | FR-1.3 and FR-8 — the model on the device | The largest piece. It needs a model, a licence and a measurement on a real telephone. |
 | 12 | FR-5, FR-7, FR-10, FR-11, FR-R2 — the social part as **one** piece | They all need an account on a server, a following list and a feed. Alone, none of them works. |
 | 13 | FR-12 and FR-R1 — the two models | They need the own store of FR-9 and the counters of FR-4.4 first. A model without data learns nothing. |
+
+**Opened by the work of 14 November 2026.** Each of these fits between the
+items above, and none of them blocks the demonstration.
+
+| The work | Why it is open |
+|---|---|
+| **The weighted choice of FR-0.7**: slots by weight, the urgency of the pantry, a reason on each suggestion | The data is there — `weight_percent` and `is_medical`. Nothing reads it for the choice yet, so a preference still acts like a veto and the behaviour of the application did not change. This is the first half of FR-R1 and needs no comparison between users. |
+| **FR-4.5**: an endpoint that gives the tags of a recipe, and the chips on the screen | `et_recipe_tag` holds the data since today. `Recipe` carries no tags, and no layout shows them. |
+| A model `DietaryPreference` instead of three fields on `Tag` | `Tag` carries `weightPercent` and `medical`, because the row of `et_user_tag` **is** the wish. It works, and it mixes the vocabulary with the wish of a user. |
+| An own vocabulary for the tags of a **product** | A product carries dietary labels today, so the cheese of the demo data carries "Vegan". A product needs food groups: dairy, meat, fish, vegetable, fruit, grain. No screen shows a product tag, so nothing is visibly wrong yet. |
+| `et_recipe.recipe_label` becomes redundant | A free text that lied once (`Boeuf Bourguignon` carried `Vegetarisch`). Once FR-4.5 shows the tags, the column can go. |
+| **A contradiction in `diet-rules.properties`** | `vegetarian.allows` names `prawn, shrimp, crab, lobster, gelatin, lard`, and `vegetarian.forbids` forbids exactly those. An exception wins over a prohibition, so a vegetarian would be served prawns. Two steps are open: rename the key `allows` to `despite`, so nobody reads it as a list of permissions, and stop the start of the application when one word stands in both lists of one requirement. |
 
 ---
 
