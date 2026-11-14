@@ -37,7 +37,7 @@ DISK_MIN_MB  ?= 2048
         backend-build backend-test backend-lint backend-coverage backend-clean backend-run \
         frontend-build frontend-test frontend-lint frontend-coverage frontend-clean \
         frontend-sdk-check frontend-format frontend-verify backend-verify backend-bugs backend-docs \
-        frontend-ui-test docs db-up db-down api-package api-up api-down api-logs \
+        frontend-ui-test docs db-up db-down api-package api-up api-down api-logs api-smoke \
         emulator-create emulator-start demo-video demo-check disk-check
 
 # -----------------------------------------------------------------------------
@@ -192,6 +192,9 @@ api-up: api-package ## Starts the REST API and PostgreSQL in Docker
 
 api-down: ## Stops the REST API and PostgreSQL. CLEAN=1 also drops the data
 	cd $(BACKEND_DIR) && docker compose down $(if $(CLEAN),-v,)
+
+api-smoke: ## Asks the running API the three questions of the demo
+	@sh tools/demo/api-smoke.sh
 
 api-logs: ## Shows the log of the REST API
 	cd $(BACKEND_DIR) && docker compose logs -f app
