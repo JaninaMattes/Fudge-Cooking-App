@@ -6,9 +6,8 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class ProductTagRequest(
     private val tagId: Int,
-    private val label: String
-): Parcelable {
-
+    private val label: String,
+) : Parcelable {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
@@ -30,5 +29,4 @@ data class ProductTagRequest(
     override fun toString(): String {
         return "ProductTagRequest (tagId=$tagId, label='$label')"
     }
-
 }

@@ -1,7 +1,6 @@
 package com.mobilesystems.feedme.domain.model
 
 enum class FoodType(val label: String) {
-
     VEGAN("Vegan"),
     VEGETARIAN("Vegetarian"),
     LOW_CARB("Low Carb"),
@@ -10,14 +9,15 @@ enum class FoodType(val label: String) {
     AMERICAN("Ame"),
     ASIAN("Asian"),
     FITNESS("Fitness"),
-    PALEO("Paleo");
+    PALEO("Paleo"),
+    ;
 
     // custom properties
-    var printableLabel : String? = null
+    var printableLabel: String? = null
 
     // custom method
     fun customToString(): String {
-        return "[${label}] -> $printableLabel"
+        return "[$label] -> $printableLabel"
     }
 
     // Workaround to select a Foodtype

@@ -1,9 +1,35 @@
 package com.mobilesystems.feedme.data.remote
 
-import com.mobilesystems.feedme.data.request.*
-import com.mobilesystems.feedme.data.response.*
+import com.mobilesystems.feedme.data.request.ChangeLoginStatusRequest
+import com.mobilesystems.feedme.data.request.DeleteProductRequest
+import com.mobilesystems.feedme.data.request.ImageRequest
+import com.mobilesystems.feedme.data.request.InventoryListRequest
+import com.mobilesystems.feedme.data.request.LoginRequest
+import com.mobilesystems.feedme.data.request.ProductRequest
+import com.mobilesystems.feedme.data.request.RegisterRequest
+import com.mobilesystems.feedme.data.request.ShoppingListProductIDRequest
+import com.mobilesystems.feedme.data.request.ShoppingListRequest
+import com.mobilesystems.feedme.data.request.UpdateUserRequest
+import com.mobilesystems.feedme.data.request.UserAllowSettingsRequest
+import com.mobilesystems.feedme.data.request.UserDietryTagRequest
+import com.mobilesystems.feedme.data.response.BarcodeProductResponse
+import com.mobilesystems.feedme.data.response.DietryTagResponse
+import com.mobilesystems.feedme.data.response.ExpiringProductResponse
+import com.mobilesystems.feedme.data.response.ImageIdResponse
+import com.mobilesystems.feedme.data.response.InventoryListResponse
+import com.mobilesystems.feedme.data.response.ProductIdResponse
+import com.mobilesystems.feedme.data.response.RecipeListResponse
+import com.mobilesystems.feedme.data.response.ShoppingListResponse
+import com.mobilesystems.feedme.data.response.UserIdResponse
+import com.mobilesystems.feedme.data.response.UserResponse
 import retrofit2.Response
-import retrofit2.http.*
+import retrofit2.http.Body
+import retrofit2.http.DELETE
+import retrofit2.http.GET
+import retrofit2.http.HTTP
+import retrofit2.http.POST
+import retrofit2.http.PUT
+import retrofit2.http.Path
 
 /**
  *  The Network Layer with Retrofit Service class.
@@ -21,136 +47,203 @@ import retrofit2.http.*
  * @author Janina Mattes, Patricia Maier
  */
 interface FoodTrackerApi {
-
     /******************************************
      * All requests to user service
      * ****************************************
      */
     @POST("/api/users/login")
-    suspend fun loginUser(@Body request: LoginRequest) : Response<Map<String, String>>
+    suspend fun loginUser(
+        @Body request: LoginRequest,
+    ): Response<Map<String, String>>
 
     @POST("/api/users/register")
-    suspend fun registerUser(@Body request: RegisterRequest) : Response<Map<String, String>>
+    suspend fun registerUser(
+        @Body request: RegisterRequest,
+    ): Response<Map<String, String>>
 
     @PUT("/api/users/update/logout")
-    suspend fun logoutUser(@Body request: ChangeLoginStatusRequest) : Response<Int>
+    suspend fun logoutUser(
+        @Body request: ChangeLoginStatusRequest,
+    ): Response<Int>
 
     @PUT("/api/users/update/login")
-    suspend fun putLoginUser(@Body request: ChangeLoginStatusRequest) : Response<Int>
+    suspend fun putLoginUser(
+        @Body request: ChangeLoginStatusRequest,
+    ): Response<Int>
 
     @GET("/api/users/{userId}")
-    suspend fun getUserById(@Path("userId") userId: Int) : Response<UserResponse>
+    suspend fun getUserById(
+        @Path("userId") userId: Int,
+    ): Response<UserResponse>
 
     @GET("/api/users/isloggedin/{userId}")
-    suspend fun getIsUserLoggedIn(@Path("userId") userId: Int) : Response<Boolean>
+    suspend fun getIsUserLoggedIn(
+        @Path("userId") userId: Int,
+    ): Response<Boolean>
 
     @PUT("/api/users/update/userprofile")
-    suspend fun updateUser(@Body request: UpdateUserRequest) : Response<UserIdResponse>
+    suspend fun updateUser(
+        @Body request: UpdateUserRequest,
+    ): Response<UserIdResponse>
 
     @PUT("/api/users/update/image")
-    suspend fun updateUserImage(@Body request: ImageRequest) : Response<ImageIdResponse>
+    suspend fun updateUserImage(
+        @Body request: ImageRequest,
+    ): Response<ImageIdResponse>
 
     @PUT("/api/users/update/pushNotification")
-    suspend fun allowPushNotification(@Body allowSettings: UserAllowSettingsRequest): Response<Int>
+    suspend fun allowPushNotification(
+        @Body allowSettings: UserAllowSettingsRequest,
+    ): Response<Int>
 
     @PUT("/api/users/update/reminder")
-    suspend fun allowReminder(@Body allowSettings: UserAllowSettingsRequest): Response<Int>
+    suspend fun allowReminder(
+        @Body allowSettings: UserAllowSettingsRequest,
+    ): Response<Int>
 
     @PUT("/api/users/update/suggestion")
-    suspend fun allowSuggestion(@Body allowSettings: UserAllowSettingsRequest): Response<Int>
+    suspend fun allowSuggestion(
+        @Body allowSettings: UserAllowSettingsRequest,
+    ): Response<Int>
 
     @PUT("/api/users/create/dietrytag")
-    suspend fun createDietryTag(@Body request: UserDietryTagRequest): Response<DietryTagResponse>
+    suspend fun createDietryTag(
+        @Body request: UserDietryTagRequest,
+    ): Response<DietryTagResponse>
 
     @DELETE("/api/users/delete/{userId}")
-    suspend fun deleteUser(@Path("userId") userId: Int) : Response<UserIdResponse>
-
+    suspend fun deleteUser(
+        @Path("userId") userId: Int,
+    ): Response<UserIdResponse>
 
     /***********************************************
      * All requests to recipe service (external api)
      * *********************************************
      */
     @GET("/api/recipe/rest/recipes/{userId}")
-    suspend fun getAllRecipesByUserId(@Path("userId") userId: Int) : Response<RecipeListResponse>
+    suspend fun getAllRecipesByUserId(
+        @Path("userId") userId: Int,
+    ): Response<RecipeListResponse>
 
     @GET("/api/recipe/rest/recipes/rating/{userId}")
-    suspend fun getBestRatedRecipesByUserId(@Path("userId") userId: Int) : Response<RecipeListResponse>
+    suspend fun getBestRatedRecipesByUserId(
+        @Path("userId") userId: Int,
+    ): Response<RecipeListResponse>
 
     @GET("/api/recipe/rest/poll/{userId}")
-    suspend fun pollAllRecipesAPI(@Path("userId") userId: Int): Response<Int>
-
+    suspend fun pollAllRecipesAPI(
+        @Path("userId") userId: Int,
+    ): Response<Int>
 
     /********************************************
      * All requests to inventory service
      * ******************************************
      */
     @GET("/api/products/all/expiring/{userId}")
-    suspend fun getExpiringProductsByUserId(@Path("userId") userId: Int) : Response<ExpiringProductResponse>
+    suspend fun getExpiringProductsByUserId(
+        @Path("userId") userId: Int,
+    ): Response<ExpiringProductResponse>
 
     @GET("/api/products/count/expiring/{userId}")
-    suspend fun getAmountOfExpiringProductsByUserId(@Path("userId") userId: Int) : Response<Int>
+    suspend fun getAmountOfExpiringProductsByUserId(
+        @Path("userId") userId: Int,
+    ): Response<Int>
 
     @GET("/api/products/all/{userId}")
-    suspend fun getAllProductsByUserId(@Path("userId") userId: Int) : Response<InventoryListResponse>
+    suspend fun getAllProductsByUserId(
+        @Path("userId") userId: Int,
+    ): Response<InventoryListResponse>
 
     @POST("/api/products/add")
-    suspend fun addProductToInventory(@Body request: ProductRequest) : Response<ProductIdResponse>
+    suspend fun addProductToInventory(
+        @Body request: ProductRequest,
+    ): Response<ProductIdResponse>
 
     @PUT("/api/products/update")
-    suspend fun updateProductOnInventory(@Body request: ProductRequest) : Response<ProductIdResponse>
+    suspend fun updateProductOnInventory(
+        @Body request: ProductRequest,
+    ): Response<ProductIdResponse>
 
     @PUT("/api/products/update/image")
-    suspend fun updateProductImage(@Body request: ImageRequest) : Response<ImageIdResponse>
+    suspend fun updateProductImage(
+        @Body request: ImageRequest,
+    ): Response<ImageIdResponse>
 
     @PUT("/api/products/all/update")
-    suspend fun updateInventoryList(@Body request: InventoryListRequest) : Response<Int>
+    suspend fun updateInventoryList(
+        @Body request: InventoryListRequest,
+    ): Response<Int>
 
     @HTTP(method = "DELETE", path = "/api/products/delete", hasBody = true)
-    suspend fun deleteProductFromInventory(@Body request: DeleteProductRequest) : Response<Int>
-
+    suspend fun deleteProductFromInventory(
+        @Body request: DeleteProductRequest,
+    ): Response<Int>
 
     /*******************************************
      * Get product values from barcode api
      * *****************************************
      */
     @GET("/api/barcode/rest/{barcodeCode}")
-    suspend fun getProductFromBarcode(@Path("barcodeCode") barcodeCode: String) : Response<BarcodeProductResponse>
-
+    suspend fun getProductFromBarcode(
+        @Path("barcodeCode") barcodeCode: String,
+    ): Response<BarcodeProductResponse>
 
     /*******************************************
      * All request to shoppinglist service
      * *****************************************
      */
     @GET("/api/shoppinglist/current/{userId}")
-    suspend fun loadAllProductsInCurrentShoppingList(@Path("userId") userId: Int): Response<ShoppingListResponse>
+    suspend fun loadAllProductsInCurrentShoppingList(
+        @Path("userId") userId: Int,
+    ): Response<ShoppingListResponse>
 
     @GET("/api/shoppinglist/old/{userId}")
-    suspend fun loadAllProductsInOldShoppingList(@Path("userId") userId: Int): Response<ShoppingListResponse>
+    suspend fun loadAllProductsInOldShoppingList(
+        @Path("userId") userId: Int,
+    ): Response<ShoppingListResponse>
 
     @PUT("/api/shoppinglist/current/update/all")
-    suspend fun updateCurrentShoppingList(@Body request: ShoppingListRequest): Response<Int>
+    suspend fun updateCurrentShoppingList(
+        @Body request: ShoppingListRequest,
+    ): Response<Int>
 
     @PUT("/api/shoppinglist/old/update/all")
-    suspend fun updateOldShoppingList(@Body request: ShoppingListRequest): Response<Int>
+    suspend fun updateOldShoppingList(
+        @Body request: ShoppingListRequest,
+    ): Response<Int>
 
     @POST("/api/shoppinglist/current/create")
-    suspend fun createProductToCurrentShoppingList(@Body request: ProductRequest): Response<ProductIdResponse>
+    suspend fun createProductToCurrentShoppingList(
+        @Body request: ProductRequest,
+    ): Response<ProductIdResponse>
 
     @POST("/api/shoppinglist/current/add")
-    suspend fun addProductToCurrentShoppingList(@Body request: ShoppingListProductIDRequest): Response<Int>
-    
+    suspend fun addProductToCurrentShoppingList(
+        @Body request: ShoppingListProductIDRequest,
+    ): Response<Int>
+
     @POST("/api/shoppinglist/old/add")
-    suspend fun addProductToOldShoppingList(@Body request: ShoppingListProductIDRequest): Response<Int>
+    suspend fun addProductToOldShoppingList(
+        @Body request: ShoppingListProductIDRequest,
+    ): Response<Int>
 
     @PUT("/api/shoppinglist/current/update/single")
-    suspend fun updateSingleProductOnCurrentShoppingList(@Body request: ProductRequest): Response<Int>
+    suspend fun updateSingleProductOnCurrentShoppingList(
+        @Body request: ProductRequest,
+    ): Response<Int>
 
     @PUT("/api/shoppinglist/old/update/single")
-    suspend fun updateSingleProductOnOldShoppingList(@Body request: ProductRequest): Response<Int>
+    suspend fun updateSingleProductOnOldShoppingList(
+        @Body request: ProductRequest,
+    ): Response<Int>
 
     @HTTP(method = "DELETE", path = "/api/shoppinglist/current/delete/single", hasBody = true)
-    suspend fun removeProductFromCurrentShoppingList(@Body IDRequest: ShoppingListProductIDRequest): Response<Int>
+    suspend fun removeProductFromCurrentShoppingList(
+        @Body idRequest: ShoppingListProductIDRequest,
+    ): Response<Int>
 
     @HTTP(method = "DELETE", path = "/api/shoppinglist/old/delete/single", hasBody = true)
-    suspend fun removeProductFromOldShoppingList(@Body IDRequest: ShoppingListProductIDRequest): Response<Int>
+    suspend fun removeProductFromOldShoppingList(
+        @Body idRequest: ShoppingListProductIDRequest,
+    ): Response<Int>
 }

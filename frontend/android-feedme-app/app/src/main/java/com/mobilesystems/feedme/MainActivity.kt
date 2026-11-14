@@ -20,8 +20,7 @@ import com.mobilesystems.feedme.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener{
-
+class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
 
@@ -34,30 +33,30 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener{
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        //navigation
+        // navigation
         val navView: BottomNavigationView = binding.navView
 
         navController = findNavController(R.id.nav_host_fragment_activity_main)
 
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
-        val appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.navigation_shoppingList,
-                R.id.navigation_inventorylist,
-                R.id.navigation_dashboard,
-                R.id.navigation_recipes
+        val appBarConfiguration =
+            AppBarConfiguration(
+                setOf(
+                    R.id.navigation_shoppingList,
+                    R.id.navigation_inventorylist,
+                    R.id.navigation_dashboard,
+                    R.id.navigation_recipes,
+                ),
             )
-        )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.top_search_menu, menu)
 
-        val searchItem= menu.findItem(R.id.action_search)
+        val searchItem = menu.findItem(R.id.action_search)
         val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
         val searchView = searchItem?.actionView as SearchView
 
@@ -75,7 +74,7 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener{
             }
             R.id.favorite_recipes -> {
                 Toast.makeText(this, "Not yet implemented!!", Toast.LENGTH_SHORT).show()
-            }R.id.logout ->{
+            } R.id.logout -> {
                 navController.navigateUp()
                 navController.navigate(R.id.logoutFragment)
             }
@@ -84,7 +83,6 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener{
             }
         }
         return super.onOptionsItemSelected(item)
-
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -92,7 +90,11 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener{
     }
 
     // Barcode Scanning with ZXing
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    override fun onActivityResult(
+        requestCode: Int,
+        resultCode: Int,
+        data: Intent?,
+    ) {
         // This is important, otherwise the result will not be passed to the fragment
         super.onActivityResult(requestCode, resultCode, data)
         Log.d("MainActivity", "onActivityResult is called.")
@@ -112,5 +114,4 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener{
         // adapter.filter(query)
         return false
     }
-
 }

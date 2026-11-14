@@ -8,17 +8,17 @@ import org.junit.Test
  * Tests for the functions of StringUtils.kt.
  */
 class StringUtilsTest {
-
-    private fun product(name: String) = Product(
-        productId = 1,
-        productName = name,
-        expirationDate = "02.02.2022",
-        labels = null,
-        quantity = "1 Package",
-        manufacturer = "Dairy",
-        nutritionValue = "250 kcal",
-        productImage = null
-    )
+    private fun product(name: String) =
+        Product(
+            productId = 1,
+            productName = name,
+            expirationDate = "02.02.2022",
+            labels = null,
+            quantity = "1 Package",
+            manufacturer = "Dairy",
+            nutritionValue = "250 kcal",
+            productImage = null,
+        )
 
     // --- abbreviateString ------------------------------------------------
 

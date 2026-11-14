@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.verify;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
@@ -32,6 +33,7 @@ import com.foodtracker.foodtrackerapi.common.config.ApiProperties;
 import com.foodtracker.foodtrackerapi.models.Recipe;
 import com.foodtracker.foodtrackerapi.services.RecipeRestService;
 import com.foodtracker.foodtrackerapi.services.RecipeService;
+import com.foodtracker.foodtrackerapi.services.RecipeSuggestionService;
 
 /**
  * Tests for {@link RecipeResource}, {@link RecipeRestResource} and
@@ -49,6 +51,9 @@ class RecipeResourceTest {
     @Mock
     private RecipeRestService recipeRestService;
 
+    @Mock
+    private RecipeSuggestionService recipeSuggestionService;
+
     private ApiProperties apiProperties;
     private MockMvc recipeMvc;
     private MockMvc restMvc;
@@ -63,8 +68,11 @@ class RecipeResourceTest {
         apiProperties = new ApiProperties();
         apiProperties.setSpoonacularRecipeKey("spoonacular-key");
         recipeMvc = MockMvcBuilders.standaloneSetup(new RecipeResource(recipeService)).build();
+        when(recipeSuggestionService.fitting(any(), any()))
+                .thenAnswer(invocation -> invocation.getArgument(1));
         restMvc = MockMvcBuilders.standaloneSetup(
-                new RecipeRestResource(recipeRestService, recipeService, apiProperties)).build();
+                new RecipeRestResource(recipeRestService, recipeService,
+                        apiProperties, recipeSuggestionService)).build();
         dashboardMvc = MockMvcBuilders.standaloneSetup(
                 new DashboardResource(recipeService, null)).build();
     }

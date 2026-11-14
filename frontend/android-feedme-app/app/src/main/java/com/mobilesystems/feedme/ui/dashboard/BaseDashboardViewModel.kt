@@ -4,7 +4,6 @@ import com.mobilesystems.feedme.domain.model.Product
 import com.mobilesystems.feedme.domain.model.Recipe
 
 interface BaseDashboardViewModel {
-
     fun selectProduct(product: Product)
 
     fun selectedRecipe(recipe: Recipe)

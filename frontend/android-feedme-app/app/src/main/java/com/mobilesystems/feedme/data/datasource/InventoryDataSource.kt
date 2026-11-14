@@ -5,10 +5,13 @@ import com.mobilesystems.feedme.data.request.DeleteProductRequest
 import com.mobilesystems.feedme.data.request.ImageRequest
 import com.mobilesystems.feedme.data.request.InventoryListRequest
 import com.mobilesystems.feedme.data.request.ProductRequest
-import com.mobilesystems.feedme.data.response.*
+import com.mobilesystems.feedme.data.response.BarcodeProductResponse
+import com.mobilesystems.feedme.data.response.ExpiringProductResponse
+import com.mobilesystems.feedme.data.response.ImageIdResponse
+import com.mobilesystems.feedme.data.response.InventoryListResponse
+import com.mobilesystems.feedme.data.response.ProductIdResponse
 
 interface InventoryDataSource {
-
     suspend fun getAllProductsInInventoryList(userId: Int): Resource<InventoryListResponse>
 
     suspend fun getAllExpiringProductsByUserId(userId: Int): Resource<ExpiringProductResponse>
@@ -26,5 +29,4 @@ interface InventoryDataSource {
     suspend fun updateProductOnInventory(request: ProductRequest): Resource<ProductIdResponse>
 
     suspend fun getProductFromBarcodeScanResult(result: String): Resource<BarcodeProductResponse>
-
 }

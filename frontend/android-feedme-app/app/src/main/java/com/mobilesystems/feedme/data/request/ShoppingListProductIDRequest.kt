@@ -6,9 +6,8 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class ShoppingListProductIDRequest(
     private val userId: Int,
-    private val productId: Int
-): Parcelable {
-
+    private val productId: Int,
+) : Parcelable {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false

@@ -336,10 +336,10 @@ class ShoppingListRepositoryImplTest {
         void createProductImageWritesNameAndUrl() throws Exception {
             jdbc.givesKey("IMAGE_ID", 7);
 
-            assertThat(repository.createProductImage(42, "Produktbild", "")).isEqualTo(7);
+            assertThat(repository.createProductImage(42, "Product image", "")).isEqualTo(7);
 
             verify(jdbc.statement()).setInt(1, 42);
-            verify(jdbc.statement()).setString(2, "Produktbild");
+            verify(jdbc.statement()).setString(2, "Product image");
             verify(jdbc.statement()).setString(3, "");
         }
     }

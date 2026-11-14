@@ -2,31 +2,33 @@ package com.mobilesystems.feedme.ui.recipedetail
 
 import android.app.AlertDialog
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.ImageView
+import android.widget.RatingBar
+import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import com.mobilesystems.feedme.domain.model.Recipe
-import com.squareup.picasso.Picasso
-import android.widget.*
 import androidx.navigation.fragment.navArgs
 import com.mobilesystems.feedme.R
+import com.mobilesystems.feedme.domain.model.Recipe
 import com.mobilesystems.feedme.ui.recipes.SharedRecipesViewModel
+import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class RecipeDetailFragment : Fragment() {
-
     // shared view model
     private val sharedViewModel: SharedRecipesViewModel by activityViewModels()
 
-    //safeargs
+    // safeargs
     private val args: RecipeDetailFragmentArgs by navArgs()
 
     // content on view
     private var recipeId: Int? = null
-    private  var recipeImg: String? = null
+    private var recipeImg: String? = null
     private lateinit var alertDialog: AlertDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,9 +39,8 @@ class RecipeDetailFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
-
         // inflate rootview
         val rootView = inflater.inflate(R.layout.recipe_detail_fragment, container, false)
 
@@ -53,7 +54,7 @@ class RecipeDetailFragment : Fragment() {
         val recipeCardCookingTime: TextView = rootView.findViewById(R.id.text_recipe_card_cooking_time)
 
         // Elements in Scrollview
-        //val scrollViewContainer: ScrollView = rootView.findViewById(R.id.nested_scrollview_container)
+        // val scrollViewContainer: ScrollView = rootView.findViewById(R.id.nested_scrollview_container)
         val recipeRatingTextView: TextView = rootView.findViewById(R.id.text_recipe_detail_rating)
         val recipeRatingBar: RatingBar = rootView.findViewById(R.id.recipe_detail_rating_bar)
         val recipePreparationTextView: TextView = rootView.findViewById(R.id.text_recipe_preparation)
@@ -61,10 +62,10 @@ class RecipeDetailFragment : Fragment() {
         // Button
         val buttonExport: Button = rootView.findViewById(R.id.button_export_ingredients_to_shoppinglist)
 
-        //safeargs updates the UI
+        // safeargs updates the UI
         val recipe: Recipe = args.recipe
         var nutritionVal: String = recipe.recipeNutrition
-        if(nutritionVal.isEmpty()) nutritionVal = " kcal"
+        if (nutritionVal.isEmpty()) nutritionVal = " kcal"
         recipeId = recipe.recipeId
         recipeImg = recipe.imageUrl
         Picasso.get().load(recipeImg).into(recipeImageview)
@@ -80,7 +81,7 @@ class RecipeDetailFragment : Fragment() {
 
         sharedViewModel.selectedRecipe(recipe)
 
-        buttonExport.setOnClickListener{
+        buttonExport.setOnClickListener {
             val unavIng = sharedViewModel.notAvailableIngredients
             // Alert Dialog
             val alertBuilder = createAlert(unavIng.value)
@@ -92,13 +93,16 @@ class RecipeDetailFragment : Fragment() {
         return rootView
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
         // Add ingredient list as child fragment
         addChildFragment()
     }
 
-    private fun addChildFragment(){
+    private fun addChildFragment() {
         // nest child fragment into parent fragment
         // https://developer.android.com/about/versions/android-4.2#NestedFragments
         val ingredientListFragment = RecipeIngredientListFragment()
@@ -148,7 +152,7 @@ class RecipeDetailFragment : Fragment() {
 
     companion object {
         const val TAG = "RecipeDetailFragment"
+
         fun newInstance() = RecipeDetailFragment()
     }
-
 }

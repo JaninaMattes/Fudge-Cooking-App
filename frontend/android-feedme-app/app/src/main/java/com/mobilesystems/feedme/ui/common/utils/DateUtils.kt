@@ -7,7 +7,7 @@ import java.util.Date
 import java.util.Locale
 import java.util.concurrent.TimeUnit
 
-/**
+/*
  * Converts the date values between the three formats of the application.
  *
  * The REST API sends and receives a date in the ISO format (`2022-02-02`). The
@@ -64,8 +64,7 @@ fun getCurrentDate(): Calendar = Calendar.getInstance()
  * @return the date in the display format, or the text itself when the text is
  *         not a date
  */
-fun convertDateFormat(dateStr: String): String =
-    reformat(dateStr, ISO_DATE_PATTERN, DISPLAY_DATE_PATTERN)
+fun convertDateFormat(dateStr: String): String = reformat(dateStr, ISO_DATE_PATTERN, DISPLAY_DATE_PATTERN)
 
 /**
  * Changes a date from the display format into the ISO format.
@@ -74,8 +73,7 @@ fun convertDateFormat(dateStr: String): String =
  * @return the date in the ISO format, or the text itself when the text is not
  *         a date
  */
-fun reconvertDateFormat(dateStr: String): String =
-    reformat(dateStr, DISPLAY_DATE_PATTERN, ISO_DATE_PATTERN)
+fun reconvertDateFormat(dateStr: String): String = reformat(dateStr, DISPLAY_DATE_PATTERN, ISO_DATE_PATTERN)
 
 /**
  * Reads a date in the display format.
@@ -94,7 +92,11 @@ fun convertStringToDate(dateStr: String): Date? = parseDate(dateStr, DISPLAY_DAT
  * @return the date in the new format, or the text itself when the text is not
  *         a date. The user then sees the original value and no wrong date.
  */
-private fun reformat(dateStr: String, from: String, to: String): String {
+private fun reformat(
+    dateStr: String,
+    from: String,
+    to: String,
+): String {
     val date = parseDate(dateStr, from) ?: return dateStr
     return SimpleDateFormat(to, Locale.GERMANY).format(date)
 }
@@ -106,7 +108,10 @@ private fun reformat(dateStr: String, from: String, to: String): String {
  * @param pattern format of the text
  * @return the date, or `null` when the text is not a date
  */
-private fun parseDate(dateStr: String, pattern: String): Date? {
+private fun parseDate(
+    dateStr: String,
+    pattern: String,
+): Date? {
     if (dateStr.isEmpty()) {
         return null
     }

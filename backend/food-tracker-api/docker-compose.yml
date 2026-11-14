@@ -1,33 +1,69 @@
-version: '3.8'
+# The REST API and its database for a local demo.
+#
+#   cd backend/food-tracker-api
+#   sh ./mvnw clean package -DskipTests
+#   docker compose up -d
+#
+# The API then answers on http://localhost:80. An emulator reaches the same
+# API on http://10.0.2.2:80, which is the host of the emulator.
+#
+# The database reads db/schema.sql and db/data.sql on its first start only.
+# Use "docker compose down -v" to read them again.
 
 services:
   app:
-    image: 'docker-spring-boot-postgres:latest'
+    image: 'fudge-food-tracker-api:latest'
     build:
-      context: ./src/main/docker/
-    container_name: app
+      # The context is the module, because the image reads target/*.jar.
+      context: .
+      dockerfile: src/main/docker/Dockerfile
+    container_name: fudge-api
     restart: always
     depends_on:
-      - postgresdb
+      postgresdb:
+        condition: service_healthy
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgresdb:5432/foodtrackerdb
-      - SPRING_DATASOURCE_USERNAME=foodtracker
-      - SPRING_DATASOURCE_PASSWORD=password
-      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      # The names come from application.properties. Each value of that file
+      # reads an environment variable first.
+      - FT_DB_URL=jdbc:postgresql://postgresdb:5432/foodtrackerdb
+      - FT_DB_USER=foodtracker
+      - FT_DB_PASSWORD=password
+      # A demo secret. jjwt needs 32 characters or more for HMAC with SHA-256.
+      - FT_API_SECRET_KEY=local-demo-secret-of-32-characters-or-more
+      - FT_LOG_LEVEL_APP=DEBUG
     ports:
       - 80:80
 
   postgresdb:
-    image: 'postgres:13.1-alpine'
+    image: 'fudge-food-tracker-db:latest'
     build:
       context: ./db/
-    container_name: postgresdb
+    container_name: fudge-db
     restart: always
     environment:
-      - POSTGRES_USER=foodtracker
-      - POSTGRES_PASSWORD=password
+      # The scripts in db/ make the user foodtracker and the database
+      # foodtrackerdb themselves, so the container starts as "postgres".
+      # A container that starts as "foodtracker" cannot run
+      # "DROP USER IF EXISTS foodtracker" in schema.sql, because a user
+      # cannot drop itself, and the start of the database then stops.
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
     ports:
       - 5432:5432
+    healthcheck:
+      # The API waits until the database answers.
+      #
+      # The test asks for the database foodtrackerdb over TCP. The image of
+      # PostgreSQL starts a server of its own while it reads the scripts of
+      # db/, and that server answers on a socket only and knows no
+      # foodtrackerdb. A test without the host and without the database is
+      # therefore "healthy" too early, and the API stops with
+      # "dependency failed to start".
+      test: ['CMD-SHELL', 'pg_isready -h localhost -U postgres -d foodtrackerdb']
+      interval: 5s
+      timeout: 5s
+      retries: 20
+      start_period: 20s
     volumes:
       - pgdata:/var/lib/postgresql/data
 

@@ -1,7 +1,6 @@
 package com.foodtracker.foodtrackerapi.resources;
 
 import java.util.Collections;
-import java.util.Date;
 import java.util.Map;
 
 import org.springframework.http.HttpStatus;
@@ -14,14 +13,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.foodtracker.foodtrackerapi.common.config.ApiProperties;
+import com.foodtracker.foodtrackerapi.common.security.TokenService;
 import com.foodtracker.foodtrackerapi.common.mapper.RequestMapper;
 import com.foodtracker.foodtrackerapi.models.Tag;
 import com.foodtracker.foodtrackerapi.models.User;
 import com.foodtracker.foodtrackerapi.services.UserService;
-
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 
 /**
  * <p>
@@ -38,18 +34,17 @@ public class UserResource {
     static final String TOKEN_FIELD = "token";
 
     private final UserService userService;
-    private final ApiProperties apiProperties;
+    private final TokenService tokenService;
 
     /**
      * Makes the resource.
      *
      * @param userService   service of the user data
-     * @param apiProperties configuration that holds the signature key and the
-     *                      lifetime of a token
+     * @param tokenService service that writes the token of the login
      */
-    public UserResource(UserService userService, ApiProperties apiProperties) {
+    public UserResource(UserService userService, TokenService tokenService) {
         this.userService = userService;
-        this.apiProperties = apiProperties;
+        this.tokenService = tokenService;
     }
 
     /**
@@ -253,17 +248,7 @@ public class UserResource {
      * @return a map with the field "token"
      */
     private Map<String, String> generateJWTToken(User user) {
-        long timestamp = System.currentTimeMillis();
-        String token = Jwts.builder()
-                .signWith(SignatureAlgorithm.HS256, apiProperties.getSecretKey())
-                .setIssuedAt(new Date(timestamp))
-                .setExpiration(new Date(timestamp + apiProperties.getTokenValidityMillis()))
-                .claim("userId", user.getUserId())
-                .claim("email", user.getEmail())
-                .claim("firstName", user.getFirstName())
-                .claim("lastName", user.getLastName())
-                .compact();
-        return Collections.singletonMap(TOKEN_FIELD, token);
+        return Collections.singletonMap(TOKEN_FIELD, tokenService.issue(user));
     }
 
     private Integer setLoginStatus(Map<String, Object> map) {

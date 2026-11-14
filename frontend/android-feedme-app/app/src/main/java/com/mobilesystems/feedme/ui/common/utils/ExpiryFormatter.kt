@@ -16,12 +16,18 @@ import kotlin.math.abs
  *                 that the product is already bad.
  * @return the text for the user, for example "3 days left" or "2 days ago"
  */
-fun expiryLabel(context: Context, daysLeft: Long): String {
+fun expiryLabel(
+    context: Context,
+    daysLeft: Long,
+): String {
     val days = abs(daysLeft).toInt()
     return when {
-        daysLeft < 0L -> context.resources.getQuantityString(
-            R.plurals.expiry_days_ago, days, days
-        )
+        daysLeft < 0L ->
+            context.resources.getQuantityString(
+                R.plurals.expiry_days_ago,
+                days,
+                days,
+            )
         daysLeft == 0L -> context.getString(R.string.expiry_status_today)
         else -> context.resources.getQuantityString(R.plurals.expiry_days_left, days, days)
     }

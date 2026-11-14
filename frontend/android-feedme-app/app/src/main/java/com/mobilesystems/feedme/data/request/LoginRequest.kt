@@ -10,9 +10,8 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class LoginRequest(
     private val email: String,
-    private val password: String
+    private val password: String,
 ) : Parcelable {
-
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false

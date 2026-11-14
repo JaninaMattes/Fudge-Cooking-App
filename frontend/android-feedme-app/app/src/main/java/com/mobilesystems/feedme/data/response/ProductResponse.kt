@@ -8,4 +8,5 @@ data class ProductResponse(
     val productName: String,
     val productImage: ImageResponse? = null,
     val productTags: List<ProductTag>? = null,
-    val quantity: String)
+    val quantity: String,
+)

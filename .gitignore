@@ -23,6 +23,13 @@ build/
 .gradle/
 !gradle/wrapper/gradle-wrapper.jar
 
+# Maven files
+target/
+*.jar.original
+
+# macOS
+.DS_Store
+
 # Local configuration file (sdk path, etc)
 local.properties
 

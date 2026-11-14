@@ -8,9 +8,8 @@ data class UpdateUserRequest(
     private val firstName: String,
     private val lastName: String,
     private val email: String,
-    private val userId: Int
-): Parcelable {
-
+    private val userId: Int,
+) : Parcelable {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
@@ -21,7 +20,6 @@ data class UpdateUserRequest(
         if (lastName != other.lastName) return false
         if (email != other.email) return false
         if (userId != other.userId) return false
-
 
         return true
     }
@@ -36,6 +34,6 @@ data class UpdateUserRequest(
 
     override fun toString(): String {
         return "UpdateUserRequest (firstName='$firstName', lastName='$lastName', " +
-                "email='$email', userId=$userId)"
+            "email='$email', userId=$userId)"
     }
 }

@@ -20,8 +20,8 @@ data class Recipe(
     val cookingTime: String,
     val instructions: String,
     val ingredients: List<Product>? = null,
-    val imageUrl: String): Parcelable {
-
+    val imageUrl: String,
+) : Parcelable {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
@@ -60,10 +60,8 @@ data class Recipe(
 
     override fun toString(): String {
         return "Recipe(recipeId=$recipeId, recipeName='$recipeName', recipeLabel='$recipeLabel', " +
-                "recipeNutrition='$recipeNutrition', description='$description', rating=$cummulativeRating, " +
-                "difficulty='$difficulty', cookingTime='$cookingTime', " +
-                "instruction='$instructions', ingredients=$ingredients, imageUrl='$imageUrl')"
+            "recipeNutrition='$recipeNutrition', description='$description', rating=$cummulativeRating, " +
+            "difficulty='$difficulty', cookingTime='$cookingTime', " +
+            "instruction='$instructions', ingredients=$ingredients, imageUrl='$imageUrl')"
     }
-
-
 }

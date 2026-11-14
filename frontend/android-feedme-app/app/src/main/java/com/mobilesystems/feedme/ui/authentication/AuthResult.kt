@@ -7,5 +7,5 @@ import com.mobilesystems.feedme.domain.model.LoggedInUser
  */
 data class AuthResult(
     val success: LoggedInUser? = null,
-    val error: Int? = null
+    val error: Int? = null,
 )

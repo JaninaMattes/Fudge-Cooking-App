@@ -1,10 +1,10 @@
 package com.mobilesystems.feedme.ui.common.utils
 
 import com.google.common.truth.Truth.assertThat
+import org.junit.Test
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
-import org.junit.Test
 
 /**
  * Tests for the functions of DateUtils.kt.
@@ -13,7 +13,6 @@ import org.junit.Test
  * development machine and need no emulator.
  */
 class DateUtilsTest {
-
     private val displayFormat = SimpleDateFormat(DISPLAY_DATE_PATTERN, Locale.GERMANY)
 
     /**

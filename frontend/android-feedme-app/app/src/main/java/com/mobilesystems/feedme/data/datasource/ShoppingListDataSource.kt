@@ -7,8 +7,7 @@ import com.mobilesystems.feedme.data.request.ShoppingListRequest
 import com.mobilesystems.feedme.data.response.ProductIdResponse
 import com.mobilesystems.feedme.data.response.ShoppingListResponse
 
-interface ShoppingListDataSource{
-
+interface ShoppingListDataSource {
     suspend fun loadAllProductsInCurrentShoppingList(userId: Int): Resource<ShoppingListResponse>
 
     suspend fun loadAllProductsInOldShoppingList(userId: Int): Resource<ShoppingListResponse>
@@ -31,6 +30,5 @@ interface ShoppingListDataSource{
 
     suspend fun updateSingleProductOnOldShoppingList(request: ProductRequest): Resource<Int>
 
-   // suspend fun loadSuggestedProductsForShoppingList(): Response<List<Product>>? // Future feature
-
+    // suspend fun loadSuggestedProductsForShoppingList(): Response<List<Product>>? // Future feature
 }

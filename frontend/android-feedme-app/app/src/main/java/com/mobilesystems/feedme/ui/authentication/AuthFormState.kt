@@ -8,5 +8,5 @@ data class AuthFormState(
     val passwordError: Int? = null,
     val confirmPasswordError: Int? = null,
     val emailError: Int? = null,
-    val isDataValid: Boolean = false
+    val isDataValid: Boolean = false,
 )

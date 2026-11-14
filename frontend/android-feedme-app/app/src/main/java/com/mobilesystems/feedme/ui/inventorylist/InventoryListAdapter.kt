@@ -30,14 +30,13 @@ import de.hdodenhof.circleimageview.CircleImageView
  *
  * @author Janina Mattes
  * @see <a href="https://developer.android.com/guide/topics/ui/layout/recyclerview">RecyclerView</a>
- @see <a href="https://developersbreach.com/navigation-with-architecture-components-android/">Architectural Android Components</a>
+ * @see <a href="https://developersbreach.com/navigation-with-architecture-components-android/">Components</a>
  */
 class InventoryListAdapter(
     private val context: Context,
     private val dataSet: List<Product>?,
-    private val itemClickListener: ProductAdapterClickListener
+    private val itemClickListener: ProductAdapterClickListener,
 ) : RecyclerView.Adapter<InventoryListAdapter.ProductViewHolder>() {
-
     /** Image that a product without an own image gets. */
     private companion object {
         const val PLACEHOLDER_IMAGE_URL =
@@ -53,7 +52,6 @@ class InventoryListAdapter(
      */
     inner class ProductViewHolder(itemBinding: InventoryItemBinding) :
         RecyclerView.ViewHolder(itemBinding.root) {
-
         val cardView: CardView = itemBinding.inventoryCardView
         val imageView: CircleImageView = itemBinding.productImage
         val productName: TextView = itemBinding.productName
@@ -72,25 +70,36 @@ class InventoryListAdapter(
 
     /** Receives the product that the user selects in the list. */
     interface ProductAdapterClickListener {
-
         /**
          * Gives the selected product to the fragment.
          *
          * @param product product that the user selected
          * @param itemView row that the user touched
          */
-        fun passData(product: Product, itemView: View)
+        fun passData(
+            product: Product,
+            itemView: View,
+        )
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
-        val binding = InventoryItemBinding.inflate(
-            LayoutInflater.from(parent.context), parent, false
-        )
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int,
+    ): ProductViewHolder {
+        val binding =
+            InventoryItemBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false,
+            )
         itemBinding = binding
         return ProductViewHolder(binding)
     }
 
-    override fun onBindViewHolder(viewHolder: ProductViewHolder, position: Int) {
+    override fun onBindViewHolder(
+        viewHolder: ProductViewHolder,
+        position: Int,
+    ) {
         val product = dataSet?.getOrNull(position) ?: return
 
         showImage(viewHolder, product)
@@ -105,7 +114,10 @@ class InventoryListAdapter(
      * Shows the image of the product. A product without an image gets a
      * placeholder, so that each row has the same height.
      */
-    private fun showImage(viewHolder: ProductViewHolder, product: Product) {
+    private fun showImage(
+        viewHolder: ProductViewHolder,
+        product: Product,
+    ) {
         val bitmap = product.productImage?.bitmap
         if (bitmap != null) {
             viewHolder.imageView.setImageBitmap(bitmap)
@@ -118,7 +130,10 @@ class InventoryListAdapter(
     /**
      * Writes the state of the product and gives it the colour of the state.
      */
-    private fun showExpiryState(viewHolder: ProductViewHolder, product: Product) {
+    private fun showExpiryState(
+        viewHolder: ProductViewHolder,
+        product: Product,
+    ) {
         val daysLeft = getTimeDiff(product.expirationDate)
         val status = ExpiryStatus.fromDaysLeft(daysLeft)
         val color = ContextCompat.getColor(context, status.colorRes)
@@ -128,15 +143,18 @@ class InventoryListAdapter(
 
         // A product that is good for a long time keeps the normal text colour,
         // so that the coloured rows stay easy to find.
-        val dateColor = if (status.needsAttention()) {
-            color
-        } else {
-            ContextCompat.getColor(context, R.color.text_secondary)
-        }
+        val dateColor =
+            if (status.needsAttention()) {
+                color
+            } else {
+                ContextCompat.getColor(context, R.color.text_secondary)
+            }
         viewHolder.productExpirationDate.setTextColor(dateColor)
         viewHolder.productExpirationDate.text = expiryLabel(context, daysLeft)
-        viewHolder.cardView.contentDescription = context.getString(
-            R.string.expiry_content_description, context.getString(status.labelRes)
-        )
+        viewHolder.cardView.contentDescription =
+            context.getString(
+                R.string.expiry_content_description,
+                context.getString(status.labelRes),
+            )
     }
 }

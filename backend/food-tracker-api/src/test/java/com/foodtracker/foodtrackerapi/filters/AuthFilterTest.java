@@ -5,9 +5,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 
-import java.util.Date;
-
-import javax.servlet.FilterChain;
+import jakarta.servlet.FilterChain;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -20,9 +18,8 @@ import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 
 import com.foodtracker.foodtrackerapi.common.config.ApiProperties;
-
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import com.foodtracker.foodtrackerapi.common.security.TokenService;
+import com.foodtracker.foodtrackerapi.models.User;
 
 /**
  * Tests for {@link AuthFilter}.
@@ -32,7 +29,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 @ExtendWith(MockitoExtension.class)
 class AuthFilterTest {
 
-    private static final String SECRET_KEY = "test-secret-key";
+    private static final String SECRET_KEY = "a-test-secret-of-more-than-32-characters";
 
     @Mock
     private FilterChain filterChain;
@@ -42,20 +39,20 @@ class AuthFilterTest {
     private MockHttpServletResponse response;
 
     private static String tokenFor(int userId, long validityMillis) {
-        long timestamp = System.currentTimeMillis();
-        return Jwts.builder()
-                .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
-                .setIssuedAt(new Date(timestamp))
-                .setExpiration(new Date(timestamp + validityMillis))
-                .claim("userId", userId)
-                .compact();
+        return tokenService(validityMillis)
+                .issue(new User(userId, "Janina", "Mattes", "a@b.c", "hash"));
+    }
+
+    private static TokenService tokenService(long validityMillis) {
+        ApiProperties apiProperties = new ApiProperties();
+        apiProperties.setSecretKey(SECRET_KEY);
+        apiProperties.setTokenValidityMillis(validityMillis);
+        return new TokenService(apiProperties);
     }
 
     @BeforeEach
     void setUp() {
-        ApiProperties apiProperties = new ApiProperties();
-        apiProperties.setSecretKey(SECRET_KEY);
-        authFilter = new AuthFilter(apiProperties);
+        authFilter = new AuthFilter(tokenService(60_000L));
         request = new MockHttpServletRequest();
         response = new MockHttpServletResponse();
     }

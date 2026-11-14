@@ -5,13 +5,12 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import com.mobilesystems.feedme.ui.authentication.AuthViewModel
 import com.mobilesystems.feedme.databinding.ActivityPasswordBinding
+import com.mobilesystems.feedme.ui.authentication.AuthViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class PasswordActivity : AppCompatActivity() {
-
     private val passwordForgottenViewModel: AuthViewModel by viewModels()
     private var _binding: ActivityPasswordBinding? = null
     private val binding get() = _binding!!
@@ -36,7 +35,8 @@ class PasswordActivity : AppCompatActivity() {
         // To show back button in actionbar
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        passwordForgottenViewModel.loginFormState.observe(this,
+        passwordForgottenViewModel.loginFormState.observe(
+            this,
             Observer { passwordResetFormState ->
                 if (passwordResetFormState == null) {
                     return@Observer
@@ -45,7 +45,8 @@ class PasswordActivity : AppCompatActivity() {
                 passwordResetFormState.emailError?.let {
                     emailEditText.error = getString(it)
                 }
-            })
+            },
+        )
 
         resetButton.setOnClickListener {
             val intent = Intent(this@PasswordActivity, MainActivity::class.java)
@@ -53,6 +54,4 @@ class PasswordActivity : AppCompatActivity() {
             finish()
         }
     }
-
-
 }

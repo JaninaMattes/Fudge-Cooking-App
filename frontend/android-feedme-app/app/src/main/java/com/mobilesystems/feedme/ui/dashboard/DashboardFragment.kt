@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
@@ -14,12 +13,10 @@ import androidx.navigation.fragment.findNavController
 import com.mobilesystems.feedme.R
 import com.mobilesystems.feedme.databinding.DashboardFragmentBinding
 import com.mobilesystems.feedme.domain.model.User
-import com.mobilesystems.feedme.ui.shoppinglist.AddProductToShoppingListFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class DashboardFragment : Fragment() {
-
     private val sharedViewModel: SharedDashboardViewModel by activityViewModels()
 
     // view binding
@@ -31,35 +28,34 @@ class DashboardFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
-
-        //inflate layout for the fragment
+        // inflate layout for the fragment
         _binding = DashboardFragmentBinding.inflate(inflater, container, false)
 
         val userProfileName: TextView = binding.dashboardUserProfileName
         val moreButtonOne: TextView = binding.dashboardMoreButtonOne
         val moreButtonTwo: TextView = binding.dashboardMoreButtonTwo
 
-
         // Create the observer which updates the UI.
-        val userObserver = Observer<User?> { user : User? ->
-            if (user != null) {
-                // use picasso to locally store image
-                userProfileName.text = user.firstName
-            } else {
-                Log.d(TAG, "No user is logged in.")
+        val userObserver =
+            Observer<User?> { user: User? ->
+                if (user != null) {
+                    // use picasso to locally store image
+                    userProfileName.text = user.firstName
+                } else {
+                    Log.d(TAG, "No user is logged in.")
+                }
             }
-        }
 
         moreButtonOne.setOnClickListener {
-            //navigate to inventory list
+            // navigate to inventory list
             val action = DashboardFragmentDirections.actionNavigationDashboardToNavigationInventorylist()
             findNavController().navigate(action)
         }
 
         moreButtonTwo.setOnClickListener {
-            //navigate to recipe list
+            // navigate to recipe list
             val action = DashboardFragmentDirections.actionNavigationDashboardToNavigationRecipes()
             findNavController().navigate(action)
         }
@@ -69,7 +65,10 @@ class DashboardFragment : Fragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
 
         // Add ingredient list as child fragment
@@ -85,12 +84,15 @@ class DashboardFragment : Fragment() {
         _binding = null
     }
 
-    private fun addChildFragment(viewId: Int, childFragment: Fragment){
+    private fun addChildFragment(
+        viewId: Int,
+        childFragment: Fragment,
+    ) {
         // nest child fragment into parent fragment
         // https://developer.android.com/about/versions/android-4.2#NestedFragments
         val child = childFragmentManager.findFragmentById(viewId)
 
-        if(child == null){
+        if (child == null) {
             childFragmentManager.beginTransaction().apply {
                 add(viewId, childFragment)
                 addToBackStack(null)
@@ -101,7 +103,7 @@ class DashboardFragment : Fragment() {
 
     companion object {
         const val TAG = "DashboardFragment"
+
         fun newInstance() = DashboardFragment()
     }
-
 }

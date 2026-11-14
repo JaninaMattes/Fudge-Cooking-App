@@ -12,7 +12,6 @@ import kotlin.math.abs
  * swipe starts outside the view.
  */
 open class GestureListener : GestureDetector.SimpleOnGestureListener() {
-
     private companion object {
         /** Shortest way of a finger that counts as a swipe, in pixels. */
         const val SWIPE_THRESHOLD = 100
@@ -27,7 +26,7 @@ open class GestureListener : GestureDetector.SimpleOnGestureListener() {
         event1: MotionEvent?,
         event2: MotionEvent,
         velocityX: Float,
-        velocityY: Float
+        velocityY: Float,
     ): Boolean {
         if (event1 == null) {
             return false
@@ -55,7 +54,10 @@ open class GestureListener : GestureDetector.SimpleOnGestureListener() {
     /** The user moved the finger down. */
     open fun onSwipeBottom() = Unit
 
-    private fun handleHorizontalSwipe(diffX: Float, velocityX: Float): Boolean {
+    private fun handleHorizontalSwipe(
+        diffX: Float,
+        velocityX: Float,
+    ): Boolean {
         if (abs(diffX) <= SWIPE_THRESHOLD || abs(velocityX) <= SWIPE_VELOCITY_THRESHOLD) {
             return false
         }
@@ -63,7 +65,10 @@ open class GestureListener : GestureDetector.SimpleOnGestureListener() {
         return true
     }
 
-    private fun handleVerticalSwipe(diffY: Float, velocityY: Float): Boolean {
+    private fun handleVerticalSwipe(
+        diffY: Float,
+        velocityY: Float,
+    ): Boolean {
         if (abs(diffY) <= SWIPE_THRESHOLD || abs(velocityY) <= SWIPE_VELOCITY_THRESHOLD) {
             return false
         }

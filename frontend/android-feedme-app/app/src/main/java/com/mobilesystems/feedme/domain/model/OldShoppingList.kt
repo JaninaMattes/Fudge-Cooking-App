@@ -8,7 +8,6 @@ data class OldShoppingList(
     override val shoppingListId: Int,
     override val shoppingList: List<Product>? = null,
 ) : ShoppingList(shoppingListId, shoppingList), Parcelable {
-
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
@@ -30,5 +29,4 @@ data class OldShoppingList(
     override fun toString(): String {
         return "OldShoppingList(shoppingListId=$shoppingListId, shoppingListProducts=$shoppingList)"
     }
-
 }
