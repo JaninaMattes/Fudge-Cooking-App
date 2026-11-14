@@ -132,7 +132,7 @@ class DietRulesTest {
     void aRequirementWithoutWordsForbidsNothing() {
         Properties properties = new Properties();
         properties.setProperty("empty.forbids", "  ,  ");
-        properties.setProperty("empty.allows", "");
+        properties.setProperty("empty.despite", "");
         properties.setProperty("noise", "this key belongs to no requirement");
         DietRules own = new DietRules(properties);
 
@@ -155,5 +155,74 @@ class DietRulesTest {
         assertThat(rules.isHard("Vegan")).isTrue();
         assertThat(rules.isHard("Vegetarian")).isTrue();
         assertThat(rules.isHard("Kosher")).isTrue();
+    }
+
+    @Test
+    @DisplayName("an allergy to nuts hides a recipe with walnuts")
+    void anAllergyToNutsHidesWalnuts() {
+        assertThat(rules.medicalConflicts(List.of("Nut-free"),
+                ingredients("Walnuts", "Flour"))).containsExactly("Walnuts");
+        assertThat(rules.medicalConflicts(List.of("Nut-free"),
+                ingredients("Nutmeg", "Butternut"))).isEmpty();
+    }
+
+    @Test
+    @DisplayName("an allergy that the file does not know forbids its own name")
+    void anAllergyThatTheFileDoesNotKnowForbidsItsOwnName() {
+        assertThat(rules.medicalConflicts(List.of("Celery"),
+                ingredients("Celery", "Onions"))).containsExactly("Celery");
+        assertThat(rules.medicalConflicts(List.of("Celery-free"),
+                ingredients("Celery"))).containsExactly("Celery");
+        assertThat(rules.medicalConflicts(List.of("Sesame free"),
+                ingredients("Sesame seeds"))).containsExactly("Sesame seeds");
+        assertThat(rules.medicalConflicts(List.of("Celery"),
+                ingredients("Onions"))).isEmpty();
+    }
+
+    @Test
+    @DisplayName("an allergy to gluten hides flour and keeps buckwheat")
+    void anAllergyToGlutenHidesFlour() {
+        assertThat(rules.medicalConflicts(List.of("Gluten-free"),
+                ingredients("Bread flour"))).containsExactly("Bread flour");
+        assertThat(rules.medicalConflicts(List.of("Gluten-free"),
+                ingredients("Buckwheat"))).isEmpty();
+    }
+
+    @Test
+    @DisplayName("an allergy to lactose hides cheese and keeps coconut milk")
+    void anAllergyToLactoseHidesCheese() {
+        assertThat(rules.medicalConflicts(List.of("Lactose-free"),
+                ingredients("Cheese"))).containsExactly("Cheese");
+        assertThat(rules.medicalConflicts(List.of("Lactose-free"),
+                ingredients("Coconut milk"))).isEmpty();
+    }
+
+    @Test
+    @DisplayName("a requirement that no list of ingredients can decide hides nothing")
+    void aRequirementThatNoListCanDecideHidesNothing() {
+        assertThat(rules.isHard("Diabetic-friendly")).isTrue();
+        assertThat(rules.medicalConflicts(List.of("Diabetic-friendly"),
+                ingredients("Sugar"))).isEmpty();
+    }
+
+    @Test
+    @DisplayName("an allergy without a name hides nothing, and a list that is null either")
+    void anAllergyWithoutANameHidesNothing() {
+        assertThat(rules.medicalConflicts(List.of("   "), ingredients("Beef"))).isEmpty();
+        assertThat(rules.medicalConflicts(null, ingredients("Beef"))).isEmpty();
+        assertThat(rules.medicalConflicts(List.of("Celery"), null)).isEmpty();
+    }
+
+    @Test
+    @DisplayName("a word that is forbidden and rescued at once stops the start")
+    void aContradictionStopsTheStart() {
+        Properties properties = new Properties();
+        properties.setProperty("vegan.forbids", "milk, egg");
+        properties.setProperty("vegan.despite", "egg");
+
+        assertThatThrownBy(() -> new DietRules(properties))
+                .isInstanceOf(IllegalStateException.class)
+                .hasMessageContaining("vegan")
+                .hasMessageContaining("egg");
     }
 }
