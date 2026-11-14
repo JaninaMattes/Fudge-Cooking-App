@@ -29,7 +29,7 @@
 <p align="center">
   <img alt="Backend" src="https://img.shields.io/badge/backend-Spring%20Boot%204.1-6DB33F?style=for-the-badge&logo=springboot&logoColor=white">
   <img alt="Frontend" src="https://img.shields.io/badge/frontend-Android%20%7C%20Kotlin-7F52FF?style=for-the-badge&logo=kotlin&logoColor=white">
-  <img alt="Tests" src="https://img.shields.io/badge/tests-557%20backend%20%2B%2064%20android-success?style=for-the-badge">
+  <img alt="Tests" src="https://img.shields.io/badge/tests-583%20backend%20%2B%2064%20android-success?style=for-the-badge">
   <img alt="Coverage" src="https://img.shields.io/badge/backend%20coverage-100%25-success?style=for-the-badge">
   <img alt="License" src="https://img.shields.io/badge/license-MIT-blue?style=for-the-badge">
 </p>
@@ -57,6 +57,10 @@
 ---
 
 ## What the application does
+
+> The requirements of the product, the state of each one and the work that is
+> still open stand in [`docs/PRODUCT.md`](docs/PRODUCT.md). The changes of each day
+> stand in [`docs/CHANGELOG.md`](docs/CHANGELOG.md).
 
 It is an Android app called Fudge, featuring a Spring Boot REST API. Fudge
 takes stock of your kitchen after you’ve been shopping, scans products and
@@ -205,6 +209,7 @@ git clone https://github.com/JaninaMattes/Fudge-Cooking-App.git
 cd Fudge-Cooking-App
 
 make api-up            # 1. PostgreSQL and the REST API in Docker, on port 80
+make api-smoke         #    asks the API the three questions of the demo
 make emulator-start    # 2. starts the emulator fudge-34
 make demo-video        # 3. APK, the steps of the demo, the video and a GIF
 ```
@@ -269,7 +274,7 @@ instructions or under 90 % of the branches.
 ### Backend
 
 ```
-557 tests · 100 % of the instructions · 100 % of the branches · 0 findings of SpotBugs
+583 tests · 100 % of the instructions · 100 % of the branches · 0 findings of SpotBugs
 ```
 
 ```bash
@@ -533,7 +538,7 @@ Fudge-Cooking-App/
 │   ├── docker-compose.yml        API and database in Docker
 │   └── src/
 │       ├── main/java/            The code of the REST API
-│       └── test/java/            557 tests
+│       └── test/java/            583 tests
 └── frontend/android-feedme-app/
     ├── config/detekt/            Rules of the static analysis
     └── app/src/
