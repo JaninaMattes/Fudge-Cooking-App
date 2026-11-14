@@ -7,8 +7,7 @@ import kotlinx.parcelize.Parcelize
 data class DeleteProductRequest(
     private val userId: Int,
     private val productId: Int,
-): Parcelable {
-
+) : Parcelable {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
@@ -30,5 +29,4 @@ data class DeleteProductRequest(
     override fun toString(): String {
         return "DeleteProductRequest(productId=$productId, userId=$userId)"
     }
-
 }

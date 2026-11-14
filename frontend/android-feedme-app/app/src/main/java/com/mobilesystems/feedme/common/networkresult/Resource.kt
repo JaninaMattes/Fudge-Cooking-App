@@ -1,11 +1,10 @@
 package com.mobilesystems.feedme.common.networkresult
 
 data class Resource<out T>(val status: Status, val data: T?, val message: String?) {
-
     enum class Status {
         SUCCESS,
         ERROR,
-        LOADING
+        LOADING,
     }
 
     companion object {
@@ -13,7 +12,10 @@ data class Resource<out T>(val status: Status, val data: T?, val message: String
             return Resource(Status.SUCCESS, data, null)
         }
 
-        fun <T> error(message: String, data: T? = null): Resource<T> {
+        fun <T> error(
+            message: String,
+            data: T? = null,
+        ): Resource<T> {
             return Resource(Status.ERROR, data, message)
         }
 

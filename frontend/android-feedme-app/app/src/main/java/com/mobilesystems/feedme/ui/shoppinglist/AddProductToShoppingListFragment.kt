@@ -19,7 +19,6 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class AddProductToShoppingListFragment : Fragment(R.layout.shopping_list_add_product_fragment) {
-
     // by delegates to main activity to preceive shared viewmodel
     private val sharedViewModel: SharedShoppingListViewModel by activityViewModels()
 
@@ -27,34 +26,52 @@ class AddProductToShoppingListFragment : Fragment(R.layout.shopping_list_add_pro
     private val binding get() = _binding!!
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
     ): View {
         // Inflate layout for this fragment
         _binding = ShoppingListAddProductFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
 
         binding.buttonEnteraddproducttoshoppinglist.setOnClickListener {
             // check text edit values
-            if(checkValues()){
-                //add new product to sharedviewmodel
+            if (checkValues()) {
+                // add new product to sharedviewmodel
                 val productname = binding.editTextAddnewproducttitle.text.toString()
                 var productquantity = binding.editTextAddnewproductquantity.text.toString()
-                if (productquantity.isDigitsOnly()){
+                if (productquantity.isDigitsOnly()) {
                     val quantity = productquantity.filter { it.isDigit() }
                     productquantity = "$quantity Package"
                 }
 
-                val labels : MutableList<Label> = arrayListOf() // empty placeholder list add correct labels later in inventory list
-                sharedViewModel.addNewProductToCurrentShoppingList(Product(0, productname,
-                    "2022-02-02", labels, productquantity, "", "", null))
+                // The list of the labels stays empty here. The user adds
+                // the labels later, on the screen of the inventory list.
+                val labels: MutableList<Label> = arrayListOf()
+                sharedViewModel.addNewProductToCurrentShoppingList(
+                    Product(
+                        0,
+                        productname,
+                        "2022-02-02",
+                        labels,
+                        productquantity,
+                        "",
+                        "",
+                        null,
+                    ),
+                )
                 Log.d(TAG, "Add product to current shopping list.")
-                //navigate to shoppinglist
-                val action = AddProductToShoppingListFragmentDirections.actionAddProductToShoppingListFragmentToNavigationShoppingList()
+                // navigate to shoppinglist
+                val action =
+                    AddProductToShoppingListFragmentDirections
+                        .actionAddProductToShoppingListFragmentToNavigationShoppingList()
                 findNavController().navigate(action)
             }
         }
@@ -63,16 +80,22 @@ class AddProductToShoppingListFragment : Fragment(R.layout.shopping_list_add_pro
     private fun checkValues(): Boolean {
         val context = activity?.applicationContext
         var errorIcon: Drawable? = null
-        if(context != null){
+        if (context != null) {
             errorIcon = ContextCompat.getDrawable(context, R.drawable.ic_baseline_error_24)
         }
         return when {
             binding.editTextAddnewproducttitle.text.trim().isEmpty() -> {
-                binding.editTextAddnewproducttitle.setError(getString(R.string.edit_text_error_productname_not_empty), errorIcon)
+                binding.editTextAddnewproducttitle.setError(
+                    getString(R.string.edit_text_error_productname_not_empty),
+                    errorIcon,
+                )
                 false
             }
             binding.editTextAddnewproductquantity.text.trim().isEmpty() -> {
-                binding.editTextAddnewproducttitle.setError(getString(R.string.edit_text_error_product_quantity_not_empty), errorIcon)
+                binding.editTextAddnewproducttitle.setError(
+                    getString(R.string.edit_text_error_product_quantity_not_empty),
+                    errorIcon,
+                )
                 false
             }
             else -> {
@@ -92,6 +115,7 @@ class AddProductToShoppingListFragment : Fragment(R.layout.shopping_list_add_pro
 
     companion object {
         const val TAG = "AddProductToShoppingListFragment"
+
         fun newInstance() = AddProductToShoppingListFragment()
     }
 }

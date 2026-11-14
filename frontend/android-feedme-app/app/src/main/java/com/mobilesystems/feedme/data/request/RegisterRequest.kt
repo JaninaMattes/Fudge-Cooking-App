@@ -12,9 +12,8 @@ data class RegisterRequest(
     private val firstName: String,
     private val lastName: String,
     private val email: String,
-    private val password: String
+    private val password: String,
 ) : Parcelable {
-
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
@@ -40,6 +39,4 @@ data class RegisterRequest(
     override fun toString(): String {
         return "RegisterRequest(firstName='$firstName', lastName='$lastName', email='$email', password='$password')"
     }
-
-
 }

@@ -4,12 +4,12 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class ImageRequest( private val imageId: Int,
-                         private val imageName: String,
-                         private val imageUrl: String,
-                         private val imageBytes: String?) : Parcelable {
-
-
+data class ImageRequest(
+    private val imageId: Int,
+    private val imageName: String,
+    private val imageUrl: String,
+    private val imageBytes: String?,
+) : Parcelable {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
@@ -35,5 +35,4 @@ data class ImageRequest( private val imageId: Int,
     override fun toString(): String {
         return "ImageRequest(imageId=$imageId, imageName='$imageName', imageUrl='$imageUrl', imageBytes=$imageBytes)"
     }
-
 }

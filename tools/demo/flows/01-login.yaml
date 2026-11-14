@@ -2,8 +2,16 @@
 #
 # Maestro reads this file and does the steps on an emulator or on a telephone.
 # Use "maestro record --local tools/demo/flows/01-login.yaml" to make a video.
+#
+# The user comes from db/data.sql, which the database reads at its first
+# start. Give another user on the command line:
+#
+#   maestro test -e EMAIL=a@b.c -e PASSWORD=secret tools/demo/flows/01-login.yaml
 appId: com.mobilesystems.feedme
 name: Login
+env:
+  EMAIL: john.smith@testmail.com
+  PASSWORD: testpassword
 ---
 - launchApp:
     clearState: true
@@ -16,11 +24,11 @@ name: Login
 
 - tapOn:
     id: "com.mobilesystems.feedme:id/email"
-- inputText: "demo@fudge.app"
+- inputText: ${EMAIL}
 
 - tapOn:
     id: "com.mobilesystems.feedme:id/password"
-- inputText: "demo1234"
+- inputText: ${PASSWORD}
 - hideKeyboard
 
 - takeScreenshot: build/demo/01-login

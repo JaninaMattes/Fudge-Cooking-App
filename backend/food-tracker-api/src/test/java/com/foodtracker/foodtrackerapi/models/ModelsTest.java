@@ -118,12 +118,12 @@ class ModelsTest {
         void accessMethodsWork() {
             Image image = new Image();
             image.setImageId(9);
-            image.setImageName("Produktbild");
+            image.setImageName("Product image");
             image.setImageUrl("url");
             image.setBase64ImageString("data");
 
             assertThat(image.getImageId()).isEqualTo(9);
-            assertThat(image.getImageName()).isEqualTo("Produktbild");
+            assertThat(image.getImageName()).isEqualTo("Product image");
             assertThat(image.getImageUrl()).isEqualTo("url");
             assertThat(image.getBase64ImageString()).isEqualTo("data");
         }

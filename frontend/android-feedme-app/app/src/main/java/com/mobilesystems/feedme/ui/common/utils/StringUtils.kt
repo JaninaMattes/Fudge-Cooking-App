@@ -3,7 +3,7 @@ package com.mobilesystems.feedme.ui.common.utils
 import com.mobilesystems.feedme.domain.model.Product
 import java.util.Locale
 
-/**
+/*
  * Makes the text of the external APIs ready for a small screen.
  *
  * The functions use no class of the Android framework. A unit test on the
@@ -19,21 +19,22 @@ private const val ELLIPSIS = ".."
  * same work. A map holds the same information in one place, and a new unit
  * needs one line.
  */
-private val UNIT_ABBREVIATIONS: Map<String, String> = mapOf(
-    "medium" to "M",
-    "large" to "L",
-    "small" to "S",
-    "tablespoon" to "Tbsp",
-    "tablespoons" to "Tbsp",
-    "teaspoon" to "Tsp",
-    "teaspoons" to "Tsp",
-    "ounce" to "Oz",
-    "ounces" to "Oz",
-    "serving" to "Srv",
-    "servings" to "Srv",
-    "pound" to "Lb",
-    "pounds" to "Lb"
-)
+private val UNIT_ABBREVIATIONS: Map<String, String> =
+    mapOf(
+        "medium" to "M",
+        "large" to "L",
+        "small" to "S",
+        "tablespoon" to "Tbsp",
+        "tablespoons" to "Tbsp",
+        "teaspoon" to "Tsp",
+        "teaspoons" to "Tsp",
+        "ounce" to "Oz",
+        "ounces" to "Oz",
+        "serving" to "Srv",
+        "servings" to "Srv",
+        "pound" to "Lb",
+        "pounds" to "Lb",
+    )
 
 /**
  * Shortens a text that is too long for its place on the screen.
@@ -42,7 +43,10 @@ private val UNIT_ABBREVIATIONS: Map<String, String> = mapOf(
  * @param maxLength highest number of characters of the result
  * @return the text, or the first characters of the text and two points
  */
-fun abbreviateString(text: String, maxLength: Int): String {
+fun abbreviateString(
+    text: String,
+    maxLength: Int,
+): String {
     if (maxLength <= ELLIPSIS.length || text.length < maxLength) {
         return text
     }
@@ -76,14 +80,18 @@ fun abbreviateUnitString(text: String): String {
  * @param ingredient ingredient of the recipe
  * @return `true` when one product fits the ingredient
  */
-fun containsSubstring(products: List<Product>?, ingredient: Product): Boolean {
+fun containsSubstring(
+    products: List<Product>?,
+    ingredient: Product,
+): Boolean {
     if (products.isNullOrEmpty()) {
         return false
     }
     return splitSentenceRegex(ingredient.productName).any { word ->
-        word.isNotBlank() && products.any { product ->
-            product.productName.contains(word, ignoreCase = true)
-        }
+        word.isNotBlank() &&
+            products.any { product ->
+                product.productName.contains(word, ignoreCase = true)
+            }
     }
 }
 
@@ -104,8 +112,9 @@ fun splitSentenceRegex(text: String): List<String> =
  *
  * @return the changed text
  */
-fun String.capitalizeWords(): String = split(" ").joinToString(" ") { word ->
-    word.replaceFirstChar { letter ->
-        if (letter.isLowerCase()) letter.titlecase(Locale.getDefault()) else letter.toString()
+fun String.capitalizeWords(): String =
+    split(" ").joinToString(" ") { word ->
+        word.replaceFirstChar { letter ->
+            if (letter.isLowerCase()) letter.titlecase(Locale.getDefault()) else letter.toString()
+        }
     }
-}

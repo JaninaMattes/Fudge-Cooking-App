@@ -1,7 +1,7 @@
 package com.foodtracker.foodtrackerapi.common.utils;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * <p>
@@ -19,6 +19,12 @@ import org.apache.logging.log4j.Logger;
  * </p>
  *
  * <p>
+ * The log entry holds the ID of the request, because {@code RequestLogFilter}
+ * puts that ID into the diagnostic context of the logger. A reader therefore
+ * sees which request of which client lost its data.
+ * </p>
+ *
+ * <p>
  * Example:
  * </p>
  *
@@ -31,7 +37,7 @@ import org.apache.logging.log4j.Logger;
  */
 public final class Attempt {
 
-    private static final Logger LOG = LogManager.getLogger(Attempt.class);
+    private static final Logger LOG = LoggerFactory.getLogger(Attempt.class);
 
     private Attempt() {
         // Utility class. Do not make an instance of it.

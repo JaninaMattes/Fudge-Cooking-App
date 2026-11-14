@@ -1,8 +1,12 @@
 HELP.md
+
+# Output of Maven. Every folder with this name holds build output, also a
+# folder under src/. A build output must never reach the repository: the first
+# version of this file took the folder src/main/docker/target back into the
+# repository, and a JAR of 27 MB went into the history with it.
 target/
+*.jar.original
 !.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
 
 ### STS ###
 .apt_generated

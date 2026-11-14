@@ -1,23 +1,22 @@
 package com.mobilesystems.feedme
 
 import android.content.Intent
-import androidx.lifecycle.Observer
 import android.os.Bundle
-import androidx.annotation.StringRes
-import androidx.appcompat.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.annotation.StringRes
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import com.mobilesystems.feedme.databinding.ActivityRegisterBinding
 import com.mobilesystems.feedme.ui.authentication.AuthViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class RegisterActivity : AppCompatActivity() {
-
     private val registerViewModel: AuthViewModel by viewModels()
     private var _binding: ActivityRegisterBinding? = null
     private val binding get() = _binding!!
@@ -46,7 +45,8 @@ class RegisterActivity : AppCompatActivity() {
         // To show back button in actionbar
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        registerViewModel.registerFormState.observe(this,
+        registerViewModel.registerFormState.observe(
+            this,
             Observer { registerFormState ->
                 if (registerFormState == null) {
                     return@Observer
@@ -67,9 +67,11 @@ class RegisterActivity : AppCompatActivity() {
                 registerFormState.passwordError?.let {
                     passwordEditText.error = getString(it)
                 }
-            })
+            },
+        )
 
-        registerViewModel.registerResult.observe(this,
+        registerViewModel.registerResult.observe(
+            this,
             Observer { registerResult ->
                 registerResult ?: return@Observer
                 loadingProgressBar.visibility = View.GONE
@@ -81,33 +83,49 @@ class RegisterActivity : AppCompatActivity() {
                     startActivity(intent)
                     finish()
                 }
-            })
+            },
+        )
 
-        val afterTextChangedListener = object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
-                // ignore
-            }
+        val afterTextChangedListener =
+            object : TextWatcher {
+                override fun beforeTextChanged(
+                    s: CharSequence,
+                    start: Int,
+                    count: Int,
+                    after: Int,
+                ) {
+                    // ignore
+                }
 
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                // check Fields For Empty Values
-                registerButton.isEnabled = (!(firstNameEditText.equals("") ||
-                        lastNameEditText.equals("") ||
-                        emailEditText.equals("") ||
-                        passwordEditText.equals("") ||
-                        confirmPasswordEditText.equals("")) &&
-                        (passwordEditText != confirmPasswordEditText))
-            }
+                override fun onTextChanged(
+                    s: CharSequence,
+                    start: Int,
+                    before: Int,
+                    count: Int,
+                ) {
+                    // check Fields For Empty Values
+                    registerButton.isEnabled = (
+                        !(
+                            firstNameEditText.equals("") ||
+                                lastNameEditText.equals("") ||
+                                emailEditText.equals("") ||
+                                passwordEditText.equals("") ||
+                                confirmPasswordEditText.equals("")
+                        ) &&
+                            (passwordEditText != confirmPasswordEditText)
+                    )
+                }
 
-            override fun afterTextChanged(s: Editable) {
-                registerViewModel.observeRegisterDataChanged(
-                    firstNameEditText.text.toString(),
-                    lastNameEditText.text.toString(),
-                    emailEditText.text.toString(),
-                    passwordEditText.text.toString(),
-                    confirmPasswordEditText.text.toString()
-                )
+                override fun afterTextChanged(s: Editable) {
+                    registerViewModel.observeRegisterDataChanged(
+                        firstNameEditText.text.toString(),
+                        lastNameEditText.text.toString(),
+                        emailEditText.text.toString(),
+                        passwordEditText.text.toString(),
+                        confirmPasswordEditText.text.toString(),
+                    )
+                }
             }
-        }
 
         firstNameEditText.addTextChangedListener(afterTextChangedListener)
         lastNameEditText.addTextChangedListener(afterTextChangedListener)
@@ -122,7 +140,7 @@ class RegisterActivity : AppCompatActivity() {
                     lastNameEditText.text.toString(),
                     emailEditText.text.toString(),
                     passwordEditText.text.toString(),
-                    confirmPasswordEditText.text.toString()
+                    confirmPasswordEditText.text.toString(),
                 )
             }
             false
@@ -135,12 +153,14 @@ class RegisterActivity : AppCompatActivity() {
                 lastNameEditText.text.toString(),
                 emailEditText.text.toString(),
                 passwordEditText.text.toString(),
-                confirmPasswordEditText.text.toString()
+                confirmPasswordEditText.text.toString(),
             )
         }
     }
 
-    private fun showLoginFailed(@StringRes errorString: Int) {
+    private fun showLoginFailed(
+        @StringRes errorString: Int,
+    ) {
         val appContext = applicationContext ?: return
         Toast.makeText(appContext, errorString, Toast.LENGTH_LONG).show()
     }

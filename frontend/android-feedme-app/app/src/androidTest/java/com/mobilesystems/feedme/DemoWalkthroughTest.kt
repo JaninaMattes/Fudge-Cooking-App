@@ -30,7 +30,6 @@ import org.junit.runner.RunWith
 @LargeTest
 @RunWith(AndroidJUnit4::class)
 class DemoWalkthroughTest {
-
     private companion object {
         /** Time that the video shows each screen. */
         const val SCREEN_PAUSE_MILLIS = 2_500L

@@ -29,12 +29,16 @@ GRADLE       := cd $(FRONTEND_DIR) && ./gradlew
 MVN_FLAGS    := -B
 GRADLE_FLAGS := --console=plain --stacktrace
 
+# The least free space that a build needs. See disk-check.
+DISK_MIN_MB  ?= 2048
+
 .DEFAULT_GOAL := help
 .PHONY: help all build test lint coverage clean verify \
         backend-build backend-test backend-lint backend-coverage backend-clean backend-run \
         frontend-build frontend-test frontend-lint frontend-coverage frontend-clean \
         frontend-sdk-check frontend-format frontend-verify backend-verify backend-bugs backend-docs \
-        frontend-ui-test docs db-up db-down
+        frontend-ui-test docs db-up db-down api-package api-up api-down api-logs api-smoke \
+        emulator-create emulator-start demo-video demo-check disk-check
 
 # -----------------------------------------------------------------------------
 #  Help
@@ -54,6 +58,21 @@ help: ## Shows this list of commands
 all: lint build test ## Runs the style check, the build and the tests of both parts
 
 verify: backend-verify frontend-verify ## Runs every check that the pipeline runs
+
+# A build writes into the project and into the caches of Maven and of Gradle
+# in the home directory. Without free space the compiler cannot write every
+# class file, and the tests then stop with NoClassDefFoundError, which looks
+# like an error of the code. This guard says the truth instead.
+disk-check: ## Stops when a volume holds less free space than DISK_MIN_MB
+	@for dir in . "$$HOME"; do \
+		free=$$(df -m "$$dir" | awk 'NR == 2 { print $$4 }'); \
+		if [ "$$free" -lt $(DISK_MIN_MB) ]; then \
+			echo "Stop: the volume of $$dir holds $$free MB free."; \
+			echo "      A build needs $(DISK_MIN_MB) MB."; \
+			echo "      Free space and run the command again."; \
+			exit 1; \
+		fi; \
+	done
 
 build: backend-build frontend-build ## Builds both parts
 
@@ -85,7 +104,7 @@ backend-coverage: ## Writes the coverage report to target/site/jacoco/index.html
 	$(MVN) $(MVN_FLAGS) clean verify
 	@echo "Report: $(BACKEND_DIR)/target/site/jacoco/index.html"
 
-backend-verify: ## Runs the style check, the tests, the coverage gate and SpotBugs
+backend-verify: disk-check ## Runs the style check, the tests, the coverage gate and SpotBugs
 	$(MVN) $(MVN_FLAGS) clean verify
 
 backend-run: ## Starts the REST API on the local machine
@@ -146,5 +165,61 @@ db-up: ## Starts the PostgreSQL database in Docker
 db-down: ## Stops the PostgreSQL database
 	cd $(BACKEND_DIR) && docker compose down
 
+# -----------------------------------------------------------------------------
+#  Demo on an emulator
+#
+#  Three commands give a demo, in this order:
+#    1. make api-up          the REST API and the database in Docker
+#    2. make emulator-start  the emulator fudge-34
+#    3. make demo-video      the APK, the steps of Maestro and the video
+#
+#  "make demo-check" tells which part is missing.
+# -----------------------------------------------------------------------------
+
+AVD_NAME  ?= fudge-34
+SDK_IMAGE ?= system-images;android-34;google_apis;arm64-v8a
+SDK_TOOLS := $(ANDROID_HOME)/cmdline-tools/latest/bin
+EMULATOR  := $(ANDROID_HOME)/emulator/emulator
+ADB       := $(ANDROID_HOME)/platform-tools/adb
+MAESTRO   ?= $(firstword $(wildcard $(HOME)/.maestro/bin/maestro) maestro)
+
+api-package: ## Builds the JAR file that the Docker image needs
+	$(MVN) $(MVN_FLAGS) clean package -DskipTests
+
+api-up: api-package ## Starts the REST API and PostgreSQL in Docker
+	cd $(BACKEND_DIR) && docker compose up -d --build
+	@echo "The API answers on http://localhost:80, and on http://10.0.2.2:80 for an emulator."
+
+api-down: ## Stops the REST API and PostgreSQL. CLEAN=1 also drops the data
+	cd $(BACKEND_DIR) && docker compose down $(if $(CLEAN),-v,)
+
+api-smoke: ## Asks the running API the three questions of the demo
+	@sh tools/demo/api-smoke.sh
+
+api-logs: ## Shows the log of the REST API
+	cd $(BACKEND_DIR) && docker compose logs -f app
+
+emulator-create: ## Makes the emulator $(AVD_NAME). The download needs about 1.5 GB
+	yes | $(SDK_TOOLS)/sdkmanager --install "emulator" "$(SDK_IMAGE)"
+	echo no | $(SDK_TOOLS)/avdmanager create avd -n $(AVD_NAME) -k "$(SDK_IMAGE)" -d pixel_5
+
+emulator-start: ## Starts the emulator $(AVD_NAME) and waits for its start
+	@tools/demo/start-emulator.sh $(AVD_NAME)
+
+demo-check: ## Tells which part of the demo is missing
+	@echo "Android SDK:  $(ANDROID_HOME)"
+	@test -x "$(EMULATOR)" && echo "emulator:     yes" \
+		|| echo "emulator:     MISSING - make emulator-create"
+	@$(EMULATOR) -list-avds 2>/dev/null | grep -qx "$(AVD_NAME)" \
+		&& echo "AVD:          $(AVD_NAME)" \
+		|| echo "AVD:          MISSING - make emulator-create"
+	@test -x "$(MAESTRO)" && echo "maestro:      $$($(MAESTRO) --version 2>/dev/null)" \
+		|| echo "maestro:      MISSING - curl -fsSL https://get.maestro.mobile.dev | bash"
+	@docker info > /dev/null 2>&1 && echo "docker:       runs" \
+		|| echo "docker:       MISSING - start Docker Desktop"
+	@$(ADB) devices | grep -qw device && echo "device:       runs" \
+		|| echo "device:       none - make emulator-start"
+
 demo-video: ## Records a video of the application on an emulator
-	./tools/demo/record-demo.sh
+	PATH="$(dir $(MAESTRO)):$(ANDROID_HOME)/platform-tools:$$PATH" \
+		./tools/demo/record-demo.sh

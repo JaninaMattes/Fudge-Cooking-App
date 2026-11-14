@@ -3,7 +3,6 @@ package com.mobilesystems.feedme.ui.shoppinglist
 import com.mobilesystems.feedme.domain.model.Product
 
 interface BaseShoppingListViewModel {
-
     fun setProduct(product: Product) // Helper function
 
     fun setNewProduct(product: Product) // Helper function
@@ -14,9 +13,9 @@ interface BaseShoppingListViewModel {
 
     fun saveCurrentState()
 
-    fun addNewProductToCurrentShoppingList(product: Product)//newproduct
+    fun addNewProductToCurrentShoppingList(product: Product) // newproduct
 
-    fun addProductToCurrentShoppingList(product: Product)//product from oldshoppinglist
+    fun addProductToCurrentShoppingList(product: Product) // product from oldshoppinglist
 
     fun addProductToOldShoppingList(product: Product)
 
@@ -35,5 +34,4 @@ interface BaseShoppingListViewModel {
     fun deleteCurrentProductByPosition(position: Int): Product?
 
     fun deleteOldProductByPosition(position: Int): Product?
-
 }

@@ -7,8 +7,7 @@ import kotlinx.parcelize.Parcelize
 data class CurrentShoppingList(
     override val shoppingListId: Int,
     override val shoppingList: List<Product>? = null,
-) : ShoppingList(shoppingListId, shoppingList), Parcelable{
-
+) : ShoppingList(shoppingListId, shoppingList), Parcelable {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
@@ -30,5 +29,4 @@ data class CurrentShoppingList(
     override fun toString(): String {
         return "CurrentShoppingList(shoppingListId=$shoppingListId, shoppingListProducts=$shoppingList)"
     }
-
 }

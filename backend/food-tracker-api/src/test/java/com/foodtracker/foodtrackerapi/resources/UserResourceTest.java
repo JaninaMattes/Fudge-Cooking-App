@@ -27,6 +27,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import com.foodtracker.foodtrackerapi.common.config.ApiProperties;
+import com.foodtracker.foodtrackerapi.common.security.TokenService;
 import com.foodtracker.foodtrackerapi.exceptions.FTAuthException;
 import com.foodtracker.foodtrackerapi.models.Image;
 import com.foodtracker.foodtrackerapi.models.Tag;
@@ -34,7 +35,6 @@ import com.foodtracker.foodtrackerapi.models.User;
 import com.foodtracker.foodtrackerapi.services.UserService;
 
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
 
 /**
  * Tests for {@link UserResource}.
@@ -45,7 +45,7 @@ import io.jsonwebtoken.Jwts;
 @MockitoSettings(strictness = Strictness.LENIENT)
 class UserResourceTest {
 
-    private static final String SECRET_KEY = "test-secret-key";
+    private static final String SECRET_KEY = "a-test-secret-of-more-than-32-characters";
 
     @Mock
     private UserService userService;
@@ -58,7 +58,7 @@ class UserResourceTest {
         ApiProperties apiProperties = new ApiProperties();
         apiProperties.setSecretKey(SECRET_KEY);
         apiProperties.setTokenValidityMillis(60_000L);
-        resource = new UserResource(userService, apiProperties);
+        resource = new UserResource(userService, new TokenService(apiProperties));
         mockMvc = MockMvcBuilders.standaloneSetup(resource).build();
     }
 
@@ -79,7 +79,9 @@ class UserResourceTest {
                 .andReturn().getResponse().getContentAsString();
 
         String token = body.replaceAll(".*\"token\":\"([^\"]+)\".*", "$1");
-        Claims claims = Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody();
+        ApiProperties properties = new ApiProperties();
+        properties.setSecretKey(SECRET_KEY);
+        Claims claims = new TokenService(properties).read(token);
         assertThat(claims.get("userId")).isEqualTo(42);
         assertThat(claims.get("email")).isEqualTo("a@b.c");
         assertThat(claims.get("firstName")).isEqualTo("Janina");

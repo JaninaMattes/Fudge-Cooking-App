@@ -15,23 +15,23 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class UserFoodPrefListFragment : Fragment() {
-
-    // delegate to main activity so that ViewModel is preserved
-    private val sharedViewModel: SharedUserProfileViewModel by activityViewModels() // TODO: SharedRecipeViewModel von Recipe Detail verwenden
+    // The fragment reads the ViewModel of the activity, so that the data
+    // stays when the user turns the telephone.
+    // TODO: use the SharedRecipeViewModel of the screen of the recipe.
+    private val sharedViewModel: SharedUserProfileViewModel by activityViewModels()
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var foodTagListRecyclerView: RecyclerView
     private lateinit var adapter: UserFoodPrefListAdapter
 
-    //view binding
+    // view binding
     private var _binding: UserProfileListFragmentBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
-
         // Inflate layout for this fragment
         _binding = UserProfileListFragmentBinding.inflate(inflater, container, false)
 
@@ -44,17 +44,21 @@ class UserFoodPrefListFragment : Fragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
 
         // Create the observer which updates the UI.
-        val tagListObserver = Observer<List<FoodType>?> { foodTypesList: List<FoodType>? ->
-            // Update the UI and update the adapter for recycelerview
-            if (foodTypesList != null) {
-                adapter = UserFoodPrefListAdapter(foodTypesList)
-                foodTagListRecyclerView.adapter = adapter
+        val tagListObserver =
+            Observer<List<FoodType>?> { foodTypesList: List<FoodType>? ->
+                // Update the UI and update the adapter for recycelerview
+                if (foodTypesList != null) {
+                    adapter = UserFoodPrefListAdapter(foodTypesList)
+                    foodTagListRecyclerView.adapter = adapter
+                }
             }
-        }
 
         // update adapter after data is loaded
         sharedViewModel.loggedInUserFoodTypeList.observe(viewLifecycleOwner, tagListObserver)
@@ -73,6 +77,7 @@ class UserFoodPrefListFragment : Fragment() {
 
     companion object {
         const val TAG = "UserFoodPrefListFragment"
+
         fun newInstance() = UserFoodPrefListFragment()
     }
 }

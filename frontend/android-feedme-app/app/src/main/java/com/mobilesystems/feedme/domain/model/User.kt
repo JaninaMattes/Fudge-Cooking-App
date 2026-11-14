@@ -16,9 +16,8 @@ data class User(
     val password: String,
     var userSettings: Settings? = null,
     val dietaryPreferences: List<FoodType>? = null,
-    val userImage: Image? = null
+    val userImage: Image? = null,
 ) : Parcelable {
-
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
@@ -51,8 +50,7 @@ data class User(
 
     override fun toString(): String {
         return "User(userId=$userId, firstName='$firstName', lastName='$lastName', " +
-                "email='$email', password='$password', userSettings=$userSettings, dietaryPreferences=$dietaryPreferences, userImage=$userImage)"
+            "email='$email', password='$password', userSettings=$userSettings, " +
+            "dietaryPreferences=$dietaryPreferences, userImage=$userImage)"
     }
-
-
 }

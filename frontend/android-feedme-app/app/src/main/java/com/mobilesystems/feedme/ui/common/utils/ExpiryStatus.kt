@@ -21,9 +21,8 @@ import com.mobilesystems.feedme.R
  */
 enum class ExpiryStatus(
     @ColorRes val colorRes: Int,
-    @StringRes val labelRes: Int
+    @StringRes val labelRes: Int,
 ) {
-
     /** The product is bad. The user must throw it away. */
     EXPIRED(R.color.status_expired, R.string.expiry_status_expired),
 
@@ -37,7 +36,8 @@ enum class ExpiryStatus(
     SOON(R.color.status_soon, R.string.expiry_status_soon),
 
     /** The product stays good for more than one week. */
-    FRESH(R.color.status_fresh, R.string.expiry_status_fresh);
+    FRESH(R.color.status_fresh, R.string.expiry_status_fresh),
+    ;
 
     /**
      * Tells if the state needs the attention of the user.
@@ -48,7 +48,6 @@ enum class ExpiryStatus(
     fun needsAttention(): Boolean = this == EXPIRED || this == TODAY || this == URGENT
 
     companion object {
-
         /** Highest number of days for the state [URGENT]. */
         const val URGENT_DAYS = 3L
 
@@ -62,12 +61,13 @@ enum class ExpiryStatus(
          *                 means that the product is already bad.
          * @return the state of the product
          */
-        fun fromDaysLeft(daysLeft: Long): ExpiryStatus = when {
-            daysLeft < 0L -> EXPIRED
-            daysLeft == 0L -> TODAY
-            daysLeft <= URGENT_DAYS -> URGENT
-            daysLeft <= SOON_DAYS -> SOON
-            else -> FRESH
-        }
+        fun fromDaysLeft(daysLeft: Long): ExpiryStatus =
+            when {
+                daysLeft < 0L -> EXPIRED
+                daysLeft == 0L -> TODAY
+                daysLeft <= URGENT_DAYS -> URGENT
+                daysLeft <= SOON_DAYS -> SOON
+                else -> FRESH
+            }
     }
 }

@@ -6,9 +6,8 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class ChangeLoginStatusRequest(
     private val userId: Int,
-    private val loginStatus: Int
-): Parcelable {
-
+    private val loginStatus: Int,
+) : Parcelable {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
@@ -30,5 +29,4 @@ data class ChangeLoginStatusRequest(
     override fun toString(): String {
         return "ChangeLoginStatusRequest(userId=$userId, loginStatus=$loginStatus)"
     }
-
 }

@@ -6,9 +6,8 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class RecipeRequest(
     private val userId: Int,
-    private val amount: Int = 7
-): Parcelable {
-
+    private val amount: Int = 7,
+) : Parcelable {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false

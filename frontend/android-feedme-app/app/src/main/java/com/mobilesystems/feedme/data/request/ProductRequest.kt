@@ -13,8 +13,8 @@ data class ProductRequest(
     private val manufacturer: String,
     private val nutritionValue: String,
     private val productImage: ImageRequest? = null,
-    private val productTags:  List<ProductTagRequest>? = null): Parcelable {
-
+    private val productTags: List<ProductTagRequest>? = null,
+) : Parcelable {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
@@ -28,7 +28,7 @@ data class ProductRequest(
         if (quantity != other.quantity) return false
         if (manufacturer != other.manufacturer) return false
         if (nutritionValue != other.nutritionValue) return false
-        if (productImage!= other.productImage) return false
+        if (productImage != other.productImage) return false
         if (productTags != other.productTags) return false
 
         return true
@@ -49,8 +49,8 @@ data class ProductRequest(
 
     override fun toString(): String {
         return "ProductRequest( userId='$userId', productId='$productId', productName='$productName', " +
-                "expirationDate='$expirationDate', quantity='$quantity', " +
-                "manufacturer='$manufacturer', nutritionValue='$nutritionValue'," +
-                "productImage='$productImage', productTags='$productTags' )"
+            "expirationDate='$expirationDate', quantity='$quantity', " +
+            "manufacturer='$manufacturer', nutritionValue='$nutritionValue'," +
+            "productImage='$productImage', productTags='$productTags' )"
     }
-    }
+}

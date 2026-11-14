@@ -9,5 +9,4 @@ import dagger.hilt.android.components.ActivityRetainedComponent
  */
 @Module
 @InstallIn(ActivityRetainedComponent::class)
-object ViewModelModule {
-}
+object ViewModelModule

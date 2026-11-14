@@ -6,9 +6,8 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class UserAllowSettingsRequest(
     private val userId: Int,
-    private val allow: Int
-): Parcelable{
-
+    private val allow: Int,
+) : Parcelable {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false

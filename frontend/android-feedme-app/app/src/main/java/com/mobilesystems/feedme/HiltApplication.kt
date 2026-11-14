@@ -3,13 +3,24 @@ package com.mobilesystems.feedme
 import android.app.Application
 import android.content.Context
 import android.util.Log
-import androidx.work.*
-import com.mobilesystems.feedme.common.backgroundService.*
+import androidx.work.Configuration
+import androidx.work.Constraints
+import androidx.work.DelegatingWorkerFactory
+import androidx.work.ExistingPeriodicWorkPolicy
+import androidx.work.ExistingWorkPolicy
+import androidx.work.NetworkType
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.PeriodicWorkRequestBuilder
+import androidx.work.WorkManager
+import com.mobilesystems.feedme.common.backgroundService.PushWorker
+import com.mobilesystems.feedme.common.backgroundService.PushWorkerFactory
+import com.mobilesystems.feedme.common.backgroundService.RecipeWorker
+import com.mobilesystems.feedme.common.backgroundService.RecipeWorkerFactory
 import dagger.hilt.android.HiltAndroidApp
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.util.*
+import java.util.Calendar
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
@@ -19,10 +30,10 @@ import javax.inject.Inject
  */
 
 @HiltAndroidApp
-class HiltApplication : Application(), Configuration.Provider{
-
+class HiltApplication : Application(), Configuration.Provider {
     @Inject
     lateinit var myPushWorkerFactory: PushWorkerFactory
+
     @Inject
     lateinit var myRecipeWorkerFactory: RecipeWorkerFactory
 
@@ -48,7 +59,7 @@ class HiltApplication : Application(), Configuration.Provider{
 
     override fun onCreate() {
         super.onCreate()
-        //WorkManager
+        // WorkManager
         val context = applicationContext
         delayedInit(context)
     }
@@ -59,13 +70,14 @@ class HiltApplication : Application(), Configuration.Provider{
         }
     }
 
-    private fun setupWork(context: Context){
-        //set constraints: Network connection
-        val constraints: Constraints = Constraints.Builder()
-            .setRequiredNetworkType(NetworkType.CONNECTED)
-            .build()
+    private fun setupWork(context: Context) {
+        // set constraints: Network connection
+        val constraints: Constraints =
+            Constraints.Builder()
+                .setRequiredNetworkType(NetworkType.CONNECTED)
+                .build()
 
-        //WorkManager for pushNotification
+        // WorkManager for pushNotification
 
         val pushWorkRequest =
             PeriodicWorkRequestBuilder<PushWorker>(15, TimeUnit.MINUTES)
@@ -75,7 +87,7 @@ class HiltApplication : Application(), Configuration.Provider{
         WorkManager.getInstance(context)
             .enqueueUniquePeriodicWork("Push Work", ExistingPeriodicWorkPolicy.KEEP, pushWorkRequest)
 
-        //WorkManager for Recipes
+        // WorkManager for Recipes
 
         val currentDate = Calendar.getInstance()
         val dueDate = Calendar.getInstance()
@@ -97,5 +109,4 @@ class HiltApplication : Application(), Configuration.Provider{
             .getInstance(context)
             .enqueueUniqueWork("recipeWork", ExistingWorkPolicy.KEEP, recipeWorkRequest)
     }
-
 }

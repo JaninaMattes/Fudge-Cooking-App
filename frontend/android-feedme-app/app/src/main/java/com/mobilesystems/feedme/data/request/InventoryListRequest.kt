@@ -4,5 +4,5 @@ import com.mobilesystems.feedme.domain.model.Product
 
 data class InventoryListRequest(
     private val userId: Int,
-    private val inventoryList: List<Product>
+    private val inventoryList: List<Product>,
 )

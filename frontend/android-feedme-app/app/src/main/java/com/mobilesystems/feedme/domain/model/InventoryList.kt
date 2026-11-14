@@ -6,9 +6,8 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class InventoryList(
     val inventoryListId: Int,
-    val inventoryList: List<Product>? = null
+    val inventoryList: List<Product>? = null,
 ) : Parcelable {
-
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
@@ -30,6 +29,4 @@ data class InventoryList(
     override fun toString(): String {
         return "InventoryList(inventoryListId=$inventoryListId, inventoryList=$inventoryList)"
     }
-
-
 }

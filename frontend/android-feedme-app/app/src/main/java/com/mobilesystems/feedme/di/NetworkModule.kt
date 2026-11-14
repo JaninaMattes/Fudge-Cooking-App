@@ -9,6 +9,4 @@ import dagger.hilt.android.components.ActivityComponent
  */
 @Module
 @InstallIn(ActivityComponent::class)
-object NetworkModule {
-
-}
+object NetworkModule

@@ -68,7 +68,7 @@ class ShoppingListServiceImplTest {
             assertThat(service.createProductForCurrentShoppingList(1, product)).isEqualTo(42);
 
             verify(shoppingListRepository).createProductTag(42, 2);
-            verify(shoppingListRepository).createProductImage(42, "Produktbild", "");
+            verify(shoppingListRepository).createProductImage(42, "Product image", "");
         }
 
         @Test

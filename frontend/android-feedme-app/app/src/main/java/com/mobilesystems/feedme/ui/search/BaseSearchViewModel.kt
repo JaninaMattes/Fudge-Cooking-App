@@ -5,7 +5,6 @@ import com.mobilesystems.feedme.domain.model.Product
 import com.mobilesystems.feedme.domain.model.Recipe
 
 interface BaseSearchViewModel {
-
     fun loadAllRecipes()
 
     fun loadAllProductsFromInventory()

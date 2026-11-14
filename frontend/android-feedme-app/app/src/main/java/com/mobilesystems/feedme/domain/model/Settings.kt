@@ -9,7 +9,6 @@ data class Settings(
     val allowPushNotifications: Boolean? = null,
     val suggestRecipes: Boolean? = null,
 ) : Parcelable {
-
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
@@ -32,8 +31,6 @@ data class Settings(
 
     override fun toString(): String {
         return "Settings(reminderProductExp=$reminderProductExp, " +
-                "allowPushNotifications=$allowPushNotifications, suggestRecipes=$suggestRecipes)"
+            "allowPushNotifications=$allowPushNotifications, suggestRecipes=$suggestRecipes)"
     }
-
-
 }

@@ -17,4 +17,5 @@ data class RecipeResponse(
     val cookingTime: String,
     val instructions: String,
     val ingredients: List<IngredientResponse>? = null,
-    val imageUrl: String)
+    val imageUrl: String,
+)

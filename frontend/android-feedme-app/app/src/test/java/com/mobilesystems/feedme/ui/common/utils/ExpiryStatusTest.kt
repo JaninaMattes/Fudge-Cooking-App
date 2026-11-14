@@ -11,7 +11,6 @@ import org.junit.Test
  * colour only.
  */
 class ExpiryStatusTest {
-
     @Test
     fun `a product of the past is expired`() {
         assertThat(ExpiryStatus.fromDaysLeft(-1)).isEqualTo(ExpiryStatus.EXPIRED)

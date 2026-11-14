@@ -33,14 +33,13 @@ import javax.inject.Singleton
 open class AppExecutors(
     private val diskIO: Executor,
     private val networkIO: Executor,
-    private val mainThread: Executor
+    private val mainThread: Executor,
 ) {
-
     @Inject
     constructor() : this(
         Executors.newSingleThreadExecutor(),
         Executors.newFixedThreadPool(3),
-        MainThreadExecutor()
+        MainThreadExecutor(),
     )
 
     fun diskIO(): Executor {
@@ -57,6 +56,7 @@ open class AppExecutors(
 
     private class MainThreadExecutor : Executor {
         private val mainThreadHandler = Handler(Looper.getMainLooper())
+
         override fun execute(command: Runnable) {
             mainThreadHandler.post(command)
         }

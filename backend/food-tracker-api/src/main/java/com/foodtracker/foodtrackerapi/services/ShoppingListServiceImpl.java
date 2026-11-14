@@ -29,7 +29,7 @@ public class ShoppingListServiceImpl implements ShoppingListService {
     private static final Integer NO_ID = 0;
 
     /** Name of the image that a new product of a shopping list gets. */
-    private static final String DEFAULT_IMAGE_NAME = "Produktbild";
+    private static final String DEFAULT_IMAGE_NAME = "Product image";
 
     private final ShoppingListRepository shoppingListRepository;
 

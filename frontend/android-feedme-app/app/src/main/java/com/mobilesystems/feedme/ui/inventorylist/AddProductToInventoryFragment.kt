@@ -2,46 +2,49 @@ package com.mobilesystems.feedme.ui.inventorylist
 
 import android.app.Activity
 import android.app.AlertDialog
-import android.content.Intent
-import android.icu.util.Calendar
-import android.os.Bundle
-import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.Spinner
-import android.widget.Toast
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
-import androidx.navigation.fragment.findNavController
-import com.google.zxing.integration.android.IntentIntegrator
-import com.mobilesystems.feedme.databinding.InventoryAddProductFragmentBinding
-import com.mobilesystems.feedme.domain.model.Label
-import com.mobilesystems.feedme.domain.model.Product
 import android.app.DatePickerDialog
 import android.app.DatePickerDialog.OnDateSetListener
 import android.content.ActivityNotFoundException
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.drawable.Drawable
 import android.icu.text.SimpleDateFormat
+import android.icu.util.Calendar
+import android.os.Bundle
 import android.provider.MediaStore
-import android.widget.*
+import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Button
+import android.widget.EditText
+import android.widget.ProgressBar
+import android.widget.Spinner
+import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.text.isDigitsOnly
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
+import com.google.zxing.integration.android.IntentIntegrator
 import com.mobilesystems.feedme.R
+import com.mobilesystems.feedme.common.logging.logError
+import com.mobilesystems.feedme.databinding.InventoryAddProductFragmentBinding
 import com.mobilesystems.feedme.domain.model.Image
+import com.mobilesystems.feedme.domain.model.Label
+import com.mobilesystems.feedme.domain.model.Product
 import com.mobilesystems.feedme.ui.common.utils.addDaysToCurrentDate
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.InputStream
 import java.lang.Exception
-import java.util.*
-
+import java.util.Locale
 
 @AndroidEntryPoint
-class AddProductToInventoryFragment : Fragment(), AdapterView.OnItemSelectedListener{
-
+class AddProductToInventoryFragment : Fragment(), AdapterView.OnItemSelectedListener {
     private val sharedViewModel: SharedInventoryViewModel by activityViewModels()
     private val calendar: Calendar = Calendar.getInstance()
     private lateinit var alertDialog: AlertDialog
@@ -56,24 +59,25 @@ class AddProductToInventoryFragment : Fragment(), AdapterView.OnItemSelectedList
     private lateinit var loadingProgressBar: ProgressBar
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
     ): View {
         // Inflate layout for this fragment
         _binding = InventoryAddProductFragmentBinding.inflate(inflater, container, false)
         val rootView = binding.root
 
-        //add spinner
+        // add spinner
         loadingProgressBar = binding.loadingBarcode
 
         // Add dropdown menu
-        val spinner: Spinner = rootView.drop_down_add_new_product_labels_inventory
+        val spinner: Spinner = binding.dropDownAddNewProductLabelsInventory
         val addExpirationDate: EditText = binding.editTextAddNewProductExpirationDateInventory
         // Create an ArrayAdapter using the string array and a default spinner layout
         val context = activity?.applicationContext
         val values: List<String> = sharedViewModel.loadAllProductLabels()
 
-        if (context != null){
+        if (context != null) {
             ArrayAdapter(context, android.R.layout.simple_spinner_item, values).also { adapter ->
                 // Specify the layout to use when the list of choices appears
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -83,17 +87,18 @@ class AddProductToInventoryFragment : Fragment(), AdapterView.OnItemSelectedList
         spinner.onItemSelectedListener = this
 
         // Datepicker
-        val date = OnDateSetListener { _, year, month, day ->
-            val myFormat = "dd.MM.yyyy"
-            val dateFormat = SimpleDateFormat(myFormat, Locale.GERMANY)
+        val date =
+            OnDateSetListener { _, year, month, day ->
+                val myFormat = "dd.MM.yyyy"
+                val dateFormat = SimpleDateFormat(myFormat, Locale.GERMANY)
 
-            // Setup calendar
-            calendar.set(Calendar.YEAR, year)
-            calendar.set(Calendar.MONTH, month)
-            calendar.set(Calendar.DAY_OF_MONTH, day)
+                // Setup calendar
+                calendar.set(Calendar.YEAR, year)
+                calendar.set(Calendar.MONTH, month)
+                calendar.set(Calendar.DAY_OF_MONTH, day)
 
-            addExpirationDate.setText(dateFormat.format(calendar.time))
-        }
+                addExpirationDate.setText(dateFormat.format(calendar.time))
+            }
 
         // open on click to editText
         addExpirationDate.setOnClickListener {
@@ -105,7 +110,7 @@ class AddProductToInventoryFragment : Fragment(), AdapterView.OnItemSelectedList
                     date,
                     calendar.get(Calendar.YEAR),
                     calendar.get(Calendar.MONTH),
-                    calendar.get(Calendar.DAY_OF_MONTH)
+                    calendar.get(Calendar.DAY_OF_MONTH),
                 ).show()
             }
         }
@@ -113,7 +118,10 @@ class AddProductToInventoryFragment : Fragment(), AdapterView.OnItemSelectedList
         return rootView
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
 
         binding.buttonAddImageToProduct.setOnClickListener {
@@ -129,11 +137,11 @@ class AddProductToInventoryFragment : Fragment(), AdapterView.OnItemSelectedList
                 i.putExtra("return-data", true)
                 startActivityForResult(Intent.createChooser(i, "Select Picture"), IMAGE_REQUEST_CODE)
                 val context = activity?.applicationContext
-                Toast.makeText(context,"Image is loaded!", Toast.LENGTH_LONG).show()
+                Toast.makeText(context, "Image is loaded!", Toast.LENGTH_LONG).show()
             } catch (ex: ActivityNotFoundException) {
-                ex.printStackTrace()
+                logError("on view created", ex)
                 val context = activity?.applicationContext
-                Toast.makeText(context,"Gallery picker failed!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Gallery picker failed!", Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -159,22 +167,22 @@ class AddProductToInventoryFragment : Fragment(), AdapterView.OnItemSelectedList
             var productManufacturer = binding.editTextAddnewproductManufacturerInventory.text.toString().trim()
             var productNutrition = binding.editTextAddnewproductNutritionvalueInventory.text.toString().trim()
 
-            if(checkValues()){
-                val productLabelList : MutableList<Label> = arrayListOf()
-                if(productLabel.isNotEmpty()) {
+            if (checkValues()) {
+                val productLabelList: MutableList<Label> = arrayListOf()
+                if (productLabel.isNotEmpty()) {
                     newLabel = Label.from(productLabel)
                     if (newLabel != null) {
                         productLabelList.add(newLabel)
-                        if(productExpirationDate.isEmpty()){
+                        if (productExpirationDate.isEmpty()) {
                             // calculate expiration
                             productExpirationDate = calculateExpDate(newLabel)
                         } else {
                             Log.d(TAG, "The expiration date is empty.")
                         }
-                    }else{
+                    } else {
                         Log.d(TAG, "The label is empty.")
                     }
-                }else{
+                } else {
                     val alertBuilder = createAlert()
                     // Show dialog
                     alertDialog = alertBuilder.create()
@@ -182,74 +190,80 @@ class AddProductToInventoryFragment : Fragment(), AdapterView.OnItemSelectedList
                 }
 
                 // Check product quantity
-                if(productquantity.isEmpty()){
+                if (productquantity.isEmpty()) {
                     productquantity = "1 Piece"
-                }else if (productquantity.isDigitsOnly()){
+                } else if (productquantity.isDigitsOnly()) {
                     val quantity = productquantity.filter { it.isDigit() }
                     productquantity = "$quantity Piece"
                 }
                 // Check product manufacturer
-                if(productManufacturer.isEmpty()){
+                if (productManufacturer.isEmpty()) {
                     productManufacturer = "-"
                 }
                 // Check product nutrition value
-                if(productNutrition.isEmpty()){
+                if (productNutrition.isEmpty()) {
                     productNutrition = "- kcal"
-                }else if (productNutrition.isDigitsOnly()){
+                } else if (productNutrition.isDigitsOnly()) {
                     val quantity = productNutrition.filter { it.isDigit() }
                     productNutrition = "$quantity kcal"
                 }
                 // create new image th
-                val productImage = Image(imageId = 0,
-                    imageName = "Produktbild",
-                    imageUrl = "https://cdn.pixabay.com/photo/2017/06/06/22/37/italian-cuisine-2378729_960_720.jpg",
-                    bitmap = newProductBitmap
-                )
+                val productImage =
+                    Image(
+                        imageId = 0,
+                        imageName = "Produktbild",
+                        imageUrl = "https://cdn.pixabay.com/photo/2017/06/06/22/37/italian-cuisine-2378729_960_720.jpg",
+                        bitmap = newProductBitmap,
+                    )
                 // create new product object
-                product = Product(
-                    productId = 0,
-                    productName = productname,
-                    expirationDate = productExpirationDate,
-                    labels = productLabelList,
-                    quantity = productquantity,
-                    manufacturer = productManufacturer,
-                    nutritionValue = productNutrition,
-                    productImage = productImage)
+                product =
+                    Product(
+                        productId = 0,
+                        productName = productname,
+                        expirationDate = productExpirationDate,
+                        labels = productLabelList,
+                        quantity = productquantity,
+                        manufacturer = productManufacturer,
+                        nutritionValue = productNutrition,
+                        productImage = productImage,
+                    )
 
                 sharedViewModel.addProductToInventoryList(product)
 
-                val action = AddProductToInventoryFragmentDirections.actionAddProductToInventoryFragmentToNavigationInventorylist()
+                val action =
+                    AddProductToInventoryFragmentDirections
+                        .actionAddProductToInventoryFragmentToNavigationInventorylist()
                 findNavController().navigate(action)
             }
-
         }
     }
 
-    private fun checkValues(): Boolean{
+    private fun checkValues(): Boolean {
         val context = activity?.applicationContext
         var errorIcon: Drawable? = null
-        if(context != null){
+        if (context != null) {
             errorIcon = ContextCompat.getDrawable(context, R.drawable.ic_baseline_error_24)
         }
-        return if(binding.editTextAddnewproducttitleInventory.text.toString().trim().isEmpty()){
+        return if (binding.editTextAddnewproducttitleInventory.text.toString().trim().isEmpty()) {
             binding.editTextAddnewproducttitleInventory.setError("Product name cannot be empty!", errorIcon)
             false
-
-        }else {
+        } else {
             true
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-
+    override fun onActivityResult(
+        requestCode: Int,
+        resultCode: Int,
+        data: Intent?,
+    ) {
         // 1. Galery picker select image
         if (requestCode == IMAGE_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             Log.d(TAG, "Gallery picker: Request code $requestCode and $resultCode received ")
             newProductBitmap = loadImageFromGallery(data)
-        }
-
-        // 2. ZXing Scan via Intent: https://github.com/zxing/zxing/wiki/Scanning-Via-Intent
-        else {
+        } else {
+            // 2. ZXing scan through an intent. See
+            // https://github.com/zxing/zxing/wiki/Scanning-Via-Intent
             Log.d(TAG, "Barcode scan: Request code $requestCode and $resultCode received ")
             val scanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
             if (scanResult != null) {
@@ -260,7 +274,7 @@ class AddProductToInventoryFragment : Fragment(), AdapterView.OnItemSelectedList
                     // Toast.makeText(context, "Scanned -> " + scanResult.contents, Toast.LENGTH_SHORT).show()
                     val results = scanResult.contents
 
-                    //set spinner visible
+                    // set spinner visible
                     loadingProgressBar.visibility = View.VISIBLE
 
                     Log.d(TAG, "The barcode scan result $results was received.")
@@ -272,7 +286,7 @@ class AddProductToInventoryFragment : Fragment(), AdapterView.OnItemSelectedList
                     binding.editTextAddnewproductManufacturerInventory.setText(newProduct?.manufacturer)
                     binding.editTextAddnewproductNutritionvalueInventory.setText(newProduct?.nutritionValue)
 
-                    //set spinner visibility gone
+                    // set spinner visibility gone
                     loadingProgressBar.visibility = View.GONE
                 }
             } else {
@@ -282,7 +296,12 @@ class AddProductToInventoryFragment : Fragment(), AdapterView.OnItemSelectedList
         }
     }
 
-    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+    override fun onItemSelected(
+        parent: AdapterView<*>?,
+        view: View?,
+        position: Int,
+        id: Long,
+    ) {
         var selectedLabel = ""
         if (parent != null) {
             selectedLabel = parent.getItemAtPosition(position).toString()
@@ -305,30 +324,31 @@ class AddProductToInventoryFragment : Fragment(), AdapterView.OnItemSelectedList
         super.onPause()
         newProductBitmap = null
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
 
-    private fun loadImageFromGallery(data: Intent?) : Bitmap? {
+    private fun loadImageFromGallery(data: Intent?): Bitmap? {
         var newProductImage: Bitmap? = null
 
         try {
-            //profileImageView.setImageURI(data?.data)
+            // profileImageView.setImageURI(data?.data)
             val uri = data?.data
-            if(uri != null) {
+            if (uri != null) {
                 val inputStream: InputStream? = activity?.contentResolver?.openInputStream(uri)
                 newProductImage = BitmapFactory.decodeStream(inputStream)
             } else {
                 Log.d(TAG, "URI is null.")
             }
         } catch (e: Exception) {
-            e.printStackTrace()
+            logError("load image from gallery", e)
             val context = activity?.applicationContext
-            Toast.makeText(context,"Gallery picker failed", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "Gallery picker failed", Toast.LENGTH_SHORT).show()
         }
 
-        return  newProductImage
+        return newProductImage
     }
 
     private fun createAlert(): AlertDialog.Builder {
@@ -361,7 +381,7 @@ class AddProductToInventoryFragment : Fragment(), AdapterView.OnItemSelectedList
         return builder
     }
 
-    private fun calculateExpDate(productLabel: Label) : String {
+    private fun calculateExpDate(productLabel: Label): String {
         val myFormat = "dd.MM.yyyy"
         val sdf = SimpleDateFormat(myFormat, Locale.GERMANY)
         val expDays = productLabel.calculateExpirationDays()
@@ -372,6 +392,7 @@ class AddProductToInventoryFragment : Fragment(), AdapterView.OnItemSelectedList
     companion object {
         const val IMAGE_REQUEST_CODE = 0
         const val TAG = "AddProductToInventoryFragment"
+
         fun newInstance() = AddProductToInventoryFragment()
     }
 }
