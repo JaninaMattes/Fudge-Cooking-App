@@ -20,6 +20,14 @@ import com.foodtracker.foodtrackerapi.models.User;
  * entry for each recipe that it leaves out, so that a question of a user can
  * be answered.
  *
+ * <p><strong>Where this stands today.</strong> A user wish carries a weight
+ * since 14 November 2026, and a wish can be marked as medical. This service
+ * still treats <em>every</em> requirement that the rules know as a veto, so
+ * nothing of the behaviour changed with the weights. The weighted choice —
+ * two vegan recipes and one that uses the steak which expires in two days —
+ * belongs to FR-R1 and is open. A **medical** requirement keeps its absolute
+ * priority then: it is never traded against an expiring product.
+ *
  * @author Janina Mattes
  */
 @Service
@@ -87,6 +95,10 @@ public class RecipeSuggestionServiceImpl implements RecipeSuggestionService {
         for (Tag tag : preferences) {
             if (tag != null && tag.getLabel() != null && dietRules.isHard(tag.getLabel())) {
                 labels.add(tag.getLabel());
+                if (tag.isMedical()) {
+                    LOG.debug("The requirement {} of user {} is medical, so it is a veto",
+                            tag.getLabel(), userId);
+                }
             }
         }
         return labels;
