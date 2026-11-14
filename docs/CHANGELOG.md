@@ -99,6 +99,76 @@ ingredients.
 **Still open for this requirement:** the client does not call the new endpoint
 yet. Until it does, the step is visible in the API only.
 
+### The daily notification works at all (FR-3.7, FR-0.8)
+
+Three faults stood between the application and a notification, and the first
+one alone made the other two pointless.
+
+| The fault | The correction |
+|---|---|
+| `POST_NOTIFICATIONS` stood in no manifest. The build targets API 34, so **Android 13 and later dropped every notification without a word.** | The manifest declares the permission, `MainActivity.askForNotificationPermission()` asks the user once on Android 13 and later, and `PushWorker` asks whether it may notify before it does — a refusal writes a line in the log and shows nothing, instead of throwing. |
+| `PushWorker` ran as periodic work **every 15 minutes**. | One work a day, at **08:00** of the local time: the default of FR-D. |
+| `RecipeWorker` was a one-time work for **07:03**, and with `KEEP` it ran once and never again. | One work a day at **07:45**, a quarter of an hour before the notification, so that the suggestions are fresh. |
+
+Both now use `ExistingPeriodicWorkPolicy.UPDATE`, so a telephone that still
+holds the old plan of every fifteen minutes receives the new one.
+
+New file `common/notification/NotificationSchedule.kt`: one place that works
+out how long it is until the next time of day. It holds no Android class, so
+it is tested on the development machine.
+
+**Tests:** the client holds **70** now (64 before). The six new ones cover the
+cases that a day produces: the hour is still ahead today, the hour has passed
+and the answer points at tomorrow, the hour is **exactly now** and the answer
+still points at tomorrow so that no notification fires twice, the count runs
+over the end of a month, the recipes are read exactly a quarter of an hour
+before the notification, and for every hour of the day the answer is more than
+zero and at most one day.
+
+**A finding on the way.** With the permission declared, Android Lint could see
+what it could not see before and reported `MissingPermission` at the `notify`
+of `PushWorker` — a real hole, because a refused permission makes that call
+throw. The guard closed it. Three entries of `app/lint-baseline.xml` then
+became obsolete (`NotificationPermission`, `MissingPermission`,
+`KaptUsageInsteadOfKsp`, the last one from the KSP work of this morning), so
+the baseline fell from **452 to 450**.
+
+**Still open for FR-3.7 and FR-0.8:** the hour that the user sets needs a
+column in `et_profile_settings`; the worker does not read the switch
+`push_notifications` yet; and the text of the notification names the number of
+expiring products, while FR-3.7 also asks for at least one recipe.
+
+### An allergy is a veto that always bites (FR-0.15)
+
+`Nut-free` stood in the vocabulary of the tags, and `diet-rules.properties`
+held no rule for it. `isHard("Nut-free")` was therefore **false**, the
+requirement counted as a taste, and a user with a nut allergy was served nuts.
+
+| Correction | What it does |
+|---|---|
+| The medical lists of the rules file | `nut-free`, `gluten-free`, `lactose-free` and `egg-free` now name what they forbid, wide on purpose. |
+| `DietRules.medicalConflicts(...)` | Answers a **medical** wish. A label that the file does not name forbids **the ingredient that the label names**, so a user can write "Celery", "Celery-free" or "Sesame free" and never see it again. |
+| `RecipeSuggestionServiceImpl` | Asks the rules twice: once for the allergies, where every label counts, and once for the diets, where only a label of the file counts. |
+| `allows` is now `despite` | The key rescues a **false positive** — "coconut milk" holds "milk", "buckwheat" holds "wheat" — and it is not a list of what a diet permits. The old name invited that reading, and the file had grown `vegetarian.allows = prawn, shrimp, crab, lobster, gelatin, lard`, which would have served a vegetarian prawns. |
+| A contradiction stops the start | A word that one requirement forbids **and** rescues throws at startup and names the word. Such a contradiction would quietly serve a user what they cannot eat. |
+
+**Two decisions that belong to the product, both written in the file.** Coconut
+is **not** rescued from a nut allergy, because some people who react to tree
+nuts react to coconut. And `diabetic-friendly` forbids nothing **on purpose**:
+the carbohydrate of a portion decides, the application does not hold that
+number, so the requirement is visibly undecided instead of silently passing.
+
+**Tests:** 621 now (611 before). The new ones: an allergy to nuts hides
+walnuts and keeps nutmeg and butternut; gluten hides flour and keeps
+buckwheat; lactose hides cheese and keeps coconut milk; an allergy that the
+file does not know forbids its own name, in all three spellings; a requirement
+that no list can decide hides nothing; an allergy without a name hides
+nothing; a contradiction stops the start; and, in the service, an allergy plus
+a diet hold at the same time while a taste still hides nothing.
+
+**Open as a future feature (FR-0.16):** offer an alternative ingredient — "use
+oat cream" — instead of hiding the recipe.
+
 ### The tags of a recipe, and a weight for every wish (FR-0.6, FR-0.7, FR-4.5)
 
 A recipe had **no** tag table. It carried one free text column,
@@ -206,8 +276,8 @@ without a recipe, and a list that is null.
 
 | Measure | Before | After |
 |---|---|---|
-| Tests of the backend | 557 | **611** |
+| Tests of the backend | 557 | **621** |
 | Coverage of the backend | 100 % | 100 % (the gate holds) |
 | Checkstyle, SpotBugs | clean | clean |
 | Deprecation lines of the client build | 1 | **0** |
-| Tests of the client | 64 | 64 |
+| Tests of the client | 64 | **70** |

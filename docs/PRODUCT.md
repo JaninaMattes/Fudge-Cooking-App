@@ -61,6 +61,8 @@ requirement in this document serves that number.
 | 0.11 | *(gone into FR-0.7 on 14 November 2026.)* A share "outside the requirements" is no longer a thing of its own: a wish of 20 % for Pescatarian **is** the permission to serve fish. A recipe that follows a wish of less than 100 % still carries its reason on the screen, so the user sees why it is there. | | **Open** | — |
 | 0.12 | The language of the application. **English** is the language of the product; further languages come later. | The country of the login chooses the variant — the United Kingdom gives British English, Australia gives Australian English — and the user can change it in the settings. No text stands in the code; every text stands in a file of its language. | **Open** | The application holds no setting of a language, and the demo data was German until 14 November 2026. |
 | 0.13 | Day mode, night mode, or the mode of the telephone | The user chooses one of the three, and the choice holds after a restart | **Partly** — `values-night/colors.xml` holds the colours of the night, and no setting chooses it | `values-night/colors.xml` |
+| 0.15 | Name an item that the user cannot eat, also one that no list foresaw | A recipe that holds the item never appears, on no screen and in no notification. A preset such as "Nut-free" uses the list of the rules file; a label that the file does not know forbids the ingredient that it names, so a user can write "Celery". | **Done** (14 November 2026) | `DietRules.medicalConflicts`, `diet-rules.properties`, `RecipeSuggestionServiceImpl` |
+| 0.16 | Offer an alternative ingredient instead of hiding the recipe | A user who cannot digest lactose sees "use oat cream" on a recipe with cream, and the recipe stays | **Future** | — |
 | 0.14 | The settings that a modern application holds | The settings screen holds: the account and the profile (FR-0.1 to FR-0.5), the dietary requirements (FR-0.6), the notification and its hour (FR-0.8), the language (FR-0.12), the appearance (FR-0.13), the units of measure, the data and the privacy, the version of the application, log out, and delete the account (FR-0.2) | **Open** | The profile screen holds a part of this list today. |
 
 > **The language of the product is English.** German stood in the first
@@ -79,6 +81,21 @@ requirement in this document serves that number.
 >
 > Without the mark, the application treats a requirement as medical and never
 > breaks it. That is the safe side.
+>
+> **Where a rule is in doubt, it forbids.** A suggestion that a user cannot
+> eat is worse than a suggestion that never arrives. Two decisions follow
+> from that rule, and both are written in `diet-rules.properties`: coconut is
+> **not** rescued from a nut allergy, because some people who react to tree
+> nuts react to it; and `diabetic-friendly` forbids nothing **on purpose**,
+> because the carbohydrate of a portion decides and the application does not
+> hold that number yet — so the requirement is visibly undecided instead of
+> silently passing.
+>
+> **An exception is an exception, not a permission.** The key `despite` of the
+> rules file rescues a false positive — "coconut milk" holds "milk",
+> "buckwheat" holds "wheat". A word that one requirement forbids and rescues
+> at the same time **stops the start of the application**, because such a
+> contradiction would quietly serve a user what they cannot eat.
 >
 > One more share stands beside the weights and does not mix with them: FR-4.3
 > keeps 10 % of the suggestions for recipes with **no rating**, so that a new
@@ -165,20 +182,16 @@ doubt, the **earlier** date wins.
 | 3.8 | With an empty inventory, or with nothing that needs attention, the suggestion follows the dietary requirements and the score of the recommender **alone** | A user with an empty pantry still sees at least three recipes that fit the diet | **Open** | The suggestion of the dashboard starts from the expiring products. The random path `getNRandomRecipes` knows neither the diet nor a score. |
 | 3.7 | The suggestions **and** the products that expire soon reach the user as a push notification at the set hour | One notification a day. It names the number of products that expire soon and at least one recipe, and a tap opens the screen that belongs to it. | **Partly** — see the three faults under this table | `PushWorker`, `RecipeWorker`, `HiltApplication` |
 
-> **The notification does not work today, for three reasons.**
+> **The notification, after the work of 14 November 2026.**
 >
-> 1. `PushWorker` runs as periodic work **every 15 minutes**, and not at an
->    hour of the day. It reads no setting of the user, so the switch
->    `push_notifications` changes nothing.
-> 2. `POST_NOTIFICATIONS` is **not** in `AndroidManifest.xml`. The build
->    targets API 34, so Android 13 and later drop the notification without a
->    word. The notification of the expiring products reaches no new telephone.
-> 3. `RecipeWorker` is a one-time work for 07:03 of the local time, written
->    into `HiltApplication`. With `ExistingWorkPolicy.KEEP` it runs once and
->    never again, and it shows the user nothing: it only fetches data.
->
-> The hour of the user needs a column in `et_profile_settings`, which holds
-> three boolean columns today and no time.
+> | The fault | Where it stands |
+> |---|---|
+> | `PushWorker` ran every **15 minutes**, not at an hour of the day | **Done.** One work a day, at 08:00 of the local time. `ExistingPeriodicWorkPolicy.UPDATE` replaces the old plan on a telephone that still holds it. |
+> | `POST_NOTIFICATIONS` was **not** in the manifest, so Android 13 and later dropped every notification without a word | **Done.** The manifest declares it, `MainActivity` asks the user once, and `PushWorker` asks whether it may notify before it does. |
+> | `RecipeWorker` was a one-time work for 07:03 and ran **once, ever** | **Done.** One work a day at 07:45, a quarter of an hour before the notification, so that the suggestions are fresh. |
+> | The **hour of the user** | **Open.** Every user receives the default of 08:00. The hour needs a column in `et_profile_settings`, which holds three boolean columns today and no time. |
+> | The switch `push_notifications` | **Open.** The worker notifies whenever products expire, and does not read the switch yet. |
+> | The **content** of the notification | **Open.** It names the number of expiring products. FR-3.7 also asks for at least one recipe. |
 
 ### FR-4 — Bookmark and like
 
