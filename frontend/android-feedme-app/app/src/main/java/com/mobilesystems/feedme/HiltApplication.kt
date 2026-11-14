@@ -7,20 +7,18 @@ import androidx.work.Configuration
 import androidx.work.Constraints
 import androidx.work.DelegatingWorkerFactory
 import androidx.work.ExistingPeriodicWorkPolicy
-import androidx.work.ExistingWorkPolicy
 import androidx.work.NetworkType
-import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
 import com.mobilesystems.feedme.common.backgroundService.PushWorker
 import com.mobilesystems.feedme.common.backgroundService.PushWorkerFactory
 import com.mobilesystems.feedme.common.backgroundService.RecipeWorker
 import com.mobilesystems.feedme.common.backgroundService.RecipeWorkerFactory
+import com.mobilesystems.feedme.common.notification.NotificationSchedule
 import dagger.hilt.android.HiltAndroidApp
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.util.Calendar
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
@@ -70,43 +68,56 @@ class HiltApplication : Application(), Configuration.Provider {
         }
     }
 
+    /**
+     * Plans the two pieces of work that run once a day.
+     *
+     * The notification arrives at the hour of [NotificationSchedule], and the
+     * recipes are read a quarter of an hour earlier, so that the notification
+     * holds fresh suggestions. Both use UPDATE, so that a telephone which
+     * still holds the old plan of every fifteen minutes receives the new one.
+     */
     private fun setupWork(context: Context) {
-        // set constraints: Network connection
         val constraints: Constraints =
             Constraints.Builder()
                 .setRequiredNetworkType(NetworkType.CONNECTED)
                 .build()
 
-        // WorkManager for pushNotification
-
-        val pushWorkRequest =
-            PeriodicWorkRequestBuilder<PushWorker>(15, TimeUnit.MINUTES)
+        val recipeWork =
+            PeriodicWorkRequestBuilder<RecipeWorker>(1, TimeUnit.DAYS)
                 .setConstraints(constraints)
+                .setInitialDelay(
+                    NotificationSchedule.refreshDelayMillis(),
+                    TimeUnit.MILLISECONDS,
+                )
                 .build()
 
-        WorkManager.getInstance(context)
-            .enqueueUniquePeriodicWork("Push Work", ExistingPeriodicWorkPolicy.KEEP, pushWorkRequest)
-
-        // WorkManager for Recipes
-
-        val currentDate = Calendar.getInstance()
-        val dueDate = Calendar.getInstance()
-        // Set Execution time
-        dueDate.set(Calendar.HOUR_OF_DAY, 7)
-        dueDate.set(Calendar.MINUTE, 3)
-        dueDate.set(Calendar.SECOND, 0)
-        if (dueDate.before(currentDate)) {
-            dueDate.add(Calendar.HOUR_OF_DAY, 24)
-        }
-        val timeDiff = dueDate.timeInMillis - currentDate.timeInMillis
-        val recipeWorkRequest =
-            OneTimeWorkRequestBuilder<RecipeWorker>()
+        val pushWork =
+            PeriodicWorkRequestBuilder<PushWorker>(1, TimeUnit.DAYS)
                 .setConstraints(constraints)
-                .setInitialDelay(timeDiff, TimeUnit.MILLISECONDS)
+                .setInitialDelay(
+                    NotificationSchedule.notificationDelayMillis(),
+                    TimeUnit.MILLISECONDS,
+                )
                 .build()
 
-        WorkManager
-            .getInstance(context)
-            .enqueueUniqueWork("recipeWork", ExistingWorkPolicy.KEEP, recipeWorkRequest)
+        val manager = WorkManager.getInstance(context)
+        manager.enqueueUniquePeriodicWork(
+            RECIPE_WORK,
+            ExistingPeriodicWorkPolicy.UPDATE,
+            recipeWork,
+        )
+        manager.enqueueUniquePeriodicWork(
+            PUSH_WORK,
+            ExistingPeriodicWorkPolicy.UPDATE,
+            pushWork,
+        )
+    }
+
+    private companion object {
+        /** Name of the daily work that reads the recipes. */
+        const val RECIPE_WORK = "recipeWork"
+
+        /** Name of the daily work that sends the notification. */
+        const val PUSH_WORK = "Push Work"
     }
 }

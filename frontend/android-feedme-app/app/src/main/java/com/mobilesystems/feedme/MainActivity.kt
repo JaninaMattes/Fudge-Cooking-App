@@ -1,8 +1,11 @@
 package com.mobilesystems.feedme
 
+import android.Manifest
 import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -29,6 +32,8 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        askForNotificationPermission()
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -114,4 +119,29 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
         // adapter.filter(query)
         return false
     }
+
+    /**
+     * Asks for the permission to send a notification.
+     *
+     * Android 13 and later drop every notification of an application that
+     * holds no permission, and they drop it without a word. The user is asked
+     * once; a refusal stops no other part of the application.
+     */
+    private fun askForNotificationPermission() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
+            return
+        }
+        val granted =
+            checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS) ==
+                PackageManager.PERMISSION_GRANTED
+        if (!granted) {
+            requestPermissions(
+                arrayOf(Manifest.permission.POST_NOTIFICATIONS),
+                NOTIFICATION_PERMISSION_REQUEST,
+            )
+        }
+    }
 }
+
+/** Number that identifies the question for the notification permission. */
+private const val NOTIFICATION_PERMISSION_REQUEST = 1001
