@@ -82,11 +82,11 @@ class DietRulesTest {
     }
 
     @Test
-    @DisplayName("a requirement with a space in its label works: No Pig")
+    @DisplayName("a requirement with a space in its label works: No Pork")
     void aRequirementWithASpaceWorks() {
-        assertThat(rules.isHard("No Pig")).isTrue();
-        assertThat(rules.fits(List.of("No Pig"), ingredients("Bacon"))).isFalse();
-        assertThat(rules.fits(List.of("No Pig"), ingredients("Chicken"))).isTrue();
+        assertThat(rules.isHard("No Pork")).isTrue();
+        assertThat(rules.fits(List.of("No pork"), ingredients("Bacon"))).isFalse();
+        assertThat(rules.fits(List.of("No pork"), ingredients("Chicken"))).isTrue();
     }
 
     @Test
