@@ -119,26 +119,11 @@ interface knows nothing about the database, and the layer of the data knows
 nothing about the screens. A change in one layer therefore stops at the border
 of that layer.
 
-```
-┌──────────────────────────────── Android client ───────────────────────────────┐
-│                                                                               │
-│   Fragment  ──reads──▶  ViewModel  ──calls──▶  Repository  ──calls──▶ Retrofit│
-│   (view)        LiveData  (state)                (data)                       │
-│      ▲                                              │                         │
-│      └──────────────── Hilt gives each part ────────┘                         │
-└───────────────────────────────────────┬───────────────────────────────────────┘
-                                        │ HTTPS, JSON
-┌───────────────────────────────────────▼───────────────────────────────────────┐
-│                            Spring Boot REST API                               │
-│                                                                               │
-│   Resource  ──calls──▶  Service  ──calls──▶  Repository  ──SQL──▶ PostgreSQL  │
-│   (REST)                (rules)              (JdbcTemplate)                   │
-│        │                                                                      │
-│        └──▶ RequestMapper (JSON to model)      JsonHttpClient ──▶ Edamam,     │
-│                                                                   Spoonacular │
-└───────────────────────────────────────────────────────────────────────────────┘
-```
+<div align="center">
+  <img src="assets/images/architecture_sketch.png" alt="Architecture of the application" width="100%">
+</div>
 
+Overview of the architecture with the libraries and external services utilised: 
 <div align="center">
   <img src="assets/images/architecture.png" alt="Architecture of the application" width="100%">
 </div>
