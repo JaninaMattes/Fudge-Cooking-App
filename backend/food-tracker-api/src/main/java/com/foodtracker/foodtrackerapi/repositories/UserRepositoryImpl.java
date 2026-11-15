@@ -118,7 +118,10 @@ public class UserRepositoryImpl extends AbstractJdbcRepository implements UserRe
 
     private final RowMapper<Tag> tagRowMapper = (rs, rowNum) -> new Tag(
             rs.getInt("TAG_ID"),
-            rs.getString("LABEL"));
+            rs.getString("LABEL"),
+            rs.getString("KIND"),
+            rs.getInt("WEIGHT_PERCENT"),
+            rs.getBoolean("IS_MEDICAL"));
 
     /**
      * Makes the repository.

@@ -63,16 +63,25 @@ class RecipeSuggestionServiceImplTest {
         return recipe;
     }
 
-    private void givenUserWith(String... labels) {
+    private static Tag wish(String label, boolean medical) {
+        Tag tag = new Tag();
+        tag.setLabel(label);
+        tag.setMedical(medical);
+        return tag;
+    }
+
+    private void givenUserWithWishes(Tag... wishes) {
         User user = new User();
-        ArrayList<Tag> tags = new ArrayList<>();
-        for (String label : labels) {
-            Tag tag = new Tag();
-            tag.setLabel(label);
-            tags.add(tag);
-        }
-        user.setDietaryPreferences(tags);
+        user.setDietaryPreferences(new ArrayList<>(Arrays.asList(wishes)));
         when(userService.getUserById(USER_ID)).thenReturn(user);
+    }
+
+    private void givenUserWith(String... labels) {
+        Tag[] wishes = new Tag[labels.length];
+        for (int index = 0; index < labels.length; index++) {
+            wishes[index] = wish(labels[index], false);
+        }
+        givenUserWithWishes(wishes);
     }
 
     @Test
@@ -151,5 +160,39 @@ class RecipeSuggestionServiceImplTest {
         givenUserWith("Vegan");
 
         assertThat(service.fitting(USER_ID, List.of())).isEmpty();
+    }
+
+    @Test
+    @DisplayName("an allergy that the file does not know still hides the recipe")
+    void anAllergyThatTheFileDoesNotKnowStillHides() {
+        givenUserWithWishes(wish("Celery", true));
+        List<Recipe> all = List.of(
+                recipe("Celery soup", "Celery", "Water"),
+                recipe("Pumpkin soup", "Pumpkin"));
+
+        assertThat(service.fitting(USER_ID, all)).extracting(Recipe::getTitle)
+                .containsExactly("Pumpkin soup");
+    }
+
+    @Test
+    @DisplayName("an allergy and a diet hold at the same time")
+    void anAllergyAndADietHoldTogether() {
+        givenUserWithWishes(wish("Nut-free", true), wish("Vegan", false));
+        List<Recipe> all = List.of(
+                recipe("Walnut cake", "Walnuts", "Flour"),
+                recipe("Beef stew", "Beef"),
+                recipe("Pumpkin soup", "Pumpkin"));
+
+        assertThat(service.fitting(USER_ID, all)).extracting(Recipe::getTitle)
+                .containsExactly("Pumpkin soup");
+    }
+
+    @Test
+    @DisplayName("a taste that the file does not know hides nothing")
+    void aTasteThatTheFileDoesNotKnowHidesNothing() {
+        givenUserWithWishes(wish("Mediterranean", false));
+        List<Recipe> all = List.of(recipe("Beef stew", "Beef"));
+
+        assertThat(service.fitting(USER_ID, all)).isEqualTo(all);
     }
 }

@@ -1,17 +1,21 @@
 package com.mobilesystems.feedme.common.backgroundService
 
+import android.Manifest
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
+import android.content.pm.PackageManager
 import android.os.Build
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.content.ContextCompat
 import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.mobilesystems.feedme.R
 import com.mobilesystems.feedme.common.logging.logError
+import com.mobilesystems.feedme.common.logging.logWarn
 import com.mobilesystems.feedme.data.repository.WorkerRepositoryImpl
 import com.mobilesystems.feedme.ui.common.utils.getLoggedInUser
 import dagger.assisted.Assisted
@@ -86,6 +90,19 @@ class PushWorker
                 val notifyManager =
                     context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
                 notifyManager.createNotificationChannel(channel)
+            }
+
+            // Android 13 and later drop a notification when the user has not
+            // allowed one, and a call of notify() can throw. Before that
+            // version the permission is granted with the installation.
+            val allowed =
+                ContextCompat.checkSelfPermission(
+                    context,
+                    Manifest.permission.POST_NOTIFICATIONS,
+                ) == PackageManager.PERMISSION_GRANTED
+            if (!allowed) {
+                logWarn("The user allows no notification, so none is shown")
+                return
             }
 
             with(context.let { NotificationManagerCompat.from(it) }) {

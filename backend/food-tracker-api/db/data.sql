@@ -98,25 +98,51 @@ VALUES
         (6, 2),
         (6, 7);
 
-INSERT INTO public.et_dietry_tag (tag_id, label)
-VALUES 
-        (1, 'Vegan'),
-        (2, 'Vegetarian'),
-        (3, 'Mediterranean'),
-        (4, 'Italian'),
-        (5, 'Mediterranean'),
-        (6, 'Low-carb'),
-        (7, 'Fast Food'),
-        (8, 'Asian'),
-        (9, 'Paleo'),
-        (10, 'Low Fat'),
-        (11, 'Low Salt'),
-        (12, 'No Pig'),
-        (13, 'Kosher'),
-        (14, 'Low Sugar'),
-        (15, 'Balanced'),
-        (16, 'Fitness'),
-        (17, 'Meat');
+-- The tags of a recipe: at most one diet, then what describes it best.
+INSERT INTO public.et_recipe_tag (recipe_id, tag_id)
+VALUES
+        (1, 31), (1, 30), (1, 16),
+        (2, 2), (2, 31), (2, 28),
+        (3, 32), (3, 16), (3, 30),
+        (4, 6), (4, 16), (4, 28),
+        (5, 1), (5, 23), (5, 24),
+        (6, 1), (6, 22), (6, 15);
+
+INSERT INTO public.et_dietry_tag (tag_id, label, kind)
+VALUES
+        (1, 'Vegan', 'diet'),
+        (2, 'Vegetarian', 'diet'),
+        (3, 'Mediterranean', 'cuisine'),
+        (4, 'Italian', 'cuisine'),
+        (5, 'Pescatarian', 'diet'),
+        (6, 'Low carb', 'nutrition'),
+        (7, 'Quick meal', 'meal'),
+        (8, 'Asian', 'cuisine'),
+        (9, 'Paleo', 'diet'),
+        (10, 'Low fat', 'nutrition'),
+        (11, 'Low salt', 'nutrition'),
+        (12, 'No pork', 'diet'),
+        (13, 'Kosher', 'diet'),
+        (14, 'Low sugar', 'nutrition'),
+        (15, 'High fibre', 'nutrition'),
+        (16, 'High protein', 'nutrition'),
+        (17, 'Contains meat', 'attribute'),
+        (18, 'Gluten-free', 'medical'),
+        (19, 'Lactose-free', 'medical'),
+        (20, 'Nut-free', 'medical'),
+        (21, 'Diabetic-friendly', 'medical'),
+        (22, 'Climate-friendly', 'attribute'),
+        (23, 'Seasonal', 'attribute'),
+        (24, 'Under 30 minutes', 'attribute'),
+        (25, 'One pot', 'attribute'),
+        (26, 'Breakfast', 'meal'),
+        (27, 'Lunch', 'meal'),
+        (28, 'Dinner', 'meal'),
+        (29, 'Snack', 'meal'),
+        (30, 'Dinner party', 'meal'),
+        (31, 'German', 'cuisine'),
+        (32, 'French', 'cuisine'),
+        (33, 'Hungarian', 'cuisine');
         (18, 'Organic');
         (19, 'Low Calorie');
         (20, 'High Protein');
@@ -124,17 +150,23 @@ VALUES
         (22, 'Liquid meals');
         (23, 'Protein');
         (24, 'Seafood');
-        (24, 'Fruits');
+        (25, 'Fruits');
+        (26, 'Plant-based');
+        (27, 'Diabetic');
+        (28, 'Climat-friendly');
 
-INSERT INTO public.et_user_tag (user_id, tag_id)
-VALUES 
-        (1, 2),
-        (1, 3),
-        (1, 6),
-        (2, 1),
-        (2, 5),
-        (2, 10),
-        (2, 16);
+
+INSERT INTO public.et_user_tag (user_id, tag_id, weight_percent, is_medical)
+VALUES
+        -- John aims to eat vegan, likes fish now and then, and watches the
+        -- protein. The percentages add up to 100.
+        (1, 1, 70, FALSE),
+        (1, 5, 20, FALSE),
+        (1, 16, 10, FALSE),
+        -- Annabelle cannot digest lactose. That row is a veto, so it carries
+        -- no weight, and it is never traded against an expiring product.
+        (2, 19, 0, TRUE),
+        (2, 2, 100, FALSE);
 
 INSERT INTO public.et_inventorylist (inventorylist_id, user_id)
 VALUES 
