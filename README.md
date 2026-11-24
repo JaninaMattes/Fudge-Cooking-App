@@ -6,7 +6,7 @@
   <h1>Fudge &mdash; Pantry &amp; Recipes</h1>
 
   <p>
-    <strong>Track the food that you have. Avoid foodwaste. Cook it before it is bad.</strong>
+    <strong>Track the food that you have. Avoid food waste. Reduce cost. Cook it before it gets bad.</strong>
   </p>
 
   <p>
@@ -123,10 +123,6 @@ of that layer.
   <img src="assets/images/architecture_sketch.png" alt="Architecture of the application" width="100%">
 </div>
 
-Overview of the architecture with the libraries and external services utilised: 
-<div align="center">
-  <img src="assets/images/architecture.png" alt="Architecture of the application" width="100%">
-</div>
 
 ### The parts of the backend
 
@@ -140,6 +136,11 @@ Overview of the architecture with the libraries and external services utilised:
 | `common/rest` | `JsonHttpClient` sends the requests to the external APIs. A test gives a stub answer. |
 | `common/utils` | `Attempt` turns an error into a log entry and a default value. `DateUtils`, `ImageUtils`, `WordUtils`. |
 | `common/config` | `ApiProperties` reads the credentials from the environment. |
+
+Overview of the architecture with the libraries and external services utilised: 
+<div align="center">
+  <img src="assets/images/architecture.png" alt="Architecture of the application" width="100%">
+</div>
 
 ### Built with
 
